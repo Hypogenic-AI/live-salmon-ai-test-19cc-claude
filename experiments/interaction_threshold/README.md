@@ -1,12 +1,12 @@
-# Interaction-Strength Benchmark (Stage 1)
+# Interaction-Strength Benchmark (Stages 1-2)
 
-This directory contains the first, non-API stage of an interaction-strength benchmark for the live-salmon project.
+This directory contains the first non-API stages of an interaction-strength benchmark for the live-salmon project.
 
 ## Research Question
 
 If we hold the full feature matrix and noise vector fixed, how does changing only the `X4*X5` interaction coefficient affect the generated live-salmon-style datasets?
 
-This stage does **not** run AI scientists yet. It prepares reproducible datasets and sanity checks so later model runs can be compared condition by condition.
+These stages do **not** run AI scientists yet. They prepare reproducible datasets, sanity checks, and a dry-run planning layer so later model runs can be compared condition by condition.
 
 ## Why These Coefficients?
 
@@ -71,6 +71,23 @@ Run sanity checks:
 python experiments/interaction_threshold/validate_datasets.py
 ```
 
+Plan dry-run model calls for one model across selected coefficients:
+
+```bash
+python experiments/interaction_threshold/dry_run_runner.py \
+  --model-id openai/gpt-4.1 \
+  --coefficients 0.0 0.8 1.6 \
+  --runs 2
+```
+
+The dry-run runner:
+
+- reuses the existing project summary style from `src/prepare_data_summary.py`
+- mirrors the main project prompt style
+- writes cacheable dry-run records under `experiments/interaction_threshold/planned_calls/`
+- does not read or print API keys
+- does not make any external API calls
+
 If you intentionally want to overwrite generator-managed files under `generated/`, you may add `--force` to the generation command. The default behavior is **no overwrite**.
 
 ## Expected Outputs
@@ -90,20 +107,28 @@ After generation, the main outputs appear under `experiments/interaction_thresho
 - `manifest.json`
 - `validation_report.json` after running validation
 
-## What Is Implemented In This Stage
+After running the dry-run runner, planned call records appear under:
+
+- `planned_calls/coef_0p0/<model_slug>/run_01__<prompt_hash>.json`
+- `planned_calls/coef_0p8/<model_slug>/run_02__<prompt_hash>.json`
+
+## What Is Implemented In These Stages
 
 - reproducible dataset generation
 - coefficient-specific metadata
 - shared-feature/shared-noise construction
 - sanity checks for formula consistency and default-condition reproduction
 - a no-overwrite default generation policy
+- dry-run planning for one model across one or more coefficients
+- prompt hashing and cacheable dry-run records
 
 ## What Is Not Implemented Yet
 
-This first stage does **not** yet:
+These stages do **not** yet:
 
 - run AI scientists
 - call OpenRouter or any other model API
+- execute planned model calls
 - evaluate papers
 - update the repository's main evaluation pipeline
 - generate benchmark plots or detection curves

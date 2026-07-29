@@ -2,7 +2,10 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
+import re
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Iterable
 
@@ -15,6 +18,7 @@ N_FEATURES = 20
 NOISE_STD = 1.0
 DEFAULT_COEFFICIENTS = (0.0, 0.4, 0.8, 1.6)
 DEFAULT_OUTPUT_ROOT = Path("experiments/interaction_threshold/generated")
+DEFAULT_RUNNER_OUTPUT_ROOT = Path("experiments/interaction_threshold/planned_calls")
 FLOAT_FORMAT = "%.12g"
 ALLCLOSE_ATOL = 1e-9
 ALLCLOSE_RTOL = 1e-9
@@ -45,6 +49,32 @@ def coefficient_label(interaction_coefficient: float) -> str:
     """Convert a coefficient into a stable directory label."""
     coefficient_text = f"{interaction_coefficient:.1f}".replace("-", "m").replace(".", "p")
     return f"coef_{coefficient_text}"
+
+
+def repo_root() -> Path:
+    """Return the repository root from this experiment package."""
+    return Path(__file__).resolve().parents[2]
+
+
+def relative_to_repo(path: Path) -> str:
+    """Return a repository-relative path for metadata and logs."""
+    return path.resolve().relative_to(repo_root()).as_posix()
+
+
+def safe_model_slug(model_id: str) -> str:
+    """Convert a model id into a filesystem-safe label."""
+    return re.sub(r"[^A-Za-z0-9._-]+", "_", model_id).strip("_") or "model"
+
+
+def timestamp_utc() -> str:
+    """Return an ISO-8601 UTC timestamp."""
+    return datetime.now(timezone.utc).replace(microsecond=0).isoformat()
+
+
+def prompt_hash(system_prompt: str, user_prompt: str) -> str:
+    """Return a stable hash of the full model input prompt."""
+    payload = f"{system_prompt}\n\n{user_prompt}".encode("utf-8")
+    return hashlib.sha256(payload).hexdigest()
 
 
 def expected_feature_columns() -> list[str]:
@@ -180,3 +210,10 @@ def managed_output_paths(output_root: Path, coefficients: Iterable[float]) -> li
         paths.append(condition_dir / "live_salmon_data.csv")
         paths.append(condition_dir / "ground_truth.json")
     return paths
+
+
+def load_manifest(output_root: Path = DEFAULT_OUTPUT_ROOT) -> dict:
+    """Load the generated dataset manifest."""
+    manifest_path = output_root / "manifest.json"
+    with manifest_path.open("r", encoding="utf-8") as handle:
+        return json.load(handle)
