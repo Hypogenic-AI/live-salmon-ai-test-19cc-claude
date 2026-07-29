@@ -19,6 +19,7 @@ NOISE_STD = 1.0
 DEFAULT_COEFFICIENTS = (0.0, 0.4, 0.8, 1.6)
 DEFAULT_OUTPUT_ROOT = Path("experiments/interaction_threshold/generated")
 DEFAULT_RUNNER_OUTPUT_ROOT = Path("experiments/interaction_threshold/planned_calls")
+DEFAULT_EXECUTION_OUTPUT_ROOT = Path("experiments/interaction_threshold/outputs")
 FLOAT_FORMAT = "%.12g"
 ALLCLOSE_ATOL = 1e-9
 ALLCLOSE_RTOL = 1e-9

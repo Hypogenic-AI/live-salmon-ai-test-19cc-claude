@@ -1,12 +1,12 @@
-# Interaction-Strength Benchmark (Stages 1-2)
+# Interaction-Strength Benchmark (Stages 1-3)
 
-This directory contains the first non-API stages of an interaction-strength benchmark for the live-salmon project.
+This directory contains the first dry-run-first stages of an interaction-strength benchmark for the live-salmon project.
 
 ## Research Question
 
 If we hold the full feature matrix and noise vector fixed, how does changing only the `X4*X5` interaction coefficient affect the generated live-salmon-style datasets?
 
-These stages do **not** run AI scientists yet. They prepare reproducible datasets, sanity checks, and a dry-run planning layer so later model runs can be compared condition by condition.
+These stages prepare reproducible datasets, sanity checks, a dry-run planning layer, and an opt-in execution runner so later model runs can be compared condition by condition.
 
 ## Why These Coefficients?
 
@@ -88,6 +88,34 @@ The dry-run runner:
 - does not read or print API keys
 - does not make any external API calls
 
+Run actual execution only when you explicitly want API calls:
+
+```bash
+export OPENROUTER_KEY=your_key_here
+python experiments/interaction_threshold/dry_run_runner.py \
+  --execute \
+  --model-id openai/gpt-4.1 \
+  --coefficients 0.8 \
+  --runs 1
+```
+
+Required environment variable for `--execute`:
+
+- `OPENROUTER_KEY`
+
+Smoke-test example:
+
+```bash
+export OPENROUTER_KEY=your_key_here
+python experiments/interaction_threshold/dry_run_runner.py \
+  --execute \
+  --model-id openai/gpt-4.1 \
+  --coefficients 0.8 \
+  --runs 1
+```
+
+Warning: `--execute` may cost money because it makes real API calls.
+
 If you intentionally want to overwrite generator-managed files under `generated/`, you may add `--force` to the generation command. The default behavior is **no overwrite**.
 
 ## Expected Outputs
@@ -112,6 +140,10 @@ After running the dry-run runner, planned call records appear under:
 - `planned_calls/coef_0p0/<model_slug>/run_01__<prompt_hash>.json`
 - `planned_calls/coef_0p8/<model_slug>/run_02__<prompt_hash>.json`
 
+After running with `--execute`, real model outputs appear under:
+
+- `outputs/coef_0p8/<model_slug>/run_01__<prompt_hash>.json`
+
 ## What Is Implemented In These Stages
 
 - reproducible dataset generation
@@ -121,14 +153,13 @@ After running the dry-run runner, planned call records appear under:
 - a no-overwrite default generation policy
 - dry-run planning for one model across one or more coefficients
 - prompt hashing and cacheable dry-run records
+- opt-in execution via `--execute`
+- cached real outputs under `outputs/`
 
 ## What Is Not Implemented Yet
 
 These stages do **not** yet:
 
-- run AI scientists
-- call OpenRouter or any other model API
-- execute planned model calls
 - evaluate papers
 - update the repository's main evaluation pipeline
 - generate benchmark plots or detection curves
