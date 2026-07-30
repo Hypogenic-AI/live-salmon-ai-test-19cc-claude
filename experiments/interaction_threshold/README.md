@@ -1,4 +1,4 @@
-# Interaction-Strength Benchmark (Stages 1-3)
+# Interaction-Strength Benchmark (Stages 1-4)
 
 This directory contains the first dry-run-first stages of an interaction-strength benchmark for the live-salmon project.
 
@@ -6,7 +6,7 @@ This directory contains the first dry-run-first stages of an interaction-strengt
 
 If we hold the full feature matrix and noise vector fixed, how does changing only the `X4*X5` interaction coefficient affect the generated live-salmon-style datasets?
 
-These stages prepare reproducible datasets, sanity checks, a dry-run planning layer, and an opt-in execution runner so later model runs can be compared condition by condition.
+These stages prepare reproducible datasets, sanity checks, a dry-run planning layer, an opt-in execution runner, and a lightweight rule-based evaluator so later model runs can be compared condition by condition.
 
 ## Why These Coefficients?
 
@@ -116,6 +116,26 @@ python experiments/interaction_threshold/dry_run_runner.py \
 
 Warning: `--execute` may cost money because it makes real API calls.
 
+Run the lightweight evaluator on saved model outputs:
+
+```bash
+python experiments/interaction_threshold/evaluate_outputs.py
+```
+
+Run the small no-API evaluator rule regression checks:
+
+```bash
+python experiments/interaction_threshold/validate_evaluator_rules.py
+```
+
+The evaluator:
+
+- reads model outputs from `experiments/interaction_threshold/outputs/`
+- writes summary CSVs to `experiments/interaction_threshold/evaluations/`
+- uses lightweight rule-based text matching only
+- does not call any external API
+- is not a definitive human or LLM judgment
+
 If you intentionally want to overwrite generator-managed files under `generated/`, you may add `--force` to the generation command. The default behavior is **no overwrite**.
 
 ## Expected Outputs
@@ -144,6 +164,11 @@ After running with `--execute`, real model outputs appear under:
 
 - `outputs/coef_0p8/<model_slug>/run_01__<prompt_hash>.json`
 
+After running the evaluator, summaries appear under:
+
+- `evaluations/per_run_summary.csv`
+- `evaluations/aggregate_by_coefficient.csv`
+
 ## What Is Implemented In These Stages
 
 - reproducible dataset generation
@@ -155,11 +180,12 @@ After running with `--execute`, real model outputs appear under:
 - prompt hashing and cacheable dry-run records
 - opt-in execution via `--execute`
 - cached real outputs under `outputs/`
+- lightweight rule-based evaluation summaries under `evaluations/`
 
 ## What Is Not Implemented Yet
 
 These stages do **not** yet:
 
-- evaluate papers
+- provide definitive human or LLM-based judgment of interaction detection
 - update the repository's main evaluation pipeline
 - generate benchmark plots or detection curves
