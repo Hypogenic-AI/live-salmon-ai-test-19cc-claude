@@ -1,12 +1,12 @@
-# Interaction-Strength Benchmark (Stages 1-4)
+# Interaction-Strength Benchmark
 
-This directory contains the first dry-run-first stages of an interaction-strength benchmark for the live-salmon project.
+This directory contains a self-contained interaction-strength benchmark extension for the live-salmon project. It includes reproducible dataset generation, validation checks, a dry-run-first model runner, opt-in API execution, and a lightweight rule-based evaluator.
 
 ## Research Question
 
-If we hold the full feature matrix and noise vector fixed, how does changing only the `X4*X5` interaction coefficient affect the generated live-salmon-style datasets?
+If we hold the feature matrix, noise vector, prompt format, and data-summary style fixed, does increasing the `X4×X5` interaction coefficient make AI scientists more likely to explicitly detect the true interaction?
 
-These stages prepare reproducible datasets, sanity checks, a dry-run planning layer, an opt-in execution runner, and a lightweight rule-based evaluator so later model runs can be compared condition by condition.
+The dataset-generation layer isolates the interaction coefficient as the only intended change across conditions.
 
 ## Why These Coefficients?
 
@@ -51,7 +51,7 @@ So the intended change across conditions is only the interaction coefficient mul
 Each condition-specific `ground_truth.json` distinguishes:
 
 - `X1-X3` as direct linear signal variables
-- `X4-X5` as interaction participants
+- `X4 and X5` as interaction participants
 - `X6-X15` as noise variables
 - `X16-X20` as correlated proxy variables
 
@@ -141,6 +141,8 @@ The evaluator:
 In a small local GPT-4.1 sweep with 4 coefficients × 3 runs, the rule-based evaluator found 0/12 explicit detections of the true X4×X5 interaction. All runs mentioned interaction or nonlinearity, but each concluded that there was no meaningful interaction. This result is preliminary because it uses one model and a lightweight rule-based evaluator.
 
 If you intentionally want to overwrite generator-managed files under `generated/`, you may add `--force` to the generation command. The default behavior is **no overwrite**.
+
+Generated datasets, planned calls, model outputs, and evaluation CSVs are ignored by git and can be regenerated locally.
 
 ## Expected Outputs
 
