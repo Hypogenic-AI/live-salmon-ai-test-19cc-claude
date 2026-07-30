@@ -76,8 +76,8 @@ Plan dry-run model calls for one model across selected coefficients:
 ```bash
 python experiments/interaction_threshold/dry_run_runner.py \
   --model-id openai/gpt-4.1 \
-  --coefficients 0.0 0.8 1.6 \
-  --runs 2
+  --coefficients 0.0 0.4 0.8 1.6 \
+  --runs 3
 ```
 
 The dry-run runner:
@@ -91,12 +91,12 @@ The dry-run runner:
 Run actual execution only when you explicitly want API calls:
 
 ```bash
-export OPENROUTER_KEY=your_key_here
+export OPENROUTER_KEY=...
 python experiments/interaction_threshold/dry_run_runner.py \
-  --execute \
   --model-id openai/gpt-4.1 \
-  --coefficients 0.8 \
-  --runs 1
+  --coefficients 0.0 0.4 0.8 1.6 \
+  --runs 3 \
+  --execute
 ```
 
 Required environment variable for `--execute`:
@@ -106,7 +106,7 @@ Required environment variable for `--execute`:
 Smoke-test example:
 
 ```bash
-export OPENROUTER_KEY=your_key_here
+export OPENROUTER_KEY=...
 python experiments/interaction_threshold/dry_run_runner.py \
   --execute \
   --model-id openai/gpt-4.1 \
@@ -135,6 +135,10 @@ The evaluator:
 - uses lightweight rule-based text matching only
 - does not call any external API
 - is not a definitive human or LLM judgment
+
+## Preliminary Result
+
+In a small local GPT-4.1 sweep with 4 coefficients × 3 runs, the rule-based evaluator found 0/12 explicit detections of the true X4×X5 interaction. All runs mentioned interaction or nonlinearity, but each concluded that there was no meaningful interaction. This result is preliminary because it uses one model and a lightweight rule-based evaluator.
 
 If you intentionally want to overwrite generator-managed files under `generated/`, you may add `--force` to the generation command. The default behavior is **no overwrite**.
 
