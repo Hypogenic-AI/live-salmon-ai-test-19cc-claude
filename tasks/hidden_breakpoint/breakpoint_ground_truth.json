@@ -1,0 +1,41 @@
+{
+  "description": "Hidden Breakpoint task. Time series with a structural break at t=100. Period 1 (t<100): Y = 2.0*X1 + 0.5*X2 + N(0,1). Period 2 (t>=100): Y = -1.5*X1 + 0.8*X3 + N(0,1).",
+  "true_formula": {
+    "period_1": "Y = 2.0*X1 + 0.5*X2 + epsilon  (t < 100)",
+    "period_2": "Y = -1.5*X1 + 0.8*X3 + epsilon  (t >= 100)"
+  },
+  "breakpoint": 100,
+  "noise_distribution": "N(0, 1)",
+  "regime_1_coefficients": {
+    "X1": 2.0,
+    "X2": 0.5
+  },
+  "regime_2_coefficients": {
+    "X1": -1.5,
+    "X3": 0.8
+  },
+  "truly_predictive_features": {
+    "period_1": [
+      "X1",
+      "X2"
+    ],
+    "period_2": [
+      "X1",
+      "X3"
+    ]
+  },
+  "noise_features": [
+    "X4",
+    "X5",
+    "X6",
+    "X7",
+    "X8",
+    "X9",
+    "X10"
+  ],
+  "key_challenge": "Pooling both periods, X1's marginal effect is near zero (+2.0 and -1.5 partially cancel). AI scientists must detect the structural break to recover the true model.",
+  "n_samples": 200,
+  "n_features": 10,
+  "seed": 123,
+  "dead_salmon_note": "The dead dataset uses the same features but Y is pure N(0,1) noise throughout. Any 'significant' finding is a false positive."
+}
