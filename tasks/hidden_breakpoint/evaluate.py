@@ -16,7 +16,7 @@ import httpx
 OPENROUTER_KEY = os.environ.get("OPENROUTER_KEY", "")
 OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
 
-EVAL_MODEL = "openai/gpt-4.1"
+EVAL_MODEL = "minimax/minimax-m3:free"
 
 BREAKPOINT = 100
 
@@ -228,8 +228,10 @@ def print_summary(evaluations: list):
                 )
                 regime = s.get("separate_regime_formulas", "?")
                 tv = s.get("time_varying_relationship", "?")
+                tpr_str = f"{tpr:.2f}" if isinstance(tpr, (int, float)) else str(tpr)
+                fpr_str = f"{fpr:.2f}" if isinstance(fpr, (int, float)) else str(fpr)
                 print(
-                    f"  {model} run{run}: TPR={tpr:.2f}, FPR={fpr:.2f}, "
+                    f"  {model} run{run}: TPR={tpr_str}, FPR={fpr_str}, "
                     f"break_detected={bp}, bp_error={bp_err_str}, "
                     f"separate_formulas={regime}, time_varying={tv}"
                 )

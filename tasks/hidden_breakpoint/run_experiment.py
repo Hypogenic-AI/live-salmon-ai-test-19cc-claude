@@ -15,13 +15,11 @@ import httpx
 sys.path.insert(0, os.path.dirname(__file__))
 from prepare_summary import prepare_summary
 
-OPENROUTER_KEY = os.environ.get("OPENROUTER_KEY", "")
-OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
+API_KEY = os.environ.get("OPENROUTER_KEY", "")
+API_URL = "https://openrouter.ai/api/v1/chat/completions"
 
 MODELS = {
-    "gpt-4.1": "openai/gpt-4.1",
-    "claude-sonnet-4.5": "anthropic/claude-sonnet-4.5",
-    "gemini-2.5-pro": "google/gemini-2.5-pro-preview",
+    "minimax-m3": "minimax/minimax-m3:free",
 }
 
 RUNS_PER_MODEL = 3
@@ -66,12 +64,11 @@ USER_PROMPT_TEMPLATE = """Please analyze the following TIME SERIES dataset and w
 Remember: This is a time series dataset. Pay attention to whether relationships change over time. Write a complete short research paper with Title, Abstract, Methods, Results, Discussion, and Limitations sections. Be specific about which features matter, their effect sizes, and whether the data generating process is stable or changes at some point."""
 
 
-def call_openrouter(model_id: str, system: str, user: str, run_id: int) -> dict:
-    """Call OpenRouter API and return the response."""
+def call_api(model_id: str, system: str, user: str, run_id: int) -> dict:
+    """Call LLM API and return the response."""
     headers = {
-        "Authorization": f"Bearer {OPENROUTER_KEY}",
+        "Authorization": f"Bearer {API_KEY}",
         "Content-Type": "application/json",
-        "HTTP-Referer": "https://github.com/live-salmon-test",
     }
     payload = {
         "model": model_id,
@@ -86,7 +83,7 @@ def call_openrouter(model_id: str, system: str, user: str, run_id: int) -> dict:
     print(f"  Calling {model_id} (run {run_id})...", flush=True)
     try:
         resp = httpx.post(
-            OPENROUTER_URL, json=payload, headers=headers, timeout=120.0
+            API_URL, json=payload, headers=headers, timeout=180.0
         )
         resp.raise_for_status()
         data = resp.json()
@@ -137,7 +134,7 @@ def run_experiments():
                     with open(cache_path) as f:
                         result = json.load(f)
                 else:
-                    result = call_openrouter(
+                    result = call_api(
                         model_id, SYSTEM_PROMPT, user_prompt, run
                     )
                     result["dataset"] = dataset_name
@@ -168,7 +165,7 @@ def run_experiments():
 
 
 if __name__ == "__main__":
-    if not OPENROUTER_KEY:
+    if not API_KEY:
         print("ERROR: OPENROUTER_KEY not set")
         sys.exit(1)
     run_experiments()
