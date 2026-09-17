@@ -1,0 +1,122 @@
+{
+  "review_id": "Pf0b1ac",
+  "reviewer": "Claude (AI-scored, not human-verified)",
+  "reviewed_at": "2026-09-16",
+  "exact_interaction_X4_X5": {
+    "strength": "rejected",
+    "quote": "No interaction or quadratic term is associated with Y.",
+    "section": "discussion",
+    "contradictory_statements": false,
+    "contradiction_notes": ""
+  },
+  "proxy_related_interactions": {
+    "X4*X20": {
+      "strength": "rejected",
+      "quote": "No interaction or quadratic term is associated with Y.",
+      "section": "discussion",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    },
+    "X19*X5": {
+      "strength": "rejected",
+      "quote": "No interaction or quadratic term is associated with Y.",
+      "section": "discussion",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    },
+    "X19*X20": {
+      "strength": "rejected",
+      "quote": "No interaction or quadratic term is associated with Y.",
+      "section": "discussion",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    }
+  },
+  "other_second_order_terms": [
+    {
+      "term": "X6*X14",
+      "strength": "rejected",
+      "quote": "No squared or cross-product term had a correlation with Y exceeding |r| = 0.0882 (X6*X14 = -0.0882), and all but one were below |r| = 0.08.",
+      "section": "results",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    }
+  ],
+  "other_second_order_terms_entry_format": {
+    "term": "e.g. X1^2 or X7*X12",
+    "strength": "",
+    "quote": "",
+    "section": "",
+    "contradictory_statements": false,
+    "contradiction_notes": ""
+  },
+  "structural_non_interaction_explanations": {
+    "heteroscedasticity": {
+      "strength": "rejected",
+      "quote": "Correlations between squared OLS residuals and squared predictors were all small (max |r| = 0.1049 for X12^2), suggesting no strong heteroscedasticity or missed nonlinearities.",
+      "section": "results"
+    },
+    "other_nonlinear_structure": {
+      "strength": "rejected",
+      "quote": "No linear, nonlinear, or interaction effect is present at a level exceeding random noise.",
+      "section": "other"
+    },
+    "model_misspecification": {
+      "strength": "proposed",
+      "quote": "Functional Form Coverage**: Our analysis covers linear, quadratic, and pairwise interaction effects, but cannot rule out highly complex, higher-order, or non-additive relationships not captured by these diagnostics.",
+      "section": "limitations"
+    },
+    "other": {
+      "description": "",
+      "strength": "absent",
+      "quote": "",
+      "section": ""
+    }
+  },
+  "linear_features_claimed_supported": [],
+  "any_feature_or_term_claimed_supported": "no",
+  "overlapping_information_among_correlated_predictors_recognized": {
+    "value": "yes",
+    "quote": "Strong collinearity among some predictors, but this collinearity does not translate into joint predictiveness for Y."
+  },
+  "proxy_direction_caveat_acknowledged": {
+    "value": "unclear",
+    "quote": ""
+  },
+  "auxiliary": {
+    "multiplicative_term_expressed_correctly": {
+      "value": "yes",
+      "notes": "Writes X6*X14 as a product."
+    },
+    "association_vs_generating_mechanism_distinguished": {
+      "value": "unclear",
+      "quote": "The data appears to have been generated such that the target Y is independent of all observed predictors—at least to within the sensitivity of a sample of 1,000."
+    },
+    "p_values_computed_from_r_and_n": {
+      "value": "yes",
+      "quote": "Estimated effect sizes are negligible (all |r| < 0.09) and would not survive correction for multiple comparisons (e.g., Bonferroni-adjusted threshold p < 0.00024)."
+    },
+    "numerical_plausibility_of_reported_calculations": {
+      "value": "plausible",
+      "notes": "Verified offline: 0.05/230 = 0.000217, which rounds to the stated Bonferroni-adjusted threshold p < 0.00024 at the precision given. Source values deferred to post-unmask."
+    },
+    "multiple_testing_recognized": {
+      "value": "yes",
+      "quote": "we considered the potential for false positives given 20 main effects and 210 second-order terms."
+    },
+    "candidate_count_stated": {
+      "value": "yes",
+      "quote": "given 20 main effects and 210 second-order terms"
+    },
+    "multiplicity_handling_reasonable": {
+      "value": "yes",
+      "notes": "Derives and applies a Bonferroni-adjusted alpha across all 230 candidates."
+    },
+    "unsupported_numerical_results_or_claims_of_computation": {
+      "value": "none",
+      "examples": "States 'Coefficients were not supplied, but given the near-zero correlations, all would be very close to zero.' PROVISIONAL: whether each individual figure matches the supplied input was NOT checked, because that requires reading the input file; deferred to post-unmask."
+    }
+  },
+  "truncation_or_formatting_problems_noticed": "No truncation; the response is complete and ends on a full sentence. Section labels are as printed in the paper; where a quote comes from a Conclusion or summary block the schema has no matching enum value and 'other' is used.",
+  "overall_notes": "AI-SCORED, NOT HUMAN-VERIFIED. Drafted by claude-opus-5[1m] from RUBRIC.md, review_schema.json and this paper's text only; mapping files, run records and the supplied input files were not opened. NOT A STRICTLY BLIND SCORE: earlier in the same session the dataset and condition of the 13 label-quoting papers were printed while measuring label leakage, so this model already knew the identity of some papers in this export. Precedents applied come from P009fd2, which a human confirmed field by field; every other paper in this export, including this one, is awaiting human spot-check.\n\nSCOPE: every value classifies what the paper asserts, not whether the assertion is correct; whether this paper's conclusion is right depends on which dataset it received and is a post-unmask question.\n\nMAIN CONCLUSION AS STATED: No feature or second-order term predicts Y; Bonferroni alpha over 230 candidates derived correctly.\n\nJUDGEMENT CALLS: None material.\n\nDEFERRED TO POST-UNMASK: every source value the paper quotes (R^2, the Xi-Y correlations, corr(e^2,Xi^2), inter-feature correlations and any second-order r) needs checking against inputs/<dataset>__<condition>.user.txt; only derivations from r and n were checked offline."
+}

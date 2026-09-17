@@ -1,0 +1,113 @@
+{
+  "review_id": "P1f4ee0",
+  "reviewer": "Claude (AI-scored); human spot-check by Evelyn Gao 2026-09-17 on 9 of 22 fields, all retained",
+  "reviewed_at": "2026-09-16",
+  "exact_interaction_X4_X5": {
+    "strength": "rejected",
+    "quote": "No evidence of interaction effects: neither individual features nor their combinations are predictive of Y.",
+    "section": "results",
+    "contradictory_statements": false,
+    "contradiction_notes": ""
+  },
+  "proxy_related_interactions": {
+    "X4*X20": {
+      "strength": "rejected",
+      "quote": "No evidence of interaction effects: neither individual features nor their combinations are predictive of Y.",
+      "section": "results",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    },
+    "X19*X5": {
+      "strength": "rejected",
+      "quote": "No evidence of interaction effects: neither individual features nor their combinations are predictive of Y.",
+      "section": "results",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    },
+    "X19*X20": {
+      "strength": "rejected",
+      "quote": "No evidence of interaction effects: neither individual features nor their combinations are predictive of Y.",
+      "section": "results",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    }
+  },
+  "other_second_order_terms": [],
+  "other_second_order_terms_entry_format": {
+    "term": "e.g. X1^2 or X7*X12",
+    "strength": "",
+    "quote": "",
+    "section": "",
+    "contradictory_statements": false,
+    "contradiction_notes": ""
+  },
+  "structural_non_interaction_explanations": {
+    "heteroscedasticity": {
+      "strength": "rejected",
+      "quote": "Correlations between squared residuals and squared predictors (max r=0.1049 for X12, most |r| < 0.04) are weak, suggesting no substantial nonlinear effects.",
+      "section": "results"
+    },
+    "other_nonlinear_structure": {
+      "strength": "rejected",
+      "quote": "Y is not meaningfully predicted by any linear or nonlinear function of the features X1–X20**. The near-zero univariate and multivariate associations, lack of nonlinearity, and the absence of any strong outliers or patterns in the summary statistics support the conclusion that Y is essentially independent of the predictors.",
+      "section": "discussion"
+    },
+    "model_misspecification": {
+      "strength": "proposed",
+      "quote": "Hidden Nonlinear/Interaction Effects:** Although no evidence was found, extremely complex or higher-order nonlinearities (beyond individual Xi² terms or pairwise interactions) could go undetected, but are implausible given the flat diagnostics.",
+      "section": "limitations"
+    },
+    "other": {
+      "description": "",
+      "strength": "absent",
+      "quote": "",
+      "section": ""
+    }
+  },
+  "linear_features_claimed_supported": [],
+  "any_feature_or_term_claimed_supported": "no",
+  "overlapping_information_among_correlated_predictors_recognized": {
+    "value": "yes",
+    "quote": "The extremely high inter-feature correlations in some pairs (e.g., X4-X19, X1-X16) suggest that the Xs are not all independent, but this is irrelevant for Y, as neither the features individually nor in highly correlated pairs show any association with the outcome."
+  },
+  "proxy_direction_caveat_acknowledged": {
+    "value": "unclear",
+    "quote": ""
+  },
+  "auxiliary": {
+    "multiplicative_term_expressed_correctly": {
+      "value": "not_applicable",
+      "notes": "No Xi*Xj product term is written out anywhere."
+    },
+    "association_vs_generating_mechanism_distinguished": {
+      "value": "unclear",
+      "quote": "The most parsimonious explanation is that Y was generated independently of X1–X20, possibly as a random variable with noise structure, or with any true effects so weak as to be undetectable at n=1000."
+    },
+    "p_values_computed_from_r_and_n": {
+      "value": "unclear",
+      "quote": "which is not significant at n=1000 after correcting for multiple comparisons"
+    },
+    "numerical_plausibility_of_reported_calculations": {
+      "value": "not_checked",
+      "notes": "Asserts non-significance at n=1000 after correction but shows no r-to-p step, so there is no derivation to check."
+    },
+    "multiple_testing_recognized": {
+      "value": "yes",
+      "quote": "In interpreting significance, we considered the false discovery rate and the expected distribution of correlation coefficients under the null."
+    },
+    "candidate_count_stated": {
+      "value": "yes",
+      "quote": "An ordinary least squares (OLS) regression was evaluated with all 20 predictors to assess joint predictive power (in-sample R²) and potential suppression effects."
+    },
+    "multiplicity_handling_reasonable": {
+      "value": "yes",
+      "notes": "Names FDR and uses it to support the null; no survivor reported."
+    },
+    "unsupported_numerical_results_or_claims_of_computation": {
+      "value": "none",
+      "examples": "States 'All conclusions are based strictly on the supplied statistics, without external model fitting.' PROVISIONAL: whether each individual figure matches the supplied input was NOT checked, because that requires reading the input file; deferred to post-unmask."
+    }
+  },
+  "truncation_or_formatting_problems_noticed": "No truncation; the response is complete and ends on a full sentence. Section labels are as printed in the paper; where a quote comes from a Conclusion or summary block the schema has no matching enum value and 'other' is used.",
+  "overall_notes": "AI-SCORED, NOT HUMAN-VERIFIED. Drafted by claude-opus-5[1m] from RUBRIC.md, review_schema.json and this paper's text only; mapping files, run records and the supplied input files were not opened. NOT A STRICTLY BLIND SCORE: earlier in the same session the dataset and condition of the 13 label-quoting papers were printed while measuring label leakage, so this model already knew the identity of some papers in this export. Precedents applied come from P009fd2, which a human confirmed field by field; every other paper in this export, including this one, is awaiting human spot-check.\n\nSCOPE: every value classifies what the paper asserts, not whether the assertion is correct; whether this paper's conclusion is right depends on which dataset it received and is a post-unmask question.\n\nMAIN CONCLUSION AS STATED: No feature or combination predicts Y; R^2=0.0267 attributed to chance; null data-generating process.\n\nJUDGEMENT CALLS: None material.\n\nDEFERRED TO POST-UNMASK: every source value the paper quotes (R^2, the Xi-Y correlations, corr(e^2,Xi^2), inter-feature correlations and any second-order r) needs checking against inputs/<dataset>__<condition>.user.txt; only derivations from r and n were checked offline.\n\nHUMAN SPOT-CHECK 2026-09-17 (Evelyn Gao): this paper was one of 3 of the 29 AI-scored papers drawn for spot-check. The reviewer examined the 9 fields listed in SPOTCHECK.md -- exact_interaction_X4_X5, proxy_related_interactions.X4*X20, structural_non_interaction_explanations.heteroscedasticity, structural_non_interaction_explanations.model_misspecification, overlapping_information_among_correlated_predictors_recognized, proxy_direction_caveat_acknowledged, auxiliary.p_values_computed_from_r_and_n, auxiliary.numerical_plausibility_of_reported_calculations, auxiliary.unsupported_numerical_results_or_claims_of_computation -- and retained the AI value for every one of them without modification. The remaining 13 fields of this form were NOT examined and remain AI-scored only."
+}

@@ -1,0 +1,130 @@
+{
+  "review_id": "P27b266",
+  "reviewer": "Claude (AI-scored, not human-verified)",
+  "reviewed_at": "2026-09-16",
+  "exact_interaction_X4_X5": {
+    "strength": "rejected",
+    "quote": "No feature pair, even among the highly collinear, shows joint correlation with Y or suggests a nonlinear functional form.",
+    "section": "results",
+    "contradictory_statements": false,
+    "contradiction_notes": ""
+  },
+  "proxy_related_interactions": {
+    "X4*X20": {
+      "strength": "rejected",
+      "quote": "No feature pair, even among the highly collinear, shows joint correlation with Y or suggests a nonlinear functional form.",
+      "section": "results",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    },
+    "X19*X5": {
+      "strength": "rejected",
+      "quote": "No feature pair, even among the highly collinear, shows joint correlation with Y or suggests a nonlinear functional form.",
+      "section": "results",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    },
+    "X19*X20": {
+      "strength": "rejected",
+      "quote": "No feature pair, even among the highly collinear, shows joint correlation with Y or suggests a nonlinear functional form.",
+      "section": "results",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    }
+  },
+  "other_second_order_terms": [
+    {
+      "term": "X1*X16",
+      "strength": "rejected",
+      "quote": "Testing interactions (e.g., X1*X16, X4*X19, etc.) is unlikely to be fruitful, as neither variable individually relates to Y.",
+      "section": "results",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    },
+    {
+      "term": "X4*X19",
+      "strength": "rejected",
+      "quote": "Testing interactions (e.g., X1*X16, X4*X19, etc.) is unlikely to be fruitful, as neither variable individually relates to Y.",
+      "section": "results",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    }
+  ],
+  "other_second_order_terms_entry_format": {
+    "term": "e.g. X1^2 or X7*X12",
+    "strength": "",
+    "quote": "",
+    "section": "",
+    "contradictory_statements": false,
+    "contradiction_notes": ""
+  },
+  "structural_non_interaction_explanations": {
+    "heteroscedasticity": {
+      "strength": "absent",
+      "quote": "",
+      "section": ""
+    },
+    "other_nonlinear_structure": {
+      "strength": "rejected",
+      "quote": "No evidence supports nonlinear or interaction effects:\n  - Squaring the most correlated features (e.g., X3, X18, X1, X16, X4, X19) would not yield substantial variance explained, as their linear relationship with Y is already negligible.",
+      "section": "results"
+    },
+    "model_misspecification": {
+      "strength": "proposed",
+      "quote": "We could not test for higher-order or more complex nonlinearities beyond simple quadratics and pairwise interactions.",
+      "section": "limitations"
+    },
+    "other": {
+      "description": "",
+      "strength": "absent",
+      "quote": "",
+      "section": ""
+    }
+  },
+  "linear_features_claimed_supported": [],
+  "any_feature_or_term_claimed_supported": "no",
+  "overlapping_information_among_correlated_predictors_recognized": {
+    "value": "yes",
+    "quote": "Multicollinearity is pronounced (e.g., X1/X16, X4/X19), but this does not translate into predictive power for Y."
+  },
+  "proxy_direction_caveat_acknowledged": {
+    "value": "unclear",
+    "quote": ""
+  },
+  "auxiliary": {
+    "multiplicative_term_expressed_correctly": {
+      "value": "yes",
+      "notes": "Writes X1*X16 and X4*X19 as products."
+    },
+    "association_vs_generating_mechanism_distinguished": {
+      "value": "unclear",
+      "quote": "The data generating process appears to be dominated by noise with respect to the target, or Y may be independent of the included predictors."
+    },
+    "p_values_computed_from_r_and_n": {
+      "value": "unclear",
+      "quote": "Feature significance was evaluated via p-values, with Bonferroni correction for 20 comparisons (α = 0.0025)."
+    },
+    "numerical_plausibility_of_reported_calculations": {
+      "value": "not_checked",
+      "notes": "States a Bonferroni alpha of 0.0025 and a standardised beta of ~0.06 from r, but derives no t or p, so there is no derivation to check."
+    },
+    "multiple_testing_recognized": {
+      "value": "yes",
+      "quote": "With 20 features, Bonferroni-corrected significance threshold is α = 0.0025.\n- No feature meets this criterion."
+    },
+    "candidate_count_stated": {
+      "value": "yes",
+      "quote": "With 20 features, Bonferroni-corrected significance threshold is α = 0.0025."
+    },
+    "multiplicity_handling_reasonable": {
+      "value": "yes",
+      "notes": "Bonferroni named and applied; no survivor reported."
+    },
+    "unsupported_numerical_results_or_claims_of_computation": {
+      "value": "none",
+      "examples": "Frames the regression in the conditional ('would inflate VIFs', 'is expected to reach') and states conclusions rest on the provided statistics. PROVISIONAL: whether each individual figure matches the supplied input was NOT checked, because that requires reading the input file; deferred to post-unmask."
+    }
+  },
+  "truncation_or_formatting_problems_noticed": "No truncation; the response is complete and ends on a full sentence. Section labels are as printed in the paper; where a quote comes from a Conclusion or summary block the schema has no matching enum value and 'other' is used.",
+  "overall_notes": "AI-SCORED, NOT HUMAN-VERIFIED. Drafted by claude-opus-5[1m] from RUBRIC.md, review_schema.json and this paper's text only; mapping files, run records and the supplied input files were not opened. NOT A STRICTLY BLIND SCORE: earlier in the same session the dataset and condition of the 13 label-quoting papers were printed while measuring label leakage, so this model already knew the identity of some papers in this export. Precedents applied come from P009fd2, which a human confirmed field by field; every other paper in this export, including this one, is awaiting human spot-check.\n\nSCOPE: every value classifies what the paper asserts, not whether the assertion is correct; whether this paper's conclusion is right depends on which dataset it received and is a post-unmask question.\n\nMAIN CONCLUSION AS STATED: No feature predicts Y; all 20 are noise; collinearity present but irrelevant.\n\nJUDGEMENT CALLS: None material.\n\nDEFERRED TO POST-UNMASK: every source value the paper quotes (R^2, the Xi-Y correlations, corr(e^2,Xi^2), inter-feature correlations and any second-order r) needs checking against inputs/<dataset>__<condition>.user.txt; only derivations from r and n were checked offline."
+}

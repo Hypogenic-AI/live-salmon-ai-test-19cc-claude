@@ -1,0 +1,63 @@
+{
+  "experiment": "information_conditions",
+  "upstream_url": "https://github.com/Hypogenic-AI/live-salmon-ai-test-19cc-claude",
+  "upstream_commit": "c88a910fc9eef390b8020645639a556fb7e393e4",
+  "model_key": "gpt-4.1",
+  "model_selection_note": "One identifier taken verbatim from upstream src/run_ai_scientists.py MODELS. The runner refuses any identifier that is not in that upstream mapping and records the model string returned by the provider next to the requested one.",
+  "request_settings": {
+    "temperature": 0.7,
+    "max_tokens": 4096,
+    "seed": null
+  },
+  "request_settings_note": "temperature and max_tokens are the upstream values. seed is null: no provider seed is passed, so repetitions are independent samples at temperature 0.7 and are NOT seed-controlled.",
+  "datasets": {
+    "live_salmon": {
+      "path": "datasets/live_salmon_data.csv",
+      "sample_path": "datasets/live_salmon_sample.csv",
+      "label": "Research Dataset A"
+    },
+    "dead_salmon": {
+      "path": "datasets/dead_salmon_data.csv",
+      "sample_path": "datasets/dead_salmon_sample.csv",
+      "label": "Research Dataset B"
+    }
+  },
+  "conditions": [
+    "A",
+    "A_prime",
+    "B"
+  ],
+  "phases": {
+    "smoke": {
+      "repetitions": 1
+    },
+    "formal": {
+      "repetitions": 5
+    }
+  },
+  "scheduling_seed": 20260915,
+  "retry": {
+    "max_attempts": 3,
+    "backoff_seconds": [
+      2.0,
+      4.0
+    ],
+    "note": "Retries apply only to technical failures: connection errors, timeouts, HTTP 429, HTTP 5xx, and structurally malformed or empty responses. Paper content is never inspected when deciding whether to retry."
+  },
+  "timeout_seconds": 120.0,
+  "openrouter_url": "https://openrouter.ai/api/v1/chat/completions",
+  "input_length": {
+    "chars_per_token_conservative": 1.4,
+    "max_estimated_input_tokens": 60000,
+    "note": "Token estimate = ceil(chars / chars_per_token_conservative). 1.4 chars/token is below the smallest value implied by the upstream condition-A prompt_tokens across the three upstream models (about 1.90 for gpt-4.1, 1.91 for claude-sonnet-4.5, 1.45 for gemini-2.5-pro; see manifest calibration block), so the estimate errs high for every upstream model. Numeric-heavy text tokenizes far denser than the common chars/4 rule. This is an estimate, not the provider tokenizer."
+  },
+  "decimals": 4,
+  "environment": {
+    "python_minor": "3.13",
+    "required_packages": {
+      "numpy": "2.4.3",
+      "pandas": "3.0.1"
+    },
+    "note": "These two versions are part of the design, not incidental machine state. pandas renders condition A (describe()/corr().to_string() in src/prepare_data_summary.py) and numpy's default_rng stream produces the datasets, so a different version can change prompt bytes or data. uv.lock forks on the interpreter: Python >= 3.11 resolves to these versions, Python 3.10 resolves to pandas 2.3.3 / numpy 2.2.6. generate-inputs warns on a mismatch; execution refuses. Observed (not required) environment detail is recorded in inputs/provenance.json, which is deliberately outside the design hash."
+  }
+}

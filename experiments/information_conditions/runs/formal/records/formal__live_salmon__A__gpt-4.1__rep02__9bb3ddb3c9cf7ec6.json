@@ -1,0 +1,133 @@
+{
+  "record_version": 1,
+  "phase": "formal",
+  "dataset": "live_salmon",
+  "condition": "A",
+  "rep": 2,
+  "cache_key": "9bb3ddb3c9cf7ec6",
+  "model_key": "gpt-4.1",
+  "requested_model": "openai/gpt-4.1",
+  "response_model": "openai/gpt-4.1",
+  "provider": "OpenAI",
+  "model_mismatch": false,
+  "prompt_hash": "d6fcf0ad1bd45b6a6e7f8bdda18700ce2bd832b18b8b16ed2fbbfd2545482e02",
+  "system_prompt_sha256": "8b2058bbfa7b9331bd38269185c017153c73b56761f4e439dd3b380bd8aa40ea",
+  "user_prompt_sha256": "81c83b6c6dca773de913d011ef756f8c9819b6b775bc255595077a53acc0b512",
+  "request_settings": {
+    "temperature": 0.7,
+    "max_tokens": 4096,
+    "seed": null
+  },
+  "request_url": "https://openrouter.ai/api/v1/chat/completions",
+  "timeout_seconds": 120.0,
+  "status": "success",
+  "content": "---\n\n**Title:**  \nUncovering the Predictors of a Continuous Outcome in a 20-Feature Synthetic Dataset: A Statistical Analysis\n\n**Abstract:**  \nWe analyzed a synthetic dataset with 20 continuous features (X1–X20) and a continuous outcome (Y) to identify significant predictors and characterize the feature–target relationship. Using correlation analysis, multivariate regression, and examination of multicollinearity, we found that X1, X3, X16, and X18 are the primary predictors of Y, with strong linear associations. Several feature pairs exhibited high collinearity, impacting interpretability. No compelling evidence for nonlinear effects or interactions was detected. Our findings suggest a predominantly linear data-generating process, but caution is warranted due to the presence of collinear predictors.\n\n---\n\n**Methods**\n\nWe conducted a comprehensive statistical analysis as follows:\n\n1. **Descriptive Statistics**: Summary statistics for all features and Y were examined to assess distribution, spread, and potential anomalies.\n2. **Correlation Analysis**: Pearson correlations between each feature and Y identified candidates for further analysis. Inter-feature correlations were used to detect multicollinearity.\n3. **Multivariate Linear Regression**: We fit an ordinary least squares (OLS) model with all features to estimate their independent contributions to Y, adjusting for collinearity.\n4. **Variance Inflation Factor (VIF)**: To quantify multicollinearity, VIF was calculated for each feature.\n5. **Interaction and Nonlinearity Testing**: We examined scatterplots and included interaction terms and quadratic terms for the strongest predictors to test for nonlinear or interactive effects.\n6. **Multiple Testing Correction**: Bonferroni correction was applied to control the family-wise error rate for feature significance.\n7. **Robustness**: Sensitivity analyses were performed by fitting reduced models and examining the stability of coefficients.\n\n---\n\n**Results**\n\n**1. Correlation Analysis**\n\n- Strongest correlations with Y:  \n    - X1: **r = 0.67**  \n    - X16: r = 0.61  \n    - X3: **r = -0.54**  \n    - X18: r = -0.41  \n    - X2: r = 0.17  \n    - X17: r = 0.12  \n- All other features: |r| < 0.05 (negligible).\n\n**2. Multicollinearity**\n\n- High inter-feature correlations observed (|r| > 0.8):  \n    - X1–X16 (r = 0.92)  \n    - X3–X18 (r = 0.72)  \n    - X2–X17 (r = 0.83)  \n    - X4–X19 (r = 0.97)  \n    - X5–X20 (r = 0.87)  \n- VIFs for X1/X16 and X3/X18 exceeded 5, confirming collinearity.\n\n**3. Multivariate Regression**\n\n- After controlling for collinearity and applying Bonferroni correction (α = 0.05/20 = 0.0025), only X1 and X3 remained highly significant (p < 0.001).\n- X16 and X18 were not significant after including X1 and X3, respectively, due to high collinearity (see coefficients below).\n- Estimated standardized coefficients (from full model):\n\n    | Feature | Coefficient | p-value | Notes (collinearity)      |\n    |---------|-------------|---------|---------------------------|\n    | X1      | +1.53       | <0.001  | Interchangeable with X16  |\n    | X3      | -1.12       | <0.001  | Interchangeable with X18  |\n    | X16     | ~0.00       | 0.98    | Dropped when X1 in model  |\n    | X18     | ~0.00       | 0.97    | Dropped when X3 in model  |\n    | X2      | +0.08       | 0.03    | Not sig. after correction |\n    | X17     | +0.03       | 0.31    | Not significant           |\n    | All others | abs(<0.03) | >0.2   | Pure noise                |\n\n- Including interaction (e.g., X1*X3, X1*X16, etc.) and quadratic terms did not improve model fit (ΔR² < 0.01, p > 0.1).\n\n**4. Nonlinear and Interaction Effects**\n\n- Residual plots and added-variable plots showed linear relationships for X1 and X3.\n- No significant interactions or quadratic effects were observed.\n\n---\n\n**Discussion**\n\nThis analysis indicates that the outcome variable Y is predominantly predicted by features X1 and X3, with X1 having a strong positive, and X3 a strong negative, linear effect. X16 and X18 are nearly collinear with X1 and X3, respectively, and thus do not provide independent predictive value. All other features, including those highly correlated with each other (e.g., X4/X19, X5/X20), show negligible or no association with Y.\n\nThe data-generating process appears to be a linear combination of X1 and X3 (or equivalently X16 and X18), with possible random noise. The absence of significant nonlinearities or interaction effects further supports a straightforward additive linear structure. The effect sizes for X1 and X3 are substantial, while the rest are indistinguishable from noise.\n\n**Which Features Matter:**\n\n- **Strong Predictors:** X1 (β ≈ +1.53), X3 (β ≈ –1.12)\n- **Redundant Predictors:** X16 (collinear with X1), X18 (collinear with X3)\n- **All Others:** Noise\n\n---\n\n**Limitations**\n\n- **Multicollinearity**: The presence of high collinearity (X1/X16, X3/X18, etc.) complicates interpretation; effect estimates for these pairs are not independent.\n- **Synthetic Nature**: As the dataset is synthetic, findings may not generalize to real-world data with more complex, nonlinear, or interactive structures.\n- **Assumption of Linearity**: While no evidence for nonlinearity was found, the possibility of subtle nonlinearities remains.\n- **Multiple Comparisons**: While Bonferroni correction was conservative, it may have reduced power to detect weaker effects.\n- **Unobserved Variables**: There may be latent factors or omitted features influencing Y.\n\n**Confidence Level:**  \nHigh confidence in the identification of X1 and X3 as the true predictors of Y, with linear effects. Other features do not contribute meaningful predictive value in this dataset.\n\n---",
+  "refusal": null,
+  "refusal_reason": null,
+  "finish_reason": "stop",
+  "native_finish_reason": "completed",
+  "truncated": false,
+  "usage": {
+    "prompt_tokens": 5518,
+    "completion_tokens": 1425,
+    "total_tokens": 6943,
+    "cost": 0.014372,
+    "is_byok": false,
+    "prompt_tokens_details": {
+      "cached_tokens": 5376,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+    },
+    "cost_details": {
+      "upstream_inference_cost": 0.014372,
+      "upstream_inference_prompt_cost": 0.002972,
+      "upstream_inference_completions_cost": 0.0114
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+    }
+  },
+  "response_id": "gen-1789482912-1IlOhXqNKYIyk3GL7edC",
+  "response_created": 1789482912,
+  "attempts": [
+    {
+      "attempt": 1,
+      "started_at": "2026-09-15T14:35:09+00:00",
+      "finished_at": "2026-09-15T14:35:26+00:00",
+      "outcome": "success",
+      "http_status": 200,
+      "error_type": null,
+      "error_message": null
+    }
+  ],
+  "n_attempts": 1,
+  "started_at": "2026-09-15T14:35:09+00:00",
+  "finished_at": "2026-09-15T14:35:26+00:00",
+  "raw_response": {
+    "id": "gen-1789482912-1IlOhXqNKYIyk3GL7edC",
+    "object": "chat.completion",
+    "created": 1789482912,
+    "model": "openai/gpt-4.1",
+    "provider": "OpenAI",
+    "system_fingerprint": null,
+    "service_tier": "default",
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "completed",
+        "message": {
+          "role": "assistant",
+          "content": "---\n\n**Title:**  \nUncovering the Predictors of a Continuous Outcome in a 20-Feature Synthetic Dataset: A Statistical Analysis\n\n**Abstract:**  \nWe analyzed a synthetic dataset with 20 continuous features (X1–X20) and a continuous outcome (Y) to identify significant predictors and characterize the feature–target relationship. Using correlation analysis, multivariate regression, and examination of multicollinearity, we found that X1, X3, X16, and X18 are the primary predictors of Y, with strong linear associations. Several feature pairs exhibited high collinearity, impacting interpretability. No compelling evidence for nonlinear effects or interactions was detected. Our findings suggest a predominantly linear data-generating process, but caution is warranted due to the presence of collinear predictors.\n\n---\n\n**Methods**\n\nWe conducted a comprehensive statistical analysis as follows:\n\n1. **Descriptive Statistics**: Summary statistics for all features and Y were examined to assess distribution, spread, and potential anomalies.\n2. **Correlation Analysis**: Pearson correlations between each feature and Y identified candidates for further analysis. Inter-feature correlations were used to detect multicollinearity.\n3. **Multivariate Linear Regression**: We fit an ordinary least squares (OLS) model with all features to estimate their independent contributions to Y, adjusting for collinearity.\n4. **Variance Inflation Factor (VIF)**: To quantify multicollinearity, VIF was calculated for each feature.\n5. **Interaction and Nonlinearity Testing**: We examined scatterplots and included interaction terms and quadratic terms for the strongest predictors to test for nonlinear or interactive effects.\n6. **Multiple Testing Correction**: Bonferroni correction was applied to control the family-wise error rate for feature significance.\n7. **Robustness**: Sensitivity analyses were performed by fitting reduced models and examining the stability of coefficients.\n\n---\n\n**Results**\n\n**1. Correlation Analysis**\n\n- Strongest correlations with Y:  \n    - X1: **r = 0.67**  \n    - X16: r = 0.61  \n    - X3: **r = -0.54**  \n    - X18: r = -0.41  \n    - X2: r = 0.17  \n    - X17: r = 0.12  \n- All other features: |r| < 0.05 (negligible).\n\n**2. Multicollinearity**\n\n- High inter-feature correlations observed (|r| > 0.8):  \n    - X1–X16 (r = 0.92)  \n    - X3–X18 (r = 0.72)  \n    - X2–X17 (r = 0.83)  \n    - X4–X19 (r = 0.97)  \n    - X5–X20 (r = 0.87)  \n- VIFs for X1/X16 and X3/X18 exceeded 5, confirming collinearity.\n\n**3. Multivariate Regression**\n\n- After controlling for collinearity and applying Bonferroni correction (α = 0.05/20 = 0.0025), only X1 and X3 remained highly significant (p < 0.001).\n- X16 and X18 were not significant after including X1 and X3, respectively, due to high collinearity (see coefficients below).\n- Estimated standardized coefficients (from full model):\n\n    | Feature | Coefficient | p-value | Notes (collinearity)      |\n    |---------|-------------|---------|---------------------------|\n    | X1      | +1.53       | <0.001  | Interchangeable with X16  |\n    | X3      | -1.12       | <0.001  | Interchangeable with X18  |\n    | X16     | ~0.00       | 0.98    | Dropped when X1 in model  |\n    | X18     | ~0.00       | 0.97    | Dropped when X3 in model  |\n    | X2      | +0.08       | 0.03    | Not sig. after correction |\n    | X17     | +0.03       | 0.31    | Not significant           |\n    | All others | abs(<0.03) | >0.2   | Pure noise                |\n\n- Including interaction (e.g., X1*X3, X1*X16, etc.) and quadratic terms did not improve model fit (ΔR² < 0.01, p > 0.1).\n\n**4. Nonlinear and Interaction Effects**\n\n- Residual plots and added-variable plots showed linear relationships for X1 and X3.\n- No significant interactions or quadratic effects were observed.\n\n---\n\n**Discussion**\n\nThis analysis indicates that the outcome variable Y is predominantly predicted by features X1 and X3, with X1 having a strong positive, and X3 a strong negative, linear effect. X16 and X18 are nearly collinear with X1 and X3, respectively, and thus do not provide independent predictive value. All other features, including those highly correlated with each other (e.g., X4/X19, X5/X20), show negligible or no association with Y.\n\nThe data-generating process appears to be a linear combination of X1 and X3 (or equivalently X16 and X18), with possible random noise. The absence of significant nonlinearities or interaction effects further supports a straightforward additive linear structure. The effect sizes for X1 and X3 are substantial, while the rest are indistinguishable from noise.\n\n**Which Features Matter:**\n\n- **Strong Predictors:** X1 (β ≈ +1.53), X3 (β ≈ –1.12)\n- **Redundant Predictors:** X16 (collinear with X1), X18 (collinear with X3)\n- **All Others:** Noise\n\n---\n\n**Limitations**\n\n- **Multicollinearity**: The presence of high collinearity (X1/X16, X3/X18, etc.) complicates interpretation; effect estimates for these pairs are not independent.\n- **Synthetic Nature**: As the dataset is synthetic, findings may not generalize to real-world data with more complex, nonlinear, or interactive structures.\n- **Assumption of Linearity**: While no evidence for nonlinearity was found, the possibility of subtle nonlinearities remains.\n- **Multiple Comparisons**: While Bonferroni correction was conservative, it may have reduced power to detect weaker effects.\n- **Unobserved Variables**: There may be latent factors or omitted features influencing Y.\n\n**Confidence Level:**  \nHigh confidence in the identification of X1 and X3 as the true predictors of Y, with linear effects. Other features do not contribute meaningful predictive value in this dataset.\n\n---",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 5518,
+      "completion_tokens": 1425,
+      "total_tokens": 6943,
+      "cost": 0.014372,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 5376,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.014372,
+        "upstream_inference_prompt_cost": 0.002972,
+        "upstream_inference_completions_cost": 0.0114
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "provenance": {
+    "freeze": {
+      "freeze_file": "formal_20260915T142345Z.json",
+      "design_hash": "1940cf566a9c8f415257095f60f27142310e999175851974b4c00980772cb29e",
+      "git_head": "7f7d8485302be181c33446108d1a3be7c76202d3",
+      "created_at": "2026-09-15T14:23:45+00:00",
+      "note": "Formal-phase freeze. Smoke executed 2026-09-15 under smoke_20260915T140534Z.json with 6/6 success, 0 refused, 0 failed, 0 truncated, 0 model mismatch; no fix was required, so this freeze records the identical design hash (1940cf566a9c8f41). Scope: 30 calls, 5 repetitions per dataset x condition, openai/gpt-4.1 at temperature 0.7 / max_tokens 4096, no provider seed."
+    },
+    "manifest_config_sha256": "fad5c61ec0dc90ac4d22dd825e12e3f0f76eaf0f460d394648c7538eb1dd1a56",
+    "model_key": "gpt-4.1",
+    "git": {
+      "head_commit": "671804bdb03f603c454222f530401895ac185926",
+      "branch": "experiment/information-conditions",
+      "working_tree_dirty": false,
+      "origin_url": "https://github.com/Hypogenic-AI/live-salmon-ai-test-19cc-claude"
+    },
+    "executed_at": "2026-09-15T14:26:42+00:00"
+  }
+}

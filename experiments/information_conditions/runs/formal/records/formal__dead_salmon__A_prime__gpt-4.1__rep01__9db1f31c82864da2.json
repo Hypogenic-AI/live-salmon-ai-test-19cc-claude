@@ -1,0 +1,133 @@
+{
+  "record_version": 1,
+  "phase": "formal",
+  "dataset": "dead_salmon",
+  "condition": "A_prime",
+  "rep": 1,
+  "cache_key": "9db1f31c82864da2",
+  "model_key": "gpt-4.1",
+  "requested_model": "openai/gpt-4.1",
+  "response_model": "openai/gpt-4.1",
+  "provider": "OpenAI",
+  "model_mismatch": false,
+  "prompt_hash": "88f30ded5ebfcbd57a53520f284786948af9e80cc2b8de0ac57b1131a2ecde0f",
+  "system_prompt_sha256": "8b2058bbfa7b9331bd38269185c017153c73b56761f4e439dd3b380bd8aa40ea",
+  "user_prompt_sha256": "d55a294a8b8de46f0a841199ead290e95a0a30face2ca436fdb4571fcd542427",
+  "request_settings": {
+    "temperature": 0.7,
+    "max_tokens": 4096,
+    "seed": null
+  },
+  "request_url": "https://openrouter.ai/api/v1/chat/completions",
+  "timeout_seconds": 120.0,
+  "status": "success",
+  "content": "---\n\n**Title**  \n*An Empirical Assessment of Feature Predictiveness in a 20-Dimensional Continuous Dataset: Evidence for Noise Dominance*\n\n---\n\n**Abstract**  \nWe conduct a comprehensive statistical analysis of a 20-feature, 1000-sample dataset (Research Dataset B) to identify predictors of a continuous target variable \\(Y\\). Initial correlation analysis, multivariate ordinary least squares (OLS) regression, and nonlinearity diagnostics reveal that no feature or feature combination provides meaningful predictive power for \\(Y\\): the OLS fit yields an \\(R^2\\) of just 2.67%, and all feature-wise correlations with \\(Y\\) are weak. Residual diagnostics and examination of inter-feature collinearity further support a conclusion of negligible signal. We find no substantial evidence for nonlinear effects or feature interactions. Our findings suggest that \\(Y\\) is effectively independent of the supplied features, indicating a data generating process dominated by noise.\n\n---\n\n**Methods**  \nWe approach the analysis in the following steps:\n\n1. **Descriptive Statistics and Correlation Analysis**: We review summary statistics, marginal correlations of each feature with \\(Y\\), and the inter-feature correlation matrix to assess basic structure, potential collinearity, and direct linear relationships.\n2. **Ordinary Least Squares (OLS) Regression**: We examine the in-sample fitted \\(R^2\\) from an OLS regression of \\(Y\\) on all 20 features, which quantifies total linear predictive power.\n3. **Significance Assessment**: We interpret the feature-wise marginal correlations and, by implication, the likely OLS coefficient magnitudes. We consider the effect of collinear features on coefficient stability and interpretability.\n4. **Nonlinearity and Heteroscedasticity Diagnostics**: We assess the correlation of squared residuals with squared predictors to test for nonlinear or variance effects.\n5. **Interaction Effects**: We examine whether strong inter-feature correlations or other diagnostics suggest the presence of higher-order interactions predictive of \\(Y\\).\n6. **Multiple Testing Correction**: Given 20 features, we consider the need for correction (e.g., Bonferroni) when evaluating significance of marginal correlations.\n\n---\n\n**Results**  \n\n- **Marginal Linear Relationships**:  \n  The largest absolute Pearson correlation between any feature and \\(Y\\) is 0.0835 (for \\(X_{11}\\)), with the next largest at -0.0773 (\\(X_{13}\\)), and all others below 0.06 in magnitude. By conventional standards (e.g., requiring |r| > 0.1 for even weak effect), these are extremely weak and likely not statistically significant after correction for multiple comparisons.\n\n- **Multivariate Linear Predictive Power**:  \n  The OLS regression of \\(Y\\) on all 20 predictors achieves an in-sample \\(R^2 = 0.0267\\): i.e., only 2.67% of the variance in \\(Y\\) is explained by the linear combination of all features. This is a very low value, especially given the large sample size (n=1000) and number of predictors (20).\n\n- **Collinearity**:  \n  Several feature pairs exhibit very high mutual correlation:\n    - \\(X_4\\) and \\(X_{19}\\): r = 0.97  \n    - \\(X_1\\) and \\(X_{16}\\): r = 0.918  \n    - \\(X_5\\) and \\(X_{20}\\): r = 0.874  \n    - \\(X_2\\) and \\(X_{17}\\): r = 0.826  \n    - \\(X_3\\) and \\(X_{18}\\): r = 0.723  \n  These strong associations between predictors can induce instability in OLS coefficients, but do not affect the overall lack of predictiveness for \\(Y\\).\n\n- **Nonlinear/Variance Effects**:  \n  The correlation between squared OLS residuals and squared predictors is modest in all cases; the highest is for \\(X_{12}\\) (0.105), with others mostly near zero. This indicates little evidence for nonlinear main effects or heteroscedasticity driven by individual predictors.\n\n- **Interaction Effects**:  \n  There is no evidence from the marginal or OLS diagnostics that interactions between features provide predictive value for \\(Y\\). If strong interactions existed, we would expect at least some features with both high marginal and high multivariate correlation—none are observed.\n\n- **Significance and Effect Sizes**:\n  After correcting for multiple comparisons (e.g., Bonferroni for 20 features, so p < 0.0025 required for significance), none of the marginal correlations with \\(Y\\) would reach statistical significance. The implied (unreported) OLS coefficients are necessarily very small, since the overall \\(R^2\\) is so low.\n\n---\n\n**Discussion**  \n\nThe results point to a data generating process where \\(Y\\) is, for practical purposes, independent of the observed features. The lack of any substantial marginal or multivariate correlation, combined with extremely low \\(R^2\\) and no detected nonlinearity, suggests that either \\(Y\\) was generated as pure noise, or any relationship is extremely weak and undetectable given the sample size.\n\nNotably, while there is substantial collinearity among some predictors (e.g., \\(X_4\\) and \\(X_{19}\\)), this does not translate into predictive power for \\(Y\\). All features appear equally uninformative as predictors. We find no evidence to support the presence of interaction effects or nonlinear relationships.\n\nIn summary, **no features are significant predictors of \\(Y\\)**, and all observed associations are consistent with what would be expected from random variation in a dataset of this size.\n\n---\n\n**Limitations**  \n\n- **Unreported Model Coefficients**: The actual OLS coefficients are not supplied; our assessment is based on summary statistics and correlations.\n- **Potential for Subtle Nonlinear Relationships**: While diagnostics suggest no main nonlinear effects, complex nonlinear or higher-order interactions (invisible to our tests) might exist but are undetectable with these methods and available statistics.\n- **Power for Small Effects**: With n = 1000, the study is well-powered for moderate effects, but very subtle relationships (explaining <<1% variance) could remain undetected.\n- **Feature Engineering**: Only the raw features are assessed. No transformations or combinations are explored, as per the supplied statistics.\n\n---\n\n**Conclusion**  \n\nBased on the provided data and statistical summaries, we are confident (at >99% level) that none of the supplied features meaningfully predict \\(Y\\), and the observed dataset is consistent with \\(Y\\) being generated independently of all provided features.\n\n---",
+  "refusal": null,
+  "refusal_reason": null,
+  "finish_reason": "stop",
+  "native_finish_reason": "completed",
+  "truncated": false,
+  "usage": {
+    "prompt_tokens": 6040,
+    "completion_tokens": 1408,
+    "total_tokens": 7448,
+    "cost": 0.014512,
+    "is_byok": false,
+    "prompt_tokens_details": {
+      "cached_tokens": 5888,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+    },
+    "cost_details": {
+      "upstream_inference_cost": 0.014512,
+      "upstream_inference_prompt_cost": 0.003248,
+      "upstream_inference_completions_cost": 0.011264
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+    }
+  },
+  "response_id": "gen-1789482460-quXiIxsKYRzhBnVkXi8C",
+  "response_created": 1789482460,
+  "attempts": [
+    {
+      "attempt": 1,
+      "started_at": "2026-09-15T14:27:37+00:00",
+      "finished_at": "2026-09-15T14:27:53+00:00",
+      "outcome": "success",
+      "http_status": 200,
+      "error_type": null,
+      "error_message": null
+    }
+  ],
+  "n_attempts": 1,
+  "started_at": "2026-09-15T14:27:37+00:00",
+  "finished_at": "2026-09-15T14:27:53+00:00",
+  "raw_response": {
+    "id": "gen-1789482460-quXiIxsKYRzhBnVkXi8C",
+    "object": "chat.completion",
+    "created": 1789482460,
+    "model": "openai/gpt-4.1",
+    "provider": "OpenAI",
+    "system_fingerprint": null,
+    "service_tier": "default",
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "completed",
+        "message": {
+          "role": "assistant",
+          "content": "---\n\n**Title**  \n*An Empirical Assessment of Feature Predictiveness in a 20-Dimensional Continuous Dataset: Evidence for Noise Dominance*\n\n---\n\n**Abstract**  \nWe conduct a comprehensive statistical analysis of a 20-feature, 1000-sample dataset (Research Dataset B) to identify predictors of a continuous target variable \\(Y\\). Initial correlation analysis, multivariate ordinary least squares (OLS) regression, and nonlinearity diagnostics reveal that no feature or feature combination provides meaningful predictive power for \\(Y\\): the OLS fit yields an \\(R^2\\) of just 2.67%, and all feature-wise correlations with \\(Y\\) are weak. Residual diagnostics and examination of inter-feature collinearity further support a conclusion of negligible signal. We find no substantial evidence for nonlinear effects or feature interactions. Our findings suggest that \\(Y\\) is effectively independent of the supplied features, indicating a data generating process dominated by noise.\n\n---\n\n**Methods**  \nWe approach the analysis in the following steps:\n\n1. **Descriptive Statistics and Correlation Analysis**: We review summary statistics, marginal correlations of each feature with \\(Y\\), and the inter-feature correlation matrix to assess basic structure, potential collinearity, and direct linear relationships.\n2. **Ordinary Least Squares (OLS) Regression**: We examine the in-sample fitted \\(R^2\\) from an OLS regression of \\(Y\\) on all 20 features, which quantifies total linear predictive power.\n3. **Significance Assessment**: We interpret the feature-wise marginal correlations and, by implication, the likely OLS coefficient magnitudes. We consider the effect of collinear features on coefficient stability and interpretability.\n4. **Nonlinearity and Heteroscedasticity Diagnostics**: We assess the correlation of squared residuals with squared predictors to test for nonlinear or variance effects.\n5. **Interaction Effects**: We examine whether strong inter-feature correlations or other diagnostics suggest the presence of higher-order interactions predictive of \\(Y\\).\n6. **Multiple Testing Correction**: Given 20 features, we consider the need for correction (e.g., Bonferroni) when evaluating significance of marginal correlations.\n\n---\n\n**Results**  \n\n- **Marginal Linear Relationships**:  \n  The largest absolute Pearson correlation between any feature and \\(Y\\) is 0.0835 (for \\(X_{11}\\)), with the next largest at -0.0773 (\\(X_{13}\\)), and all others below 0.06 in magnitude. By conventional standards (e.g., requiring |r| > 0.1 for even weak effect), these are extremely weak and likely not statistically significant after correction for multiple comparisons.\n\n- **Multivariate Linear Predictive Power**:  \n  The OLS regression of \\(Y\\) on all 20 predictors achieves an in-sample \\(R^2 = 0.0267\\): i.e., only 2.67% of the variance in \\(Y\\) is explained by the linear combination of all features. This is a very low value, especially given the large sample size (n=1000) and number of predictors (20).\n\n- **Collinearity**:  \n  Several feature pairs exhibit very high mutual correlation:\n    - \\(X_4\\) and \\(X_{19}\\): r = 0.97  \n    - \\(X_1\\) and \\(X_{16}\\): r = 0.918  \n    - \\(X_5\\) and \\(X_{20}\\): r = 0.874  \n    - \\(X_2\\) and \\(X_{17}\\): r = 0.826  \n    - \\(X_3\\) and \\(X_{18}\\): r = 0.723  \n  These strong associations between predictors can induce instability in OLS coefficients, but do not affect the overall lack of predictiveness for \\(Y\\).\n\n- **Nonlinear/Variance Effects**:  \n  The correlation between squared OLS residuals and squared predictors is modest in all cases; the highest is for \\(X_{12}\\) (0.105), with others mostly near zero. This indicates little evidence for nonlinear main effects or heteroscedasticity driven by individual predictors.\n\n- **Interaction Effects**:  \n  There is no evidence from the marginal or OLS diagnostics that interactions between features provide predictive value for \\(Y\\). If strong interactions existed, we would expect at least some features with both high marginal and high multivariate correlation—none are observed.\n\n- **Significance and Effect Sizes**:\n  After correcting for multiple comparisons (e.g., Bonferroni for 20 features, so p < 0.0025 required for significance), none of the marginal correlations with \\(Y\\) would reach statistical significance. The implied (unreported) OLS coefficients are necessarily very small, since the overall \\(R^2\\) is so low.\n\n---\n\n**Discussion**  \n\nThe results point to a data generating process where \\(Y\\) is, for practical purposes, independent of the observed features. The lack of any substantial marginal or multivariate correlation, combined with extremely low \\(R^2\\) and no detected nonlinearity, suggests that either \\(Y\\) was generated as pure noise, or any relationship is extremely weak and undetectable given the sample size.\n\nNotably, while there is substantial collinearity among some predictors (e.g., \\(X_4\\) and \\(X_{19}\\)), this does not translate into predictive power for \\(Y\\). All features appear equally uninformative as predictors. We find no evidence to support the presence of interaction effects or nonlinear relationships.\n\nIn summary, **no features are significant predictors of \\(Y\\)**, and all observed associations are consistent with what would be expected from random variation in a dataset of this size.\n\n---\n\n**Limitations**  \n\n- **Unreported Model Coefficients**: The actual OLS coefficients are not supplied; our assessment is based on summary statistics and correlations.\n- **Potential for Subtle Nonlinear Relationships**: While diagnostics suggest no main nonlinear effects, complex nonlinear or higher-order interactions (invisible to our tests) might exist but are undetectable with these methods and available statistics.\n- **Power for Small Effects**: With n = 1000, the study is well-powered for moderate effects, but very subtle relationships (explaining <<1% variance) could remain undetected.\n- **Feature Engineering**: Only the raw features are assessed. No transformations or combinations are explored, as per the supplied statistics.\n\n---\n\n**Conclusion**  \n\nBased on the provided data and statistical summaries, we are confident (at >99% level) that none of the supplied features meaningfully predict \\(Y\\), and the observed dataset is consistent with \\(Y\\) being generated independently of all provided features.\n\n---",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 6040,
+      "completion_tokens": 1408,
+      "total_tokens": 7448,
+      "cost": 0.014512,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 5888,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.014512,
+        "upstream_inference_prompt_cost": 0.003248,
+        "upstream_inference_completions_cost": 0.011264
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "provenance": {
+    "freeze": {
+      "freeze_file": "formal_20260915T142345Z.json",
+      "design_hash": "1940cf566a9c8f415257095f60f27142310e999175851974b4c00980772cb29e",
+      "git_head": "7f7d8485302be181c33446108d1a3be7c76202d3",
+      "created_at": "2026-09-15T14:23:45+00:00",
+      "note": "Formal-phase freeze. Smoke executed 2026-09-15 under smoke_20260915T140534Z.json with 6/6 success, 0 refused, 0 failed, 0 truncated, 0 model mismatch; no fix was required, so this freeze records the identical design hash (1940cf566a9c8f41). Scope: 30 calls, 5 repetitions per dataset x condition, openai/gpt-4.1 at temperature 0.7 / max_tokens 4096, no provider seed."
+    },
+    "manifest_config_sha256": "fad5c61ec0dc90ac4d22dd825e12e3f0f76eaf0f460d394648c7538eb1dd1a56",
+    "model_key": "gpt-4.1",
+    "git": {
+      "head_commit": "671804bdb03f603c454222f530401895ac185926",
+      "branch": "experiment/information-conditions",
+      "working_tree_dirty": false,
+      "origin_url": "https://github.com/Hypogenic-AI/live-salmon-ai-test-19cc-claude"
+    },
+    "executed_at": "2026-09-15T14:26:42+00:00"
+  }
+}

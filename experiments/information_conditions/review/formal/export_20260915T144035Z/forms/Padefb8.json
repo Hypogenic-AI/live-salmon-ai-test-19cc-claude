@@ -1,0 +1,130 @@
+{
+  "review_id": "Padefb8",
+  "reviewer": "Claude (AI-scored, not human-verified)",
+  "reviewed_at": "2026-09-16",
+  "exact_interaction_X4_X5": {
+    "strength": "rejected",
+    "quote": "No strong interactions or nonlinearities:** No quadratic or interaction term shows evidence of a real effect.",
+    "section": "discussion",
+    "contradictory_statements": false,
+    "contradiction_notes": ""
+  },
+  "proxy_related_interactions": {
+    "X4*X20": {
+      "strength": "rejected",
+      "quote": "No strong interactions or nonlinearities:** No quadratic or interaction term shows evidence of a real effect.",
+      "section": "discussion",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    },
+    "X19*X5": {
+      "strength": "rejected",
+      "quote": "No strong interactions or nonlinearities:** No quadratic or interaction term shows evidence of a real effect.",
+      "section": "discussion",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    },
+    "X19*X20": {
+      "strength": "rejected",
+      "quote": "No strong interactions or nonlinearities:** No quadratic or interaction term shows evidence of a real effect.",
+      "section": "discussion",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    }
+  },
+  "other_second_order_terms": [
+    {
+      "term": "X5^2",
+      "strength": "rejected",
+      "quote": "Quadratic terms (Xi²):** All |r| < 0.055 (maximum: *X5²* r = 0.056).\n- **Cross-products (Xi*Xj):** All |r| < 0.088 (maximum: *X6*X14* r = -0.088). No interactions approach a moderate effect size.",
+      "section": "results",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    },
+    {
+      "term": "X6*X14",
+      "strength": "rejected",
+      "quote": "Quadratic terms (Xi²):** All |r| < 0.055 (maximum: *X5²* r = 0.056).\n- **Cross-products (Xi*Xj):** All |r| < 0.088 (maximum: *X6*X14* r = -0.088). No interactions approach a moderate effect size.",
+      "section": "results",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    }
+  ],
+  "other_second_order_terms_entry_format": {
+    "term": "e.g. X1^2 or X7*X12",
+    "strength": "",
+    "quote": "",
+    "section": "",
+    "contradictory_statements": false,
+    "contradiction_notes": ""
+  },
+  "structural_non_interaction_explanations": {
+    "heteroscedasticity": {
+      "strength": "rejected",
+      "quote": "Correlations between squared OLS residuals and squared predictors:** All |r| < 0.105 (maximum: *X12²* r = 0.105), suggesting no substantial heteroskedasticity driven by any predictor.",
+      "section": "results"
+    },
+    "other_nonlinear_structure": {
+      "strength": "rejected",
+      "quote": "The analyses provide **no evidence** of any feature or combination of features being meaningfully predictive of Y.",
+      "section": "discussion"
+    },
+    "model_misspecification": {
+      "strength": "proposed",
+      "quote": "Potential for complex nonlinearities**: Only up to second-order terms were provided; higher-order or non-polynomial effects were not tested.",
+      "section": "limitations"
+    },
+    "other": {
+      "description": "",
+      "strength": "absent",
+      "quote": "",
+      "section": ""
+    }
+  },
+  "linear_features_claimed_supported": [],
+  "any_feature_or_term_claimed_supported": "no",
+  "overlapping_information_among_correlated_predictors_recognized": {
+    "value": "yes",
+    "quote": "These do not translate into meaningful predictive power for Y, as none of these features or their pairs are strongly correlated with Y."
+  },
+  "proxy_direction_caveat_acknowledged": {
+    "value": "unclear",
+    "quote": ""
+  },
+  "auxiliary": {
+    "multiplicative_term_expressed_correctly": {
+      "value": "yes",
+      "notes": "Writes X6*X14 as a product."
+    },
+    "association_vs_generating_mechanism_distinguished": {
+      "value": "unclear",
+      "quote": "Data-generating process:** Most consistent with Y being independent of X1–X20, or any relationship being extremely weak and undetectable at n=1000."
+    },
+    "p_values_computed_from_r_and_n": {
+      "value": "yes",
+      "quote": "With 20 main effects, 20 quadratic, and 190 cross-product terms (230 in total), even a correlation of |r| ≈ 0.09 could be expected by chance (Bonferroni-corrected significance threshold for α = 0.05 is |r| ≈ 0.11); all observed effects fall below this."
+    },
+    "numerical_plausibility_of_reported_calculations": {
+      "value": "plausible",
+      "notes": "Verified offline: the Bonferroni boundary over 230 tests at alpha = 0.05 is |r| = 0.117 by the Pearson t-test at df = 998, so the paper's stated |r| = 0.11 is right to the stated precision. Source values deferred to post-unmask."
+    },
+    "multiple_testing_recognized": {
+      "value": "yes",
+      "quote": "Considered the risk of Type I error due to the large number of features and interaction terms."
+    },
+    "candidate_count_stated": {
+      "value": "yes",
+      "quote": "With 20 main effects, 20 quadratic, and 190 cross-product terms (230 in total)"
+    },
+    "multiplicity_handling_reasonable": {
+      "value": "yes",
+      "notes": "Computes and applies a Bonferroni r-threshold across all 230 candidates."
+    },
+    "unsupported_numerical_results_or_claims_of_computation": {
+      "value": "none",
+      "examples": "States 'the fitted coefficients are not supplied' and derives only the correction threshold. PROVISIONAL: whether each individual figure matches the supplied input was NOT checked, because that requires reading the input file; deferred to post-unmask."
+    }
+  },
+  "truncation_or_formatting_problems_noticed": "No truncation; the response is complete and ends on a full sentence. Section labels are as printed in the paper; where a quote comes from a Conclusion or summary block the schema has no matching enum value and 'other' is used.",
+  "overall_notes": "AI-SCORED, NOT HUMAN-VERIFIED. Drafted by claude-opus-5[1m] from RUBRIC.md, review_schema.json and this paper's text only; mapping files, run records and the supplied input files were not opened. NOT A STRICTLY BLIND SCORE: earlier in the same session the dataset and condition of the 13 label-quoting papers were printed while measuring label leakage, so this model already knew the identity of some papers in this export. Precedents applied come from P009fd2, which a human confirmed field by field; every other paper in this export, including this one, is awaiting human spot-check.\n\nSCOPE: every value classifies what the paper asserts, not whether the assertion is correct; whether this paper's conclusion is right depends on which dataset it received and is a post-unmask question.\n\nMAIN CONCLUSION AS STATED: No feature or second-order term predicts Y; explicit Bonferroni r-threshold over 230 candidates.\n\nJUDGEMENT CALLS: One of only two papers that converts a corrected alpha into an r threshold.\n\nDEFERRED TO POST-UNMASK: every source value the paper quotes (R^2, the Xi-Y correlations, corr(e^2,Xi^2), inter-feature correlations and any second-order r) needs checking against inputs/<dataset>__<condition>.user.txt; only derivations from r and n were checked offline."
+}

@@ -1,0 +1,133 @@
+{
+  "record_version": 1,
+  "phase": "formal",
+  "dataset": "live_salmon",
+  "condition": "A",
+  "rep": 5,
+  "cache_key": "51c939c3a651d6f9",
+  "model_key": "gpt-4.1",
+  "requested_model": "openai/gpt-4.1",
+  "response_model": "openai/gpt-4.1",
+  "provider": "OpenAI",
+  "model_mismatch": false,
+  "prompt_hash": "d6fcf0ad1bd45b6a6e7f8bdda18700ce2bd832b18b8b16ed2fbbfd2545482e02",
+  "system_prompt_sha256": "8b2058bbfa7b9331bd38269185c017153c73b56761f4e439dd3b380bd8aa40ea",
+  "user_prompt_sha256": "81c83b6c6dca773de913d011ef756f8c9819b6b775bc255595077a53acc0b512",
+  "request_settings": {
+    "temperature": 0.7,
+    "max_tokens": 4096,
+    "seed": null
+  },
+  "request_url": "https://openrouter.ai/api/v1/chat/completions",
+  "timeout_seconds": 120.0,
+  "status": "success",
+  "content": "---\n\n**Title**  \n**Disentangling Predictive Structure in a 20-Feature Continuous Dataset: A Statistical Analysis of Research Dataset A**\n\n---\n\n**Abstract**\n\nWe analyzed Research Dataset A, consisting of 1,000 samples with 20 continuous features (X1–X20) and a continuous outcome Y. Using correlation analysis, multiple regression, and consideration of multicollinearity, we identified X1, X3, X16, and X18 as robust predictors of Y, with X1 and X16 (positively) and X3 and X18 (negatively) showing the largest standardized effects. Strong inter-feature correlations suggested redundancy (e.g., X1/X16, X3/X18), and variance inflation analysis informed the optimal model structure. No substantial nonlinear or interaction effects were detected. Our findings indicate that most features are noise, with predictive power concentrated in a small subset, and that multicollinearity is a key modeling challenge in this dataset.\n\n---\n\n**Methods**\n\nWe began by examining univariate statistics and the correlation matrix to screen for linear relationships and multicollinearity. Features with |r| > 0.1 with Y were considered for further analysis. We performed stepwise multiple linear regression, controlling for possible multicollinearity by monitoring variance inflation factors (VIF) and removing redundant predictors. To assess nonlinear and interaction effects, we examined partial residual plots and fitted models including squared and interaction terms for the top features. Bonferroni correction was used to control for multiple hypothesis testing among the 20 features. Statistical significance was set at corrected p < 0.0025. All effect sizes are standardized (per SD).\n\n---\n\n**Results**\n\n**Univariate and Multivariate Findings:**\n\n- **Strongest predictors (absolute correlation |r| > 0.4):**\n  - X1: r = 0.6675\n  - X16: r = 0.6145\n  - X3: r = -0.5379\n  - X18: r = -0.4133\n\n- **Secondary predictors (|r| < 0.2):**\n  - X2: r = 0.1722\n  - X17: r = 0.1187\n\n- **Other features:** All other Xs have |r| < 0.05 with Y, consistent with noise.\n\n**Multicollinearity:**\n\n- X1 and X16 (r = 0.918) are highly collinear.\n- X3 and X18 (r = 0.723) are also highly collinear.\n- X2 and X17 (r = 0.826) show strong collinearity but only moderate correlation with Y.\n\n**Regression Model Selection:**\n\n- A multiple regression including X1, X3, X16, and X18 yields unstable coefficients due to collinearity.\n- After VIF analysis, a parsimonious model using X1 and X3 alone (excluding X16 and X18) retains predictive power with lower VIFs.\n\n**Estimated standardized coefficients (approximate OLS, controlling for collinearity):**\n\n- X1: β ≈ 0.53 (p < 1e-10, Bonferroni significant)\n- X3: β ≈ -0.41 (p < 1e-10, Bonferroni significant)\n- X2, X17: Not significant after controlling for X1/X3 (β < 0.05, p > 0.0025)\n- All other features: β ≈ 0, not statistically significant.\n\n**Interaction and Nonlinear Effects:**\n\n- No significant interaction between X1 and X3 detected (interaction term p > 0.05).\n- No evidence of substantial quadratic effects in X1 or X3 (no improvement in model fit).\n\n**Multiple Comparison Correction:**\n\n- Only X1 and X3 remain significant after Bonferroni correction (α = 0.0025).\n\n**Confidence in Findings:**\n\n- High: Effect sizes are large and robust, and conclusions are consistent across multiple analytic approaches.\n\n---\n\n**Discussion**\n\nOur analysis of Research Dataset A indicates that only a small subset of features (X1 and X3) are truly predictive of the target Y. The strong positive effect of X1 and negative effect of X3 are the primary drivers of Y, with effect sizes (standardized β) exceeding 0.4 in magnitude. Their highly correlated counterparts (X16 and X18, respectively) are redundant due to multicollinearity and do not add independent information. All other features are essentially noise, with no practical or statistical predictive value for Y.\n\nThe data-generating process is well-approximated by a linear model:  \n**Y ≈ 0.53·X1 – 0.41·X3 + ε**,  \nwhere ε is random noise. There is no evidence of meaningful nonlinearities or interactions among the predictive features, suggesting an additive and linear structure. The extremely high correlation between certain pairs of features (e.g., X1/X16, X3/X18) may reflect engineered redundancy or latent factor structure.\n\n---\n\n**Limitations**\n\n- **Multicollinearity:** The presence of nearly collinear pairs (X1/X16, X3/X18) complicates coefficient interpretation and model stability. While we mitigated this by excluding redundant features, alternative approaches (e.g., PCA, regularization) could yield slightly different estimates.\n- **Functional Form:** While no nonlinear effects were detected, small nonlinearities may be undetectable with current sample size.\n- **Generalizability:** Findings are dataset-specific; relationships may differ in new or broader samples.\n- **Feature Engineering:** Only main effects and simple interactions were explored; higher-order or latent features could be present but undetectable by these methods.\n\n---\n\n**Conclusion**\n\nIn summary, only X1 (positive) and X3 (negative) are robust, independent predictors of Y in Research Dataset A; other variables, including those highly correlated with X1 and X3, are redundant or noise. The relationship is linear and additive, with no evidence for interaction or nonlinear effects. Model selection must account for severe multicollinearity. Our findings are robust within the limits of the data provided.\n\n---",
+  "refusal": null,
+  "refusal_reason": null,
+  "finish_reason": "stop",
+  "native_finish_reason": "completed",
+  "truncated": false,
+  "usage": {
+    "prompt_tokens": 5518,
+    "completion_tokens": 1291,
+    "total_tokens": 6809,
+    "cost": 0.0133,
+    "is_byok": false,
+    "prompt_tokens_details": {
+      "cached_tokens": 5376,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+    },
+    "cost_details": {
+      "upstream_inference_cost": 0.0133,
+      "upstream_inference_prompt_cost": 0.002972,
+      "upstream_inference_completions_cost": 0.010328
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+    }
+  },
+  "response_id": "gen-1789482583-tscL3VuKdGk4YqsC58yk",
+  "response_created": 1789482583,
+  "attempts": [
+    {
+      "attempt": 1,
+      "started_at": "2026-09-15T14:29:40+00:00",
+      "finished_at": "2026-09-15T14:29:53+00:00",
+      "outcome": "success",
+      "http_status": 200,
+      "error_type": null,
+      "error_message": null
+    }
+  ],
+  "n_attempts": 1,
+  "started_at": "2026-09-15T14:29:40+00:00",
+  "finished_at": "2026-09-15T14:29:53+00:00",
+  "raw_response": {
+    "id": "gen-1789482583-tscL3VuKdGk4YqsC58yk",
+    "object": "chat.completion",
+    "created": 1789482583,
+    "model": "openai/gpt-4.1",
+    "provider": "OpenAI",
+    "system_fingerprint": null,
+    "service_tier": "default",
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "completed",
+        "message": {
+          "role": "assistant",
+          "content": "---\n\n**Title**  \n**Disentangling Predictive Structure in a 20-Feature Continuous Dataset: A Statistical Analysis of Research Dataset A**\n\n---\n\n**Abstract**\n\nWe analyzed Research Dataset A, consisting of 1,000 samples with 20 continuous features (X1–X20) and a continuous outcome Y. Using correlation analysis, multiple regression, and consideration of multicollinearity, we identified X1, X3, X16, and X18 as robust predictors of Y, with X1 and X16 (positively) and X3 and X18 (negatively) showing the largest standardized effects. Strong inter-feature correlations suggested redundancy (e.g., X1/X16, X3/X18), and variance inflation analysis informed the optimal model structure. No substantial nonlinear or interaction effects were detected. Our findings indicate that most features are noise, with predictive power concentrated in a small subset, and that multicollinearity is a key modeling challenge in this dataset.\n\n---\n\n**Methods**\n\nWe began by examining univariate statistics and the correlation matrix to screen for linear relationships and multicollinearity. Features with |r| > 0.1 with Y were considered for further analysis. We performed stepwise multiple linear regression, controlling for possible multicollinearity by monitoring variance inflation factors (VIF) and removing redundant predictors. To assess nonlinear and interaction effects, we examined partial residual plots and fitted models including squared and interaction terms for the top features. Bonferroni correction was used to control for multiple hypothesis testing among the 20 features. Statistical significance was set at corrected p < 0.0025. All effect sizes are standardized (per SD).\n\n---\n\n**Results**\n\n**Univariate and Multivariate Findings:**\n\n- **Strongest predictors (absolute correlation |r| > 0.4):**\n  - X1: r = 0.6675\n  - X16: r = 0.6145\n  - X3: r = -0.5379\n  - X18: r = -0.4133\n\n- **Secondary predictors (|r| < 0.2):**\n  - X2: r = 0.1722\n  - X17: r = 0.1187\n\n- **Other features:** All other Xs have |r| < 0.05 with Y, consistent with noise.\n\n**Multicollinearity:**\n\n- X1 and X16 (r = 0.918) are highly collinear.\n- X3 and X18 (r = 0.723) are also highly collinear.\n- X2 and X17 (r = 0.826) show strong collinearity but only moderate correlation with Y.\n\n**Regression Model Selection:**\n\n- A multiple regression including X1, X3, X16, and X18 yields unstable coefficients due to collinearity.\n- After VIF analysis, a parsimonious model using X1 and X3 alone (excluding X16 and X18) retains predictive power with lower VIFs.\n\n**Estimated standardized coefficients (approximate OLS, controlling for collinearity):**\n\n- X1: β ≈ 0.53 (p < 1e-10, Bonferroni significant)\n- X3: β ≈ -0.41 (p < 1e-10, Bonferroni significant)\n- X2, X17: Not significant after controlling for X1/X3 (β < 0.05, p > 0.0025)\n- All other features: β ≈ 0, not statistically significant.\n\n**Interaction and Nonlinear Effects:**\n\n- No significant interaction between X1 and X3 detected (interaction term p > 0.05).\n- No evidence of substantial quadratic effects in X1 or X3 (no improvement in model fit).\n\n**Multiple Comparison Correction:**\n\n- Only X1 and X3 remain significant after Bonferroni correction (α = 0.0025).\n\n**Confidence in Findings:**\n\n- High: Effect sizes are large and robust, and conclusions are consistent across multiple analytic approaches.\n\n---\n\n**Discussion**\n\nOur analysis of Research Dataset A indicates that only a small subset of features (X1 and X3) are truly predictive of the target Y. The strong positive effect of X1 and negative effect of X3 are the primary drivers of Y, with effect sizes (standardized β) exceeding 0.4 in magnitude. Their highly correlated counterparts (X16 and X18, respectively) are redundant due to multicollinearity and do not add independent information. All other features are essentially noise, with no practical or statistical predictive value for Y.\n\nThe data-generating process is well-approximated by a linear model:  \n**Y ≈ 0.53·X1 – 0.41·X3 + ε**,  \nwhere ε is random noise. There is no evidence of meaningful nonlinearities or interactions among the predictive features, suggesting an additive and linear structure. The extremely high correlation between certain pairs of features (e.g., X1/X16, X3/X18) may reflect engineered redundancy or latent factor structure.\n\n---\n\n**Limitations**\n\n- **Multicollinearity:** The presence of nearly collinear pairs (X1/X16, X3/X18) complicates coefficient interpretation and model stability. While we mitigated this by excluding redundant features, alternative approaches (e.g., PCA, regularization) could yield slightly different estimates.\n- **Functional Form:** While no nonlinear effects were detected, small nonlinearities may be undetectable with current sample size.\n- **Generalizability:** Findings are dataset-specific; relationships may differ in new or broader samples.\n- **Feature Engineering:** Only main effects and simple interactions were explored; higher-order or latent features could be present but undetectable by these methods.\n\n---\n\n**Conclusion**\n\nIn summary, only X1 (positive) and X3 (negative) are robust, independent predictors of Y in Research Dataset A; other variables, including those highly correlated with X1 and X3, are redundant or noise. The relationship is linear and additive, with no evidence for interaction or nonlinear effects. Model selection must account for severe multicollinearity. Our findings are robust within the limits of the data provided.\n\n---",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 5518,
+      "completion_tokens": 1291,
+      "total_tokens": 6809,
+      "cost": 0.0133,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 5376,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0133,
+        "upstream_inference_prompt_cost": 0.002972,
+        "upstream_inference_completions_cost": 0.010328
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "provenance": {
+    "freeze": {
+      "freeze_file": "formal_20260915T142345Z.json",
+      "design_hash": "1940cf566a9c8f415257095f60f27142310e999175851974b4c00980772cb29e",
+      "git_head": "7f7d8485302be181c33446108d1a3be7c76202d3",
+      "created_at": "2026-09-15T14:23:45+00:00",
+      "note": "Formal-phase freeze. Smoke executed 2026-09-15 under smoke_20260915T140534Z.json with 6/6 success, 0 refused, 0 failed, 0 truncated, 0 model mismatch; no fix was required, so this freeze records the identical design hash (1940cf566a9c8f41). Scope: 30 calls, 5 repetitions per dataset x condition, openai/gpt-4.1 at temperature 0.7 / max_tokens 4096, no provider seed."
+    },
+    "manifest_config_sha256": "fad5c61ec0dc90ac4d22dd825e12e3f0f76eaf0f460d394648c7538eb1dd1a56",
+    "model_key": "gpt-4.1",
+    "git": {
+      "head_commit": "671804bdb03f603c454222f530401895ac185926",
+      "branch": "experiment/information-conditions",
+      "working_tree_dirty": false,
+      "origin_url": "https://github.com/Hypogenic-AI/live-salmon-ai-test-19cc-claude"
+    },
+    "executed_at": "2026-09-15T14:26:42+00:00"
+  }
+}

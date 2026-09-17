@@ -1,0 +1,320 @@
+{
+  "phase": "formal",
+  "executed": true,
+  "model_key": "gpt-4.1",
+  "model_id": "openai/gpt-4.1",
+  "planned": 30,
+  "already_cached_success": 0,
+  "already_cached_refused": 0,
+  "skipped_failed": 0,
+  "called": 30,
+  "success": 30,
+  "refused": 0,
+  "failed": 0,
+  "truncated": 0,
+  "model_mismatch": 0,
+  "refusals": [],
+  "records": [
+    {
+      "schedule_index": 0,
+      "dataset": "live_salmon",
+      "condition": "B",
+      "rep": 5,
+      "cache_key": "91d57c85892c71f6",
+      "record_file": "formal__live_salmon__B__gpt-4.1__rep05__91d57c85892c71f6.json",
+      "state": "success",
+      "truncated": false
+    },
+    {
+      "schedule_index": 1,
+      "dataset": "dead_salmon",
+      "condition": "A_prime",
+      "rep": 3,
+      "cache_key": "69e5a970e837746d",
+      "record_file": "formal__dead_salmon__A_prime__gpt-4.1__rep03__69e5a970e837746d.json",
+      "state": "success",
+      "truncated": false
+    },
+    {
+      "schedule_index": 2,
+      "dataset": "live_salmon",
+      "condition": "A_prime",
+      "rep": 3,
+      "cache_key": "7ddf173c1505672f",
+      "record_file": "formal__live_salmon__A_prime__gpt-4.1__rep03__7ddf173c1505672f.json",
+      "state": "success",
+      "truncated": false
+    },
+    {
+      "schedule_index": 3,
+      "dataset": "dead_salmon",
+      "condition": "A_prime",
+      "rep": 1,
+      "cache_key": "9db1f31c82864da2",
+      "record_file": "formal__dead_salmon__A_prime__gpt-4.1__rep01__9db1f31c82864da2.json",
+      "state": "success",
+      "truncated": false
+    },
+    {
+      "schedule_index": 4,
+      "dataset": "dead_salmon",
+      "condition": "A_prime",
+      "rep": 2,
+      "cache_key": "6e1dc1535c7c09d0",
+      "record_file": "formal__dead_salmon__A_prime__gpt-4.1__rep02__6e1dc1535c7c09d0.json",
+      "state": "success",
+      "truncated": false
+    },
+    {
+      "schedule_index": 5,
+      "dataset": "dead_salmon",
+      "condition": "A",
+      "rep": 3,
+      "cache_key": "cd06fa51308819ae",
+      "record_file": "formal__dead_salmon__A__gpt-4.1__rep03__cd06fa51308819ae.json",
+      "state": "success",
+      "truncated": false
+    },
+    {
+      "schedule_index": 6,
+      "dataset": "dead_salmon",
+      "condition": "B",
+      "rep": 4,
+      "cache_key": "930a73f190cbc34b",
+      "record_file": "formal__dead_salmon__B__gpt-4.1__rep04__930a73f190cbc34b.json",
+      "state": "success",
+      "truncated": false
+    },
+    {
+      "schedule_index": 7,
+      "dataset": "live_salmon",
+      "condition": "B",
+      "rep": 4,
+      "cache_key": "872db40588811660",
+      "record_file": "formal__live_salmon__B__gpt-4.1__rep04__872db40588811660.json",
+      "state": "success",
+      "truncated": false
+    },
+    {
+      "schedule_index": 8,
+      "dataset": "live_salmon",
+      "condition": "A",
+      "rep": 1,
+      "cache_key": "7a5613a85b35519d",
+      "record_file": "formal__live_salmon__A__gpt-4.1__rep01__7a5613a85b35519d.json",
+      "state": "success",
+      "truncated": false
+    },
+    {
+      "schedule_index": 9,
+      "dataset": "dead_salmon",
+      "condition": "A",
+      "rep": 1,
+      "cache_key": "ca808d1e2fe17ca2",
+      "record_file": "formal__dead_salmon__A__gpt-4.1__rep01__ca808d1e2fe17ca2.json",
+      "state": "success",
+      "truncated": false
+    },
+    {
+      "schedule_index": 10,
+      "dataset": "live_salmon",
+      "condition": "A",
+      "rep": 5,
+      "cache_key": "51c939c3a651d6f9",
+      "record_file": "formal__live_salmon__A__gpt-4.1__rep05__51c939c3a651d6f9.json",
+      "state": "success",
+      "truncated": false
+    },
+    {
+      "schedule_index": 11,
+      "dataset": "live_salmon",
+      "condition": "A",
+      "rep": 3,
+      "cache_key": "b1fca0c5ee818fc6",
+      "record_file": "formal__live_salmon__A__gpt-4.1__rep03__b1fca0c5ee818fc6.json",
+      "state": "success",
+      "truncated": false
+    },
+    {
+      "schedule_index": 12,
+      "dataset": "dead_salmon",
+      "condition": "A_prime",
+      "rep": 4,
+      "cache_key": "a3e72c56784338bf",
+      "record_file": "formal__dead_salmon__A_prime__gpt-4.1__rep04__a3e72c56784338bf.json",
+      "state": "success",
+      "truncated": false
+    },
+    {
+      "schedule_index": 13,
+      "dataset": "live_salmon",
+      "condition": "A",
+      "rep": 4,
+      "cache_key": "85050e49bee3ee1b",
+      "record_file": "formal__live_salmon__A__gpt-4.1__rep04__85050e49bee3ee1b.json",
+      "state": "success",
+      "truncated": false
+    },
+    {
+      "schedule_index": 14,
+      "dataset": "dead_salmon",
+      "condition": "A",
+      "rep": 2,
+      "cache_key": "4b327a78519aba19",
+      "record_file": "formal__dead_salmon__A__gpt-4.1__rep02__4b327a78519aba19.json",
+      "state": "success",
+      "truncated": false
+    },
+    {
+      "schedule_index": 15,
+      "dataset": "live_salmon",
+      "condition": "B",
+      "rep": 3,
+      "cache_key": "6eae1da104e36082",
+      "record_file": "formal__live_salmon__B__gpt-4.1__rep03__6eae1da104e36082.json",
+      "state": "success",
+      "truncated": false
+    },
+    {
+      "schedule_index": 16,
+      "dataset": "dead_salmon",
+      "condition": "B",
+      "rep": 5,
+      "cache_key": "50edc5ff467de3e5",
+      "record_file": "formal__dead_salmon__B__gpt-4.1__rep05__50edc5ff467de3e5.json",
+      "state": "success",
+      "truncated": false
+    },
+    {
+      "schedule_index": 17,
+      "dataset": "live_salmon",
+      "condition": "A_prime",
+      "rep": 4,
+      "cache_key": "d344d39e19299cce",
+      "record_file": "formal__live_salmon__A_prime__gpt-4.1__rep04__d344d39e19299cce.json",
+      "state": "success",
+      "truncated": false
+    },
+    {
+      "schedule_index": 18,
+      "dataset": "live_salmon",
+      "condition": "A_prime",
+      "rep": 1,
+      "cache_key": "ebfb183da8dbc149",
+      "record_file": "formal__live_salmon__A_prime__gpt-4.1__rep01__ebfb183da8dbc149.json",
+      "state": "success",
+      "truncated": false
+    },
+    {
+      "schedule_index": 19,
+      "dataset": "live_salmon",
+      "condition": "B",
+      "rep": 1,
+      "cache_key": "9e70c7e90bc59c6e",
+      "record_file": "formal__live_salmon__B__gpt-4.1__rep01__9e70c7e90bc59c6e.json",
+      "state": "success",
+      "truncated": false
+    },
+    {
+      "schedule_index": 20,
+      "dataset": "dead_salmon",
+      "condition": "A_prime",
+      "rep": 5,
+      "cache_key": "314db92f3e67d87a",
+      "record_file": "formal__dead_salmon__A_prime__gpt-4.1__rep05__314db92f3e67d87a.json",
+      "state": "success",
+      "truncated": false
+    },
+    {
+      "schedule_index": 21,
+      "dataset": "live_salmon",
+      "condition": "A_prime",
+      "rep": 2,
+      "cache_key": "c20700d5a1d01c4c",
+      "record_file": "formal__live_salmon__A_prime__gpt-4.1__rep02__c20700d5a1d01c4c.json",
+      "state": "success",
+      "truncated": false
+    },
+    {
+      "schedule_index": 22,
+      "dataset": "live_salmon",
+      "condition": "B",
+      "rep": 2,
+      "cache_key": "190f206079e7ad91",
+      "record_file": "formal__live_salmon__B__gpt-4.1__rep02__190f206079e7ad91.json",
+      "state": "success",
+      "truncated": false
+    },
+    {
+      "schedule_index": 23,
+      "dataset": "dead_salmon",
+      "condition": "A",
+      "rep": 4,
+      "cache_key": "b2b6392524b8a884",
+      "record_file": "formal__dead_salmon__A__gpt-4.1__rep04__b2b6392524b8a884.json",
+      "state": "success",
+      "truncated": false
+    },
+    {
+      "schedule_index": 24,
+      "dataset": "dead_salmon",
+      "condition": "A",
+      "rep": 5,
+      "cache_key": "e3403952e9738ccd",
+      "record_file": "formal__dead_salmon__A__gpt-4.1__rep05__e3403952e9738ccd.json",
+      "state": "success",
+      "truncated": false
+    },
+    {
+      "schedule_index": 25,
+      "dataset": "dead_salmon",
+      "condition": "B",
+      "rep": 3,
+      "cache_key": "0b0dd4e474b846ed",
+      "record_file": "formal__dead_salmon__B__gpt-4.1__rep03__0b0dd4e474b846ed.json",
+      "state": "success",
+      "truncated": false
+    },
+    {
+      "schedule_index": 26,
+      "dataset": "live_salmon",
+      "condition": "A_prime",
+      "rep": 5,
+      "cache_key": "acc4a071600ae07d",
+      "record_file": "formal__live_salmon__A_prime__gpt-4.1__rep05__acc4a071600ae07d.json",
+      "state": "success",
+      "truncated": false
+    },
+    {
+      "schedule_index": 27,
+      "dataset": "dead_salmon",
+      "condition": "B",
+      "rep": 2,
+      "cache_key": "a33a248562ad1747",
+      "record_file": "formal__dead_salmon__B__gpt-4.1__rep02__a33a248562ad1747.json",
+      "state": "success",
+      "truncated": false
+    },
+    {
+      "schedule_index": 28,
+      "dataset": "live_salmon",
+      "condition": "A",
+      "rep": 2,
+      "cache_key": "9bb3ddb3c9cf7ec6",
+      "record_file": "formal__live_salmon__A__gpt-4.1__rep02__9bb3ddb3c9cf7ec6.json",
+      "state": "success",
+      "truncated": false
+    },
+    {
+      "schedule_index": 29,
+      "dataset": "dead_salmon",
+      "condition": "B",
+      "rep": 1,
+      "cache_key": "887b56f39a88718d",
+      "record_file": "formal__dead_salmon__B__gpt-4.1__rep01__887b56f39a88718d.json",
+      "state": "success",
+      "truncated": false
+    }
+  ],
+  "generated_at": "2026-09-15T14:26:42+00:00"
+}

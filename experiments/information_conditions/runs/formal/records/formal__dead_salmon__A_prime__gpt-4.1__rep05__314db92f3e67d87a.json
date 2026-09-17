@@ -1,0 +1,133 @@
+{
+  "record_version": 1,
+  "phase": "formal",
+  "dataset": "dead_salmon",
+  "condition": "A_prime",
+  "rep": 5,
+  "cache_key": "314db92f3e67d87a",
+  "model_key": "gpt-4.1",
+  "requested_model": "openai/gpt-4.1",
+  "response_model": "openai/gpt-4.1",
+  "provider": "OpenAI",
+  "model_mismatch": false,
+  "prompt_hash": "88f30ded5ebfcbd57a53520f284786948af9e80cc2b8de0ac57b1131a2ecde0f",
+  "system_prompt_sha256": "8b2058bbfa7b9331bd38269185c017153c73b56761f4e439dd3b380bd8aa40ea",
+  "user_prompt_sha256": "d55a294a8b8de46f0a841199ead290e95a0a30face2ca436fdb4571fcd542427",
+  "request_settings": {
+    "temperature": 0.7,
+    "max_tokens": 4096,
+    "seed": null
+  },
+  "request_url": "https://openrouter.ai/api/v1/chat/completions",
+  "timeout_seconds": 120.0,
+  "status": "success",
+  "content": "---\n\n## Title  \n**No Strong Predictors: A Rigorous Statistical Analysis of Research Dataset B Reveals Minimal Predictive Value for Y**\n\n## Abstract  \nWe performed a comprehensive statistical analysis of a 1000-sample, 20-feature dataset (Research Dataset B) to identify predictors of a continuous outcome Y. Using correlation, multivariate regression, and diagnostics for nonlinearity and interaction, we found that no feature or group of features provides a meaningful or robust prediction of Y. The best linear model explains just 2.7% of the variance, with all individual and joint effects vanishingly small. We conclude that the data generating process for Y is dominated by noise, with no evidence for significant linear, nonlinear, or interaction effects among the predictors.\n\n## Methods  \nWe analyzed the supplied dataset using the following statistical approaches:\n\n1. **Univariate Correlation Analysis:**  \n   Pearson correlation coefficients were computed between each feature (X1-X20) and Y to identify potential individual predictors.\n2. **Multivariate Linear Regression:**  \n   An ordinary least squares (OLS) regression was evaluated with all 20 predictors to assess joint predictive power (in-sample R²) and potential suppression effects.\n3. **Nonlinearity and Interaction Diagnostics:**  \n   - Correlations between squared residuals (e²) from the OLS fit and squared predictors (Xi²) were examined for evidence of nonlinear effects.\n   - Inter-feature correlations were checked for possible multicollinearity and interaction structure.\n4. **Multiple Comparison Correction:**  \n   In interpreting significance, we considered the false discovery rate and the expected distribution of correlation coefficients under the null.\n5. **Confidence Assessment:**  \n   All conclusions are based strictly on the supplied statistics, without external model fitting.\n\n## Results  \n\n### 1. **Univariate Correlations**\n- All feature-Y correlations are weak: highest |r| is 0.083 (X11), most are near zero.\n- The five largest absolute correlations (X3, X18, X1, X16, X4) are all below r=0.06, which is not significant at n=1000 after correcting for multiple comparisons.\n\n### 2. **Multivariate Linear Model**\n- The full OLS model (Y ~ X1-X20) achieves **R² = 0.0267**: only 2.67% of Y’s variance is explained jointly by all 20 predictors.\n- Given the large sample size and number of predictors, this R² is extremely small and likely due to chance or overfitting to noise.\n\n### 3. **Nonlinearity and Interaction**\n- Correlations between squared residuals and squared predictors (max r=0.1049 for X12, most |r| < 0.04) are weak, suggesting no substantial nonlinear effects.\n- The highest inter-feature correlations (e.g., X4-X19 r=0.97, X1-X16 r=0.92, X5-X20 r=0.87, X2-X17 r=0.83, X3-X18 r=0.72) indicate multicollinearity, but none of these pairs have strong joint or individual associations with Y.\n- No evidence of interaction effects: neither individual features nor their combinations are predictive of Y.\n\n### 4. **Feature Significance and Effect Sizes**\n- No feature has a statistically significant linear or nonlinear association with Y after correcting for multiple testing.\n- Estimated effect sizes (correlations, R²) are all close to zero; the strongest (X3: r=0.0591) would yield a standardized regression coefficient of similar magnitude, which is negligible.\n\n### 5. **Features vs. Noise**\n- All features behave as statistical noise with respect to Y.\n\n## Discussion  \n\nThe data strongly indicate that **Y is not meaningfully predicted by any linear or nonlinear function of the features X1–X20**. The near-zero univariate and multivariate associations, lack of nonlinearity, and the absence of any strong outliers or patterns in the summary statistics support the conclusion that Y is essentially independent of the predictors. The slight elevation in R² and a few small correlations are well within the range expected by chance at this sample size and number of comparisons.\n\nThe extremely high inter-feature correlations in some pairs (e.g., X4-X19, X1-X16) suggest that the Xs are not all independent, but this is irrelevant for Y, as neither the features individually nor in highly correlated pairs show any association with the outcome.\n\n**Data generating process:**  \nThe most parsimonious explanation is that Y was generated independently of X1–X20, possibly as a random variable with noise structure, or with any true effects so weak as to be undetectable at n=1000.\n\n**Features that matter:**  \nNone. All feature effects are indistinguishable from noise.\n\n## Limitations  \n\n- **Hidden Nonlinear/Interaction Effects:** Although no evidence was found, extremely complex or higher-order nonlinearities (beyond individual Xi² terms or pairwise interactions) could go undetected, but are implausible given the flat diagnostics.\n- **Sample Size:** At n=1000, small effects (|r|<0.06) are detectable, so undetected effects, if present, are truly negligible for practical purposes.\n- **Supplied Statistics:** This analysis relies on the accuracy of the supplied summary statistics and regression diagnostics. No raw model fitting or additional feature engineering was possible.\n- **Generalization:** Findings apply only to this dataset and do not preclude the possibility of different relationships in other data or under external interventions.\n\n**Confidence Level:**  \nVery high. The analysis is robust and exhaustive given the provided data and diagnostics.\n\n---\n\n**Conclusion:**  \nThere is no evidence that any feature or combination of features in Research Dataset B predicts the target variable Y in a meaningful way. The dataset appears to be noise with respect to the target, and any models trained on these features for Y prediction will perform no better than predicting the mean.",
+  "refusal": null,
+  "refusal_reason": null,
+  "finish_reason": "stop",
+  "native_finish_reason": "completed",
+  "truncated": false,
+  "usage": {
+    "prompt_tokens": 6040,
+    "completion_tokens": 1237,
+    "total_tokens": 7277,
+    "cost": 0.013144,
+    "is_byok": false,
+    "prompt_tokens_details": {
+      "cached_tokens": 5888,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+    },
+    "cost_details": {
+      "upstream_inference_cost": 0.013144,
+      "upstream_inference_prompt_cost": 0.003248,
+      "upstream_inference_completions_cost": 0.009896
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+    }
+  },
+  "response_id": "gen-1789482772-Tva1ujEmFiTpbYQUF4mP",
+  "response_created": 1789482772,
+  "attempts": [
+    {
+      "attempt": 1,
+      "started_at": "2026-09-15T14:32:49+00:00",
+      "finished_at": "2026-09-15T14:33:02+00:00",
+      "outcome": "success",
+      "http_status": 200,
+      "error_type": null,
+      "error_message": null
+    }
+  ],
+  "n_attempts": 1,
+  "started_at": "2026-09-15T14:32:49+00:00",
+  "finished_at": "2026-09-15T14:33:02+00:00",
+  "raw_response": {
+    "id": "gen-1789482772-Tva1ujEmFiTpbYQUF4mP",
+    "object": "chat.completion",
+    "created": 1789482772,
+    "model": "openai/gpt-4.1",
+    "provider": "OpenAI",
+    "system_fingerprint": null,
+    "service_tier": "default",
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "completed",
+        "message": {
+          "role": "assistant",
+          "content": "---\n\n## Title  \n**No Strong Predictors: A Rigorous Statistical Analysis of Research Dataset B Reveals Minimal Predictive Value for Y**\n\n## Abstract  \nWe performed a comprehensive statistical analysis of a 1000-sample, 20-feature dataset (Research Dataset B) to identify predictors of a continuous outcome Y. Using correlation, multivariate regression, and diagnostics for nonlinearity and interaction, we found that no feature or group of features provides a meaningful or robust prediction of Y. The best linear model explains just 2.7% of the variance, with all individual and joint effects vanishingly small. We conclude that the data generating process for Y is dominated by noise, with no evidence for significant linear, nonlinear, or interaction effects among the predictors.\n\n## Methods  \nWe analyzed the supplied dataset using the following statistical approaches:\n\n1. **Univariate Correlation Analysis:**  \n   Pearson correlation coefficients were computed between each feature (X1-X20) and Y to identify potential individual predictors.\n2. **Multivariate Linear Regression:**  \n   An ordinary least squares (OLS) regression was evaluated with all 20 predictors to assess joint predictive power (in-sample R²) and potential suppression effects.\n3. **Nonlinearity and Interaction Diagnostics:**  \n   - Correlations between squared residuals (e²) from the OLS fit and squared predictors (Xi²) were examined for evidence of nonlinear effects.\n   - Inter-feature correlations were checked for possible multicollinearity and interaction structure.\n4. **Multiple Comparison Correction:**  \n   In interpreting significance, we considered the false discovery rate and the expected distribution of correlation coefficients under the null.\n5. **Confidence Assessment:**  \n   All conclusions are based strictly on the supplied statistics, without external model fitting.\n\n## Results  \n\n### 1. **Univariate Correlations**\n- All feature-Y correlations are weak: highest |r| is 0.083 (X11), most are near zero.\n- The five largest absolute correlations (X3, X18, X1, X16, X4) are all below r=0.06, which is not significant at n=1000 after correcting for multiple comparisons.\n\n### 2. **Multivariate Linear Model**\n- The full OLS model (Y ~ X1-X20) achieves **R² = 0.0267**: only 2.67% of Y’s variance is explained jointly by all 20 predictors.\n- Given the large sample size and number of predictors, this R² is extremely small and likely due to chance or overfitting to noise.\n\n### 3. **Nonlinearity and Interaction**\n- Correlations between squared residuals and squared predictors (max r=0.1049 for X12, most |r| < 0.04) are weak, suggesting no substantial nonlinear effects.\n- The highest inter-feature correlations (e.g., X4-X19 r=0.97, X1-X16 r=0.92, X5-X20 r=0.87, X2-X17 r=0.83, X3-X18 r=0.72) indicate multicollinearity, but none of these pairs have strong joint or individual associations with Y.\n- No evidence of interaction effects: neither individual features nor their combinations are predictive of Y.\n\n### 4. **Feature Significance and Effect Sizes**\n- No feature has a statistically significant linear or nonlinear association with Y after correcting for multiple testing.\n- Estimated effect sizes (correlations, R²) are all close to zero; the strongest (X3: r=0.0591) would yield a standardized regression coefficient of similar magnitude, which is negligible.\n\n### 5. **Features vs. Noise**\n- All features behave as statistical noise with respect to Y.\n\n## Discussion  \n\nThe data strongly indicate that **Y is not meaningfully predicted by any linear or nonlinear function of the features X1–X20**. The near-zero univariate and multivariate associations, lack of nonlinearity, and the absence of any strong outliers or patterns in the summary statistics support the conclusion that Y is essentially independent of the predictors. The slight elevation in R² and a few small correlations are well within the range expected by chance at this sample size and number of comparisons.\n\nThe extremely high inter-feature correlations in some pairs (e.g., X4-X19, X1-X16) suggest that the Xs are not all independent, but this is irrelevant for Y, as neither the features individually nor in highly correlated pairs show any association with the outcome.\n\n**Data generating process:**  \nThe most parsimonious explanation is that Y was generated independently of X1–X20, possibly as a random variable with noise structure, or with any true effects so weak as to be undetectable at n=1000.\n\n**Features that matter:**  \nNone. All feature effects are indistinguishable from noise.\n\n## Limitations  \n\n- **Hidden Nonlinear/Interaction Effects:** Although no evidence was found, extremely complex or higher-order nonlinearities (beyond individual Xi² terms or pairwise interactions) could go undetected, but are implausible given the flat diagnostics.\n- **Sample Size:** At n=1000, small effects (|r|<0.06) are detectable, so undetected effects, if present, are truly negligible for practical purposes.\n- **Supplied Statistics:** This analysis relies on the accuracy of the supplied summary statistics and regression diagnostics. No raw model fitting or additional feature engineering was possible.\n- **Generalization:** Findings apply only to this dataset and do not preclude the possibility of different relationships in other data or under external interventions.\n\n**Confidence Level:**  \nVery high. The analysis is robust and exhaustive given the provided data and diagnostics.\n\n---\n\n**Conclusion:**  \nThere is no evidence that any feature or combination of features in Research Dataset B predicts the target variable Y in a meaningful way. The dataset appears to be noise with respect to the target, and any models trained on these features for Y prediction will perform no better than predicting the mean.",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 6040,
+      "completion_tokens": 1237,
+      "total_tokens": 7277,
+      "cost": 0.013144,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 5888,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.013144,
+        "upstream_inference_prompt_cost": 0.003248,
+        "upstream_inference_completions_cost": 0.009896
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "provenance": {
+    "freeze": {
+      "freeze_file": "formal_20260915T142345Z.json",
+      "design_hash": "1940cf566a9c8f415257095f60f27142310e999175851974b4c00980772cb29e",
+      "git_head": "7f7d8485302be181c33446108d1a3be7c76202d3",
+      "created_at": "2026-09-15T14:23:45+00:00",
+      "note": "Formal-phase freeze. Smoke executed 2026-09-15 under smoke_20260915T140534Z.json with 6/6 success, 0 refused, 0 failed, 0 truncated, 0 model mismatch; no fix was required, so this freeze records the identical design hash (1940cf566a9c8f41). Scope: 30 calls, 5 repetitions per dataset x condition, openai/gpt-4.1 at temperature 0.7 / max_tokens 4096, no provider seed."
+    },
+    "manifest_config_sha256": "fad5c61ec0dc90ac4d22dd825e12e3f0f76eaf0f460d394648c7538eb1dd1a56",
+    "model_key": "gpt-4.1",
+    "git": {
+      "head_commit": "671804bdb03f603c454222f530401895ac185926",
+      "branch": "experiment/information-conditions",
+      "working_tree_dirty": false,
+      "origin_url": "https://github.com/Hypogenic-AI/live-salmon-ai-test-19cc-claude"
+    },
+    "executed_at": "2026-09-15T14:26:42+00:00"
+  }
+}

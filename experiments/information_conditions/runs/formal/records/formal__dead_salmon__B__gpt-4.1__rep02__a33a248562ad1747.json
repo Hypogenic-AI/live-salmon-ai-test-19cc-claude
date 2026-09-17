@@ -1,0 +1,133 @@
+{
+  "record_version": 1,
+  "phase": "formal",
+  "dataset": "dead_salmon",
+  "condition": "B",
+  "rep": 2,
+  "cache_key": "a33a248562ad1747",
+  "model_key": "gpt-4.1",
+  "requested_model": "openai/gpt-4.1",
+  "response_model": "openai/gpt-4.1",
+  "provider": "OpenAI",
+  "model_mismatch": false,
+  "prompt_hash": "70717cd7474bce12ba117be4f4ae1647587840eb0255bbfb686bf1b48f9db454",
+  "system_prompt_sha256": "8b2058bbfa7b9331bd38269185c017153c73b56761f4e439dd3b380bd8aa40ea",
+  "user_prompt_sha256": "b0bf6f48174644eecefb86766342e4dc1659a3efa814555a94ea2cf8b6375ff9",
+  "request_settings": {
+    "temperature": 0.7,
+    "max_tokens": 4096,
+    "seed": null
+  },
+  "request_url": "https://openrouter.ai/api/v1/chat/completions",
+  "timeout_seconds": 120.0,
+  "status": "success",
+  "content": "---\n\n# Title\n\n**An Empirical Evaluation of Predictive Structure in a 20-Feature Continuous Dataset: Evidence for the Null**\n\n---\n\n# Abstract\n\nWe analyze a dataset of 1,000 observations with 20 continuous predictors (X1–X20) and a continuous outcome (Y), using summary statistics, correlation matrices, and results from an ordinary least squares (OLS) regression. The predictors exhibit very weak marginal and joint correlations with Y (all |r| < 0.09; R² = 0.0267), and second-order (quadratic and cross-term) effects are similarly negligible. No feature or interaction achieves a magnitude or consistency to suggest substantive predictivity. Our findings indicate that Y is not meaningfully explained by the available predictors, and the data-generating process is likely dominated by noise. We discuss methodological rigor, possible explanations, and the limitations of inference from this null result.\n\n---\n\n# Methods\n\nWe conducted a multi-step statistical analysis using the provided summary statistics:\n\n1. **Marginal Correlations**: Assessed the Pearson correlation between each predictor and Y to identify candidates for direct association.\n2. **OLS Regression**: Interpreted the supplied full-model fit (20 predictors) to quantify the joint explanatory power (in-sample R²) and considered the implications for variable significance.\n3. **Multicollinearity Check**: Evaluated the correlation matrix for high inter-feature correlations that may mask or confound effects in the regression.\n4. **Second-Order Effects**: Examined the correlations of Y with all quadratic and cross-product terms (210 in total) to detect possible nonlinearities or interactions.\n5. **Heteroscedasticity Diagnostics**: Considered the correlation between squared residuals from the OLS fit and squared predictors as a check for nonlinear variance patterns.\n6. **Multiple Comparisons**: Assessed the possibility of spurious findings due to the large number of predictors and second-order terms, using the distribution of observed correlations.\n\nAll analysis is based solely on the provided statistics. No p-values, confidence intervals, or model selection procedures beyond the supplied summaries are employed.\n\n---\n\n# Results\n\n## 1. Marginal and Joint Predictive Power\n\n- **Marginal Correlations**: The absolute value of the largest correlation between Y and any feature is |r| = 0.0835 (X11, negative). The top five by magnitude are:\n    - X11: –0.0835\n    - X13: –0.0773\n    - X3:  +0.0591\n    - X18: +0.0540\n    - X1:  +0.0435\n\n  All other correlations are closer to zero. These are far below typical thresholds for practical or statistical significance in n = 1000 samples.\n\n- **OLS Regression**: The full model explains only 2.67% of the variance in Y (R² = 0.0267), indicating that even collectively, the predictors have minimal explanatory value.\n\n## 2. Multicollinearity\n\n- Several pairs of features are highly correlated (e.g., X4–X19: r = 0.97; X1–X16: r = 0.918; X5–X20: r = 0.874), suggesting possible collinearity. However, since the joint R² remains extremely low, no underlying latent variable among these explains Y.\n\n## 3. Nonlinear and Interaction Effects\n\n- **Quadratic and Cross-Term Correlations**: For all 210 second-order terms, the largest observed |r| is 0.0882 (X6*X14), with nearly all in the range –0.08 to +0.08. None approach a level indicating substantial interaction or nonlinearity.\n- **Heteroscedasticity**: The highest correlation between squared residuals and squared predictors is 0.1049 (X12), again very modest and not suggestive of major model misspecification.\n\n## 4. Statistical Significance and Multiple Comparisons\n\n- Given 20 features and 210 second-order terms (230 total), one would expect some spurious correlations of up to ±0.08 by chance alone at n = 1000. The observed distribution is consistent with noise; no term stands out as an outlier.\n\n## 5. Effect Sizes\n\n- Since no feature or interaction shows a meaningful correlation with Y, estimated effect sizes (regression coefficients) are presumed to be near zero for all predictors.\n\n---\n\n# Discussion\n\n## Data Generating Process\n\nThe analysis shows that **Y is not meaningfully predicted by the given features X1–X20**. The marginal and joint explanatory power are both negligible. Even accounting for possible nonlinear or interaction effects, no individual or set of predictors emerges as substantively predictive. High inter-feature correlations (multicollinearity) are present, but since all constituent features are uninformative about Y, this does not affect the null result.\n\nThis pattern is consistent with a data-generating process where:\n\n- **Y is independent of the predictors** (i.e., Y is random noise, or its true predictors are not included among X1–X20),\n- or **Y is a very weak function of the predictors**, with effect sizes too small to be detected even in n = 1000.\n\n## Features That Matter\n\n- **No features are genuinely predictive of Y in this dataset.**\n- All observed correlations and implied effect sizes are compatible with chance variation.\n\n## Features That Do Not Matter\n\n- All: X1 through X20, individually and in combination, including strong collinear pairs and second-order terms, are non-predictive.\n\n## Interactions and Nonlinearities\n\n- No second-order (quadratic or interaction) terms show evidence of relevance.\n\n## Multiple Comparisons\n\n- The weak correlations observed are consistent with what would be expected under the null hypothesis, given the number of comparisons.\n\n## Confidence Level\n\n- Confidence is very high (>99%) that there are no substantial, practically meaningful relationships between X1–X20 and Y in this sample.\n\n---\n\n# Limitations\n\n- **Summary Statistics Only**: Without access to raw data or p-values, some subtle nonlinear or higher-order effects might evade detection. However, the comprehensive set of summary statistics makes this unlikely.\n- **Type II Error**: Very weak but real effects could exist below the detection threshold at n = 1000.\n- **Feature Engineering**: All features are used as provided; no transformations or domain-specific combinations are explored.\n- **Generality**: Findings apply only to this dataset and set of predictors; external factors or omitted variables could matter in other contexts.\n- **Assumption of Linearity and Additivity**: Non-obvious, higher-order, or nonparametric structures (not captured by quadratic/cross-terms) are not evaluated.\n\n---\n\n# Conclusion\n\n**No feature or feature combination in this dataset meaningfully predicts Y.** The data are consistent with a null or near-null relationship between the predictors and the outcome. This finding should encourage caution in model building and interpretation, and highlights the value of rigorously checking for true signal before proceeding to more complex modeling.\n\n---",
+  "refusal": null,
+  "refusal_reason": null,
+  "finish_reason": "stop",
+  "native_finish_reason": "completed",
+  "truncated": false,
+  "usage": {
+    "prompt_tokens": 9611,
+    "completion_tokens": 1481,
+    "total_tokens": 11092,
+    "cost": 0.016862,
+    "is_byok": false,
+    "prompt_tokens_details": {
+      "cached_tokens": 9472,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+    },
+    "cost_details": {
+      "upstream_inference_cost": 0.016862,
+      "upstream_inference_prompt_cost": 0.005014,
+      "upstream_inference_completions_cost": 0.011848
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+    }
+  },
+  "response_id": "gen-1789482895-ShIdLp2nDlEwZ5jmzDSr",
+  "response_created": 1789482895,
+  "attempts": [
+    {
+      "attempt": 1,
+      "started_at": "2026-09-15T14:34:52+00:00",
+      "finished_at": "2026-09-15T14:35:07+00:00",
+      "outcome": "success",
+      "http_status": 200,
+      "error_type": null,
+      "error_message": null
+    }
+  ],
+  "n_attempts": 1,
+  "started_at": "2026-09-15T14:34:52+00:00",
+  "finished_at": "2026-09-15T14:35:07+00:00",
+  "raw_response": {
+    "id": "gen-1789482895-ShIdLp2nDlEwZ5jmzDSr",
+    "object": "chat.completion",
+    "created": 1789482895,
+    "model": "openai/gpt-4.1",
+    "provider": "OpenAI",
+    "system_fingerprint": null,
+    "service_tier": "default",
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "completed",
+        "message": {
+          "role": "assistant",
+          "content": "---\n\n# Title\n\n**An Empirical Evaluation of Predictive Structure in a 20-Feature Continuous Dataset: Evidence for the Null**\n\n---\n\n# Abstract\n\nWe analyze a dataset of 1,000 observations with 20 continuous predictors (X1–X20) and a continuous outcome (Y), using summary statistics, correlation matrices, and results from an ordinary least squares (OLS) regression. The predictors exhibit very weak marginal and joint correlations with Y (all |r| < 0.09; R² = 0.0267), and second-order (quadratic and cross-term) effects are similarly negligible. No feature or interaction achieves a magnitude or consistency to suggest substantive predictivity. Our findings indicate that Y is not meaningfully explained by the available predictors, and the data-generating process is likely dominated by noise. We discuss methodological rigor, possible explanations, and the limitations of inference from this null result.\n\n---\n\n# Methods\n\nWe conducted a multi-step statistical analysis using the provided summary statistics:\n\n1. **Marginal Correlations**: Assessed the Pearson correlation between each predictor and Y to identify candidates for direct association.\n2. **OLS Regression**: Interpreted the supplied full-model fit (20 predictors) to quantify the joint explanatory power (in-sample R²) and considered the implications for variable significance.\n3. **Multicollinearity Check**: Evaluated the correlation matrix for high inter-feature correlations that may mask or confound effects in the regression.\n4. **Second-Order Effects**: Examined the correlations of Y with all quadratic and cross-product terms (210 in total) to detect possible nonlinearities or interactions.\n5. **Heteroscedasticity Diagnostics**: Considered the correlation between squared residuals from the OLS fit and squared predictors as a check for nonlinear variance patterns.\n6. **Multiple Comparisons**: Assessed the possibility of spurious findings due to the large number of predictors and second-order terms, using the distribution of observed correlations.\n\nAll analysis is based solely on the provided statistics. No p-values, confidence intervals, or model selection procedures beyond the supplied summaries are employed.\n\n---\n\n# Results\n\n## 1. Marginal and Joint Predictive Power\n\n- **Marginal Correlations**: The absolute value of the largest correlation between Y and any feature is |r| = 0.0835 (X11, negative). The top five by magnitude are:\n    - X11: –0.0835\n    - X13: –0.0773\n    - X3:  +0.0591\n    - X18: +0.0540\n    - X1:  +0.0435\n\n  All other correlations are closer to zero. These are far below typical thresholds for practical or statistical significance in n = 1000 samples.\n\n- **OLS Regression**: The full model explains only 2.67% of the variance in Y (R² = 0.0267), indicating that even collectively, the predictors have minimal explanatory value.\n\n## 2. Multicollinearity\n\n- Several pairs of features are highly correlated (e.g., X4–X19: r = 0.97; X1–X16: r = 0.918; X5–X20: r = 0.874), suggesting possible collinearity. However, since the joint R² remains extremely low, no underlying latent variable among these explains Y.\n\n## 3. Nonlinear and Interaction Effects\n\n- **Quadratic and Cross-Term Correlations**: For all 210 second-order terms, the largest observed |r| is 0.0882 (X6*X14), with nearly all in the range –0.08 to +0.08. None approach a level indicating substantial interaction or nonlinearity.\n- **Heteroscedasticity**: The highest correlation between squared residuals and squared predictors is 0.1049 (X12), again very modest and not suggestive of major model misspecification.\n\n## 4. Statistical Significance and Multiple Comparisons\n\n- Given 20 features and 210 second-order terms (230 total), one would expect some spurious correlations of up to ±0.08 by chance alone at n = 1000. The observed distribution is consistent with noise; no term stands out as an outlier.\n\n## 5. Effect Sizes\n\n- Since no feature or interaction shows a meaningful correlation with Y, estimated effect sizes (regression coefficients) are presumed to be near zero for all predictors.\n\n---\n\n# Discussion\n\n## Data Generating Process\n\nThe analysis shows that **Y is not meaningfully predicted by the given features X1–X20**. The marginal and joint explanatory power are both negligible. Even accounting for possible nonlinear or interaction effects, no individual or set of predictors emerges as substantively predictive. High inter-feature correlations (multicollinearity) are present, but since all constituent features are uninformative about Y, this does not affect the null result.\n\nThis pattern is consistent with a data-generating process where:\n\n- **Y is independent of the predictors** (i.e., Y is random noise, or its true predictors are not included among X1–X20),\n- or **Y is a very weak function of the predictors**, with effect sizes too small to be detected even in n = 1000.\n\n## Features That Matter\n\n- **No features are genuinely predictive of Y in this dataset.**\n- All observed correlations and implied effect sizes are compatible with chance variation.\n\n## Features That Do Not Matter\n\n- All: X1 through X20, individually and in combination, including strong collinear pairs and second-order terms, are non-predictive.\n\n## Interactions and Nonlinearities\n\n- No second-order (quadratic or interaction) terms show evidence of relevance.\n\n## Multiple Comparisons\n\n- The weak correlations observed are consistent with what would be expected under the null hypothesis, given the number of comparisons.\n\n## Confidence Level\n\n- Confidence is very high (>99%) that there are no substantial, practically meaningful relationships between X1–X20 and Y in this sample.\n\n---\n\n# Limitations\n\n- **Summary Statistics Only**: Without access to raw data or p-values, some subtle nonlinear or higher-order effects might evade detection. However, the comprehensive set of summary statistics makes this unlikely.\n- **Type II Error**: Very weak but real effects could exist below the detection threshold at n = 1000.\n- **Feature Engineering**: All features are used as provided; no transformations or domain-specific combinations are explored.\n- **Generality**: Findings apply only to this dataset and set of predictors; external factors or omitted variables could matter in other contexts.\n- **Assumption of Linearity and Additivity**: Non-obvious, higher-order, or nonparametric structures (not captured by quadratic/cross-terms) are not evaluated.\n\n---\n\n# Conclusion\n\n**No feature or feature combination in this dataset meaningfully predicts Y.** The data are consistent with a null or near-null relationship between the predictors and the outcome. This finding should encourage caution in model building and interpretation, and highlights the value of rigorously checking for true signal before proceeding to more complex modeling.\n\n---",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 9611,
+      "completion_tokens": 1481,
+      "total_tokens": 11092,
+      "cost": 0.016862,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 9472,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.016862,
+        "upstream_inference_prompt_cost": 0.005014,
+        "upstream_inference_completions_cost": 0.011848
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "provenance": {
+    "freeze": {
+      "freeze_file": "formal_20260915T142345Z.json",
+      "design_hash": "1940cf566a9c8f415257095f60f27142310e999175851974b4c00980772cb29e",
+      "git_head": "7f7d8485302be181c33446108d1a3be7c76202d3",
+      "created_at": "2026-09-15T14:23:45+00:00",
+      "note": "Formal-phase freeze. Smoke executed 2026-09-15 under smoke_20260915T140534Z.json with 6/6 success, 0 refused, 0 failed, 0 truncated, 0 model mismatch; no fix was required, so this freeze records the identical design hash (1940cf566a9c8f41). Scope: 30 calls, 5 repetitions per dataset x condition, openai/gpt-4.1 at temperature 0.7 / max_tokens 4096, no provider seed."
+    },
+    "manifest_config_sha256": "fad5c61ec0dc90ac4d22dd825e12e3f0f76eaf0f460d394648c7538eb1dd1a56",
+    "model_key": "gpt-4.1",
+    "git": {
+      "head_commit": "671804bdb03f603c454222f530401895ac185926",
+      "branch": "experiment/information-conditions",
+      "working_tree_dirty": false,
+      "origin_url": "https://github.com/Hypogenic-AI/live-salmon-ai-test-19cc-claude"
+    },
+    "executed_at": "2026-09-15T14:26:42+00:00"
+  }
+}

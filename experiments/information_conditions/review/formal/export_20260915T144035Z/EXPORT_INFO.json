@@ -1,0 +1,11 @@
+{
+  "phase": "formal",
+  "created_at": "2026-09-15T14:40:35+00:00",
+  "n_papers": 30,
+  "blinding_note": "Label-hidden review: dataset, condition, model and repetition are withheld and the order is shuffled, but paper content may reveal its condition (e.g. by discussing supplied tables). Mapping is stored separately.",
+  "id_generation": "secrets.token_hex; order shuffled with SystemRandom; reproducible only via the saved mapping file",
+  "mapping_location": "<redacted>/experiments/information_conditions/review/formal/mapping",
+  "selection": "only successful records listed in runs/formal/schedule.json (matched on the scheduled call identity); explicit provider refusals are recorded but are not papers",
+  "n_off_plan_records_excluded": 0,
+  "n_refused_records_excluded": 0
+}

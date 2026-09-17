@@ -1,0 +1,133 @@
+{
+  "record_version": 1,
+  "phase": "formal",
+  "dataset": "live_salmon",
+  "condition": "B",
+  "rep": 2,
+  "cache_key": "190f206079e7ad91",
+  "model_key": "gpt-4.1",
+  "requested_model": "openai/gpt-4.1",
+  "response_model": "openai/gpt-4.1",
+  "provider": "OpenAI",
+  "model_mismatch": false,
+  "prompt_hash": "64ed2003ac7b0777e3a4c6c7279d6def2435367ed91b2e7815ed695e83a1d1a5",
+  "system_prompt_sha256": "8b2058bbfa7b9331bd38269185c017153c73b56761f4e439dd3b380bd8aa40ea",
+  "user_prompt_sha256": "7705310f4ee5137423c5413d615aef66a7b7db9c83065dd46202297d028dc821",
+  "request_settings": {
+    "temperature": 0.7,
+    "max_tokens": 4096,
+    "seed": null
+  },
+  "request_url": "https://openrouter.ai/api/v1/chat/completions",
+  "timeout_seconds": 120.0,
+  "status": "success",
+  "content": "---\n\n**Title**  \n**Deciphering the Structure of Predictive Relationships in a 20-Feature Simulated Dataset: Strong Linearity, High Multicollinearity, and the Absence of Nonlinear Effects**\n\n**Abstract**  \nWe analyze a synthetic dataset of 1,000 samples with 20 continuous features (X1–X20) and a continuous target (Y). Using summary statistics, correlation matrices, and precomputed OLS diagnostics, we identify the primary predictors of Y and characterize the relationships as predominantly linear. X1, X3, X16, and X18 emerge as principal predictors with strong, direct associations, though high collinearity exists between several feature pairs. No substantial nonlinear or interaction effects are detected. We discuss the implications for modeling, interpretability in the presence of collinearity, and caution against over-interpreting weak or spurious effects.\n\n---\n\n**Methods**  \nOur analytical approach proceeded in four stages:\n\n1. **Descriptive and Correlational Analysis:**  \n   We examined summary statistics and the full correlation matrix to identify features most strongly associated with Y and with each other.\n2. **Assessment of Multicollinearity:**  \n   We scrutinized inter-feature correlations (|r| > 0.7) to identify redundant predictors and potential issues for model interpretability.\n3. **Model Diagnostics and Functional Form Assessment:**  \n   We interpreted the supplied OLS regression R² (0.7889) and the correlation of squared residuals with squared predictors to test for heteroscedasticity and possible nonlinearities.\n4. **Examination of Nonlinear and Interaction Effects:**  \n   We evaluated the correlations of Y with all quadratic and cross-product (interaction) terms to assess evidence for nonlinear or interaction relationships.\n\nGiven the large number of predictors and tests, we interpret only the largest-magnitude effects (|r| > 0.3 for main effects, |r| > 0.15 for interactions) as substantively meaningful, recognizing that smaller values may occur by chance. No formal multiple-testing correction was performed for precomputed statistics, but we contextualize results accordingly.\n\n---\n\n**Results**  \n\n**1. Main Linear Effects:**  \n- **Most Predictive Features:**  \n  - **X1**: r(Y, X1) = 0.6675  \n  - **X16**: r(Y, X16) = 0.6145  \n  - **X3**: r(Y, X3) = -0.5379  \n  - **X18**: r(Y, X18) = -0.4133  \n  - **X2**: r(Y, X2) = 0.1722  \n  - **X17**: r(Y, X17) = 0.1187  \n  All other features have |r| < 0.05, indicating negligible marginal relationship to Y.\n\n- **Multicollinearity:**  \n  - **X1 & X16**: r = 0.918  \n  - **X3 & X18**: r = 0.723  \n  - **X2 & X17**: r = 0.826  \n  These pairs are highly collinear. X4 & X19 (r = 0.97) and X5 & X20 (r = 0.874) are also highly correlated, but their marginal correlation with Y is negligible.\n\n- **Model Fit:**  \n  - OLS regression with all 20 features yields R² = 0.7889, indicating that approximately 79% of the variance in Y is explained by the linear combination of features.\n\n**2. Evidence for Nonlinearity or Heteroscedasticity:**  \n- Correlations between squared OLS residuals (e²) and squared predictors are small for all features except X4 (0.36), X5 (0.37), X19 (0.35), and X20 (0.30).  \n  However, these predictors have negligible marginal correlation with Y and are highly collinear with each other. Their association with residual variance suggests possible heteroscedasticity, but not predictive power for Y itself.\n\n**3. Interaction and Quadratic Effects:**  \n- The largest correlation between Y and any second-order term is for X4*X5 (r = 0.26) and X19*X20 (r = 0.21), but these features themselves are not predictive of Y (|r| < 0.02 for each).  \n- No quadratic or cross-product term involving strongly predictive features (X1, X3, X16, X18) has a correlation with Y exceeding |r| = 0.11.\n- No substantive evidence of strong interaction or nonlinear effects involving the principal predictors is observed.\n\n**4. Estimated Coefficients and Feature Importance:**  \n- While OLS coefficients are not supplied, the strong pairwise correlations and collinearity structure imply that the regression likely assigns substantial, compensatory weights to X1/X16 and X3/X18, with the sign of effect consistent with the marginal correlations (positive for X1/X16, negative for X3/X18).\n- X2 and X17 likely receive small positive weights, but their incremental predictive value is limited by their strong collinearity.\n\n---\n\n**Discussion**  \n\n**Data Generating Process:**  \nThe data generating mechanism for Y appears to be a linear combination of a small subset of predictors—principally X1, X16, X3, and X18—with high collinearity between X1/X16 and X3/X18. The remaining features contribute little or nothing to predicting Y. The exceptionally high R² (0.79) from the OLS fit indicates that the relationship between X1, X16, X3, X18, and Y is strong and primarily linear.\n\n**Implications of Multicollinearity:**  \nThe very high inter-feature correlations suggest that X1 and X16 (similarly, X3 and X18) function as redundant predictors. In regression, their coefficients will be unstable and sensitive to small data perturbations; however, some linear combination of (X1, X16) and of (X3, X18) is highly predictive. Feature selection or regularization (e.g., ridge regression) would be recommended in practice.\n\n**Nonlinear and Interaction Effects:**  \nThere is no convincing evidence that nonlinear or interaction terms involving the predictive features (or any features) substantially improve prediction of Y. The strongest second-order effects involve features that are not significant as main effects, suggesting these may be statistical artifacts.\n\n**Features That Matter:**  \n- **Highly predictive (core):** X1, X16, X3, X18 (with X1/X16 and X3/X18 being functionally interchangeable due to collinearity).\n- **Minor/uncertain predictive value:** X2, X17 (due to lower correlation and strong collinearity).\n- **Noise/irrelevant:** All other features (X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X19, X20) show no meaningful direct or indirect relationship to Y.\n\n**Estimated Effect Sizes:**  \n- **X1:** r = +0.67, likely a large positive coefficient\n- **X16:** r = +0.61, likely a large positive coefficient (collinear with X1)\n- **X3:** r = –0.54, likely a large negative coefficient\n- **X18:** r = –0.41, likely a moderate negative coefficient (collinear with X3)\n- **X2/X17:** r = +0.17/+0.12, likely small positive coefficients\n\n---\n\n**Limitations**  \n\n- **Coefficient Instability:**  \n  Due to high collinearity among the most predictive features, individual OLS coefficients may be unstable and should not be interpreted causally.\n- **No External Validation:**  \n  All findings are based on in-sample statistics; predictive performance on new data is untested.\n- **No Multiple Testing Correction:**  \n  The interpretation of secondary and interaction effects is limited by the absence of formal multiple comparison correction, though few effects approach practical significance.\n- **No Access to Full Model Outputs:**  \n  Actual regression coefficients were not supplied, so effect size estimates are based on correlations.\n- **Assumption of Linear Additivity:**  \n  Our findings depend on the absence of strong nonlinearities or interactions in the true data generating process, as supported but not definitively proven by the supplied statistics.\n\n---\n\n**Conclusion**  \nIn this synthetic dataset, Y is explained almost entirely by linear relationships with X1/X16 and X3/X18, with all other features irrelevant and no evidence of strong nonlinear or interaction effects. However, practical modeling must account for severe multicollinearity among the predictive features.\n\n---",
+  "refusal": null,
+  "refusal_reason": null,
+  "finish_reason": "stop",
+  "native_finish_reason": "completed",
+  "truncated": false,
+  "usage": {
+    "prompt_tokens": 9612,
+    "completion_tokens": 1834,
+    "total_tokens": 11446,
+    "cost": 0.019688,
+    "is_byok": false,
+    "prompt_tokens_details": {
+      "cached_tokens": 9472,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+    },
+    "cost_details": {
+      "upstream_inference_cost": 0.019688,
+      "upstream_inference_prompt_cost": 0.005016,
+      "upstream_inference_completions_cost": 0.014672
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+    }
+  },
+  "response_id": "gen-1789482808-AEU1TdhpkwPJkKRaEv2w",
+  "response_created": 1789482808,
+  "attempts": [
+    {
+      "attempt": 1,
+      "started_at": "2026-09-15T14:33:25+00:00",
+      "finished_at": "2026-09-15T14:33:51+00:00",
+      "outcome": "success",
+      "http_status": 200,
+      "error_type": null,
+      "error_message": null
+    }
+  ],
+  "n_attempts": 1,
+  "started_at": "2026-09-15T14:33:25+00:00",
+  "finished_at": "2026-09-15T14:33:51+00:00",
+  "raw_response": {
+    "id": "gen-1789482808-AEU1TdhpkwPJkKRaEv2w",
+    "object": "chat.completion",
+    "created": 1789482808,
+    "model": "openai/gpt-4.1",
+    "provider": "OpenAI",
+    "system_fingerprint": null,
+    "service_tier": "default",
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "completed",
+        "message": {
+          "role": "assistant",
+          "content": "---\n\n**Title**  \n**Deciphering the Structure of Predictive Relationships in a 20-Feature Simulated Dataset: Strong Linearity, High Multicollinearity, and the Absence of Nonlinear Effects**\n\n**Abstract**  \nWe analyze a synthetic dataset of 1,000 samples with 20 continuous features (X1–X20) and a continuous target (Y). Using summary statistics, correlation matrices, and precomputed OLS diagnostics, we identify the primary predictors of Y and characterize the relationships as predominantly linear. X1, X3, X16, and X18 emerge as principal predictors with strong, direct associations, though high collinearity exists between several feature pairs. No substantial nonlinear or interaction effects are detected. We discuss the implications for modeling, interpretability in the presence of collinearity, and caution against over-interpreting weak or spurious effects.\n\n---\n\n**Methods**  \nOur analytical approach proceeded in four stages:\n\n1. **Descriptive and Correlational Analysis:**  \n   We examined summary statistics and the full correlation matrix to identify features most strongly associated with Y and with each other.\n2. **Assessment of Multicollinearity:**  \n   We scrutinized inter-feature correlations (|r| > 0.7) to identify redundant predictors and potential issues for model interpretability.\n3. **Model Diagnostics and Functional Form Assessment:**  \n   We interpreted the supplied OLS regression R² (0.7889) and the correlation of squared residuals with squared predictors to test for heteroscedasticity and possible nonlinearities.\n4. **Examination of Nonlinear and Interaction Effects:**  \n   We evaluated the correlations of Y with all quadratic and cross-product (interaction) terms to assess evidence for nonlinear or interaction relationships.\n\nGiven the large number of predictors and tests, we interpret only the largest-magnitude effects (|r| > 0.3 for main effects, |r| > 0.15 for interactions) as substantively meaningful, recognizing that smaller values may occur by chance. No formal multiple-testing correction was performed for precomputed statistics, but we contextualize results accordingly.\n\n---\n\n**Results**  \n\n**1. Main Linear Effects:**  \n- **Most Predictive Features:**  \n  - **X1**: r(Y, X1) = 0.6675  \n  - **X16**: r(Y, X16) = 0.6145  \n  - **X3**: r(Y, X3) = -0.5379  \n  - **X18**: r(Y, X18) = -0.4133  \n  - **X2**: r(Y, X2) = 0.1722  \n  - **X17**: r(Y, X17) = 0.1187  \n  All other features have |r| < 0.05, indicating negligible marginal relationship to Y.\n\n- **Multicollinearity:**  \n  - **X1 & X16**: r = 0.918  \n  - **X3 & X18**: r = 0.723  \n  - **X2 & X17**: r = 0.826  \n  These pairs are highly collinear. X4 & X19 (r = 0.97) and X5 & X20 (r = 0.874) are also highly correlated, but their marginal correlation with Y is negligible.\n\n- **Model Fit:**  \n  - OLS regression with all 20 features yields R² = 0.7889, indicating that approximately 79% of the variance in Y is explained by the linear combination of features.\n\n**2. Evidence for Nonlinearity or Heteroscedasticity:**  \n- Correlations between squared OLS residuals (e²) and squared predictors are small for all features except X4 (0.36), X5 (0.37), X19 (0.35), and X20 (0.30).  \n  However, these predictors have negligible marginal correlation with Y and are highly collinear with each other. Their association with residual variance suggests possible heteroscedasticity, but not predictive power for Y itself.\n\n**3. Interaction and Quadratic Effects:**  \n- The largest correlation between Y and any second-order term is for X4*X5 (r = 0.26) and X19*X20 (r = 0.21), but these features themselves are not predictive of Y (|r| < 0.02 for each).  \n- No quadratic or cross-product term involving strongly predictive features (X1, X3, X16, X18) has a correlation with Y exceeding |r| = 0.11.\n- No substantive evidence of strong interaction or nonlinear effects involving the principal predictors is observed.\n\n**4. Estimated Coefficients and Feature Importance:**  \n- While OLS coefficients are not supplied, the strong pairwise correlations and collinearity structure imply that the regression likely assigns substantial, compensatory weights to X1/X16 and X3/X18, with the sign of effect consistent with the marginal correlations (positive for X1/X16, negative for X3/X18).\n- X2 and X17 likely receive small positive weights, but their incremental predictive value is limited by their strong collinearity.\n\n---\n\n**Discussion**  \n\n**Data Generating Process:**  \nThe data generating mechanism for Y appears to be a linear combination of a small subset of predictors—principally X1, X16, X3, and X18—with high collinearity between X1/X16 and X3/X18. The remaining features contribute little or nothing to predicting Y. The exceptionally high R² (0.79) from the OLS fit indicates that the relationship between X1, X16, X3, X18, and Y is strong and primarily linear.\n\n**Implications of Multicollinearity:**  \nThe very high inter-feature correlations suggest that X1 and X16 (similarly, X3 and X18) function as redundant predictors. In regression, their coefficients will be unstable and sensitive to small data perturbations; however, some linear combination of (X1, X16) and of (X3, X18) is highly predictive. Feature selection or regularization (e.g., ridge regression) would be recommended in practice.\n\n**Nonlinear and Interaction Effects:**  \nThere is no convincing evidence that nonlinear or interaction terms involving the predictive features (or any features) substantially improve prediction of Y. The strongest second-order effects involve features that are not significant as main effects, suggesting these may be statistical artifacts.\n\n**Features That Matter:**  \n- **Highly predictive (core):** X1, X16, X3, X18 (with X1/X16 and X3/X18 being functionally interchangeable due to collinearity).\n- **Minor/uncertain predictive value:** X2, X17 (due to lower correlation and strong collinearity).\n- **Noise/irrelevant:** All other features (X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X19, X20) show no meaningful direct or indirect relationship to Y.\n\n**Estimated Effect Sizes:**  \n- **X1:** r = +0.67, likely a large positive coefficient\n- **X16:** r = +0.61, likely a large positive coefficient (collinear with X1)\n- **X3:** r = –0.54, likely a large negative coefficient\n- **X18:** r = –0.41, likely a moderate negative coefficient (collinear with X3)\n- **X2/X17:** r = +0.17/+0.12, likely small positive coefficients\n\n---\n\n**Limitations**  \n\n- **Coefficient Instability:**  \n  Due to high collinearity among the most predictive features, individual OLS coefficients may be unstable and should not be interpreted causally.\n- **No External Validation:**  \n  All findings are based on in-sample statistics; predictive performance on new data is untested.\n- **No Multiple Testing Correction:**  \n  The interpretation of secondary and interaction effects is limited by the absence of formal multiple comparison correction, though few effects approach practical significance.\n- **No Access to Full Model Outputs:**  \n  Actual regression coefficients were not supplied, so effect size estimates are based on correlations.\n- **Assumption of Linear Additivity:**  \n  Our findings depend on the absence of strong nonlinearities or interactions in the true data generating process, as supported but not definitively proven by the supplied statistics.\n\n---\n\n**Conclusion**  \nIn this synthetic dataset, Y is explained almost entirely by linear relationships with X1/X16 and X3/X18, with all other features irrelevant and no evidence of strong nonlinear or interaction effects. However, practical modeling must account for severe multicollinearity among the predictive features.\n\n---",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 9612,
+      "completion_tokens": 1834,
+      "total_tokens": 11446,
+      "cost": 0.019688,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 9472,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.019688,
+        "upstream_inference_prompt_cost": 0.005016,
+        "upstream_inference_completions_cost": 0.014672
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "provenance": {
+    "freeze": {
+      "freeze_file": "formal_20260915T142345Z.json",
+      "design_hash": "1940cf566a9c8f415257095f60f27142310e999175851974b4c00980772cb29e",
+      "git_head": "7f7d8485302be181c33446108d1a3be7c76202d3",
+      "created_at": "2026-09-15T14:23:45+00:00",
+      "note": "Formal-phase freeze. Smoke executed 2026-09-15 under smoke_20260915T140534Z.json with 6/6 success, 0 refused, 0 failed, 0 truncated, 0 model mismatch; no fix was required, so this freeze records the identical design hash (1940cf566a9c8f41). Scope: 30 calls, 5 repetitions per dataset x condition, openai/gpt-4.1 at temperature 0.7 / max_tokens 4096, no provider seed."
+    },
+    "manifest_config_sha256": "fad5c61ec0dc90ac4d22dd825e12e3f0f76eaf0f460d394648c7538eb1dd1a56",
+    "model_key": "gpt-4.1",
+    "git": {
+      "head_commit": "671804bdb03f603c454222f530401895ac185926",
+      "branch": "experiment/information-conditions",
+      "working_tree_dirty": false,
+      "origin_url": "https://github.com/Hypogenic-AI/live-salmon-ai-test-19cc-claude"
+    },
+    "executed_at": "2026-09-15T14:26:42+00:00"
+  }
+}

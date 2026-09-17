@@ -1,0 +1,134 @@
+{
+  "review_id": "Pdb7d7c",
+  "reviewer": "Claude (AI-scored); human spot-check by Evelyn Gao 2026-09-17 on 9 of 22 fields, all retained",
+  "reviewed_at": "2026-09-16",
+  "exact_interaction_X4_X5": {
+    "strength": "rejected",
+    "quote": "No strong evidence for interaction terms (e.g., X1*X3, X2*X3) or nonlinear effects (e.g., X1^2) based on added-variable plots and regression diagnostics.",
+    "section": "results",
+    "contradictory_statements": false,
+    "contradiction_notes": ""
+  },
+  "proxy_related_interactions": {
+    "X4*X20": {
+      "strength": "rejected",
+      "quote": "No strong evidence for interaction terms (e.g., X1*X3, X2*X3) or nonlinear effects (e.g., X1^2) based on added-variable plots and regression diagnostics.",
+      "section": "results",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    },
+    "X19*X5": {
+      "strength": "rejected",
+      "quote": "No strong evidence for interaction terms (e.g., X1*X3, X2*X3) or nonlinear effects (e.g., X1^2) based on added-variable plots and regression diagnostics.",
+      "section": "results",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    },
+    "X19*X20": {
+      "strength": "rejected",
+      "quote": "No strong evidence for interaction terms (e.g., X1*X3, X2*X3) or nonlinear effects (e.g., X1^2) based on added-variable plots and regression diagnostics.",
+      "section": "results",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    }
+  },
+  "other_second_order_terms": [
+    {
+      "term": "X1*X3",
+      "strength": "rejected",
+      "quote": "No strong evidence for interaction terms (e.g., X1*X3, X2*X3) or nonlinear effects (e.g., X1^2) based on added-variable plots and regression diagnostics.",
+      "section": "results",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    },
+    {
+      "term": "X2*X3",
+      "strength": "rejected",
+      "quote": "No strong evidence for interaction terms (e.g., X1*X3, X2*X3) or nonlinear effects (e.g., X1^2) based on added-variable plots and regression diagnostics.",
+      "section": "results",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    }
+  ],
+  "other_second_order_terms_entry_format": {
+    "term": "e.g. X1^2 or X7*X12",
+    "strength": "",
+    "quote": "",
+    "section": "",
+    "contradictory_statements": false,
+    "contradiction_notes": ""
+  },
+  "structural_non_interaction_explanations": {
+    "heteroscedasticity": {
+      "strength": "rejected",
+      "quote": "Residual plots confirmed homoscedasticity and linearity.",
+      "section": "results"
+    },
+    "other_nonlinear_structure": {
+      "strength": "rejected",
+      "quote": "These relationships are direct and linear, with no substantial interaction or nonlinear effects detected.",
+      "section": "discussion"
+    },
+    "model_misspecification": {
+      "strength": "proposed",
+      "quote": "We ruled out simple nonlinearity and pairwise interactions, but cannot exclude more complex nonlinear or higher-order interactions without deeper modeling.",
+      "section": "limitations"
+    },
+    "other": {
+      "description": "",
+      "strength": "absent",
+      "quote": "",
+      "section": ""
+    }
+  },
+  "linear_features_claimed_supported": [
+    "X1",
+    "X3",
+    "X2"
+  ],
+  "any_feature_or_term_claimed_supported": "yes",
+  "overlapping_information_among_correlated_predictors_recognized": {
+    "value": "yes",
+    "quote": "High collinearity between pairs (X1/X16, X3/X18, X2/X17) suggests that these pairs are functionally redundant—each pair represents a single underlying predictor."
+  },
+  "proxy_direction_caveat_acknowledged": {
+    "value": "yes",
+    "quote": "High collinearity between certain features (e.g., X1/X16) makes it difficult to assign unique importance to individual features within each pair; we can only say that the shared signal is predictive."
+  },
+  "auxiliary": {
+    "multiplicative_term_expressed_correctly": {
+      "value": "yes",
+      "notes": "Writes X1*X3 and X2*X3 as products."
+    },
+    "association_vs_generating_mechanism_distinguished": {
+      "value": "no",
+      "quote": "Analysis indicates that Y is generated primarily as a linear combination of a few features: X1 (strong positive), X3 (strong negative), and to a lesser extent X2 (weak positive)."
+    },
+    "p_values_computed_from_r_and_n": {
+      "value": "no",
+      "quote": "With Bonferroni adjustment (α ≈ 0.0025 for 20 tests), the above variables remained significant."
+    },
+    "numerical_plausibility_of_reported_calculations": {
+      "value": "implausible",
+      "notes": "Reports 'p < 1e-10' for X1 and X3 and 'p ~ 0.01' for X2 with no derivation, alongside an invented R^2 ~ 0.60."
+    },
+    "multiple_testing_recognized": {
+      "value": "yes",
+      "quote": "Multiple Testing Correction:** Bonferroni correction was considered for assessing the significance of individual coefficients."
+    },
+    "candidate_count_stated": {
+      "value": "yes",
+      "quote": "With Bonferroni adjustment (α ≈ 0.0025 for 20 tests)"
+    },
+    "multiplicity_handling_reasonable": {
+      "value": "yes",
+      "notes": "Bonferroni named and applied."
+    },
+    "unsupported_numerical_results_or_claims_of_computation": {
+      "value": "many",
+      "examples": "Unstandardised coefficients (2.3, -1.8, 0.15) with p < 1e-10, an invented R^2 ~ 0.60, and claims of residual plots, added-variable plots and model comparisons. PROVISIONAL: whether each individual figure matches the supplied input was NOT checked, because that requires reading the input file; deferred to post-unmask."
+    }
+  },
+  "truncation_or_formatting_problems_noticed": "No truncation; the response is complete and ends on a full sentence. Section labels are as printed in the paper; where a quote comes from a Conclusion or summary block the schema has no matching enum value and 'other' is used.",
+  "overall_notes": "AI-SCORED, NOT HUMAN-VERIFIED. Drafted by claude-opus-5[1m] from RUBRIC.md, review_schema.json and this paper's text only; mapping files, run records and the supplied input files were not opened. NOT A STRICTLY BLIND SCORE: earlier in the same session the dataset and condition of the 13 label-quoting papers were printed while measuring label leakage, so this model already knew the identity of some papers in this export. Precedents applied come from P009fd2, which a human confirmed field by field; every other paper in this export, including this one, is awaiting human spot-check.\n\nSCOPE: every value classifies what the paper asserts, not whether the assertion is correct; whether this paper's conclusion is right depends on which dataset it received and is a post-unmask question.\n\nMAIN CONCLUSION AS STATED: X1, X3, X2 drive Y with stated coefficients; X16/X18/X17 redundant; no interaction or nonlinearity.\n\nJUDGEMENT CALLS: unsup=many: unstandardised coefficients plus an invented model R^2.\n\nDEFERRED TO POST-UNMASK: every source value the paper quotes (R^2, the Xi-Y correlations, corr(e^2,Xi^2), inter-feature correlations and any second-order r) needs checking against inputs/<dataset>__<condition>.user.txt; only derivations from r and n were checked offline.\n\nHUMAN SPOT-CHECK 2026-09-17 (Evelyn Gao): this paper was one of 3 of the 29 AI-scored papers drawn for spot-check. The reviewer examined the 9 fields listed in SPOTCHECK.md -- exact_interaction_X4_X5, proxy_related_interactions.X4*X20, structural_non_interaction_explanations.heteroscedasticity, structural_non_interaction_explanations.model_misspecification, overlapping_information_among_correlated_predictors_recognized, proxy_direction_caveat_acknowledged, auxiliary.p_values_computed_from_r_and_n, auxiliary.numerical_plausibility_of_reported_calculations, auxiliary.unsupported_numerical_results_or_claims_of_computation -- and retained the AI value for every one of them without modification. The remaining 13 fields of this form were NOT examined and remain AI-scored only."
+}

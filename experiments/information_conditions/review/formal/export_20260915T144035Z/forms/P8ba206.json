@@ -1,0 +1,118 @@
+{
+  "review_id": "P8ba206",
+  "reviewer": "Claude (AI-scored, not human-verified)",
+  "reviewed_at": "2026-09-16",
+  "exact_interaction_X4_X5": {
+    "strength": "rejected",
+    "quote": "These reflect the underlying collinearity and do not indicate strong, independent nonlinear or interaction effects.",
+    "section": "results",
+    "contradictory_statements": false,
+    "contradiction_notes": ""
+  },
+  "proxy_related_interactions": {
+    "X4*X20": {
+      "strength": "rejected",
+      "quote": "These reflect the underlying collinearity and do not indicate strong, independent nonlinear or interaction effects.",
+      "section": "results",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    },
+    "X19*X5": {
+      "strength": "rejected",
+      "quote": "These reflect the underlying collinearity and do not indicate strong, independent nonlinear or interaction effects.",
+      "section": "results",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    },
+    "X19*X20": {
+      "strength": "rejected",
+      "quote": "These reflect the underlying collinearity and do not indicate strong, independent nonlinear or interaction effects.",
+      "section": "results",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    }
+  },
+  "other_second_order_terms": [],
+  "other_second_order_terms_entry_format": {
+    "term": "e.g. X1^2 or X7*X12",
+    "strength": "",
+    "quote": "",
+    "section": "",
+    "contradictory_statements": false,
+    "contradiction_notes": ""
+  },
+  "structural_non_interaction_explanations": {
+    "heteroscedasticity": {
+      "strength": "rejected",
+      "quote": "The largest corr(e², Xi²) values are for X4 (0.36), X5 (0.37), X19 (0.35), and X20 (0.30), but these variables have negligible direct correlations with Y and are highly collinear with each other (X4/X19, X5/X20).",
+      "section": "results"
+    },
+    "other_nonlinear_structure": {
+      "strength": "rejected",
+      "quote": "The lack of strong nonlinear or interaction effects, and the high R² from the linear model, suggest a predominantly linear data-generating process with modest Gaussian noise.",
+      "section": "discussion"
+    },
+    "model_misspecification": {
+      "strength": "proposed",
+      "quote": "Unobserved confounders:** All inferences are conditional on provided features; omitted variable bias is possible if relevant predictors are missing.",
+      "section": "limitations"
+    },
+    "other": {
+      "description": "",
+      "strength": "absent",
+      "quote": "",
+      "section": ""
+    }
+  },
+  "linear_features_claimed_supported": [
+    "X1",
+    "X16",
+    "X3",
+    "X18"
+  ],
+  "any_feature_or_term_claimed_supported": "yes",
+  "overlapping_information_among_correlated_predictors_recognized": {
+    "value": "yes",
+    "quote": "X1/X16** and **X3/X18** pairs are near-duplicates; their high correlations with Y and with each other mean that any one of each pair could substitute for the other in a predictive model."
+  },
+  "proxy_direction_caveat_acknowledged": {
+    "value": "yes",
+    "quote": "any one of each pair could substitute for the other in a predictive model"
+  },
+  "auxiliary": {
+    "multiplicative_term_expressed_correctly": {
+      "value": "yes",
+      "notes": "Writes all four target products explicitly."
+    },
+    "association_vs_generating_mechanism_distinguished": {
+      "value": "unclear",
+      "quote": "Y can be well-modeled as a linear function of X1 (or X16), X3 (or X18), and to a lesser extent X2 (or X17)."
+    },
+    "p_values_computed_from_r_and_n": {
+      "value": "no",
+      "quote": "No formal significance testing:** Without p-values or confidence intervals, we rely on effect sizes and correlations, which may overstate importance in the presence of multiple comparisons."
+    },
+    "numerical_plausibility_of_reported_calculations": {
+      "value": "not_applicable",
+      "notes": "No t, p or threshold is derived."
+    },
+    "multiple_testing_recognized": {
+      "value": "yes",
+      "quote": "we rely on effect sizes and correlations, which may overstate importance in the presence of multiple comparisons"
+    },
+    "candidate_count_stated": {
+      "value": "yes",
+      "quote": "Analyze correlations between Y and all second-order (squared and interaction) terms."
+    },
+    "multiplicity_handling_reasonable": {
+      "value": "not_applicable",
+      "notes": "No correction applied; no survivor reported as a finding."
+    },
+    "unsupported_numerical_results_or_claims_of_computation": {
+      "value": "none",
+      "examples": "Reports only directional inferences and states coefficients are approximate. PROVISIONAL: whether each individual figure matches the supplied input was NOT checked, because that requires reading the input file; deferred to post-unmask."
+    }
+  },
+  "truncation_or_formatting_problems_noticed": "No truncation; the response is complete and ends on a full sentence. Section labels are as printed in the paper; where a quote comes from a Conclusion or summary block the schema has no matching enum value and 'other' is used.",
+  "overall_notes": "AI-SCORED, NOT HUMAN-VERIFIED. Drafted by claude-opus-5[1m] from RUBRIC.md, review_schema.json and this paper's text only; mapping files, run records and the supplied input files were not opened. NOT A STRICTLY BLIND SCORE: earlier in the same session the dataset and condition of the 13 label-quoting papers were printed while measuring label leakage, so this model already knew the identity of some papers in this export. Precedents applied come from P009fd2, which a human confirmed field by field; every other paper in this export, including this one, is awaiting human spot-check.\n\nSCOPE: every value classifies what the paper asserts, not whether the assertion is correct; whether this paper's conclusion is right depends on which dataset it received and is a post-unmask question.\n\nMAIN CONCLUSION AS STATED: X1/X16 and X3/X18 linear; all four interaction targets named with their r and attributed to collinearity.\n\nJUDGEMENT CALLS: het=rejected: reports the elevated corr(e^2,Xi^2) for X4/X5/X19/X20 but explains it away as collinearity without using the word heteroscedasticity.\n\nDEFERRED TO POST-UNMASK: every source value the paper quotes (R^2, the Xi-Y correlations, corr(e^2,Xi^2), inter-feature correlations and any second-order r) needs checking against inputs/<dataset>__<condition>.user.txt; only derivations from r and n were checked offline."
+}

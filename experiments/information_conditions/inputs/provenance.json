@@ -1,0 +1,34 @@
+{
+  "generated_at": "2026-09-15T13:16:31+00:00",
+  "note": "Observed environment at generation time. This file is intentionally excluded from the design hash: nothing here changes the experiment. The design-relevant versions are declared in config.json::environment and verified at generate and execute time.",
+  "git": {
+    "head_commit": "c88a910fc9eef390b8020645639a556fb7e393e4",
+    "branch": "experiment/information-conditions",
+    "working_tree_dirty": true,
+    "origin_url": "https://github.com/Hypogenic-AI/live-salmon-ai-test-19cc-claude"
+  },
+  "observed_package_versions": {
+    "python": "3.13.13",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "numpy": "2.4.3",
+    "pandas": "3.0.1",
+    "httpx": "0.28.1",
+    "scipy": "1.17.1",
+    "sklearn": "1.8.0"
+  },
+  "python_minor": "3.13",
+  "environment_problems": [],
+  "datasets_regenerated_now": {
+    "live_salmon": false,
+    "dead_salmon": false
+  },
+  "manifest_sha256_at_write": "b4ebf7b8cd527936101f1c0b7986b14a132f9f46f8c24e2d9b226011c9c1d2b1",
+  "input_hashes": {
+    "live_salmon__A": "d6fcf0ad1bd45b6a6e7f8bdda18700ce2bd832b18b8b16ed2fbbfd2545482e02",
+    "live_salmon__A_prime": "8b06de98dabab7d7bc0161988d047eafa77160958d1bb5ca789a6c11c62b0092",
+    "live_salmon__B": "64ed2003ac7b0777e3a4c6c7279d6def2435367ed91b2e7815ed695e83a1d1a5",
+    "dead_salmon__A": "ff5ff1caf75471e408414f7c89a87f180de2b2c5991be279421816dada1d6f4b",
+    "dead_salmon__A_prime": "88f30ded5ebfcbd57a53520f284786948af9e80cc2b8de0ac57b1131a2ecde0f",
+    "dead_salmon__B": "70717cd7474bce12ba117be4f4ae1647587840eb0255bbfb686bf1b48f9db454"
+  }
+}

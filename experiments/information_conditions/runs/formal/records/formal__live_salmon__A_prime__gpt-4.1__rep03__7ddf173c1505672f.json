@@ -1,0 +1,133 @@
+{
+  "record_version": 1,
+  "phase": "formal",
+  "dataset": "live_salmon",
+  "condition": "A_prime",
+  "rep": 3,
+  "cache_key": "7ddf173c1505672f",
+  "model_key": "gpt-4.1",
+  "requested_model": "openai/gpt-4.1",
+  "response_model": "openai/gpt-4.1",
+  "provider": "OpenAI",
+  "model_mismatch": false,
+  "prompt_hash": "8b06de98dabab7d7bc0161988d047eafa77160958d1bb5ca789a6c11c62b0092",
+  "system_prompt_sha256": "8b2058bbfa7b9331bd38269185c017153c73b56761f4e439dd3b380bd8aa40ea",
+  "user_prompt_sha256": "ed48385ae26fe481729801c2d91a1e93ac0260a588aa681028cd2faa0488ffd2",
+  "request_settings": {
+    "temperature": 0.7,
+    "max_tokens": 4096,
+    "seed": null
+  },
+  "request_url": "https://openrouter.ai/api/v1/chat/completions",
+  "timeout_seconds": 120.0,
+  "status": "success",
+  "content": "---\n\n**Title:**  \n**Disentangling Predictive Structure in a 20-Dimensional Regression Dataset: Evidence for Strong Linear Effects and Collinearity**\n\n---\n\n**Abstract**\n\nWe analyze a dataset of 1,000 observations with 20 continuous predictors (X1–X20) and a continuous outcome Y to uncover the predictors truly driving Y. Correlation and regression diagnostics reveal that X1, X16, X3, and X18 are highly predictive of Y, with X1 and X16 (r=0.918) and X3 and X18 (r=0.723) forming strongly collinear pairs. Ordinary least squares regression achieves R²=0.79, indicating excellent linear predictivity. There is evidence of collinearity but limited evidence for nonlinearity or interaction effects. Our findings suggest that Y is primarily a linear function of X1/X16 and X3/X18, with the remaining predictors contributing negligibly.\n\n---\n\n**Methods**\n\nWe rigorously analyzed the supplied summary statistics and diagnostics in a multi-stage process:\n\n1. **Correlation Analysis:**  \n   Examined the Pearson correlations between each feature and Y to identify potentially predictive features.\n\n2. **Regression Diagnostics:**  \n   Interpreted the results of an OLS regression (R²=0.789) and the correlation of each squared predictor with the squared residuals to assess evidence for nonlinearity and heteroscedasticity.\n\n3. **Collinearity Assessment:**  \n   Evaluated inter-feature correlations (|r| > 0.3) to identify collinear variable pairs that may complicate interpretation.\n\n4. **Feature Significance:**  \n   Considered both marginal and conditional relationships (via the OLS fit and residual diagnostics) to determine true signal vs. noise.\n\n5. **Functional Form Determination:**  \n   Searched for evidence of nonlinear or interaction effects using residual diagnostics and the structure of correlations.\n\n6. **Multiple Comparisons & Confidence:**  \n   Interpreted significance in light of potential multiple testing and collinearity, reporting only robust findings.\n\n---\n\n**Results**\n\n**1. Feature Correlations with Y:**  \n- The features with the strongest absolute marginal correlations to Y are:\n    - X1: **+0.6675**\n    - X16: +0.6145 (highly correlated with X1, r=0.918)\n    - X3: **–0.5379**\n    - X18: –0.4133 (highly correlated with X3, r=0.723)\n    - X2: +0.1722\n    - X17: +0.1187\n- All other features have negligible marginal correlations (|r| < 0.05).\n\n**2. Collinearity:**  \n- X1/X16 are nearly redundant (r=0.918).\n- X3/X18 are also strongly collinear (r=0.723).\n- Other notable pairs: X4/X19 (r=0.97), X5/X20 (r=0.874), X2/X17 (r=0.826).\n\n**3. OLS Regression Fit:**  \n- The full model (all 20 predictors) achieves **R² = 0.789**. This high value suggests that a substantial portion of Y’s variance is explained by linear combinations of the predictors.\n\n**4. Evidence of Nonlinearity or Heteroscedasticity:**  \n- The correlations between squared residuals and squared predictors are small for most variables (|r| < 0.08), except for X4 (0.36), X5 (0.37), X19 (0.35), and X20 (0.30).\n- However, none of these variables have meaningful marginal correlation with Y (r ≈ 0.01–0.02), and X4/X19 and X5/X20 are themselves highly collinear.\n- The lack of strong residual correlation for the main predictors (X1, X16, X3, X18) suggests no major nonlinearity or heteroscedasticity for these.\n\n**5. Estimated Effects and Feature Importance:**  \n- While OLS coefficients are not supplied, given the strong pairwise correlations and collinearity, the effective model is:\n    - **Y ≈ β₁·X1 + β₃·X3 + ε**\n    - With substantial coefficients expected for X1 (positive) and X3 (negative).\n- X16 and X18 are nearly redundant with X1 and X3, respectively, due to very high inter-correlations.\n- X2 and X17, while correlated with each other, show only weak association with Y and are likely minor contributors.\n- No evidence for meaningful interaction effects, as no pair of (Xi, Xj) both show strong correlation with Y and each other, other than collinear pairs.\n\n**6. Multiple Comparisons:**  \n- Given the large effect sizes for X1/X3 and the negligible correlations for others, Type I error is not a concern for the main findings.\n\n---\n\n**Discussion**\n\nOur analysis reveals that Y is driven almost entirely by two principal axes: X1 (and its collinear counterpart X16) and X3 (and its collinear counterpart X18). The magnitude and direction of their marginal correlations with Y (r=+0.67 for X1, r=–0.54 for X3) and the high OLS R² (0.79) indicate that a simple linear model using these two dimensions would capture the majority of the predictive signal in Y. The strong collinearity between X1/X16 and X3/X18 means that including both in a model would yield unstable coefficient estimates, but the underlying information is the same. All other predictors are either noise or contribute so weakly as to be negligible.\n\nThe lack of notable correlation between squared residuals and squared predictors for the main axes, and the absence of strong nonlinear or interaction effects, suggests the data generating process is well-approximated by a linear combination of X1 and X3 (or their collinear proxies). The moderate correlations between squared residuals and X4, X5, X19, and X20 likely reflect structure in the noise or effects limited to a small subspace orthogonal to the main predictive axes.\n\n**Summary of Significant Features:**\n- **X1:** Strong positive linear effect (primary predictor)\n- **X3:** Strong negative linear effect (secondary predictor)\n- **X16:** Redundant with X1 (do not include both)\n- **X18:** Redundant with X3 (do not include both)\n- **All others:** No significant effect\n\n---\n\n**Limitations**\n\n- **Collinearity:**  \n  The presence of extreme collinearity (e.g., r=0.97 for X4/X19, r=0.92 for X1/X16) complicates precise estimation of individual coefficients; only the combined effect of each collinear pair can be estimated robustly.\n- **No Access to OLS Coefficients:**  \n  Precise effect sizes cannot be reported; the direction and relative size are inferred from correlations and R² only.\n- **Potential Unmodeled Nonlinearity:**  \n  While no strong evidence of nonlinearity is found, residual correlation for some variables (X4/X19/X5/X20) modestly suggests minor unexplained structure.\n- **External Validity:**  \n  Findings are conditional on the observed data distribution. If the data generation process changes outside these feature ranges, conclusions may not hold.\n- **Multiple Testing:**  \n  Although the main results are robust, examination of 20 predictors increases the risk of Type I error for smaller effects.\n\n**Confidence Level:**  \nWe are highly confident that X1 and X3 (or their collinear counterparts) are the only truly predictive features, with a simple linear functional form. All other features are noise or redundant.\n\n---\n\n**Conclusion:**  \nThis dataset is dominated by a strong, simple linear relationship between Y and two axes (X1/X3), with all other features contributing negligibly. The structure is highly collinear, but fundamentally linear and low-dimensional.\n\n---",
+  "refusal": null,
+  "refusal_reason": null,
+  "finish_reason": "stop",
+  "native_finish_reason": "completed",
+  "truncated": false,
+  "usage": {
+    "prompt_tokens": 6041,
+    "completion_tokens": 1675,
+    "total_tokens": 7716,
+    "cost": 0.01665,
+    "is_byok": false,
+    "prompt_tokens_details": {
+      "cached_tokens": 5888,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+    },
+    "cost_details": {
+      "upstream_inference_cost": 0.01665,
+      "upstream_inference_prompt_cost": 0.00325,
+      "upstream_inference_completions_cost": 0.0134
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+    }
+  },
+  "response_id": "gen-1789482440-w0KnqXIFOWG7u1MJwNyQ",
+  "response_created": 1789482440,
+  "attempts": [
+    {
+      "attempt": 1,
+      "started_at": "2026-09-15T14:27:18+00:00",
+      "finished_at": "2026-09-15T14:27:35+00:00",
+      "outcome": "success",
+      "http_status": 200,
+      "error_type": null,
+      "error_message": null
+    }
+  ],
+  "n_attempts": 1,
+  "started_at": "2026-09-15T14:27:18+00:00",
+  "finished_at": "2026-09-15T14:27:35+00:00",
+  "raw_response": {
+    "id": "gen-1789482440-w0KnqXIFOWG7u1MJwNyQ",
+    "object": "chat.completion",
+    "created": 1789482440,
+    "model": "openai/gpt-4.1",
+    "provider": "OpenAI",
+    "system_fingerprint": null,
+    "service_tier": "default",
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "completed",
+        "message": {
+          "role": "assistant",
+          "content": "---\n\n**Title:**  \n**Disentangling Predictive Structure in a 20-Dimensional Regression Dataset: Evidence for Strong Linear Effects and Collinearity**\n\n---\n\n**Abstract**\n\nWe analyze a dataset of 1,000 observations with 20 continuous predictors (X1–X20) and a continuous outcome Y to uncover the predictors truly driving Y. Correlation and regression diagnostics reveal that X1, X16, X3, and X18 are highly predictive of Y, with X1 and X16 (r=0.918) and X3 and X18 (r=0.723) forming strongly collinear pairs. Ordinary least squares regression achieves R²=0.79, indicating excellent linear predictivity. There is evidence of collinearity but limited evidence for nonlinearity or interaction effects. Our findings suggest that Y is primarily a linear function of X1/X16 and X3/X18, with the remaining predictors contributing negligibly.\n\n---\n\n**Methods**\n\nWe rigorously analyzed the supplied summary statistics and diagnostics in a multi-stage process:\n\n1. **Correlation Analysis:**  \n   Examined the Pearson correlations between each feature and Y to identify potentially predictive features.\n\n2. **Regression Diagnostics:**  \n   Interpreted the results of an OLS regression (R²=0.789) and the correlation of each squared predictor with the squared residuals to assess evidence for nonlinearity and heteroscedasticity.\n\n3. **Collinearity Assessment:**  \n   Evaluated inter-feature correlations (|r| > 0.3) to identify collinear variable pairs that may complicate interpretation.\n\n4. **Feature Significance:**  \n   Considered both marginal and conditional relationships (via the OLS fit and residual diagnostics) to determine true signal vs. noise.\n\n5. **Functional Form Determination:**  \n   Searched for evidence of nonlinear or interaction effects using residual diagnostics and the structure of correlations.\n\n6. **Multiple Comparisons & Confidence:**  \n   Interpreted significance in light of potential multiple testing and collinearity, reporting only robust findings.\n\n---\n\n**Results**\n\n**1. Feature Correlations with Y:**  \n- The features with the strongest absolute marginal correlations to Y are:\n    - X1: **+0.6675**\n    - X16: +0.6145 (highly correlated with X1, r=0.918)\n    - X3: **–0.5379**\n    - X18: –0.4133 (highly correlated with X3, r=0.723)\n    - X2: +0.1722\n    - X17: +0.1187\n- All other features have negligible marginal correlations (|r| < 0.05).\n\n**2. Collinearity:**  \n- X1/X16 are nearly redundant (r=0.918).\n- X3/X18 are also strongly collinear (r=0.723).\n- Other notable pairs: X4/X19 (r=0.97), X5/X20 (r=0.874), X2/X17 (r=0.826).\n\n**3. OLS Regression Fit:**  \n- The full model (all 20 predictors) achieves **R² = 0.789**. This high value suggests that a substantial portion of Y’s variance is explained by linear combinations of the predictors.\n\n**4. Evidence of Nonlinearity or Heteroscedasticity:**  \n- The correlations between squared residuals and squared predictors are small for most variables (|r| < 0.08), except for X4 (0.36), X5 (0.37), X19 (0.35), and X20 (0.30).\n- However, none of these variables have meaningful marginal correlation with Y (r ≈ 0.01–0.02), and X4/X19 and X5/X20 are themselves highly collinear.\n- The lack of strong residual correlation for the main predictors (X1, X16, X3, X18) suggests no major nonlinearity or heteroscedasticity for these.\n\n**5. Estimated Effects and Feature Importance:**  \n- While OLS coefficients are not supplied, given the strong pairwise correlations and collinearity, the effective model is:\n    - **Y ≈ β₁·X1 + β₃·X3 + ε**\n    - With substantial coefficients expected for X1 (positive) and X3 (negative).\n- X16 and X18 are nearly redundant with X1 and X3, respectively, due to very high inter-correlations.\n- X2 and X17, while correlated with each other, show only weak association with Y and are likely minor contributors.\n- No evidence for meaningful interaction effects, as no pair of (Xi, Xj) both show strong correlation with Y and each other, other than collinear pairs.\n\n**6. Multiple Comparisons:**  \n- Given the large effect sizes for X1/X3 and the negligible correlations for others, Type I error is not a concern for the main findings.\n\n---\n\n**Discussion**\n\nOur analysis reveals that Y is driven almost entirely by two principal axes: X1 (and its collinear counterpart X16) and X3 (and its collinear counterpart X18). The magnitude and direction of their marginal correlations with Y (r=+0.67 for X1, r=–0.54 for X3) and the high OLS R² (0.79) indicate that a simple linear model using these two dimensions would capture the majority of the predictive signal in Y. The strong collinearity between X1/X16 and X3/X18 means that including both in a model would yield unstable coefficient estimates, but the underlying information is the same. All other predictors are either noise or contribute so weakly as to be negligible.\n\nThe lack of notable correlation between squared residuals and squared predictors for the main axes, and the absence of strong nonlinear or interaction effects, suggests the data generating process is well-approximated by a linear combination of X1 and X3 (or their collinear proxies). The moderate correlations between squared residuals and X4, X5, X19, and X20 likely reflect structure in the noise or effects limited to a small subspace orthogonal to the main predictive axes.\n\n**Summary of Significant Features:**\n- **X1:** Strong positive linear effect (primary predictor)\n- **X3:** Strong negative linear effect (secondary predictor)\n- **X16:** Redundant with X1 (do not include both)\n- **X18:** Redundant with X3 (do not include both)\n- **All others:** No significant effect\n\n---\n\n**Limitations**\n\n- **Collinearity:**  \n  The presence of extreme collinearity (e.g., r=0.97 for X4/X19, r=0.92 for X1/X16) complicates precise estimation of individual coefficients; only the combined effect of each collinear pair can be estimated robustly.\n- **No Access to OLS Coefficients:**  \n  Precise effect sizes cannot be reported; the direction and relative size are inferred from correlations and R² only.\n- **Potential Unmodeled Nonlinearity:**  \n  While no strong evidence of nonlinearity is found, residual correlation for some variables (X4/X19/X5/X20) modestly suggests minor unexplained structure.\n- **External Validity:**  \n  Findings are conditional on the observed data distribution. If the data generation process changes outside these feature ranges, conclusions may not hold.\n- **Multiple Testing:**  \n  Although the main results are robust, examination of 20 predictors increases the risk of Type I error for smaller effects.\n\n**Confidence Level:**  \nWe are highly confident that X1 and X3 (or their collinear counterparts) are the only truly predictive features, with a simple linear functional form. All other features are noise or redundant.\n\n---\n\n**Conclusion:**  \nThis dataset is dominated by a strong, simple linear relationship between Y and two axes (X1/X3), with all other features contributing negligibly. The structure is highly collinear, but fundamentally linear and low-dimensional.\n\n---",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 6041,
+      "completion_tokens": 1675,
+      "total_tokens": 7716,
+      "cost": 0.01665,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 5888,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.01665,
+        "upstream_inference_prompt_cost": 0.00325,
+        "upstream_inference_completions_cost": 0.0134
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "provenance": {
+    "freeze": {
+      "freeze_file": "formal_20260915T142345Z.json",
+      "design_hash": "1940cf566a9c8f415257095f60f27142310e999175851974b4c00980772cb29e",
+      "git_head": "7f7d8485302be181c33446108d1a3be7c76202d3",
+      "created_at": "2026-09-15T14:23:45+00:00",
+      "note": "Formal-phase freeze. Smoke executed 2026-09-15 under smoke_20260915T140534Z.json with 6/6 success, 0 refused, 0 failed, 0 truncated, 0 model mismatch; no fix was required, so this freeze records the identical design hash (1940cf566a9c8f41). Scope: 30 calls, 5 repetitions per dataset x condition, openai/gpt-4.1 at temperature 0.7 / max_tokens 4096, no provider seed."
+    },
+    "manifest_config_sha256": "fad5c61ec0dc90ac4d22dd825e12e3f0f76eaf0f460d394648c7538eb1dd1a56",
+    "model_key": "gpt-4.1",
+    "git": {
+      "head_commit": "671804bdb03f603c454222f530401895ac185926",
+      "branch": "experiment/information-conditions",
+      "working_tree_dirty": false,
+      "origin_url": "https://github.com/Hypogenic-AI/live-salmon-ai-test-19cc-claude"
+    },
+    "executed_at": "2026-09-15T14:26:42+00:00"
+  }
+}

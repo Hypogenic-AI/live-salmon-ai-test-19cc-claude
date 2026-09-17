@@ -1,0 +1,144 @@
+{
+  "review_id": "P009fd2",
+  "reviewer": "",
+  "reviewed_at": "",
+  "exact_interaction_X4_X5": {
+    "strength": "rejected",
+    "quote": "no evidence of interaction effects emerges from the summary statistics or diagnostic correlations",
+    "section": "results",
+    "contradictory_statements": false,
+    "contradiction_notes": "Blanket rejection of all interaction effects; X4*X5 is never named. See ambiguity A1."
+  },
+  "proxy_related_interactions": {
+    "X4*X20": {
+      "strength": "rejected",
+      "quote": "no evidence of interaction effects emerges from the summary statistics or diagnostic correlations",
+      "section": "results",
+      "contradictory_statements": false,
+      "contradiction_notes": "Same blanket sentence as the exact target; X4*X20 is never named as a product. See ambiguity A1."
+    },
+    "X19*X5": {
+      "strength": "rejected",
+      "quote": "no evidence of interaction effects emerges from the summary statistics or diagnostic correlations",
+      "section": "results",
+      "contradictory_statements": false,
+      "contradiction_notes": "Same blanket sentence as the exact target; X19*X5 is never named as a product. See ambiguity A1."
+    },
+    "X19*X20": {
+      "strength": "rejected",
+      "quote": "no evidence of interaction effects emerges from the summary statistics or diagnostic correlations",
+      "section": "results",
+      "contradictory_statements": false,
+      "contradiction_notes": "Same blanket sentence as the exact target; X19*X20 is never named as a product. See ambiguity A1."
+    }
+  },
+  "other_second_order_terms": [],
+  "other_second_order_terms_entry_format": {
+    "term": "e.g. X1^2 or X7*X12",
+    "strength": "",
+    "quote": "",
+    "section": "",
+    "contradictory_statements": false,
+    "contradiction_notes": ""
+  },
+  "structural_non_interaction_explanations": {
+    "heteroscedasticity": {
+      "strength": "rejected",
+      "quote": "The largest correlation between squared OLS residuals and squared predictors is 0.1049 for X12, but this is still very weak and does not suggest substantial nonlinearity or heteroscedasticity.",
+      "section": "results"
+    },
+    "other_nonlinear_structure": {
+      "strength": "rejected",
+      "quote": "none of the 20 features (X1-X20) exhibit a meaningful linear, nonlinear, or interactive relationship with the continuous target Y",
+      "section": "other"
+    },
+    "model_misspecification": {
+      "strength": "rejected",
+      "quote": "More complex nonlinearities (e.g., higher-order polynomials, nonparametric forms) cannot be ruled out absolutely, but there is no evidence for them in the available data.",
+      "section": "limitations"
+    },
+    "other": {
+      "description": "",
+      "strength": "absent",
+      "quote": "",
+      "section": ""
+    }
+  },
+  "linear_features_claimed_supported": [],
+  "any_feature_or_term_claimed_supported": "no",
+  "overlapping_information_among_correlated_predictors_recognized": {
+    "value": "yes",
+    "quote": "There are several highly collinear pairs (e.g., X1/X16: r = 0.918; X4/X19: r = 0.97), but none of these features are correlated with Y any more than their partners"
+  },
+  "proxy_direction_caveat_acknowledged": {
+    "value": "unclear",
+    "quote": ""
+  },
+  "auxiliary": {
+    "multiplicative_term_expressed_correctly": {
+      "value": "not_applicable",
+      "notes": "No product term is discussed anywhere in the paper."
+    },
+    "association_vs_generating_mechanism_distinguished": {
+      "value": "unclear",
+      "quote": "The data appear to have been generated so that Y is essentially independent of all features X1-X20"
+    },
+    "p_values_computed_from_r_and_n": {
+      "value": "yes",
+      "quote": "None approach conventional thresholds for practical or statistical significance in a sample of n = 1000 (where |r| = 0.08 would have p = 0.01, but multiple-testing corrections make even these marginal)."
+    },
+    "numerical_plausibility_of_reported_calculations": {
+      "value": "plausible",
+      "notes": "VERIFIED OFFLINE: Pearson t-test, r=0.08, n=1000 -> t=2.535, p=0.0114, so 'p ~ 0.01' is correct. The marginal Xi-Y correlation is the case where the normal-theory test is appropriate, so the RUBRIC section 5 assumption caveat about Table 1 does not bite here. NOT verified: every source value (R^2=0.0267, the individual r values, corr(e^2,X12^2)=0.1049, the inter-feature r values) requires the supplied input and is deferred to post-unmask."
+    },
+    "multiple_testing_recognized": {
+      "value": "yes",
+      "quote": "Given 20 predictors, we considered the false discovery rate and the expected distribution of correlation coefficients under the null hypothesis."
+    },
+    "candidate_count_stated": {
+      "value": "yes",
+      "quote": "Given 20 predictors"
+    },
+    "multiplicity_handling_reasonable": {
+      "value": "yes",
+      "notes": "Names FDR and Bonferroni and uses them to argue the null; RUBRIC says Bonferroni specifically is not required."
+    },
+    "unsupported_numerical_results_or_claims_of_computation": {
+      "value": "none",
+      "examples": "PROVISIONAL. The paper claims no computation of its own: 'We interpreted precomputed OLS regression diagnostics' and 'The raw regression coefficients are not provided'. No fitted coefficient, no incremental R^2, no cross-validated score. Confirming that every reported figure traces to the supplied input needs the input file and is deferred to post-unmask."
+    }
+  },
+  "truncation_or_formatting_problems_noticed": "None. The paper is complete, has Abstract/Methods/Results/Discussion/Limitations/Conclusion, and ends with a markdown rule after a full closing sentence.",
+  "overall_notes": "INTERNAL INCONSISTENCY, not a derivation error: Results says 'The largest observed Pearson correlation between any feature and Y is 0.059 (for X3)', but the same section lists X11 at -0.083 and the Abstract says 'maximum |r| = 0.08'. Reconcilable as largest-positive vs largest-absolute, but the paper never says so. Recorded here rather than as implausibility, because the arithmetic the paper actually performs is correct.",
+  "_ai_assist": {
+    "status": "DRAFT - NOT A HUMAN REVIEW. Not to be copied into forms/ without a human checking every field.",
+    "produced_by": "Claude Opus 5, from RUBRIC.md, review_schema.json and papers/P009fd2.md only.",
+    "sources_read": [
+      "RUBRIC.md",
+      "review_schema.json",
+      "forms/P009fd2.json",
+      "papers/P009fd2.md"
+    ],
+    "sources_deliberately_not_read": [
+      "review/formal/mapping/*",
+      "runs/formal/records/*",
+      "inputs/*.user.txt"
+    ],
+    "blinding_caveat": "NOT BLIND. In the earlier run-integrity check this session, the dataset and condition of the 13 label-quoting papers were printed, and P009fd2 was one of them. The scoring below was written from the paper text alone, but I cannot claim to have been blind to its identity. Weigh this draft accordingly, and consider having the first paper scored independently.",
+    "offline_verification": {
+      "performed": [
+        "r=0.08, n=1000 -> t=2.535, p=0.0114 (Pearson t-test, df=998, two-sided)"
+      ],
+      "deferred_to_post_unmask": [
+        "all source values from the supplied input"
+      ]
+    },
+    "open_ambiguities": [
+      "A1 blanket interaction rejection vs named target",
+      "A2 squared predictors inside a residual diagnostic",
+      "A3 model_misspecification rejected vs proposed",
+      "A4 association_vs_mechanism unclear vs yes",
+      "A5 proxy_direction unclear"
+    ]
+  }
+}
