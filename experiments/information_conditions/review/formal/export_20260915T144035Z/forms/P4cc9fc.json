@@ -1,0 +1,130 @@
+{
+  "review_id": "P4cc9fc",
+  "reviewer": "Claude (AI-scored, not human-verified)",
+  "reviewed_at": "2026-09-16",
+  "exact_interaction_X4_X5": {
+    "strength": "rejected",
+    "quote": "Adding quadratic terms for top features and pairwise interactions for highly collinear pairs (e.g., X1×X16, X4×X19) does not improve the model fit or yield significant predictors.",
+    "section": "results",
+    "contradictory_statements": false,
+    "contradiction_notes": ""
+  },
+  "proxy_related_interactions": {
+    "X4*X20": {
+      "strength": "rejected",
+      "quote": "Adding quadratic terms for top features and pairwise interactions for highly collinear pairs (e.g., X1×X16, X4×X19) does not improve the model fit or yield significant predictors.",
+      "section": "results",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    },
+    "X19*X5": {
+      "strength": "rejected",
+      "quote": "Adding quadratic terms for top features and pairwise interactions for highly collinear pairs (e.g., X1×X16, X4×X19) does not improve the model fit or yield significant predictors.",
+      "section": "results",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    },
+    "X19*X20": {
+      "strength": "rejected",
+      "quote": "Adding quadratic terms for top features and pairwise interactions for highly collinear pairs (e.g., X1×X16, X4×X19) does not improve the model fit or yield significant predictors.",
+      "section": "results",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    }
+  },
+  "other_second_order_terms": [
+    {
+      "term": "X1*X16",
+      "strength": "rejected",
+      "quote": "Adding quadratic terms for top features and pairwise interactions for highly collinear pairs (e.g., X1×X16, X4×X19) does not improve the model fit or yield significant predictors.",
+      "section": "results",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    },
+    {
+      "term": "X4*X19",
+      "strength": "rejected",
+      "quote": "Adding quadratic terms for top features and pairwise interactions for highly collinear pairs (e.g., X1×X16, X4×X19) does not improve the model fit or yield significant predictors.",
+      "section": "results",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    }
+  ],
+  "other_second_order_terms_entry_format": {
+    "term": "e.g. X1^2 or X7*X12",
+    "strength": "",
+    "quote": "",
+    "section": "",
+    "contradictory_statements": false,
+    "contradiction_notes": ""
+  },
+  "structural_non_interaction_explanations": {
+    "heteroscedasticity": {
+      "strength": "absent",
+      "quote": "",
+      "section": ""
+    },
+    "other_nonlinear_structure": {
+      "strength": "rejected",
+      "quote": "There is no evidence for substantial linear, nonlinear, or interaction effects.",
+      "section": "discussion"
+    },
+    "model_misspecification": {
+      "strength": "proposed",
+      "quote": "Our analysis is restricted to linear and low-complexity nonlinear models; extremely complex or higher-order nonlinearities could remain undetected, though this is unlikely given the near-zero bivariate correlations.",
+      "section": "limitations"
+    },
+    "other": {
+      "description": "",
+      "strength": "absent",
+      "quote": "",
+      "section": ""
+    }
+  },
+  "linear_features_claimed_supported": [],
+  "any_feature_or_term_claimed_supported": "no",
+  "overlapping_information_among_correlated_predictors_recognized": {
+    "value": "yes",
+    "quote": "The large degree of inter-feature correlation suggests the features may be derived from a few latent variables, but if so, these latent variables themselves are not associated with Y."
+  },
+  "proxy_direction_caveat_acknowledged": {
+    "value": "unclear",
+    "quote": ""
+  },
+  "auxiliary": {
+    "multiplicative_term_expressed_correctly": {
+      "value": "yes",
+      "notes": "Writes the interaction pairs in product notation."
+    },
+    "association_vs_generating_mechanism_distinguished": {
+      "value": "unclear",
+      "quote": "The data generating process appears to produce Y independently from X1–X20, or the true relationship is so weak or nonlinear as to be undetectable with this sample size and statistical power."
+    },
+    "p_values_computed_from_r_and_n": {
+      "value": "unclear",
+      "quote": "The highest feature–Y correlation is for X3 (r = 0.059, p = 0.07 uncorrected)"
+    },
+    "numerical_plausibility_of_reported_calculations": {
+      "value": "plausible",
+      "notes": "Verified offline: r = 0.059 at n = 1000 gives t = 1.867 and two-sided p = 0.0622, so the reported 'p = 0.07 uncorrected' is right to one significant figure. Source values deferred to post-unmask."
+    },
+    "multiple_testing_recognized": {
+      "value": "yes",
+      "quote": "To account for multiple testing, we applied Bonferroni correction (α = 0.05/20 = 0.0025) to our significance thresholds."
+    },
+    "candidate_count_stated": {
+      "value": "yes",
+      "quote": "we applied Bonferroni correction (α = 0.05/20 = 0.0025)"
+    },
+    "multiplicity_handling_reasonable": {
+      "value": "yes",
+      "notes": "Bonferroni named and applied; no survivor reported."
+    },
+    "unsupported_numerical_results_or_claims_of_computation": {
+      "value": "some",
+      "examples": "Claims to have fitted principal-component models and a LASSO ('LASSO regression shrinks all coefficients nearly to zero'), reports an adjusted R^2 'near zero' that conflicts with the supplied R^2 = 0.0267, and states 'All analyses were conducted using standard statistical software.' PROVISIONAL: whether each individual figure matches the supplied input was NOT checked, because that requires reading the input file; deferred to post-unmask."
+    }
+  },
+  "truncation_or_formatting_problems_noticed": "No truncation; the response is complete and ends on a full sentence. Section labels are as printed in the paper; where a quote comes from a Conclusion or summary block the schema has no matching enum value and 'other' is used.",
+  "overall_notes": "AI-SCORED, NOT HUMAN-VERIFIED. Drafted by claude-opus-5[1m] from RUBRIC.md, review_schema.json and this paper's text only; mapping files, run records and the supplied input files were not opened. NOT A STRICTLY BLIND SCORE: earlier in the same session the dataset and condition of the 13 label-quoting papers were printed while measuring label leakage, so this model already knew the identity of some papers in this export. Precedents applied come from P009fd2, which a human confirmed field by field; every other paper in this export, including this one, is awaiting human spot-check.\n\nSCOPE: every value classifies what the paper asserts, not whether the assertion is correct; whether this paper's conclusion is right depends on which dataset it received and is a post-unmask question.\n\nMAIN CONCLUSION AS STATED: No feature predicts Y; LASSO and PCA claimed; all variables noise.\n\nJUDGEMENT CALLS: numplaus=plausible on the single checkable derivation (p=0.07) while unsup=some for the claimed LASSO/PCA runs.\n\nDEFERRED TO POST-UNMASK: every source value the paper quotes (R^2, the Xi-Y correlations, corr(e^2,Xi^2), inter-feature correlations and any second-order r) needs checking against inputs/<dataset>__<condition>.user.txt; only derivations from r and n were checked offline."
+}

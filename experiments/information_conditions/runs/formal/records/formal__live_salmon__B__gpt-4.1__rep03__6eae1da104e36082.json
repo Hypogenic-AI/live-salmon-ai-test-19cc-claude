@@ -1,0 +1,133 @@
+{
+  "record_version": 1,
+  "phase": "formal",
+  "dataset": "live_salmon",
+  "condition": "B",
+  "rep": 3,
+  "cache_key": "6eae1da104e36082",
+  "model_key": "gpt-4.1",
+  "requested_model": "openai/gpt-4.1",
+  "response_model": "openai/gpt-4.1",
+  "provider": "OpenAI",
+  "model_mismatch": false,
+  "prompt_hash": "64ed2003ac7b0777e3a4c6c7279d6def2435367ed91b2e7815ed695e83a1d1a5",
+  "system_prompt_sha256": "8b2058bbfa7b9331bd38269185c017153c73b56761f4e439dd3b380bd8aa40ea",
+  "user_prompt_sha256": "7705310f4ee5137423c5413d615aef66a7b7db9c83065dd46202297d028dc821",
+  "request_settings": {
+    "temperature": 0.7,
+    "max_tokens": 4096,
+    "seed": null
+  },
+  "request_url": "https://openrouter.ai/api/v1/chat/completions",
+  "timeout_seconds": 120.0,
+  "status": "success",
+  "content": "---\n\n## Title\n\n**Dissecting Predictive Structure in a 20-Feature Dataset: A Rigorous Statistical Analysis of Research Dataset A**\n\n## Abstract\n\nWe analyzed a dataset containing 20 continuous predictors and a continuous outcome (Y) using summary and precomputed statistics. Linear modeling indicates that X1, X16, and X3 are highly predictive of Y, with X18, X2, and X17 showing moderate association; other features appear largely irrelevant. Substantial collinearity exists among certain feature pairs (e.g., X1/X16, X3/X18). Second-order and interaction terms do not meaningfully improve model fit. The relationship between predictors and Y is primarily linear, with no compelling evidence for strong nonlinearity or interaction effects. Our findings are robust within the data's constraints, but interpretation is limited by multicollinearity and lack of external validation.\n\n---\n\n## Methods\n\nWe conducted a comprehensive statistical analysis using provided summary statistics, correlation matrices, and precomputed OLS diagnostics. Our approach included:\n\n1. **Univariate Analysis:** Pearson correlations between each predictor and Y to screen for linear associations.\n2. **Multivariate Analysis:** Review of OLS fit results (R² = 0.7889) and inter-feature correlations to identify multicollinearity.\n3. **Nonlinearity & Interaction Assessment:** Examination of correlations between Y and 210 second-order terms (squares and cross-products), and analysis of residual dependence on squared predictors.\n4. **Significance Determination:** Features were considered significant if they showed both high univariate correlation with Y and a plausible independent contribution after accounting for collinearity. Multiple comparisons were considered qualitatively, given the summary-data context.\n5. **Model Specification:** Inference of likely OLS coefficients and effect directions from the correlational structure.\n\n---\n\n## Results\n\n### 1. **Significant Predictors (Linear Effects)**\n\n**Strongest Predictors:**\n- **X1**: r = 0.668 with Y\n- **X16**: r = 0.615 with Y\n- **X3**: r = -0.538 with Y\n- **X18**: r = -0.413 with Y\n\n**Moderate/Weak Predictors:**\n- **X2**: r = 0.172 with Y\n- **X17**: r = 0.119 with Y\n\n**Negligible Predictors:**  \nAll other features (X4–X15, X19–X20) have |r| < 0.05 with Y, suggesting little to no predictive value.\n\n### 2. **Collinearity**\n\n- **X1 and X16**: r = 0.918 — nearly redundant.\n- **X3 and X18**: r = 0.723 — strong collinearity.\n- **X2 and X17**: r = 0.826 — strong collinearity.\n- **X4 and X19**: r = 0.97 — nearly identical.\n- **X5 and X20**: r = 0.874 — very similar.\n\n**Implication:** In multivariate OLS, pairs with high collinearity will have unstable coefficients, and only one variable in each pair is likely to retain a meaningful coefficient.\n\n### 3. **Nonlinearity and Interactions**\n\n- **Squared terms:** None show strong correlation with Y (all |r| < 0.09).\n- **Cross-products:** Only X4*X5 (r = 0.264), X4*X20 (r = 0.222), and X19*X20 (r = 0.212) approach moderate correlations. However, these are likely artifacts of collinear variables, not genuine interaction effects.\n- **Residual analysis:** No squared predictor has a strong correlation with squared OLS residuals (all |r| < 0.37); highest values are for X4, X5, X19, and X20, but this is likely due to their internal correlations.\n\n### 4. **Estimated Model Structure**\n\nGiven the OLS R² = 0.789, the bulk of Y's variance is explained by a linear combination of X1, X16, X3, and X18, with likely minor contributions from X2/X17.\n\n**Approximate model:**\n\\[\nY \\approx \\beta_1 X1 + \\beta_{16} X16 + \\beta_3 X3 + \\beta_{18} X18 + \\beta_2 X2 + \\beta_{17} X17 + \\epsilon\n\\]\nBut due to collinearity, the effective model may reduce to:\n\\[\nY \\approx \\gamma_1 X1 + \\gamma_3 X3 + \\gamma_2 X2 + \\epsilon\n\\]\nwhere X16, X18, and X17 provide little extra unique information beyond X1, X3, and X2.\n\n**Coefficient directions:**  \n- X1 and X16: positive (strongest positive predictors)\n- X3 and X18: negative\n- X2 and X17: positive, weaker\n\n**Remaining features:** Coefficients near zero.\n\n---\n\n## Discussion\n\n### 1. **Data Generating Process**\n\nThe data appear to be generated by a primarily linear process in which Y is a weighted sum of a small subset of predictors, specifically X1 (or X16), X3 (or X18), and to a lesser extent X2 (or X17). The high R² (0.789) suggests the relationship is strong and mostly captured by these features. The rest of the features, despite being present, are essentially noise with respect to Y.\n\n### 2. **Feature Importance**\n\n- **Critical features:** X1, X3, and to a lesser extent X2.\n- **Redundant features:** X16 (with X1), X18 (with X3), X17 (with X2).\n- **Irrelevant features:** X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X19, X20.\n\n### 3. **Nonlinearity and Interactions**\n\nNo substantial evidence supports the inclusion of quadratic or cross-product terms. The linear model is sufficient for explaining Y.\n\n### 4. **Confidence in Results**\n\nGiven the summary statistics, the evidence for the above conclusions is strong. The main caveat is multicollinearity, which may make individual OLS coefficients unstable, but does not affect the overall predictive value of the linear combination.\n\n---\n\n## Limitations\n\n- **Collinearity:** High correlations between certain predictors (e.g., X1/X16, X3/X18) mean individual coefficients are not reliably interpretable, and variable selection may be unstable.\n- **No p-values or confidence intervals:** Formal statistical significance cannot be assessed, though effect sizes are large.\n- **No external validation:** Findings are based solely on in-sample statistics; generalizability is uncertain.\n- **Summary data only:** Inability to fit alternative models or inspect residuals directly.\n- **Multiple comparisons:** With 210 second-order terms, some correlations could be nonzero by chance, but none are strong enough to warrant inclusion.\n\n---\n\n## Conclusion\n\nResearch Dataset A's outcome Y is almost entirely explained by a linear combination of X1, X3, and X2 (or their highly correlated counterparts X16, X18, and X17). There is no compelling evidence for nonlinear or interaction effects, and most features are superfluous. The modeling process is dominated by linear, collinear structure, and future analyses should focus on variable selection and collinearity management.\n\n---",
+  "refusal": null,
+  "refusal_reason": null,
+  "finish_reason": "stop",
+  "native_finish_reason": "completed",
+  "truncated": false,
+  "usage": {
+    "prompt_tokens": 9612,
+    "completion_tokens": 1599,
+    "total_tokens": 11211,
+    "cost": 0.017808,
+    "is_byok": false,
+    "prompt_tokens_details": {
+      "cached_tokens": 9472,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+    },
+    "cost_details": {
+      "upstream_inference_cost": 0.017808,
+      "upstream_inference_prompt_cost": 0.005016,
+      "upstream_inference_completions_cost": 0.012792
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+    }
+  },
+  "response_id": "gen-1789482663-bmXTsGoXRCtNTIeFhQdM",
+  "response_created": 1789482663,
+  "attempts": [
+    {
+      "attempt": 1,
+      "started_at": "2026-09-15T14:31:00+00:00",
+      "finished_at": "2026-09-15T14:31:17+00:00",
+      "outcome": "success",
+      "http_status": 200,
+      "error_type": null,
+      "error_message": null
+    }
+  ],
+  "n_attempts": 1,
+  "started_at": "2026-09-15T14:31:00+00:00",
+  "finished_at": "2026-09-15T14:31:17+00:00",
+  "raw_response": {
+    "id": "gen-1789482663-bmXTsGoXRCtNTIeFhQdM",
+    "object": "chat.completion",
+    "created": 1789482663,
+    "model": "openai/gpt-4.1",
+    "provider": "OpenAI",
+    "system_fingerprint": null,
+    "service_tier": "default",
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "completed",
+        "message": {
+          "role": "assistant",
+          "content": "---\n\n## Title\n\n**Dissecting Predictive Structure in a 20-Feature Dataset: A Rigorous Statistical Analysis of Research Dataset A**\n\n## Abstract\n\nWe analyzed a dataset containing 20 continuous predictors and a continuous outcome (Y) using summary and precomputed statistics. Linear modeling indicates that X1, X16, and X3 are highly predictive of Y, with X18, X2, and X17 showing moderate association; other features appear largely irrelevant. Substantial collinearity exists among certain feature pairs (e.g., X1/X16, X3/X18). Second-order and interaction terms do not meaningfully improve model fit. The relationship between predictors and Y is primarily linear, with no compelling evidence for strong nonlinearity or interaction effects. Our findings are robust within the data's constraints, but interpretation is limited by multicollinearity and lack of external validation.\n\n---\n\n## Methods\n\nWe conducted a comprehensive statistical analysis using provided summary statistics, correlation matrices, and precomputed OLS diagnostics. Our approach included:\n\n1. **Univariate Analysis:** Pearson correlations between each predictor and Y to screen for linear associations.\n2. **Multivariate Analysis:** Review of OLS fit results (R² = 0.7889) and inter-feature correlations to identify multicollinearity.\n3. **Nonlinearity & Interaction Assessment:** Examination of correlations between Y and 210 second-order terms (squares and cross-products), and analysis of residual dependence on squared predictors.\n4. **Significance Determination:** Features were considered significant if they showed both high univariate correlation with Y and a plausible independent contribution after accounting for collinearity. Multiple comparisons were considered qualitatively, given the summary-data context.\n5. **Model Specification:** Inference of likely OLS coefficients and effect directions from the correlational structure.\n\n---\n\n## Results\n\n### 1. **Significant Predictors (Linear Effects)**\n\n**Strongest Predictors:**\n- **X1**: r = 0.668 with Y\n- **X16**: r = 0.615 with Y\n- **X3**: r = -0.538 with Y\n- **X18**: r = -0.413 with Y\n\n**Moderate/Weak Predictors:**\n- **X2**: r = 0.172 with Y\n- **X17**: r = 0.119 with Y\n\n**Negligible Predictors:**  \nAll other features (X4–X15, X19–X20) have |r| < 0.05 with Y, suggesting little to no predictive value.\n\n### 2. **Collinearity**\n\n- **X1 and X16**: r = 0.918 — nearly redundant.\n- **X3 and X18**: r = 0.723 — strong collinearity.\n- **X2 and X17**: r = 0.826 — strong collinearity.\n- **X4 and X19**: r = 0.97 — nearly identical.\n- **X5 and X20**: r = 0.874 — very similar.\n\n**Implication:** In multivariate OLS, pairs with high collinearity will have unstable coefficients, and only one variable in each pair is likely to retain a meaningful coefficient.\n\n### 3. **Nonlinearity and Interactions**\n\n- **Squared terms:** None show strong correlation with Y (all |r| < 0.09).\n- **Cross-products:** Only X4*X5 (r = 0.264), X4*X20 (r = 0.222), and X19*X20 (r = 0.212) approach moderate correlations. However, these are likely artifacts of collinear variables, not genuine interaction effects.\n- **Residual analysis:** No squared predictor has a strong correlation with squared OLS residuals (all |r| < 0.37); highest values are for X4, X5, X19, and X20, but this is likely due to their internal correlations.\n\n### 4. **Estimated Model Structure**\n\nGiven the OLS R² = 0.789, the bulk of Y's variance is explained by a linear combination of X1, X16, X3, and X18, with likely minor contributions from X2/X17.\n\n**Approximate model:**\n\\[\nY \\approx \\beta_1 X1 + \\beta_{16} X16 + \\beta_3 X3 + \\beta_{18} X18 + \\beta_2 X2 + \\beta_{17} X17 + \\epsilon\n\\]\nBut due to collinearity, the effective model may reduce to:\n\\[\nY \\approx \\gamma_1 X1 + \\gamma_3 X3 + \\gamma_2 X2 + \\epsilon\n\\]\nwhere X16, X18, and X17 provide little extra unique information beyond X1, X3, and X2.\n\n**Coefficient directions:**  \n- X1 and X16: positive (strongest positive predictors)\n- X3 and X18: negative\n- X2 and X17: positive, weaker\n\n**Remaining features:** Coefficients near zero.\n\n---\n\n## Discussion\n\n### 1. **Data Generating Process**\n\nThe data appear to be generated by a primarily linear process in which Y is a weighted sum of a small subset of predictors, specifically X1 (or X16), X3 (or X18), and to a lesser extent X2 (or X17). The high R² (0.789) suggests the relationship is strong and mostly captured by these features. The rest of the features, despite being present, are essentially noise with respect to Y.\n\n### 2. **Feature Importance**\n\n- **Critical features:** X1, X3, and to a lesser extent X2.\n- **Redundant features:** X16 (with X1), X18 (with X3), X17 (with X2).\n- **Irrelevant features:** X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X19, X20.\n\n### 3. **Nonlinearity and Interactions**\n\nNo substantial evidence supports the inclusion of quadratic or cross-product terms. The linear model is sufficient for explaining Y.\n\n### 4. **Confidence in Results**\n\nGiven the summary statistics, the evidence for the above conclusions is strong. The main caveat is multicollinearity, which may make individual OLS coefficients unstable, but does not affect the overall predictive value of the linear combination.\n\n---\n\n## Limitations\n\n- **Collinearity:** High correlations between certain predictors (e.g., X1/X16, X3/X18) mean individual coefficients are not reliably interpretable, and variable selection may be unstable.\n- **No p-values or confidence intervals:** Formal statistical significance cannot be assessed, though effect sizes are large.\n- **No external validation:** Findings are based solely on in-sample statistics; generalizability is uncertain.\n- **Summary data only:** Inability to fit alternative models or inspect residuals directly.\n- **Multiple comparisons:** With 210 second-order terms, some correlations could be nonzero by chance, but none are strong enough to warrant inclusion.\n\n---\n\n## Conclusion\n\nResearch Dataset A's outcome Y is almost entirely explained by a linear combination of X1, X3, and X2 (or their highly correlated counterparts X16, X18, and X17). There is no compelling evidence for nonlinear or interaction effects, and most features are superfluous. The modeling process is dominated by linear, collinear structure, and future analyses should focus on variable selection and collinearity management.\n\n---",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 9612,
+      "completion_tokens": 1599,
+      "total_tokens": 11211,
+      "cost": 0.017808,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 9472,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.017808,
+        "upstream_inference_prompt_cost": 0.005016,
+        "upstream_inference_completions_cost": 0.012792
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "provenance": {
+    "freeze": {
+      "freeze_file": "formal_20260915T142345Z.json",
+      "design_hash": "1940cf566a9c8f415257095f60f27142310e999175851974b4c00980772cb29e",
+      "git_head": "7f7d8485302be181c33446108d1a3be7c76202d3",
+      "created_at": "2026-09-15T14:23:45+00:00",
+      "note": "Formal-phase freeze. Smoke executed 2026-09-15 under smoke_20260915T140534Z.json with 6/6 success, 0 refused, 0 failed, 0 truncated, 0 model mismatch; no fix was required, so this freeze records the identical design hash (1940cf566a9c8f41). Scope: 30 calls, 5 repetitions per dataset x condition, openai/gpt-4.1 at temperature 0.7 / max_tokens 4096, no provider seed."
+    },
+    "manifest_config_sha256": "fad5c61ec0dc90ac4d22dd825e12e3f0f76eaf0f460d394648c7538eb1dd1a56",
+    "model_key": "gpt-4.1",
+    "git": {
+      "head_commit": "671804bdb03f603c454222f530401895ac185926",
+      "branch": "experiment/information-conditions",
+      "working_tree_dirty": false,
+      "origin_url": "https://github.com/Hypogenic-AI/live-salmon-ai-test-19cc-claude"
+    },
+    "executed_at": "2026-09-15T14:26:42+00:00"
+  }
+}

@@ -1,0 +1,118 @@
+{
+  "review_id": "P83cd07",
+  "reviewer": "Claude (AI-scored, not human-verified)",
+  "reviewed_at": "2026-09-16",
+  "exact_interaction_X4_X5": {
+    "strength": "rejected",
+    "quote": "The largest are for X4*X5 (r = 0.26), X4*X20 (r = 0.22), X19*X20 (r = 0.21), X5*X19 (r = 0.26), but these involve features that have negligible direct associations with Y and are highly collinear, suggesting these are statistical artifacts, not genuine interaction effects.",
+    "section": "results",
+    "contradictory_statements": false,
+    "contradiction_notes": ""
+  },
+  "proxy_related_interactions": {
+    "X4*X20": {
+      "strength": "rejected",
+      "quote": "The largest are for X4*X5 (r = 0.26), X4*X20 (r = 0.22), X19*X20 (r = 0.21), X5*X19 (r = 0.26), but these involve features that have negligible direct associations with Y and are highly collinear, suggesting these are statistical artifacts, not genuine interaction effects.",
+      "section": "results",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    },
+    "X19*X5": {
+      "strength": "rejected",
+      "quote": "The largest are for X4*X5 (r = 0.26), X4*X20 (r = 0.22), X19*X20 (r = 0.21), X5*X19 (r = 0.26), but these involve features that have negligible direct associations with Y and are highly collinear, suggesting these are statistical artifacts, not genuine interaction effects.",
+      "section": "results",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    },
+    "X19*X20": {
+      "strength": "rejected",
+      "quote": "The largest are for X4*X5 (r = 0.26), X4*X20 (r = 0.22), X19*X20 (r = 0.21), X5*X19 (r = 0.26), but these involve features that have negligible direct associations with Y and are highly collinear, suggesting these are statistical artifacts, not genuine interaction effects.",
+      "section": "results",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    }
+  },
+  "other_second_order_terms": [],
+  "other_second_order_terms_entry_format": {
+    "term": "e.g. X1^2 or X7*X12",
+    "strength": "",
+    "quote": "",
+    "section": "",
+    "contradictory_statements": false,
+    "contradiction_notes": ""
+  },
+  "structural_non_interaction_explanations": {
+    "heteroscedasticity": {
+      "strength": "rejected",
+      "quote": "Residual squared correlations with feature squares are low except for X4, X5, X19, and X20 (corrs ~0.3–0.37), again reflecting the influence of collinear, weakly predictive variables.",
+      "section": "results"
+    },
+    "other_nonlinear_structure": {
+      "strength": "rejected",
+      "quote": "There is little evidence that nonlinearities or interaction effects contribute substantial predictive power: the effect sizes for all second-order terms are small and, given the number of comparisons, indistinguishable from noise.",
+      "section": "discussion"
+    },
+    "model_misspecification": {
+      "strength": "proposed",
+      "quote": "Potential Omitted Variable Bias:** The analysis is limited to the supplied features; unobserved confounders cannot be ruled out.",
+      "section": "limitations"
+    },
+    "other": {
+      "description": "",
+      "strength": "absent",
+      "quote": "",
+      "section": ""
+    }
+  },
+  "linear_features_claimed_supported": [
+    "X1",
+    "X16",
+    "X3",
+    "X18"
+  ],
+  "any_feature_or_term_claimed_supported": "yes",
+  "overlapping_information_among_correlated_predictors_recognized": {
+    "value": "yes",
+    "quote": "The extremely high collinearity among these pairs suggests that the data generating process uses linear combinations of a few latent factors, each reflected in multiple observed variables."
+  },
+  "proxy_direction_caveat_acknowledged": {
+    "value": "yes",
+    "quote": "Almost perfectly collinear with X1 (r = 0.918), suggesting both capture the same underlying signal; in regression likely only one is needed."
+  },
+  "auxiliary": {
+    "multiplicative_term_expressed_correctly": {
+      "value": "yes",
+      "notes": "Writes all four target products explicitly."
+    },
+    "association_vs_generating_mechanism_distinguished": {
+      "value": "unclear",
+      "quote": "The relationship between predictors and Y is overwhelmingly linear and dominated by a handful of features (X1/X16, X3/X18, X2/X17). The extremely high collinearity among these pairs suggests that the data generating process uses linear combinations of a few latent factors, each reflected in multiple observed variables."
+    },
+    "p_values_computed_from_r_and_n": {
+      "value": "no",
+      "quote": "No P-values/Significance Testing:** Without p-values or standard errors, statistical significance is inferred qualitatively from effect sizes; modest correlations may not be significant after correction."
+    },
+    "numerical_plausibility_of_reported_calculations": {
+      "value": "not_applicable",
+      "notes": "No t, p or threshold is derived."
+    },
+    "multiple_testing_recognized": {
+      "value": "yes",
+      "quote": "Multiple Comparisons:** With 210 second-order terms, some moderate correlations are expected by chance; none stand out as robust."
+    },
+    "candidate_count_stated": {
+      "value": "yes",
+      "quote": "Investigate the supplied correlations of Y with all quadratic and interaction terms (210 in total) for evidence of nonlinear relationships or interaction effects."
+    },
+    "multiplicity_handling_reasonable": {
+      "value": "not_applicable",
+      "notes": "No formal correction applied; reports no survivor as a finding."
+    },
+    "unsupported_numerical_results_or_claims_of_computation": {
+      "value": "none",
+      "examples": "States 'Actual OLS coefficients are not available' and reports no fabricated regression output. PROVISIONAL: whether each individual figure matches the supplied input was NOT checked, because that requires reading the input file; deferred to post-unmask."
+    }
+  },
+  "truncation_or_formatting_problems_noticed": "No truncation; the response is complete and ends on a full sentence. Section labels are as printed in the paper; where a quote comes from a Conclusion or summary block the schema has no matching enum value and 'other' is used.",
+  "overall_notes": "AI-SCORED, NOT HUMAN-VERIFIED. Drafted by claude-opus-5[1m] from RUBRIC.md, review_schema.json and this paper's text only; mapping files, run records and the supplied input files were not opened. NOT A STRICTLY BLIND SCORE: earlier in the same session the dataset and condition of the 13 label-quoting papers were printed while measuring label leakage, so this model already knew the identity of some papers in this export. Precedents applied come from P009fd2, which a human confirmed field by field; every other paper in this export, including this one, is awaiting human spot-check.\n\nSCOPE: every value classifies what the paper asserts, not whether the assertion is correct; whether this paper's conclusion is right depends on which dataset it received and is a post-unmask question.\n\nMAIN CONCLUSION AS STATED: X1/X16, X3/X18 (minor X2/X17) linear; all four interaction targets named with their r and dismissed as artifacts.\n\nJUDGEMENT CALLS: Names every one of the four interaction targets in a single sentence and rejects them together.\n\nDEFERRED TO POST-UNMASK: every source value the paper quotes (R^2, the Xi-Y correlations, corr(e^2,Xi^2), inter-feature correlations and any second-order r) needs checking against inputs/<dataset>__<condition>.user.txt; only derivations from r and n were checked offline."
+}

@@ -1,0 +1,287 @@
+{
+  "phase": "formal",
+  "model_key": "gpt-4.1",
+  "model_id": "openai/gpt-4.1",
+  "repetitions_per_combination": 5,
+  "planned_calls": 30,
+  "scheduling_seed": 20260915,
+  "seed_string": "20260915:formal",
+  "shuffle_method": "python random.Random(seed_string).shuffle over canonical order",
+  "request_settings": {
+    "temperature": 0.7,
+    "max_tokens": 4096,
+    "seed": null
+  },
+  "calls": [
+    {
+      "dataset": "live_salmon",
+      "condition": "B",
+      "rep": 5,
+      "prompt_hash": "64ed2003ac7b0777e3a4c6c7279d6def2435367ed91b2e7815ed695e83a1d1a5",
+      "cache_key": "91d57c85892c71f6",
+      "record_file": "formal__live_salmon__B__gpt-4.1__rep05__91d57c85892c71f6.json",
+      "schedule_index": 0
+    },
+    {
+      "dataset": "dead_salmon",
+      "condition": "A_prime",
+      "rep": 3,
+      "prompt_hash": "88f30ded5ebfcbd57a53520f284786948af9e80cc2b8de0ac57b1131a2ecde0f",
+      "cache_key": "69e5a970e837746d",
+      "record_file": "formal__dead_salmon__A_prime__gpt-4.1__rep03__69e5a970e837746d.json",
+      "schedule_index": 1
+    },
+    {
+      "dataset": "live_salmon",
+      "condition": "A_prime",
+      "rep": 3,
+      "prompt_hash": "8b06de98dabab7d7bc0161988d047eafa77160958d1bb5ca789a6c11c62b0092",
+      "cache_key": "7ddf173c1505672f",
+      "record_file": "formal__live_salmon__A_prime__gpt-4.1__rep03__7ddf173c1505672f.json",
+      "schedule_index": 2
+    },
+    {
+      "dataset": "dead_salmon",
+      "condition": "A_prime",
+      "rep": 1,
+      "prompt_hash": "88f30ded5ebfcbd57a53520f284786948af9e80cc2b8de0ac57b1131a2ecde0f",
+      "cache_key": "9db1f31c82864da2",
+      "record_file": "formal__dead_salmon__A_prime__gpt-4.1__rep01__9db1f31c82864da2.json",
+      "schedule_index": 3
+    },
+    {
+      "dataset": "dead_salmon",
+      "condition": "A_prime",
+      "rep": 2,
+      "prompt_hash": "88f30ded5ebfcbd57a53520f284786948af9e80cc2b8de0ac57b1131a2ecde0f",
+      "cache_key": "6e1dc1535c7c09d0",
+      "record_file": "formal__dead_salmon__A_prime__gpt-4.1__rep02__6e1dc1535c7c09d0.json",
+      "schedule_index": 4
+    },
+    {
+      "dataset": "dead_salmon",
+      "condition": "A",
+      "rep": 3,
+      "prompt_hash": "ff5ff1caf75471e408414f7c89a87f180de2b2c5991be279421816dada1d6f4b",
+      "cache_key": "cd06fa51308819ae",
+      "record_file": "formal__dead_salmon__A__gpt-4.1__rep03__cd06fa51308819ae.json",
+      "schedule_index": 5
+    },
+    {
+      "dataset": "dead_salmon",
+      "condition": "B",
+      "rep": 4,
+      "prompt_hash": "70717cd7474bce12ba117be4f4ae1647587840eb0255bbfb686bf1b48f9db454",
+      "cache_key": "930a73f190cbc34b",
+      "record_file": "formal__dead_salmon__B__gpt-4.1__rep04__930a73f190cbc34b.json",
+      "schedule_index": 6
+    },
+    {
+      "dataset": "live_salmon",
+      "condition": "B",
+      "rep": 4,
+      "prompt_hash": "64ed2003ac7b0777e3a4c6c7279d6def2435367ed91b2e7815ed695e83a1d1a5",
+      "cache_key": "872db40588811660",
+      "record_file": "formal__live_salmon__B__gpt-4.1__rep04__872db40588811660.json",
+      "schedule_index": 7
+    },
+    {
+      "dataset": "live_salmon",
+      "condition": "A",
+      "rep": 1,
+      "prompt_hash": "d6fcf0ad1bd45b6a6e7f8bdda18700ce2bd832b18b8b16ed2fbbfd2545482e02",
+      "cache_key": "7a5613a85b35519d",
+      "record_file": "formal__live_salmon__A__gpt-4.1__rep01__7a5613a85b35519d.json",
+      "schedule_index": 8
+    },
+    {
+      "dataset": "dead_salmon",
+      "condition": "A",
+      "rep": 1,
+      "prompt_hash": "ff5ff1caf75471e408414f7c89a87f180de2b2c5991be279421816dada1d6f4b",
+      "cache_key": "ca808d1e2fe17ca2",
+      "record_file": "formal__dead_salmon__A__gpt-4.1__rep01__ca808d1e2fe17ca2.json",
+      "schedule_index": 9
+    },
+    {
+      "dataset": "live_salmon",
+      "condition": "A",
+      "rep": 5,
+      "prompt_hash": "d6fcf0ad1bd45b6a6e7f8bdda18700ce2bd832b18b8b16ed2fbbfd2545482e02",
+      "cache_key": "51c939c3a651d6f9",
+      "record_file": "formal__live_salmon__A__gpt-4.1__rep05__51c939c3a651d6f9.json",
+      "schedule_index": 10
+    },
+    {
+      "dataset": "live_salmon",
+      "condition": "A",
+      "rep": 3,
+      "prompt_hash": "d6fcf0ad1bd45b6a6e7f8bdda18700ce2bd832b18b8b16ed2fbbfd2545482e02",
+      "cache_key": "b1fca0c5ee818fc6",
+      "record_file": "formal__live_salmon__A__gpt-4.1__rep03__b1fca0c5ee818fc6.json",
+      "schedule_index": 11
+    },
+    {
+      "dataset": "dead_salmon",
+      "condition": "A_prime",
+      "rep": 4,
+      "prompt_hash": "88f30ded5ebfcbd57a53520f284786948af9e80cc2b8de0ac57b1131a2ecde0f",
+      "cache_key": "a3e72c56784338bf",
+      "record_file": "formal__dead_salmon__A_prime__gpt-4.1__rep04__a3e72c56784338bf.json",
+      "schedule_index": 12
+    },
+    {
+      "dataset": "live_salmon",
+      "condition": "A",
+      "rep": 4,
+      "prompt_hash": "d6fcf0ad1bd45b6a6e7f8bdda18700ce2bd832b18b8b16ed2fbbfd2545482e02",
+      "cache_key": "85050e49bee3ee1b",
+      "record_file": "formal__live_salmon__A__gpt-4.1__rep04__85050e49bee3ee1b.json",
+      "schedule_index": 13
+    },
+    {
+      "dataset": "dead_salmon",
+      "condition": "A",
+      "rep": 2,
+      "prompt_hash": "ff5ff1caf75471e408414f7c89a87f180de2b2c5991be279421816dada1d6f4b",
+      "cache_key": "4b327a78519aba19",
+      "record_file": "formal__dead_salmon__A__gpt-4.1__rep02__4b327a78519aba19.json",
+      "schedule_index": 14
+    },
+    {
+      "dataset": "live_salmon",
+      "condition": "B",
+      "rep": 3,
+      "prompt_hash": "64ed2003ac7b0777e3a4c6c7279d6def2435367ed91b2e7815ed695e83a1d1a5",
+      "cache_key": "6eae1da104e36082",
+      "record_file": "formal__live_salmon__B__gpt-4.1__rep03__6eae1da104e36082.json",
+      "schedule_index": 15
+    },
+    {
+      "dataset": "dead_salmon",
+      "condition": "B",
+      "rep": 5,
+      "prompt_hash": "70717cd7474bce12ba117be4f4ae1647587840eb0255bbfb686bf1b48f9db454",
+      "cache_key": "50edc5ff467de3e5",
+      "record_file": "formal__dead_salmon__B__gpt-4.1__rep05__50edc5ff467de3e5.json",
+      "schedule_index": 16
+    },
+    {
+      "dataset": "live_salmon",
+      "condition": "A_prime",
+      "rep": 4,
+      "prompt_hash": "8b06de98dabab7d7bc0161988d047eafa77160958d1bb5ca789a6c11c62b0092",
+      "cache_key": "d344d39e19299cce",
+      "record_file": "formal__live_salmon__A_prime__gpt-4.1__rep04__d344d39e19299cce.json",
+      "schedule_index": 17
+    },
+    {
+      "dataset": "live_salmon",
+      "condition": "A_prime",
+      "rep": 1,
+      "prompt_hash": "8b06de98dabab7d7bc0161988d047eafa77160958d1bb5ca789a6c11c62b0092",
+      "cache_key": "ebfb183da8dbc149",
+      "record_file": "formal__live_salmon__A_prime__gpt-4.1__rep01__ebfb183da8dbc149.json",
+      "schedule_index": 18
+    },
+    {
+      "dataset": "live_salmon",
+      "condition": "B",
+      "rep": 1,
+      "prompt_hash": "64ed2003ac7b0777e3a4c6c7279d6def2435367ed91b2e7815ed695e83a1d1a5",
+      "cache_key": "9e70c7e90bc59c6e",
+      "record_file": "formal__live_salmon__B__gpt-4.1__rep01__9e70c7e90bc59c6e.json",
+      "schedule_index": 19
+    },
+    {
+      "dataset": "dead_salmon",
+      "condition": "A_prime",
+      "rep": 5,
+      "prompt_hash": "88f30ded5ebfcbd57a53520f284786948af9e80cc2b8de0ac57b1131a2ecde0f",
+      "cache_key": "314db92f3e67d87a",
+      "record_file": "formal__dead_salmon__A_prime__gpt-4.1__rep05__314db92f3e67d87a.json",
+      "schedule_index": 20
+    },
+    {
+      "dataset": "live_salmon",
+      "condition": "A_prime",
+      "rep": 2,
+      "prompt_hash": "8b06de98dabab7d7bc0161988d047eafa77160958d1bb5ca789a6c11c62b0092",
+      "cache_key": "c20700d5a1d01c4c",
+      "record_file": "formal__live_salmon__A_prime__gpt-4.1__rep02__c20700d5a1d01c4c.json",
+      "schedule_index": 21
+    },
+    {
+      "dataset": "live_salmon",
+      "condition": "B",
+      "rep": 2,
+      "prompt_hash": "64ed2003ac7b0777e3a4c6c7279d6def2435367ed91b2e7815ed695e83a1d1a5",
+      "cache_key": "190f206079e7ad91",
+      "record_file": "formal__live_salmon__B__gpt-4.1__rep02__190f206079e7ad91.json",
+      "schedule_index": 22
+    },
+    {
+      "dataset": "dead_salmon",
+      "condition": "A",
+      "rep": 4,
+      "prompt_hash": "ff5ff1caf75471e408414f7c89a87f180de2b2c5991be279421816dada1d6f4b",
+      "cache_key": "b2b6392524b8a884",
+      "record_file": "formal__dead_salmon__A__gpt-4.1__rep04__b2b6392524b8a884.json",
+      "schedule_index": 23
+    },
+    {
+      "dataset": "dead_salmon",
+      "condition": "A",
+      "rep": 5,
+      "prompt_hash": "ff5ff1caf75471e408414f7c89a87f180de2b2c5991be279421816dada1d6f4b",
+      "cache_key": "e3403952e9738ccd",
+      "record_file": "formal__dead_salmon__A__gpt-4.1__rep05__e3403952e9738ccd.json",
+      "schedule_index": 24
+    },
+    {
+      "dataset": "dead_salmon",
+      "condition": "B",
+      "rep": 3,
+      "prompt_hash": "70717cd7474bce12ba117be4f4ae1647587840eb0255bbfb686bf1b48f9db454",
+      "cache_key": "0b0dd4e474b846ed",
+      "record_file": "formal__dead_salmon__B__gpt-4.1__rep03__0b0dd4e474b846ed.json",
+      "schedule_index": 25
+    },
+    {
+      "dataset": "live_salmon",
+      "condition": "A_prime",
+      "rep": 5,
+      "prompt_hash": "8b06de98dabab7d7bc0161988d047eafa77160958d1bb5ca789a6c11c62b0092",
+      "cache_key": "acc4a071600ae07d",
+      "record_file": "formal__live_salmon__A_prime__gpt-4.1__rep05__acc4a071600ae07d.json",
+      "schedule_index": 26
+    },
+    {
+      "dataset": "dead_salmon",
+      "condition": "B",
+      "rep": 2,
+      "prompt_hash": "70717cd7474bce12ba117be4f4ae1647587840eb0255bbfb686bf1b48f9db454",
+      "cache_key": "a33a248562ad1747",
+      "record_file": "formal__dead_salmon__B__gpt-4.1__rep02__a33a248562ad1747.json",
+      "schedule_index": 27
+    },
+    {
+      "dataset": "live_salmon",
+      "condition": "A",
+      "rep": 2,
+      "prompt_hash": "d6fcf0ad1bd45b6a6e7f8bdda18700ce2bd832b18b8b16ed2fbbfd2545482e02",
+      "cache_key": "9bb3ddb3c9cf7ec6",
+      "record_file": "formal__live_salmon__A__gpt-4.1__rep02__9bb3ddb3c9cf7ec6.json",
+      "schedule_index": 28
+    },
+    {
+      "dataset": "dead_salmon",
+      "condition": "B",
+      "rep": 1,
+      "prompt_hash": "70717cd7474bce12ba117be4f4ae1647587840eb0255bbfb686bf1b48f9db454",
+      "cache_key": "887b56f39a88718d",
+      "record_file": "formal__dead_salmon__B__gpt-4.1__rep01__887b56f39a88718d.json",
+      "schedule_index": 29
+    }
+  ]
+}

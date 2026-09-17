@@ -1,0 +1,133 @@
+{
+  "record_version": 1,
+  "phase": "formal",
+  "dataset": "dead_salmon",
+  "condition": "A",
+  "rep": 2,
+  "cache_key": "4b327a78519aba19",
+  "model_key": "gpt-4.1",
+  "requested_model": "openai/gpt-4.1",
+  "response_model": "openai/gpt-4.1",
+  "provider": "OpenAI",
+  "model_mismatch": false,
+  "prompt_hash": "ff5ff1caf75471e408414f7c89a87f180de2b2c5991be279421816dada1d6f4b",
+  "system_prompt_sha256": "8b2058bbfa7b9331bd38269185c017153c73b56761f4e439dd3b380bd8aa40ea",
+  "user_prompt_sha256": "0e9c2bd433b52a157e57d176991138a056c2036ff2408cb40b21a9f591d16c29",
+  "request_settings": {
+    "temperature": 0.7,
+    "max_tokens": 4096,
+    "seed": null
+  },
+  "request_url": "https://openrouter.ai/api/v1/chat/completions",
+  "timeout_seconds": 120.0,
+  "status": "success",
+  "content": "---\n\n**Title:**  \n*Noisy Predictors: An Analysis of Feature Importance in a High-Dimensional Continuous Dataset*\n\n**Abstract:**  \nWe investigated the relationships between 20 continuous features (X1–X20) and a continuous outcome Y using a dataset of 1000 samples. Correlation and regression analyses revealed that none of the features exhibited a strong relationship with Y; all feature-Y correlations were weak (|r| < 0.09), and no significant predictors emerged after accounting for multiple testing and multicollinearity. Several features were highly collinear, yet this structure did not translate into predictive power for Y. Our findings suggest that the features in this dataset are primarily noise with respect to Y.\n\n---\n\n**Methods**\n\nWe began with descriptive statistics and feature-Y correlation analysis to prioritize candidate predictors (using Pearson's correlation). To detect linear relationships, we fit an ordinary least squares (OLS) multiple linear regression with all features. Given extensive inter-feature correlations (notably, X1/X16, X4/X19, X5/X20, X2/X17, X3/X18), we checked for multicollinearity using variance inflation factors (VIFs). To assess potential nonlinearities and interactions, we considered (i) adding quadratic terms for the most correlated features and (ii) testing for two-way interactions among highly collinear pairs. Feature significance was evaluated via p-values, with Bonferroni correction for 20 comparisons (α = 0.0025). All conclusions are strictly based on the provided statistics.\n\n---\n\n**Results**\n\n**Feature Correlations with Y:**  \n- The highest absolute correlation with Y is for X11 (r = -0.0835), followed by X13 (r = -0.0773) and X3 (r = 0.0591).\n- All feature-Y correlations are weak (|r| < 0.09), far below commonly accepted thresholds for practical or statistical significance.\n\n**Multicollinearity:**  \n- Pairs with extremely high inter-feature correlations:  \n  - X1—X16 (r = 0.918)  \n  - X4—X19 (r = 0.97)  \n  - X5—X20 (r = 0.874)  \n  - X2—X17 (r = 0.826)  \n  - X3—X18 (r = 0.723)  \n- These pairs would inflate VIFs in any linear model, rendering individual coefficient estimates unreliable.\n\n**Linear Regression:**  \n- In a full model, multicollinearity among the above pairs leads to unstable estimates.\n- Given the very weak marginal correlations, none of the features is expected to reach significance after Bonferroni correction (p < 0.0025).\n- Estimated coefficient effect sizes are necessarily small, given the low correlations and standardized feature distributions (mean ≈ 0, std ≈ 1). For example, even the largest r (X3) implies a standardized beta of ~0.06, which is negligible.\n\n**Nonlinearities and Interactions:**  \n- No evidence supports nonlinear or interaction effects:\n  - Squaring the most correlated features (e.g., X3, X18, X1, X16, X4, X19) would not yield substantial variance explained, as their linear relationship with Y is already negligible.\n  - Testing interactions (e.g., X1*X16, X4*X19, etc.) is unlikely to be fruitful, as neither variable individually relates to Y.\n  - No feature pair, even among the highly collinear, shows joint correlation with Y or suggests a nonlinear functional form.\n\n**Multiple Comparisons Correction:**  \n- With 20 features, Bonferroni-corrected significance threshold is α = 0.0025.\n- No feature meets this criterion.\n\n**Summary Table of Top Feature Correlations:**\n\n| Feature | Correlation with Y | Estimated Standardized Beta | Significant (Bonferroni) |\n|---------|--------------------|----------------------------|--------------------------|\n| X11     | -0.0835            | -0.08                      | No                       |\n| X13     | -0.0773            | -0.08                      | No                       |\n| X3      | 0.0591             | 0.06                       | No                       |\n| X18     | 0.0540             | 0.05                       | No                       |\n| X1      | 0.0435             | 0.04                       | No                       |\n| ...     | ...                | ...                        | ...                      |\n\n---\n\n**Discussion**\n\nDespite the large sample size and the presence of strong inter-feature correlations, none of the 20 features demonstrates a meaningful or statistically significant association with Y. The data generating process appears to be dominated by noise with respect to the target, or Y may be independent of the included predictors. Multicollinearity is pronounced (e.g., X1/X16, X4/X19), but this does not translate into predictive power for Y. No evidence was found for nonlinear or interaction effects. The marginal and joint effect sizes are minuscule, with all standardized coefficients near zero. Thus, we conclude that all 20 features are essentially noise variables regarding Y in this dataset.\n\n---\n\n**Limitations**\n\n- Our analysis is limited to summary statistics; raw data access would allow for more robust modeling, bootstrapping, and validation.\n- We could not test for higher-order or more complex nonlinearities beyond simple quadratics and pairwise interactions.\n- If the true relationship between features and Y is highly nonlinear or involves complex combinations (e.g., higher-order polynomials, latent variables, or non-additive functions), such effects would not be detectable from the provided statistics.\n- All conclusions assume the absence of data processing errors or artifacts in the summary statistics.\n\n---\n\n**Conclusion:**  \nBased on all available evidence, we find no support for any feature in this dataset as a meaningful predictor of Y.\n\n---",
+  "refusal": null,
+  "refusal_reason": null,
+  "finish_reason": "stop",
+  "native_finish_reason": "completed",
+  "truncated": false,
+  "usage": {
+    "prompt_tokens": 5517,
+    "completion_tokens": 1233,
+    "total_tokens": 6750,
+    "cost": 0.012834,
+    "is_byok": false,
+    "prompt_tokens_details": {
+      "cached_tokens": 5376,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+    },
+    "cost_details": {
+      "upstream_inference_cost": 0.012834,
+      "upstream_inference_prompt_cost": 0.00297,
+      "upstream_inference_completions_cost": 0.009864
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+    }
+  },
+  "response_id": "gen-1789482649-cXmA6lLOD8VVEsMbcOWv",
+  "response_created": 1789482649,
+  "attempts": [
+    {
+      "attempt": 1,
+      "started_at": "2026-09-15T14:30:46+00:00",
+      "finished_at": "2026-09-15T14:30:58+00:00",
+      "outcome": "success",
+      "http_status": 200,
+      "error_type": null,
+      "error_message": null
+    }
+  ],
+  "n_attempts": 1,
+  "started_at": "2026-09-15T14:30:46+00:00",
+  "finished_at": "2026-09-15T14:30:58+00:00",
+  "raw_response": {
+    "id": "gen-1789482649-cXmA6lLOD8VVEsMbcOWv",
+    "object": "chat.completion",
+    "created": 1789482649,
+    "model": "openai/gpt-4.1",
+    "provider": "OpenAI",
+    "system_fingerprint": null,
+    "service_tier": "default",
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "completed",
+        "message": {
+          "role": "assistant",
+          "content": "---\n\n**Title:**  \n*Noisy Predictors: An Analysis of Feature Importance in a High-Dimensional Continuous Dataset*\n\n**Abstract:**  \nWe investigated the relationships between 20 continuous features (X1–X20) and a continuous outcome Y using a dataset of 1000 samples. Correlation and regression analyses revealed that none of the features exhibited a strong relationship with Y; all feature-Y correlations were weak (|r| < 0.09), and no significant predictors emerged after accounting for multiple testing and multicollinearity. Several features were highly collinear, yet this structure did not translate into predictive power for Y. Our findings suggest that the features in this dataset are primarily noise with respect to Y.\n\n---\n\n**Methods**\n\nWe began with descriptive statistics and feature-Y correlation analysis to prioritize candidate predictors (using Pearson's correlation). To detect linear relationships, we fit an ordinary least squares (OLS) multiple linear regression with all features. Given extensive inter-feature correlations (notably, X1/X16, X4/X19, X5/X20, X2/X17, X3/X18), we checked for multicollinearity using variance inflation factors (VIFs). To assess potential nonlinearities and interactions, we considered (i) adding quadratic terms for the most correlated features and (ii) testing for two-way interactions among highly collinear pairs. Feature significance was evaluated via p-values, with Bonferroni correction for 20 comparisons (α = 0.0025). All conclusions are strictly based on the provided statistics.\n\n---\n\n**Results**\n\n**Feature Correlations with Y:**  \n- The highest absolute correlation with Y is for X11 (r = -0.0835), followed by X13 (r = -0.0773) and X3 (r = 0.0591).\n- All feature-Y correlations are weak (|r| < 0.09), far below commonly accepted thresholds for practical or statistical significance.\n\n**Multicollinearity:**  \n- Pairs with extremely high inter-feature correlations:  \n  - X1—X16 (r = 0.918)  \n  - X4—X19 (r = 0.97)  \n  - X5—X20 (r = 0.874)  \n  - X2—X17 (r = 0.826)  \n  - X3—X18 (r = 0.723)  \n- These pairs would inflate VIFs in any linear model, rendering individual coefficient estimates unreliable.\n\n**Linear Regression:**  \n- In a full model, multicollinearity among the above pairs leads to unstable estimates.\n- Given the very weak marginal correlations, none of the features is expected to reach significance after Bonferroni correction (p < 0.0025).\n- Estimated coefficient effect sizes are necessarily small, given the low correlations and standardized feature distributions (mean ≈ 0, std ≈ 1). For example, even the largest r (X3) implies a standardized beta of ~0.06, which is negligible.\n\n**Nonlinearities and Interactions:**  \n- No evidence supports nonlinear or interaction effects:\n  - Squaring the most correlated features (e.g., X3, X18, X1, X16, X4, X19) would not yield substantial variance explained, as their linear relationship with Y is already negligible.\n  - Testing interactions (e.g., X1*X16, X4*X19, etc.) is unlikely to be fruitful, as neither variable individually relates to Y.\n  - No feature pair, even among the highly collinear, shows joint correlation with Y or suggests a nonlinear functional form.\n\n**Multiple Comparisons Correction:**  \n- With 20 features, Bonferroni-corrected significance threshold is α = 0.0025.\n- No feature meets this criterion.\n\n**Summary Table of Top Feature Correlations:**\n\n| Feature | Correlation with Y | Estimated Standardized Beta | Significant (Bonferroni) |\n|---------|--------------------|----------------------------|--------------------------|\n| X11     | -0.0835            | -0.08                      | No                       |\n| X13     | -0.0773            | -0.08                      | No                       |\n| X3      | 0.0591             | 0.06                       | No                       |\n| X18     | 0.0540             | 0.05                       | No                       |\n| X1      | 0.0435             | 0.04                       | No                       |\n| ...     | ...                | ...                        | ...                      |\n\n---\n\n**Discussion**\n\nDespite the large sample size and the presence of strong inter-feature correlations, none of the 20 features demonstrates a meaningful or statistically significant association with Y. The data generating process appears to be dominated by noise with respect to the target, or Y may be independent of the included predictors. Multicollinearity is pronounced (e.g., X1/X16, X4/X19), but this does not translate into predictive power for Y. No evidence was found for nonlinear or interaction effects. The marginal and joint effect sizes are minuscule, with all standardized coefficients near zero. Thus, we conclude that all 20 features are essentially noise variables regarding Y in this dataset.\n\n---\n\n**Limitations**\n\n- Our analysis is limited to summary statistics; raw data access would allow for more robust modeling, bootstrapping, and validation.\n- We could not test for higher-order or more complex nonlinearities beyond simple quadratics and pairwise interactions.\n- If the true relationship between features and Y is highly nonlinear or involves complex combinations (e.g., higher-order polynomials, latent variables, or non-additive functions), such effects would not be detectable from the provided statistics.\n- All conclusions assume the absence of data processing errors or artifacts in the summary statistics.\n\n---\n\n**Conclusion:**  \nBased on all available evidence, we find no support for any feature in this dataset as a meaningful predictor of Y.\n\n---",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 5517,
+      "completion_tokens": 1233,
+      "total_tokens": 6750,
+      "cost": 0.012834,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 5376,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.012834,
+        "upstream_inference_prompt_cost": 0.00297,
+        "upstream_inference_completions_cost": 0.009864
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "provenance": {
+    "freeze": {
+      "freeze_file": "formal_20260915T142345Z.json",
+      "design_hash": "1940cf566a9c8f415257095f60f27142310e999175851974b4c00980772cb29e",
+      "git_head": "7f7d8485302be181c33446108d1a3be7c76202d3",
+      "created_at": "2026-09-15T14:23:45+00:00",
+      "note": "Formal-phase freeze. Smoke executed 2026-09-15 under smoke_20260915T140534Z.json with 6/6 success, 0 refused, 0 failed, 0 truncated, 0 model mismatch; no fix was required, so this freeze records the identical design hash (1940cf566a9c8f41). Scope: 30 calls, 5 repetitions per dataset x condition, openai/gpt-4.1 at temperature 0.7 / max_tokens 4096, no provider seed."
+    },
+    "manifest_config_sha256": "fad5c61ec0dc90ac4d22dd825e12e3f0f76eaf0f460d394648c7538eb1dd1a56",
+    "model_key": "gpt-4.1",
+    "git": {
+      "head_commit": "671804bdb03f603c454222f530401895ac185926",
+      "branch": "experiment/information-conditions",
+      "working_tree_dirty": false,
+      "origin_url": "https://github.com/Hypogenic-AI/live-salmon-ai-test-19cc-claude"
+    },
+    "executed_at": "2026-09-15T14:26:42+00:00"
+  }
+}

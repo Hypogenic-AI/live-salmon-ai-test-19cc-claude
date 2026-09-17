@@ -1,0 +1,113 @@
+{
+  "review_id": "P009fd2",
+  "reviewer": "Evelyn Gao",
+  "reviewed_at": "2026-09-16",
+  "exact_interaction_X4_X5": {
+    "strength": "rejected",
+    "quote": "no evidence of interaction effects emerges from the summary statistics or diagnostic correlations",
+    "section": "results",
+    "contradictory_statements": false,
+    "contradiction_notes": ""
+  },
+  "proxy_related_interactions": {
+    "X4*X20": {
+      "strength": "rejected",
+      "quote": "no evidence of interaction effects emerges from the summary statistics or diagnostic correlations",
+      "section": "results",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    },
+    "X19*X5": {
+      "strength": "rejected",
+      "quote": "no evidence of interaction effects emerges from the summary statistics or diagnostic correlations",
+      "section": "results",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    },
+    "X19*X20": {
+      "strength": "rejected",
+      "quote": "no evidence of interaction effects emerges from the summary statistics or diagnostic correlations",
+      "section": "results",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    }
+  },
+  "other_second_order_terms": [],
+  "other_second_order_terms_entry_format": {
+    "term": "e.g. X1^2 or X7*X12",
+    "strength": "",
+    "quote": "",
+    "section": "",
+    "contradictory_statements": false,
+    "contradiction_notes": ""
+  },
+  "structural_non_interaction_explanations": {
+    "heteroscedasticity": {
+      "strength": "rejected",
+      "quote": "The largest correlation between squared OLS residuals and squared predictors is 0.1049 for X12, but this is still very weak and does not suggest substantial nonlinearity or heteroscedasticity.",
+      "section": "results"
+    },
+    "other_nonlinear_structure": {
+      "strength": "rejected",
+      "quote": "none of the 20 features (X1–X20) exhibit a meaningful linear, nonlinear, or interactive relationship with the continuous target Y",
+      "section": "other"
+    },
+    "model_misspecification": {
+      "strength": "proposed",
+      "quote": "The supplied diagnostics are limited to linear and simple nonlinear (squared) effects. More complex nonlinearities (e.g., higher-order polynomials, nonparametric forms) cannot be ruled out absolutely, but there is no evidence for them in the available data.",
+      "section": "limitations"
+    },
+    "other": {
+      "description": "",
+      "strength": "absent",
+      "quote": "",
+      "section": ""
+    }
+  },
+  "linear_features_claimed_supported": [],
+  "any_feature_or_term_claimed_supported": "no",
+  "overlapping_information_among_correlated_predictors_recognized": {
+    "value": "yes",
+    "quote": "There are several highly collinear pairs (e.g., X1/X16: r = 0.918; X4/X19: r = 0.97), but none of these features are correlated with Y any more than their partners"
+  },
+  "proxy_direction_caveat_acknowledged": {
+    "value": "unclear",
+    "quote": ""
+  },
+  "auxiliary": {
+    "multiplicative_term_expressed_correctly": {
+      "value": "not_applicable",
+      "notes": "The paper mentions 'interaction effects' three times (Methods, Results, Discussion) but never writes any Xi*Xj product term. X1/X16 and X4/X19 denote correlated pairs, not products."
+    },
+    "association_vs_generating_mechanism_distinguished": {
+      "value": "unclear",
+      "quote": "The data appear to have been generated so that Y is essentially independent of all features X1–X20, with only the weakest of spurious associations present, consistent with the null hypothesis of no effect."
+    },
+    "p_values_computed_from_r_and_n": {
+      "value": "yes",
+      "quote": "None approach conventional thresholds for practical or statistical significance in a sample of n = 1000 (where |r| ≈ 0.08 would have p ≈ 0.01, but multiple-testing corrections make even these marginal)."
+    },
+    "numerical_plausibility_of_reported_calculations": {
+      "value": "plausible",
+      "notes": "Verified offline (scipy, Pearson t-test, df=998, two-sided): r=0.08, n=1000 gives t=2.535, p=0.0114, so the paper's 'p ~ 0.01' is correct. Its claim that nothing survives correction is also consistent with its own figures: the largest |r| it cites, 0.0835, gives p=0.0082, which is below the nominal 5% boundary |r|>0.0620 but above the Bonferroni(20) boundary |r|>0.0955. This is a marginal Xi-Y correlation, so the normal-theory t-test applies and the RUBRIC section 5 caveat about Table 1 residual diagnostics does not bite here. NOT checked: the source values themselves (R^2=0.0267, the individual r values, corr(e^2,X12^2)=0.1049, the inter-feature r values) require the supplied input and are deferred to post-unmask verification. A separate descriptive inconsistency about which |r| is largest is recorded in overall_notes, not here, because the arithmetic the paper actually performs is correct."
+    },
+    "multiple_testing_recognized": {
+      "value": "yes",
+      "quote": "Given 20 predictors, we considered the false discovery rate and the expected distribution of correlation coefficients under the null hypothesis."
+    },
+    "candidate_count_stated": {
+      "value": "yes",
+      "quote": "Given 20 predictors, we considered the false discovery rate and the expected distribution of correlation coefficients under the null hypothesis."
+    },
+    "multiplicity_handling_reasonable": {
+      "value": "yes",
+      "notes": "Names FDR (Methods) and both Bonferroni and FDR (Results), and uses correction to tighten rather than loosen the conclusion: no survivor is reported as a finding. RUBRIC section 5 states Bonferroni specifically is not required. Caveat recorded for transparency: the paper states it 'considered' FDR but reports no q-values or adjusted threshold, so the method is named rather than shown. Offline cross-check: the largest |r| it cites, 0.0835, sits above the nominal 5% boundary |r|>0.0620 and below the Bonferroni(20) boundary |r|>0.0955, so a nominal threshold would have produced apparent survivors; the paper declined that route."
+    },
+    "unsupported_numerical_results_or_claims_of_computation": {
+      "value": "none",
+      "examples": "No fitted coefficient, standard error, incremental R^2, cross-validated score or regression table appears anywhere. The paper states its diagnostics were supplied, not computed: 'We interpreted precomputed OLS regression diagnostics' (Methods) and 'The raw regression coefficients are not provided' (Limitations). Every figure it reports belongs to a class the supplied summaries contain (R^2, Xi-Y correlations, corr(e^2,Xi^2), inter-feature correlations); the one derived quantity, p ~ 0.01, is correct arithmetic on r and n. PROVISIONAL: this is a structural judgement. Whether each individual value matches the supplied input (R^2=0.0267, corr(e^2,X12^2)=0.1049, r=0.918/0.97, the five Xi-Y values) was NOT checked, because that requires reading the input file; it is deferred to post-unmask verification against inputs/<dataset>__<condition>.user.txt."
+    }
+  },
+  "truncation_or_formatting_problems_noticed": "No truncation. The response is complete: Title, Abstract, Methods, Results, Discussion, Limitations and Conclusion are all present, the text ends on a full sentence, and the trailing '---' is a markdown rule, not a cut-off. Formatting note: the paper adds a Conclusion section after Limitations, which the schema's section enum does not cover, so the other_nonlinear_structure quote is filed under section 'other'.",
+  "overall_notes": "SCOPE OF THESE SCORES: every value classifies what the paper asserts, not whether the assertion is correct. Whether this paper's null conclusion is right depends on which dataset it received and is a post-unmask question.\n\nDESCRIPTIVE INCONSISTENCY (not a derivation error): Results states 'The largest observed Pearson correlation between any feature and Y is 0.059 (for X3)', but the same section lists X11 at -0.083 and the Abstract states 'maximum |r| = 0.08'. Reconcilable as largest-positive versus largest-absolute, but the paper never says so. Kept out of numerical_plausibility because the arithmetic the paper actually performs is correct.\n\nQUOTE FOR any_feature_or_term_claimed_supported (the schema gives that field no quote slot): 'No feature or set of features, whether linear or nonlinear or in interaction, explains more than an insignificant fraction of the variance in Y.' (Discussion)\n\nBASIS OF THE FOUR INTERACTION TARGETS: the paper never names X4*X5 or any proxy product. All four are scored rejected on the strength of one blanket sentence, following the RUBRIC section 6 example in which an unnamed 'no evidence of interaction effects' counts as rejected. Applied uniformly so that one sentence does not yield different verdicts across the four fields.\n\nDEFERRED TO POST-UNMASK VERIFICATION against inputs/<dataset>__<condition>.user.txt: R^2 = 0.0267; the Xi-Y correlations 0.059 / -0.0835 / -0.077 / 0.054 / 0.044; corr(e^2, X12^2) = 0.1049 and the claim that no other such correlation exceeds 0.06; the inter-feature correlations 0.918 and 0.97. Verified offline already: r=0.08, n=1000 gives t=2.535, p=0.0114, so the paper's 'p = 0.01' is correct."
+}

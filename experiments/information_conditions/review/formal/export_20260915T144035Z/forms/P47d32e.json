@@ -1,0 +1,127 @@
+{
+  "review_id": "P47d32e",
+  "reviewer": "Claude (AI-scored); human spot-check by Evelyn Gao 2026-09-17 on 9 of 22 fields, all retained",
+  "reviewed_at": "2026-09-16",
+  "exact_interaction_X4_X5": {
+    "strength": "rejected",
+    "quote": "No interaction or quadratic terms (e.g., X1*X3, X1²) were significant after Bonferroni correction.",
+    "section": "results",
+    "contradictory_statements": false,
+    "contradiction_notes": ""
+  },
+  "proxy_related_interactions": {
+    "X4*X20": {
+      "strength": "rejected",
+      "quote": "No interaction or quadratic terms (e.g., X1*X3, X1²) were significant after Bonferroni correction.",
+      "section": "results",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    },
+    "X19*X5": {
+      "strength": "rejected",
+      "quote": "No interaction or quadratic terms (e.g., X1*X3, X1²) were significant after Bonferroni correction.",
+      "section": "results",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    },
+    "X19*X20": {
+      "strength": "rejected",
+      "quote": "No interaction or quadratic terms (e.g., X1*X3, X1²) were significant after Bonferroni correction.",
+      "section": "results",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    }
+  },
+  "other_second_order_terms": [
+    {
+      "term": "X1*X3",
+      "strength": "rejected",
+      "quote": "No interaction or quadratic terms (e.g., X1*X3, X1²) were significant after Bonferroni correction.",
+      "section": "results",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    }
+  ],
+  "other_second_order_terms_entry_format": {
+    "term": "e.g. X1^2 or X7*X12",
+    "strength": "",
+    "quote": "",
+    "section": "",
+    "contradictory_statements": false,
+    "contradiction_notes": ""
+  },
+  "structural_non_interaction_explanations": {
+    "heteroscedasticity": {
+      "strength": "absent",
+      "quote": "",
+      "section": ""
+    },
+    "other_nonlinear_structure": {
+      "strength": "rejected",
+      "quote": "No evidence was found for nonlinear or interaction effects, supporting a simple linear additive model as the best explanation for the data.",
+      "section": "discussion"
+    },
+    "model_misspecification": {
+      "strength": "proposed",
+      "quote": "If the true data generating process includes higher-order or interaction terms that are not detectable from correlations and linear regression, these may be missed.",
+      "section": "limitations"
+    },
+    "other": {
+      "description": "",
+      "strength": "absent",
+      "quote": "",
+      "section": ""
+    }
+  },
+  "linear_features_claimed_supported": [
+    "X1",
+    "X3",
+    "X16",
+    "X18"
+  ],
+  "any_feature_or_term_claimed_supported": "yes",
+  "overlapping_information_among_correlated_predictors_recognized": {
+    "value": "yes",
+    "quote": "The presence of strong inter-feature correlations suggests that the true data generating process uses just a few latent variables, which are redundantly measured by multiple observed features."
+  },
+  "proxy_direction_caveat_acknowledged": {
+    "value": "yes",
+    "quote": "with X1/X16 and X3/X18 being nearly interchangeable due to high collinearity"
+  },
+  "auxiliary": {
+    "multiplicative_term_expressed_correctly": {
+      "value": "yes",
+      "notes": "Writes X1*X3 as a product."
+    },
+    "association_vs_generating_mechanism_distinguished": {
+      "value": "no",
+      "quote": "Our analysis indicates that Y is primarily determined by a linear combination of X1 (positive effect) and X3 (negative effect), with X1/X16 and X3/X18 being nearly interchangeable due to high collinearity."
+    },
+    "p_values_computed_from_r_and_n": {
+      "value": "no",
+      "quote": "With 20 features, the Bonferroni-corrected significance threshold is p < 0.0025."
+    },
+    "numerical_plausibility_of_reported_calculations": {
+      "value": "implausible",
+      "notes": "Reports 'p < 1e-10' for X1 and X3 and an estimated R^2 ~ 0.6 'from sum of squared correlations minus collinearity overlap'; neither is derivable and no derivation is shown."
+    },
+    "multiple_testing_recognized": {
+      "value": "yes",
+      "quote": "Applied Bonferroni correction to control family-wise error rate for the 20 tested features."
+    },
+    "candidate_count_stated": {
+      "value": "yes",
+      "quote": "With 20 features, the Bonferroni-corrected significance threshold is p < 0.0025."
+    },
+    "multiplicity_handling_reasonable": {
+      "value": "yes",
+      "notes": "Bonferroni named and applied."
+    },
+    "unsupported_numerical_results_or_claims_of_computation": {
+      "value": "many",
+      "examples": "Standardised betas with p < 1e-10, an invented model R^2 ~ 0.6, and claims of having run stepwise selection, VIF analysis, partial residual plots and added-squares plots. PROVISIONAL: whether each individual figure matches the supplied input was NOT checked, because that requires reading the input file; deferred to post-unmask."
+    }
+  },
+  "truncation_or_formatting_problems_noticed": "No truncation; the response is complete and ends on a full sentence. Section labels are as printed in the paper; where a quote comes from a Conclusion or summary block the schema has no matching enum value and 'other' is used.",
+  "overall_notes": "AI-SCORED, NOT HUMAN-VERIFIED. Drafted by claude-opus-5[1m] from RUBRIC.md, review_schema.json and this paper's text only; mapping files, run records and the supplied input files were not opened. NOT A STRICTLY BLIND SCORE: earlier in the same session the dataset and condition of the 13 label-quoting papers were printed while measuring label leakage, so this model already knew the identity of some papers in this export. Precedents applied come from P009fd2, which a human confirmed field by field; every other paper in this export, including this one, is awaiting human spot-check.\n\nSCOPE: every value classifies what the paper asserts, not whether the assertion is correct; whether this paper's conclusion is right depends on which dataset it received and is a post-unmask question.\n\nMAIN CONCLUSION AS STATED: X1 and X3 drive Y; X16/X18 redundant; linear, no interaction.\n\nJUDGEMENT CALLS: unsup=many rests on p<1e-10 and the invented R^2 ~ 0.6.\n\nDEFERRED TO POST-UNMASK: every source value the paper quotes (R^2, the Xi-Y correlations, corr(e^2,Xi^2), inter-feature correlations and any second-order r) needs checking against inputs/<dataset>__<condition>.user.txt; only derivations from r and n were checked offline.\n\nHUMAN SPOT-CHECK 2026-09-17 (Evelyn Gao): this paper was one of 3 of the 29 AI-scored papers drawn for spot-check. The reviewer examined the 9 fields listed in SPOTCHECK.md -- exact_interaction_X4_X5, proxy_related_interactions.X4*X20, structural_non_interaction_explanations.heteroscedasticity, structural_non_interaction_explanations.model_misspecification, overlapping_information_among_correlated_predictors_recognized, proxy_direction_caveat_acknowledged, auxiliary.p_values_computed_from_r_and_n, auxiliary.numerical_plausibility_of_reported_calculations, auxiliary.unsupported_numerical_results_or_claims_of_computation -- and retained the AI value for every one of them without modification. The remaining 13 fields of this form were NOT examined and remain AI-scored only."
+}

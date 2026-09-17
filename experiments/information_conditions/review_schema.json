@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "description": "Per-paper human review form. Strength is scored independently of target. Reviewers do not see dataset, condition, model or repetition; dataset-dependent judgements (e.g. false positive on null data) are derived after unmasking.",
+  "enums": {
+    "strength": ["absent", "proposed", "supported", "rejected"],
+    "strength_meaning": {
+      "absent": "term/explanation not mentioned at all",
+      "proposed": "raised as a hypothesis, possibility, or suggestion for further testing; not asserted as a finding",
+      "supported": "explicitly asserted as a finding of this analysis (e.g. 'we find', 'is significant', 'the DGP includes')",
+      "rejected": "explicitly considered and ruled out"
+    },
+    "yes_no_unclear": ["yes", "no", "unclear"],
+    "yes_no_na": ["yes", "no", "not_applicable"],
+    "plausibility": ["plausible", "implausible", "not_checked", "not_applicable"],
+    "amount": ["none", "some", "many"],
+    "section": ["title", "abstract", "methods", "results", "discussion", "limitations", "other"]
+  },
+  "form_template": {
+    "review_id": "",
+    "reviewer": "",
+    "reviewed_at": "",
+    "exact_interaction_X4_X5": {"strength": "", "quote": "", "section": "", "contradictory_statements": false, "contradiction_notes": ""},
+    "proxy_related_interactions": {
+      "X4*X20": {"strength": "", "quote": "", "section": "", "contradictory_statements": false, "contradiction_notes": ""},
+      "X19*X5": {"strength": "", "quote": "", "section": "", "contradictory_statements": false, "contradiction_notes": ""},
+      "X19*X20": {"strength": "", "quote": "", "section": "", "contradictory_statements": false, "contradiction_notes": ""}
+    },
+    "other_second_order_terms": [],
+    "other_second_order_terms_entry_format": {"term": "e.g. X1^2 or X7*X12", "strength": "", "quote": "", "section": "", "contradictory_statements": false, "contradiction_notes": ""},
+    "structural_non_interaction_explanations": {
+      "heteroscedasticity": {"strength": "", "quote": "", "section": ""},
+      "other_nonlinear_structure": {"strength": "", "quote": "", "section": ""},
+      "model_misspecification": {"strength": "", "quote": "", "section": ""},
+      "other": {"description": "", "strength": "", "quote": "", "section": ""}
+    },
+    "linear_features_claimed_supported": [],
+    "any_feature_or_term_claimed_supported": "",
+    "overlapping_information_among_correlated_predictors_recognized": {"value": "", "quote": ""},
+    "proxy_direction_caveat_acknowledged": {"value": "", "quote": ""},
+    "auxiliary": {
+      "multiplicative_term_expressed_correctly": {"value": "", "notes": ""},
+      "association_vs_generating_mechanism_distinguished": {"value": "", "quote": ""},
+      "p_values_computed_from_r_and_n": {"value": "", "quote": ""},
+      "numerical_plausibility_of_reported_calculations": {"value": "", "notes": ""},
+      "multiple_testing_recognized": {"value": "", "quote": ""},
+      "candidate_count_stated": {"value": "", "quote": ""},
+      "multiplicity_handling_reasonable": {"value": "", "notes": ""},
+      "unsupported_numerical_results_or_claims_of_computation": {"value": "", "examples": ""}
+    },
+    "truncation_or_formatting_problems_noticed": "",
+    "overall_notes": ""
+  },
+  "required_enum_fields": {
+    "exact_interaction_X4_X5.strength": "strength",
+    "proxy_related_interactions.X4*X20.strength": "strength",
+    "proxy_related_interactions.X19*X5.strength": "strength",
+    "proxy_related_interactions.X19*X20.strength": "strength",
+    "structural_non_interaction_explanations.heteroscedasticity.strength": "strength",
+    "structural_non_interaction_explanations.other_nonlinear_structure.strength": "strength",
+    "structural_non_interaction_explanations.model_misspecification.strength": "strength",
+    "any_feature_or_term_claimed_supported": "yes_no_unclear",
+    "overlapping_information_among_correlated_predictors_recognized.value": "yes_no_unclear",
+    "proxy_direction_caveat_acknowledged.value": "yes_no_unclear",
+    "auxiliary.multiplicative_term_expressed_correctly.value": "yes_no_na",
+    "auxiliary.association_vs_generating_mechanism_distinguished.value": "yes_no_unclear",
+    "auxiliary.p_values_computed_from_r_and_n.value": "yes_no_unclear",
+    "auxiliary.numerical_plausibility_of_reported_calculations.value": "plausibility",
+    "auxiliary.multiple_testing_recognized.value": "yes_no_unclear",
+    "auxiliary.candidate_count_stated.value": "yes_no_unclear",
+    "auxiliary.multiplicity_handling_reasonable.value": "yes_no_na",
+    "auxiliary.unsupported_numerical_results_or_claims_of_computation.value": "amount"
+  }
+}

@@ -1,0 +1,133 @@
+{
+  "record_version": 1,
+  "phase": "formal",
+  "dataset": "dead_salmon",
+  "condition": "B",
+  "rep": 3,
+  "cache_key": "0b0dd4e474b846ed",
+  "model_key": "gpt-4.1",
+  "requested_model": "openai/gpt-4.1",
+  "response_model": "openai/gpt-4.1",
+  "provider": "OpenAI",
+  "model_mismatch": false,
+  "prompt_hash": "70717cd7474bce12ba117be4f4ae1647587840eb0255bbfb686bf1b48f9db454",
+  "system_prompt_sha256": "8b2058bbfa7b9331bd38269185c017153c73b56761f4e439dd3b380bd8aa40ea",
+  "user_prompt_sha256": "b0bf6f48174644eecefb86766342e4dc1659a3efa814555a94ea2cf8b6375ff9",
+  "request_settings": {
+    "temperature": 0.7,
+    "max_tokens": 4096,
+    "seed": null
+  },
+  "request_url": "https://openrouter.ai/api/v1/chat/completions",
+  "timeout_seconds": 120.0,
+  "status": "success",
+  "content": "---\n\n# Title\n\n**No Strong Predictors: A Rigorous Statistical Analysis of Research Dataset B**\n\n---\n\n# Abstract\n\nWe performed a comprehensive statistical analysis of Research Dataset B, which comprises 1,000 observations of 20 continuous predictors and a continuous outcome variable, Y. Exploratory and inferential analyses—including OLS regression, correlation screens, and second-order term evaluations—revealed no substantial linear, nonlinear, or interaction-based relationships between the predictors and Y. The highest observed absolute correlation between any predictor and Y was 0.08, and the best-fitting multivariate linear model explained just 2.67% of outcome variance. We conclude that none of the examined features are meaningfully predictive of Y, and the apparent structure is consistent with noise.\n\n---\n\n# Methods\n\nWe first examined descriptive statistics and pairwise Pearson correlations between each predictor (X1–X20) and the target Y to identify any linear relationships. Inter-feature correlations were assessed to check for multicollinearity. An ordinary least squares (OLS) regression of Y on all predictors was reviewed for overall goodness-of-fit (R²) and to infer the likely magnitude of individual coefficients. To assess non-linear and interaction effects, we examined correlations of Y with all possible second-order terms (squares and cross-products), as well as correlations between squared OLS residuals and squared predictors. No significance tests or p-values were used, as only summary statistics were provided; instead, we judged practical significance by effect sizes and model fit statistics. We additionally considered the possibility of spurious structure due to multiple comparisons.\n\n---\n\n# Results\n\n## Linear Relationships\n\n- **Highest correlation with Y:** X3 (r = 0.059), X18 (r = 0.054), X1 (r = 0.044), X16 (r = 0.038), X4 (r = 0.038), X19 (r = 0.029), X10 (r = 0.025).\n- **Strongest negative:** X11 (r = -0.084), X13 (r = -0.077), X8 (r = -0.044), X9 (r = -0.043).\n- **All other predictors:** |r| < 0.05.\n- **OLS regression model (all predictors):** In-sample R² = 0.0267 (~2.67% of Y variance explained).\n\n## Nonlinear and Interaction Effects\n\n- **Squared terms:** Highest |r| with Y was for X2^2 (0.053), X5^2 (0.056); all others |r| < 0.05.\n- **Cross-product terms:** All |r| < 0.09; none approach practical significance.\n- **Correlations of squared residuals with squared predictors:** Largest observed was for X12 (0.105), but this is not reflected in a significant nonlinear relationship with Y.\n\n## Multicollinearity\n\n- Several pairs of predictors are highly correlated (e.g., X1/X16, X4/X19, X5/X20, X2/X17, X3/X18), but none of these pairs show strong associations with Y, individually or jointly.\n\n## Effect Sizes\n\n- The largest observed univariate effect (X3, r = 0.059) would translate to a standardized regression coefficient of approximately 0.059, a negligible practical effect.\n- No second-order or interaction term had an effect size exceeding |r| = 0.09.\n\n## Multiple Comparison Considerations\n\n- With 20 predictors and 210 second-order terms, a small number of |r| ≈ 0.05 is expected under the null hypothesis (no true effect) due to random variation.\n\n---\n\n# Discussion\n\n## Data Generating Process\n\nThe evidence overwhelmingly suggests that Y in this dataset is not meaningfully associated with any individual predictor, nor with any simple combination (linear, squared, or pairwise product) of them. The minuscule R² from the OLS regression (2.67%) and the extremely small univariate and second-order correlations indicate that any observed effects are likely due to random sampling fluctuation rather than a true underlying relationship. This is reinforced by the distribution of correlation coefficients: all fall well within the range expected by chance given the number of features and the sample size.\n\n## Which Features Matter?\n\n- **Significant predictors:** None. All features are, in practical terms, noise with respect to Y.\n- **Effect sizes:** All standardized effects are negligible (|r| < 0.09).\n- **Interaction/nonlinear effects:** None detected; all second-order terms are negligible.\n- **Multicollinearity:** Present among some predictors but irrelevant, as none relate to Y.\n\nThe data are consistent with Y being generated independently of X1–X20, perhaps by random sampling from a distribution with no dependence on the predictors.\n\n---\n\n# Limitations\n\n- **No access to raw p-values or confidence intervals:** Our conclusions are based on effect sizes and model fit, not formal hypothesis testing.\n- **Multiple comparisons:** With 230 pairwise tests (20 main effects, 210 second-order), some small apparent effects may arise by chance. No correction (e.g., Bonferroni) was applied, but the effect sizes are so small that even uncorrected, none approach practical or statistical significance.\n- **Potential for undetected higher-order or nonparametric structure:** The analysis is limited to linear, quadratic, and pairwise interaction terms; more complex or nonparametric relationships cannot be ruled out, but there is no evidence for them in the provided statistics.\n- **External validity:** Findings apply strictly to this dataset and its supplied summary statistics.\n\n---\n\n# Conclusion\n\nBased solely on the supplied data and statistics, there is no evidence for any meaningful predictive relationship between the 20 features and Y. All apparent associations are so small as to be consistent with noise. The data generating process appears independent of the supplied predictors.\n\n---",
+  "refusal": null,
+  "refusal_reason": null,
+  "finish_reason": "stop",
+  "native_finish_reason": "completed",
+  "truncated": false,
+  "usage": {
+    "prompt_tokens": 9611,
+    "completion_tokens": 1226,
+    "total_tokens": 10837,
+    "cost": 0.014822,
+    "is_byok": false,
+    "prompt_tokens_details": {
+      "cached_tokens": 9472,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+    },
+    "cost_details": {
+      "upstream_inference_cost": 0.014822,
+      "upstream_inference_prompt_cost": 0.005014,
+      "upstream_inference_completions_cost": 0.009808
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+    }
+  },
+  "response_id": "gen-1789482864-VWv3TWM8VfozdYzBcCHr",
+  "response_created": 1789482864,
+  "attempts": [
+    {
+      "attempt": 1,
+      "started_at": "2026-09-15T14:34:22+00:00",
+      "finished_at": "2026-09-15T14:34:33+00:00",
+      "outcome": "success",
+      "http_status": 200,
+      "error_type": null,
+      "error_message": null
+    }
+  ],
+  "n_attempts": 1,
+  "started_at": "2026-09-15T14:34:22+00:00",
+  "finished_at": "2026-09-15T14:34:33+00:00",
+  "raw_response": {
+    "id": "gen-1789482864-VWv3TWM8VfozdYzBcCHr",
+    "object": "chat.completion",
+    "created": 1789482864,
+    "model": "openai/gpt-4.1",
+    "provider": "OpenAI",
+    "system_fingerprint": null,
+    "service_tier": "default",
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "completed",
+        "message": {
+          "role": "assistant",
+          "content": "---\n\n# Title\n\n**No Strong Predictors: A Rigorous Statistical Analysis of Research Dataset B**\n\n---\n\n# Abstract\n\nWe performed a comprehensive statistical analysis of Research Dataset B, which comprises 1,000 observations of 20 continuous predictors and a continuous outcome variable, Y. Exploratory and inferential analyses—including OLS regression, correlation screens, and second-order term evaluations—revealed no substantial linear, nonlinear, or interaction-based relationships between the predictors and Y. The highest observed absolute correlation between any predictor and Y was 0.08, and the best-fitting multivariate linear model explained just 2.67% of outcome variance. We conclude that none of the examined features are meaningfully predictive of Y, and the apparent structure is consistent with noise.\n\n---\n\n# Methods\n\nWe first examined descriptive statistics and pairwise Pearson correlations between each predictor (X1–X20) and the target Y to identify any linear relationships. Inter-feature correlations were assessed to check for multicollinearity. An ordinary least squares (OLS) regression of Y on all predictors was reviewed for overall goodness-of-fit (R²) and to infer the likely magnitude of individual coefficients. To assess non-linear and interaction effects, we examined correlations of Y with all possible second-order terms (squares and cross-products), as well as correlations between squared OLS residuals and squared predictors. No significance tests or p-values were used, as only summary statistics were provided; instead, we judged practical significance by effect sizes and model fit statistics. We additionally considered the possibility of spurious structure due to multiple comparisons.\n\n---\n\n# Results\n\n## Linear Relationships\n\n- **Highest correlation with Y:** X3 (r = 0.059), X18 (r = 0.054), X1 (r = 0.044), X16 (r = 0.038), X4 (r = 0.038), X19 (r = 0.029), X10 (r = 0.025).\n- **Strongest negative:** X11 (r = -0.084), X13 (r = -0.077), X8 (r = -0.044), X9 (r = -0.043).\n- **All other predictors:** |r| < 0.05.\n- **OLS regression model (all predictors):** In-sample R² = 0.0267 (~2.67% of Y variance explained).\n\n## Nonlinear and Interaction Effects\n\n- **Squared terms:** Highest |r| with Y was for X2^2 (0.053), X5^2 (0.056); all others |r| < 0.05.\n- **Cross-product terms:** All |r| < 0.09; none approach practical significance.\n- **Correlations of squared residuals with squared predictors:** Largest observed was for X12 (0.105), but this is not reflected in a significant nonlinear relationship with Y.\n\n## Multicollinearity\n\n- Several pairs of predictors are highly correlated (e.g., X1/X16, X4/X19, X5/X20, X2/X17, X3/X18), but none of these pairs show strong associations with Y, individually or jointly.\n\n## Effect Sizes\n\n- The largest observed univariate effect (X3, r = 0.059) would translate to a standardized regression coefficient of approximately 0.059, a negligible practical effect.\n- No second-order or interaction term had an effect size exceeding |r| = 0.09.\n\n## Multiple Comparison Considerations\n\n- With 20 predictors and 210 second-order terms, a small number of |r| ≈ 0.05 is expected under the null hypothesis (no true effect) due to random variation.\n\n---\n\n# Discussion\n\n## Data Generating Process\n\nThe evidence overwhelmingly suggests that Y in this dataset is not meaningfully associated with any individual predictor, nor with any simple combination (linear, squared, or pairwise product) of them. The minuscule R² from the OLS regression (2.67%) and the extremely small univariate and second-order correlations indicate that any observed effects are likely due to random sampling fluctuation rather than a true underlying relationship. This is reinforced by the distribution of correlation coefficients: all fall well within the range expected by chance given the number of features and the sample size.\n\n## Which Features Matter?\n\n- **Significant predictors:** None. All features are, in practical terms, noise with respect to Y.\n- **Effect sizes:** All standardized effects are negligible (|r| < 0.09).\n- **Interaction/nonlinear effects:** None detected; all second-order terms are negligible.\n- **Multicollinearity:** Present among some predictors but irrelevant, as none relate to Y.\n\nThe data are consistent with Y being generated independently of X1–X20, perhaps by random sampling from a distribution with no dependence on the predictors.\n\n---\n\n# Limitations\n\n- **No access to raw p-values or confidence intervals:** Our conclusions are based on effect sizes and model fit, not formal hypothesis testing.\n- **Multiple comparisons:** With 230 pairwise tests (20 main effects, 210 second-order), some small apparent effects may arise by chance. No correction (e.g., Bonferroni) was applied, but the effect sizes are so small that even uncorrected, none approach practical or statistical significance.\n- **Potential for undetected higher-order or nonparametric structure:** The analysis is limited to linear, quadratic, and pairwise interaction terms; more complex or nonparametric relationships cannot be ruled out, but there is no evidence for them in the provided statistics.\n- **External validity:** Findings apply strictly to this dataset and its supplied summary statistics.\n\n---\n\n# Conclusion\n\nBased solely on the supplied data and statistics, there is no evidence for any meaningful predictive relationship between the 20 features and Y. All apparent associations are so small as to be consistent with noise. The data generating process appears independent of the supplied predictors.\n\n---",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 9611,
+      "completion_tokens": 1226,
+      "total_tokens": 10837,
+      "cost": 0.014822,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 9472,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.014822,
+        "upstream_inference_prompt_cost": 0.005014,
+        "upstream_inference_completions_cost": 0.009808
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "provenance": {
+    "freeze": {
+      "freeze_file": "formal_20260915T142345Z.json",
+      "design_hash": "1940cf566a9c8f415257095f60f27142310e999175851974b4c00980772cb29e",
+      "git_head": "7f7d8485302be181c33446108d1a3be7c76202d3",
+      "created_at": "2026-09-15T14:23:45+00:00",
+      "note": "Formal-phase freeze. Smoke executed 2026-09-15 under smoke_20260915T140534Z.json with 6/6 success, 0 refused, 0 failed, 0 truncated, 0 model mismatch; no fix was required, so this freeze records the identical design hash (1940cf566a9c8f41). Scope: 30 calls, 5 repetitions per dataset x condition, openai/gpt-4.1 at temperature 0.7 / max_tokens 4096, no provider seed."
+    },
+    "manifest_config_sha256": "fad5c61ec0dc90ac4d22dd825e12e3f0f76eaf0f460d394648c7538eb1dd1a56",
+    "model_key": "gpt-4.1",
+    "git": {
+      "head_commit": "671804bdb03f603c454222f530401895ac185926",
+      "branch": "experiment/information-conditions",
+      "working_tree_dirty": false,
+      "origin_url": "https://github.com/Hypogenic-AI/live-salmon-ai-test-19cc-claude"
+    },
+    "executed_at": "2026-09-15T14:26:42+00:00"
+  }
+}

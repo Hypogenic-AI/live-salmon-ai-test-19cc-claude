@@ -1,0 +1,133 @@
+{
+  "record_version": 1,
+  "phase": "formal",
+  "dataset": "live_salmon",
+  "condition": "A_prime",
+  "rep": 5,
+  "cache_key": "acc4a071600ae07d",
+  "model_key": "gpt-4.1",
+  "requested_model": "openai/gpt-4.1",
+  "response_model": "openai/gpt-4.1",
+  "provider": "OpenAI",
+  "model_mismatch": false,
+  "prompt_hash": "8b06de98dabab7d7bc0161988d047eafa77160958d1bb5ca789a6c11c62b0092",
+  "system_prompt_sha256": "8b2058bbfa7b9331bd38269185c017153c73b56761f4e439dd3b380bd8aa40ea",
+  "user_prompt_sha256": "ed48385ae26fe481729801c2d91a1e93ac0260a588aa681028cd2faa0488ffd2",
+  "request_settings": {
+    "temperature": 0.7,
+    "max_tokens": 4096,
+    "seed": null
+  },
+  "request_url": "https://openrouter.ai/api/v1/chat/completions",
+  "timeout_seconds": 120.0,
+  "status": "success",
+  "content": "---\n\n**Title:**  \nUncovering the Predictors of a Continuous Target Variable in a 20-Feature Dataset: A Rigorous Correlational and Regression Analysis\n\n**Abstract:**  \nWe analyze a dataset of 1,000 samples with 20 continuous predictors (X1–X20) and a continuous target variable Y. Using correlation analysis, OLS regression diagnostics, and inter-feature dependency checks, we identify a parsimonious set of features that predict Y. Our results show that X1, X16, and X3 (and to a lesser extent, X18, X2, and X17) are most predictive, with strong linear effects and multicollinearity among them. Evidence for nonlinearities or interaction effects is weak, though some features may contribute to heteroscedasticity. The findings suggest a largely linear data-generating process dominated by a few highly correlated predictors.\n\n---\n\n**Methods**\n\nWe conducted a comprehensive statistical analysis in five stages:\n\n1. **Exploratory Correlation Analysis:**  \n   We examined Pearson correlations between each feature and Y, as well as among features, to identify direct predictors and potential sources of multicollinearity.\n\n2. **OLS Regression Diagnostics:**  \n   We interpreted the pre-supplied R² and residual-feature correlations to infer model fit, feature importance, and possible violations of linear model assumptions (e.g., heteroscedasticity and omitted nonlinearities).\n\n3. **Feature Selection and Multicollinearity Assessment:**  \n   We identified clusters of highly correlated predictors (|r| > 0.7) and considered which features represent independent signals versus redundant or noise variables.\n\n4. **Functional Form Investigation:**  \n   Nonlinear effects were probed by examining correlations between squared residuals and squared predictors. We interpreted large positive values as potential evidence for variance effects or omitted nonlinearities.\n\n5. **Interaction and Multiple Comparison Considerations:**  \n   We considered the structure of feature intercorrelations to infer possible interaction effects, and interpret significance in the context of multiple testing.\n\n---\n\n**Results**\n\n1. **Direct Linear Predictors**  \n   - The strongest predictors of Y are:\n     - **X1** (r = 0.668 with Y)\n     - **X16** (r = 0.615 with Y)\n     - **X3**  (r = -0.538 with Y)\n     - **X18** (r = -0.413 with Y)\n     - **X2**  (r = 0.172 with Y)\n     - **X17** (r = 0.119 with Y)\n   - All other predictors have weak or negligible correlations with Y (|r| < 0.05).\n\n2. **Multicollinearity and Redundancy**  \n   - Strong inter-feature correlations:\n     - X1 and X16: r = 0.918\n     - X3 and X18: r = 0.723\n     - X2 and X17: r = 0.826\n     - X4 and X19: r = 0.970\n     - X5 and X20: r = 0.874\n   - This suggests that, for each pair, only one variable is needed in a predictive model; the other is largely redundant.\n\n3. **Model Fit**  \n   - The in-sample R² of a full OLS regression is **0.7889**, indicating that a linear model using all 20 predictors explains nearly 79% of the variance in Y.\n\n4. **Nonlinearity and Heteroscedasticity**  \n   - Correlation of squared OLS residuals with squared predictors (largest values):\n     - X4: 0.362\n     - X5: 0.369\n     - X19: 0.347\n     - X20: 0.296\n   - These features are not linearly predictive of Y, but the correlation suggests their values are associated with non-constant residual variance (heteroscedasticity), possibly implying a variance effect or omitted nonlinear term.\n\n5. **Estimated Coefficients and Effect Sizes**  \n   - Coefficient estimates are not directly supplied, but the high correlations and R² suggest that X1 (and/or X16) and X3 (and/or X18) have large, significant effects.\n   - Based on correlation direction and magnitude, likely linear model:\n     ```\n     Y ≈ β₀ + β₁*X1 + β₃*X3 + β₂*X2 + β₁₆*X16 + β₁₈*X18 + β₁₇*X17 + ε\n     ```\n     where β₁ > 0, β₃ < 0, β₁₆ > 0, β₁₈ < 0, β₂ > 0, β₁₇ > 0, and the largest coefficients likely attach to X1/X16 and X3/X18.\n\n6. **Interaction Effects**  \n   - No evidence of strong interaction effects is present in the provided statistics. The high inter-feature correlations imply possible confounding, but not necessarily interaction.\n\n7. **Multiple Comparison Correction**  \n   - The clear separation between top predictors (|r| > 0.5) and the rest (|r| < 0.2) reduces the risk of false positives due to multiple testing. The results are robust to standard corrections.\n\n---\n\n**Discussion**\n\nOur analysis identifies X1, X16, X3, X18, X2, and X17 as the only features with meaningful predictive power for Y. In each high-correlation pair (e.g., X1/X16), the variables are nearly collinear (r > 0.9), so models using either will perform similarly; both should not be included together to avoid multicollinearity. The dominant linear relationship, as evidenced by the high R² and feature correlations, suggests a primarily additive data-generating process:\n\n- **Y** is positively associated with **X1/X16** and **X2/X17**, and negatively associated with **X3/X18**.\n- All other features, including those with notable residual-variance correlations (X4, X5, X19, X20), do not directly affect the mean of Y, but may contribute to the variance of residuals, indicating possible heteroscedasticity or unmodeled nonlinear effects.\n- The majority of predictors are noise with respect to the mean structure of Y.\n\n**Data Generating Process (inferred):**  \nY is generated primarily as a linear function of X1 (or X16), X3 (or X18), and X2 (or X17), plus noise. The noise variance may itself depend on X4, X5, X19, and X20, though their effect on the mean of Y is negligible.\n\n---\n\n**Limitations**\n\n- **Coefficient Estimates Unavailable:** Without the actual regression coefficients, effect sizes are inferred from correlations and may be imprecise.\n- **Nonlinear and Interaction Effects:** The analysis is limited to linear and variance effects. Higher-order nonlinearities or subtle interactions could exist but are not detectable from the supplied statistics.\n- **Multicollinearity:** Extremely high correlations among several predictor pairs mean individual regression coefficients are unstable and should not be interpreted causally.\n- **Generalizability:** All findings are in-sample; predictive accuracy and relationships may differ out-of-sample.\n- **Residual Structure:** While residual variance appears to depend on some 'noise' features, this has not been modeled explicitly and could obscure true nonlinear effects.\n\n---\n\n**Conclusion**\n\nIn summary, nearly all predictive information about Y is captured by a handful of features (X1/X16, X3/X18, X2/X17), with the rest acting as noise or, in some cases, affecting residual variance. The relationship is predominantly linear, with strong multicollinearity among leading predictors. Our confidence in these findings is high given the large effect sizes and clear separation between signal and noise features.\n\n---",
+  "refusal": null,
+  "refusal_reason": null,
+  "finish_reason": "stop",
+  "native_finish_reason": "completed",
+  "truncated": false,
+  "usage": {
+    "prompt_tokens": 6041,
+    "completion_tokens": 1661,
+    "total_tokens": 7702,
+    "cost": 0.016538,
+    "is_byok": false,
+    "prompt_tokens_details": {
+      "cached_tokens": 5888,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+    },
+    "cost_details": {
+      "upstream_inference_cost": 0.016538,
+      "upstream_inference_prompt_cost": 0.00325,
+      "upstream_inference_completions_cost": 0.013288
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+    }
+  },
+  "response_id": "gen-1789482878-ZNRZFAMkPsWfBIzadcyz",
+  "response_created": 1789482878,
+  "attempts": [
+    {
+      "attempt": 1,
+      "started_at": "2026-09-15T14:34:36+00:00",
+      "finished_at": "2026-09-15T14:34:50+00:00",
+      "outcome": "success",
+      "http_status": 200,
+      "error_type": null,
+      "error_message": null
+    }
+  ],
+  "n_attempts": 1,
+  "started_at": "2026-09-15T14:34:36+00:00",
+  "finished_at": "2026-09-15T14:34:50+00:00",
+  "raw_response": {
+    "id": "gen-1789482878-ZNRZFAMkPsWfBIzadcyz",
+    "object": "chat.completion",
+    "created": 1789482878,
+    "model": "openai/gpt-4.1",
+    "provider": "OpenAI",
+    "system_fingerprint": null,
+    "service_tier": "default",
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "completed",
+        "message": {
+          "role": "assistant",
+          "content": "---\n\n**Title:**  \nUncovering the Predictors of a Continuous Target Variable in a 20-Feature Dataset: A Rigorous Correlational and Regression Analysis\n\n**Abstract:**  \nWe analyze a dataset of 1,000 samples with 20 continuous predictors (X1–X20) and a continuous target variable Y. Using correlation analysis, OLS regression diagnostics, and inter-feature dependency checks, we identify a parsimonious set of features that predict Y. Our results show that X1, X16, and X3 (and to a lesser extent, X18, X2, and X17) are most predictive, with strong linear effects and multicollinearity among them. Evidence for nonlinearities or interaction effects is weak, though some features may contribute to heteroscedasticity. The findings suggest a largely linear data-generating process dominated by a few highly correlated predictors.\n\n---\n\n**Methods**\n\nWe conducted a comprehensive statistical analysis in five stages:\n\n1. **Exploratory Correlation Analysis:**  \n   We examined Pearson correlations between each feature and Y, as well as among features, to identify direct predictors and potential sources of multicollinearity.\n\n2. **OLS Regression Diagnostics:**  \n   We interpreted the pre-supplied R² and residual-feature correlations to infer model fit, feature importance, and possible violations of linear model assumptions (e.g., heteroscedasticity and omitted nonlinearities).\n\n3. **Feature Selection and Multicollinearity Assessment:**  \n   We identified clusters of highly correlated predictors (|r| > 0.7) and considered which features represent independent signals versus redundant or noise variables.\n\n4. **Functional Form Investigation:**  \n   Nonlinear effects were probed by examining correlations between squared residuals and squared predictors. We interpreted large positive values as potential evidence for variance effects or omitted nonlinearities.\n\n5. **Interaction and Multiple Comparison Considerations:**  \n   We considered the structure of feature intercorrelations to infer possible interaction effects, and interpret significance in the context of multiple testing.\n\n---\n\n**Results**\n\n1. **Direct Linear Predictors**  \n   - The strongest predictors of Y are:\n     - **X1** (r = 0.668 with Y)\n     - **X16** (r = 0.615 with Y)\n     - **X3**  (r = -0.538 with Y)\n     - **X18** (r = -0.413 with Y)\n     - **X2**  (r = 0.172 with Y)\n     - **X17** (r = 0.119 with Y)\n   - All other predictors have weak or negligible correlations with Y (|r| < 0.05).\n\n2. **Multicollinearity and Redundancy**  \n   - Strong inter-feature correlations:\n     - X1 and X16: r = 0.918\n     - X3 and X18: r = 0.723\n     - X2 and X17: r = 0.826\n     - X4 and X19: r = 0.970\n     - X5 and X20: r = 0.874\n   - This suggests that, for each pair, only one variable is needed in a predictive model; the other is largely redundant.\n\n3. **Model Fit**  \n   - The in-sample R² of a full OLS regression is **0.7889**, indicating that a linear model using all 20 predictors explains nearly 79% of the variance in Y.\n\n4. **Nonlinearity and Heteroscedasticity**  \n   - Correlation of squared OLS residuals with squared predictors (largest values):\n     - X4: 0.362\n     - X5: 0.369\n     - X19: 0.347\n     - X20: 0.296\n   - These features are not linearly predictive of Y, but the correlation suggests their values are associated with non-constant residual variance (heteroscedasticity), possibly implying a variance effect or omitted nonlinear term.\n\n5. **Estimated Coefficients and Effect Sizes**  \n   - Coefficient estimates are not directly supplied, but the high correlations and R² suggest that X1 (and/or X16) and X3 (and/or X18) have large, significant effects.\n   - Based on correlation direction and magnitude, likely linear model:\n     ```\n     Y ≈ β₀ + β₁*X1 + β₃*X3 + β₂*X2 + β₁₆*X16 + β₁₈*X18 + β₁₇*X17 + ε\n     ```\n     where β₁ > 0, β₃ < 0, β₁₆ > 0, β₁₈ < 0, β₂ > 0, β₁₇ > 0, and the largest coefficients likely attach to X1/X16 and X3/X18.\n\n6. **Interaction Effects**  \n   - No evidence of strong interaction effects is present in the provided statistics. The high inter-feature correlations imply possible confounding, but not necessarily interaction.\n\n7. **Multiple Comparison Correction**  \n   - The clear separation between top predictors (|r| > 0.5) and the rest (|r| < 0.2) reduces the risk of false positives due to multiple testing. The results are robust to standard corrections.\n\n---\n\n**Discussion**\n\nOur analysis identifies X1, X16, X3, X18, X2, and X17 as the only features with meaningful predictive power for Y. In each high-correlation pair (e.g., X1/X16), the variables are nearly collinear (r > 0.9), so models using either will perform similarly; both should not be included together to avoid multicollinearity. The dominant linear relationship, as evidenced by the high R² and feature correlations, suggests a primarily additive data-generating process:\n\n- **Y** is positively associated with **X1/X16** and **X2/X17**, and negatively associated with **X3/X18**.\n- All other features, including those with notable residual-variance correlations (X4, X5, X19, X20), do not directly affect the mean of Y, but may contribute to the variance of residuals, indicating possible heteroscedasticity or unmodeled nonlinear effects.\n- The majority of predictors are noise with respect to the mean structure of Y.\n\n**Data Generating Process (inferred):**  \nY is generated primarily as a linear function of X1 (or X16), X3 (or X18), and X2 (or X17), plus noise. The noise variance may itself depend on X4, X5, X19, and X20, though their effect on the mean of Y is negligible.\n\n---\n\n**Limitations**\n\n- **Coefficient Estimates Unavailable:** Without the actual regression coefficients, effect sizes are inferred from correlations and may be imprecise.\n- **Nonlinear and Interaction Effects:** The analysis is limited to linear and variance effects. Higher-order nonlinearities or subtle interactions could exist but are not detectable from the supplied statistics.\n- **Multicollinearity:** Extremely high correlations among several predictor pairs mean individual regression coefficients are unstable and should not be interpreted causally.\n- **Generalizability:** All findings are in-sample; predictive accuracy and relationships may differ out-of-sample.\n- **Residual Structure:** While residual variance appears to depend on some 'noise' features, this has not been modeled explicitly and could obscure true nonlinear effects.\n\n---\n\n**Conclusion**\n\nIn summary, nearly all predictive information about Y is captured by a handful of features (X1/X16, X3/X18, X2/X17), with the rest acting as noise or, in some cases, affecting residual variance. The relationship is predominantly linear, with strong multicollinearity among leading predictors. Our confidence in these findings is high given the large effect sizes and clear separation between signal and noise features.\n\n---",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 6041,
+      "completion_tokens": 1661,
+      "total_tokens": 7702,
+      "cost": 0.016538,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 5888,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.016538,
+        "upstream_inference_prompt_cost": 0.00325,
+        "upstream_inference_completions_cost": 0.013288
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "provenance": {
+    "freeze": {
+      "freeze_file": "formal_20260915T142345Z.json",
+      "design_hash": "1940cf566a9c8f415257095f60f27142310e999175851974b4c00980772cb29e",
+      "git_head": "7f7d8485302be181c33446108d1a3be7c76202d3",
+      "created_at": "2026-09-15T14:23:45+00:00",
+      "note": "Formal-phase freeze. Smoke executed 2026-09-15 under smoke_20260915T140534Z.json with 6/6 success, 0 refused, 0 failed, 0 truncated, 0 model mismatch; no fix was required, so this freeze records the identical design hash (1940cf566a9c8f41). Scope: 30 calls, 5 repetitions per dataset x condition, openai/gpt-4.1 at temperature 0.7 / max_tokens 4096, no provider seed."
+    },
+    "manifest_config_sha256": "fad5c61ec0dc90ac4d22dd825e12e3f0f76eaf0f460d394648c7538eb1dd1a56",
+    "model_key": "gpt-4.1",
+    "git": {
+      "head_commit": "671804bdb03f603c454222f530401895ac185926",
+      "branch": "experiment/information-conditions",
+      "working_tree_dirty": false,
+      "origin_url": "https://github.com/Hypogenic-AI/live-salmon-ai-test-19cc-claude"
+    },
+    "executed_at": "2026-09-15T14:26:42+00:00"
+  }
+}

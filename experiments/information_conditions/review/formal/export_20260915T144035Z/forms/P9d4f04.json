@@ -1,0 +1,122 @@
+{
+  "review_id": "P9d4f04",
+  "reviewer": "Claude (AI-scored, not human-verified)",
+  "reviewed_at": "2026-09-16",
+  "exact_interaction_X4_X5": {
+    "strength": "rejected",
+    "quote": "No second-order (quadratic or interaction) terms show evidence of relevance.",
+    "section": "discussion",
+    "contradictory_statements": false,
+    "contradiction_notes": ""
+  },
+  "proxy_related_interactions": {
+    "X4*X20": {
+      "strength": "rejected",
+      "quote": "No second-order (quadratic or interaction) terms show evidence of relevance.",
+      "section": "discussion",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    },
+    "X19*X5": {
+      "strength": "rejected",
+      "quote": "No second-order (quadratic or interaction) terms show evidence of relevance.",
+      "section": "discussion",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    },
+    "X19*X20": {
+      "strength": "rejected",
+      "quote": "No second-order (quadratic or interaction) terms show evidence of relevance.",
+      "section": "discussion",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    }
+  },
+  "other_second_order_terms": [
+    {
+      "term": "X6*X14",
+      "strength": "rejected",
+      "quote": "For all 210 second-order terms, the largest observed |r| is 0.0882 (X6*X14), with nearly all in the range –0.08 to +0.08. None approach a level indicating substantial interaction or nonlinearity.",
+      "section": "results",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    }
+  ],
+  "other_second_order_terms_entry_format": {
+    "term": "e.g. X1^2 or X7*X12",
+    "strength": "",
+    "quote": "",
+    "section": "",
+    "contradictory_statements": false,
+    "contradiction_notes": ""
+  },
+  "structural_non_interaction_explanations": {
+    "heteroscedasticity": {
+      "strength": "rejected",
+      "quote": "The highest correlation between squared residuals and squared predictors is 0.1049 (X12), again very modest and not suggestive of major model misspecification.",
+      "section": "results"
+    },
+    "other_nonlinear_structure": {
+      "strength": "rejected",
+      "quote": "Even accounting for possible nonlinear or interaction effects, no individual or set of predictors emerges as substantively predictive.",
+      "section": "discussion"
+    },
+    "model_misspecification": {
+      "strength": "proposed",
+      "quote": "Assumption of Linearity and Additivity**: Non-obvious, higher-order, or nonparametric structures (not captured by quadratic/cross-terms) are not evaluated.",
+      "section": "limitations"
+    },
+    "other": {
+      "description": "",
+      "strength": "absent",
+      "quote": "",
+      "section": ""
+    }
+  },
+  "linear_features_claimed_supported": [],
+  "any_feature_or_term_claimed_supported": "no",
+  "overlapping_information_among_correlated_predictors_recognized": {
+    "value": "yes",
+    "quote": "Several pairs of features are highly correlated (e.g., X4–X19: r = 0.97; X1–X16: r = 0.918; X5–X20: r = 0.874), suggesting possible collinearity. However, since the joint R² remains extremely low, no underlying latent variable among these explains Y."
+  },
+  "proxy_direction_caveat_acknowledged": {
+    "value": "unclear",
+    "quote": ""
+  },
+  "auxiliary": {
+    "multiplicative_term_expressed_correctly": {
+      "value": "yes",
+      "notes": "Writes X6*X14 as a product."
+    },
+    "association_vs_generating_mechanism_distinguished": {
+      "value": "unclear",
+      "quote": "This pattern is consistent with a data-generating process where:\n\n- **Y is independent of the predictors** (i.e., Y is random noise, or its true predictors are not included among X1–X20),\n- or **Y is a very weak function of the predictors**, with effect sizes too small to be detected even in n = 1000."
+    },
+    "p_values_computed_from_r_and_n": {
+      "value": "unclear",
+      "quote": "Given 20 features and 210 second-order terms (230 total), one would expect some spurious correlations of up to ±0.08 by chance alone at n = 1000."
+    },
+    "numerical_plausibility_of_reported_calculations": {
+      "value": "not_checked",
+      "notes": "Asserts an expected chance range of about 0.08 at n = 1000 across 230 tests, which is of the right order, but shows no derivation."
+    },
+    "multiple_testing_recognized": {
+      "value": "yes",
+      "quote": "Assessed the possibility of spurious findings due to the large number of predictors and second-order terms, using the distribution of observed correlations."
+    },
+    "candidate_count_stated": {
+      "value": "yes",
+      "quote": "Given 20 features and 210 second-order terms (230 total)"
+    },
+    "multiplicity_handling_reasonable": {
+      "value": "yes",
+      "notes": "Treats the observed distribution against the null expectation and reports no survivor."
+    },
+    "unsupported_numerical_results_or_claims_of_computation": {
+      "value": "none",
+      "examples": "States 'All analysis is based solely on the provided statistics. No p-values, confidence intervals, or model selection procedures beyond the supplied summaries are employed.' PROVISIONAL: whether each individual figure matches the supplied input was NOT checked, because that requires reading the input file; deferred to post-unmask."
+    }
+  },
+  "truncation_or_formatting_problems_noticed": "No truncation; the response is complete and ends on a full sentence. Section labels are as printed in the paper; where a quote comes from a Conclusion or summary block the schema has no matching enum value and 'other' is used.",
+  "overall_notes": "AI-SCORED, NOT HUMAN-VERIFIED. Drafted by claude-opus-5[1m] from RUBRIC.md, review_schema.json and this paper's text only; mapping files, run records and the supplied input files were not opened. NOT A STRICTLY BLIND SCORE: earlier in the same session the dataset and condition of the 13 label-quoting papers were printed while measuring label leakage, so this model already knew the identity of some papers in this export. Precedents applied come from P009fd2, which a human confirmed field by field; every other paper in this export, including this one, is awaiting human spot-check.\n\nSCOPE: every value classifies what the paper asserts, not whether the assertion is correct; whether this paper's conclusion is right depends on which dataset it received and is a post-unmask question.\n\nMAIN CONCLUSION AS STATED: No feature or second-order term predicts Y; 230 candidates; null process.\n\nJUDGEMENT CALLS: Names X6*X14 as the largest second-order correlate, which is an entry in other_second_order_terms.\n\nDEFERRED TO POST-UNMASK: every source value the paper quotes (R^2, the Xi-Y correlations, corr(e^2,Xi^2), inter-feature correlations and any second-order r) needs checking against inputs/<dataset>__<condition>.user.txt; only derivations from r and n were checked offline."
+}

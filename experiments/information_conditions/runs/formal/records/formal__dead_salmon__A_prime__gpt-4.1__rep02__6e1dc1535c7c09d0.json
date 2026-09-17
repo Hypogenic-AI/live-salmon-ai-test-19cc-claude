@@ -1,0 +1,133 @@
+{
+  "record_version": 1,
+  "phase": "formal",
+  "dataset": "dead_salmon",
+  "condition": "A_prime",
+  "rep": 2,
+  "cache_key": "6e1dc1535c7c09d0",
+  "model_key": "gpt-4.1",
+  "requested_model": "openai/gpt-4.1",
+  "response_model": "openai/gpt-4.1",
+  "provider": "OpenAI",
+  "model_mismatch": false,
+  "prompt_hash": "88f30ded5ebfcbd57a53520f284786948af9e80cc2b8de0ac57b1131a2ecde0f",
+  "system_prompt_sha256": "8b2058bbfa7b9331bd38269185c017153c73b56761f4e439dd3b380bd8aa40ea",
+  "user_prompt_sha256": "d55a294a8b8de46f0a841199ead290e95a0a30face2ca436fdb4571fcd542427",
+  "request_settings": {
+    "temperature": 0.7,
+    "max_tokens": 4096,
+    "seed": null
+  },
+  "request_url": "https://openrouter.ai/api/v1/chat/completions",
+  "timeout_seconds": 120.0,
+  "status": "success",
+  "content": "---\n\n**Title:**  \n**Absence of Predictive Structure in a 20-Dimensional Dataset: A Rigorous Statistical Reanalysis of Research Dataset B**\n\n---\n\n**Abstract**  \nWe conducted a thorough statistical analysis of Research Dataset B, which comprises 20 continuous predictors (X1–X20) and a continuous outcome (Y) across 1000 samples. Using correlation, linear regression, and residual diagnostics, we found minimal evidence of any substantial relationship between predictors and outcome. The maximum absolute correlation between individual predictors and Y was 0.08, and a full OLS regression explained only 2.67% of Y's variance. No significant nonlinear or interaction effects were detected. Our results indicate that, for practical purposes, none of the features in this dataset are meaningfully predictive of Y.\n\n---\n\n**Methods**\n\nWe systematically analyzed the provided dataset using the following procedures:\n\n1. **Descriptive and Correlational Analysis:**  \n   - Examined univariate statistics for each feature and Y.\n   - Assessed the Pearson correlation of each predictor with Y to screen for potential linear relationships.\n\n2. **Multivariate Linear Regression:**  \n   - Considered the results of the supplied OLS regression of Y on all 20 predictors.\n   - Interpreted in-sample R² as a measure of total explained variance.\n\n3. **Nonlinearity Diagnostics:**  \n   - Used the provided correlations between squared OLS residuals and squared predictors to test for evidence of nonlinearity (i.e., whether variance in Y unexplained by the linear model is associated with the magnitude of any predictor).\n\n4. **Collinearity and Interaction Assessment:**  \n   - Investigated the correlation structure among predictors to assess multicollinearity and the potential for interaction effects.\n\n5. **Multiple Comparisons:**  \n   - Considered the effective threshold for significance, given the number of features and the magnitude of observed correlations.\n\nAll analyses are strictly confined to the provided summary statistics and diagnostics.\n\n---\n\n**Results**\n\n1. **Feature–Outcome Associations:**  \n   - The largest observed correlation between any predictor and Y was for X3 (r = 0.0591), followed by X18 (r = 0.0540) and X1 (r = 0.0435). The largest negative correlations were X11 (r = -0.0835) and X13 (r = -0.0773). All other correlations were closer to zero.\n   - None of these correlations approach conventional thresholds for practical or statistical significance, even before correction for multiple comparisons.\n\n2. **Multivariate Regression Performance:**  \n   - The OLS model including all 20 predictors achieved an in-sample R² of 0.0267 (2.67% variance explained).\n   - This indicates a negligible overall predictive relationship between the predictors and Y.\n\n3. **Nonlinearity and Heteroskedasticity:**  \n   - The correlation between squared OLS residuals and squared predictors was generally near zero for all features (range: -0.039 to 0.105).\n   - The largest value (X12, corr = 0.105) is still insufficient to suggest a meaningful nonlinear or variance effect, especially after accounting for multiple hypothesis testing.\n\n4. **Collinearity and Interaction Effects:**  \n   - Several predictors are highly correlated (e.g., X4–X19: r = 0.97; X1–X16: r = 0.918; X5–X20: r = 0.874; X2–X17: r = 0.826; X3–X18: r = 0.723).\n   - Despite this collinearity, neither the individual nor the joint effects of these predictors are substantial, as seen from the low R² and weak univariate associations.\n   - No evidence for interaction effects was supplied or suggested by the diagnostics.\n\n5. **Multiple Comparison Considerations:**  \n   - With 20 predictors, even nominal correlations up to r ≈ 0.08 could easily arise by chance; none of the observed correlations would survive adjustment for multiple testing (e.g., Bonferroni or FDR).\n\n---\n\n**Discussion**\n\nOur analysis reveals no meaningful predictive structure within Research Dataset B. The weak correlations between individual features and Y, coupled with the extremely low total variance explained by all predictors combined, suggest that Y is essentially independent of X1–X20. The absence of nonlinear or interaction effects further supports the conclusion that the data generating process is either dominated by noise or Y is generated independently of these features.\n\nCollinearity among some predictors is present but irrelevant in this context, as none are associated with Y. The lack of significant residual–predictor associations also rules out major heteroskedasticity or simple nonlinearities.\n\n**Implications:**  \n- None of the 20 features can be considered \"significant\" or of practical predictive value for Y.\n- Estimated effect sizes are extremely small (all r < |0.09|), and the OLS model as a whole is not useful for prediction or inference.\n\n---\n\n**Limitations**\n\n- **Summary-Only Analysis:**  \n  Our conclusions are based on the supplied summary statistics and diagnostics; we did not fit models directly or examine residual plots.\n- **Feature Engineering:**  \n  We could not test higher-order or more complex nonlinearities, nor construct composite or interaction terms beyond the diagnostics provided.\n- **External Validity:**  \n  Results are limited to the relationships in this specific dataset. External datasets with different structure or unobserved variables might yield different results.\n\n---\n\n**Conclusion:**  \nWithin the bounds of the supplied data, we find no evidence that any of the 20 features are meaningfully predictive of the outcome Y. The data generating process appears to be dominated by noise or independence between X and Y, and further modeling is unlikely to yield practical improvements.\n\n---",
+  "refusal": null,
+  "refusal_reason": null,
+  "finish_reason": "stop",
+  "native_finish_reason": "completed",
+  "truncated": false,
+  "usage": {
+    "prompt_tokens": 6040,
+    "completion_tokens": 1199,
+    "total_tokens": 7239,
+    "cost": 0.01284,
+    "is_byok": false,
+    "prompt_tokens_details": {
+      "cached_tokens": 5888,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+    },
+    "cost_details": {
+      "upstream_inference_cost": 0.01284,
+      "upstream_inference_prompt_cost": 0.003248,
+      "upstream_inference_completions_cost": 0.009592
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+    }
+  },
+  "response_id": "gen-1789482478-lyLZ2w1CKhGWK7Iv98fa",
+  "response_created": 1789482478,
+  "attempts": [
+    {
+      "attempt": 1,
+      "started_at": "2026-09-15T14:27:55+00:00",
+      "finished_at": "2026-09-15T14:28:07+00:00",
+      "outcome": "success",
+      "http_status": 200,
+      "error_type": null,
+      "error_message": null
+    }
+  ],
+  "n_attempts": 1,
+  "started_at": "2026-09-15T14:27:55+00:00",
+  "finished_at": "2026-09-15T14:28:07+00:00",
+  "raw_response": {
+    "id": "gen-1789482478-lyLZ2w1CKhGWK7Iv98fa",
+    "object": "chat.completion",
+    "created": 1789482478,
+    "model": "openai/gpt-4.1",
+    "provider": "OpenAI",
+    "system_fingerprint": null,
+    "service_tier": "default",
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "completed",
+        "message": {
+          "role": "assistant",
+          "content": "---\n\n**Title:**  \n**Absence of Predictive Structure in a 20-Dimensional Dataset: A Rigorous Statistical Reanalysis of Research Dataset B**\n\n---\n\n**Abstract**  \nWe conducted a thorough statistical analysis of Research Dataset B, which comprises 20 continuous predictors (X1–X20) and a continuous outcome (Y) across 1000 samples. Using correlation, linear regression, and residual diagnostics, we found minimal evidence of any substantial relationship between predictors and outcome. The maximum absolute correlation between individual predictors and Y was 0.08, and a full OLS regression explained only 2.67% of Y's variance. No significant nonlinear or interaction effects were detected. Our results indicate that, for practical purposes, none of the features in this dataset are meaningfully predictive of Y.\n\n---\n\n**Methods**\n\nWe systematically analyzed the provided dataset using the following procedures:\n\n1. **Descriptive and Correlational Analysis:**  \n   - Examined univariate statistics for each feature and Y.\n   - Assessed the Pearson correlation of each predictor with Y to screen for potential linear relationships.\n\n2. **Multivariate Linear Regression:**  \n   - Considered the results of the supplied OLS regression of Y on all 20 predictors.\n   - Interpreted in-sample R² as a measure of total explained variance.\n\n3. **Nonlinearity Diagnostics:**  \n   - Used the provided correlations between squared OLS residuals and squared predictors to test for evidence of nonlinearity (i.e., whether variance in Y unexplained by the linear model is associated with the magnitude of any predictor).\n\n4. **Collinearity and Interaction Assessment:**  \n   - Investigated the correlation structure among predictors to assess multicollinearity and the potential for interaction effects.\n\n5. **Multiple Comparisons:**  \n   - Considered the effective threshold for significance, given the number of features and the magnitude of observed correlations.\n\nAll analyses are strictly confined to the provided summary statistics and diagnostics.\n\n---\n\n**Results**\n\n1. **Feature–Outcome Associations:**  \n   - The largest observed correlation between any predictor and Y was for X3 (r = 0.0591), followed by X18 (r = 0.0540) and X1 (r = 0.0435). The largest negative correlations were X11 (r = -0.0835) and X13 (r = -0.0773). All other correlations were closer to zero.\n   - None of these correlations approach conventional thresholds for practical or statistical significance, even before correction for multiple comparisons.\n\n2. **Multivariate Regression Performance:**  \n   - The OLS model including all 20 predictors achieved an in-sample R² of 0.0267 (2.67% variance explained).\n   - This indicates a negligible overall predictive relationship between the predictors and Y.\n\n3. **Nonlinearity and Heteroskedasticity:**  \n   - The correlation between squared OLS residuals and squared predictors was generally near zero for all features (range: -0.039 to 0.105).\n   - The largest value (X12, corr = 0.105) is still insufficient to suggest a meaningful nonlinear or variance effect, especially after accounting for multiple hypothesis testing.\n\n4. **Collinearity and Interaction Effects:**  \n   - Several predictors are highly correlated (e.g., X4–X19: r = 0.97; X1–X16: r = 0.918; X5–X20: r = 0.874; X2–X17: r = 0.826; X3–X18: r = 0.723).\n   - Despite this collinearity, neither the individual nor the joint effects of these predictors are substantial, as seen from the low R² and weak univariate associations.\n   - No evidence for interaction effects was supplied or suggested by the diagnostics.\n\n5. **Multiple Comparison Considerations:**  \n   - With 20 predictors, even nominal correlations up to r ≈ 0.08 could easily arise by chance; none of the observed correlations would survive adjustment for multiple testing (e.g., Bonferroni or FDR).\n\n---\n\n**Discussion**\n\nOur analysis reveals no meaningful predictive structure within Research Dataset B. The weak correlations between individual features and Y, coupled with the extremely low total variance explained by all predictors combined, suggest that Y is essentially independent of X1–X20. The absence of nonlinear or interaction effects further supports the conclusion that the data generating process is either dominated by noise or Y is generated independently of these features.\n\nCollinearity among some predictors is present but irrelevant in this context, as none are associated with Y. The lack of significant residual–predictor associations also rules out major heteroskedasticity or simple nonlinearities.\n\n**Implications:**  \n- None of the 20 features can be considered \"significant\" or of practical predictive value for Y.\n- Estimated effect sizes are extremely small (all r < |0.09|), and the OLS model as a whole is not useful for prediction or inference.\n\n---\n\n**Limitations**\n\n- **Summary-Only Analysis:**  \n  Our conclusions are based on the supplied summary statistics and diagnostics; we did not fit models directly or examine residual plots.\n- **Feature Engineering:**  \n  We could not test higher-order or more complex nonlinearities, nor construct composite or interaction terms beyond the diagnostics provided.\n- **External Validity:**  \n  Results are limited to the relationships in this specific dataset. External datasets with different structure or unobserved variables might yield different results.\n\n---\n\n**Conclusion:**  \nWithin the bounds of the supplied data, we find no evidence that any of the 20 features are meaningfully predictive of the outcome Y. The data generating process appears to be dominated by noise or independence between X and Y, and further modeling is unlikely to yield practical improvements.\n\n---",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 6040,
+      "completion_tokens": 1199,
+      "total_tokens": 7239,
+      "cost": 0.01284,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 5888,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.01284,
+        "upstream_inference_prompt_cost": 0.003248,
+        "upstream_inference_completions_cost": 0.009592
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "provenance": {
+    "freeze": {
+      "freeze_file": "formal_20260915T142345Z.json",
+      "design_hash": "1940cf566a9c8f415257095f60f27142310e999175851974b4c00980772cb29e",
+      "git_head": "7f7d8485302be181c33446108d1a3be7c76202d3",
+      "created_at": "2026-09-15T14:23:45+00:00",
+      "note": "Formal-phase freeze. Smoke executed 2026-09-15 under smoke_20260915T140534Z.json with 6/6 success, 0 refused, 0 failed, 0 truncated, 0 model mismatch; no fix was required, so this freeze records the identical design hash (1940cf566a9c8f41). Scope: 30 calls, 5 repetitions per dataset x condition, openai/gpt-4.1 at temperature 0.7 / max_tokens 4096, no provider seed."
+    },
+    "manifest_config_sha256": "fad5c61ec0dc90ac4d22dd825e12e3f0f76eaf0f460d394648c7538eb1dd1a56",
+    "model_key": "gpt-4.1",
+    "git": {
+      "head_commit": "671804bdb03f603c454222f530401895ac185926",
+      "branch": "experiment/information-conditions",
+      "working_tree_dirty": false,
+      "origin_url": "https://github.com/Hypogenic-AI/live-salmon-ai-test-19cc-claude"
+    },
+    "executed_at": "2026-09-15T14:26:42+00:00"
+  }
+}

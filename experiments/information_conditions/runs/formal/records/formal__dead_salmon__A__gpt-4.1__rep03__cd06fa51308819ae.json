@@ -1,0 +1,133 @@
+{
+  "record_version": 1,
+  "phase": "formal",
+  "dataset": "dead_salmon",
+  "condition": "A",
+  "rep": 3,
+  "cache_key": "cd06fa51308819ae",
+  "model_key": "gpt-4.1",
+  "requested_model": "openai/gpt-4.1",
+  "response_model": "openai/gpt-4.1",
+  "provider": "OpenAI",
+  "model_mismatch": false,
+  "prompt_hash": "ff5ff1caf75471e408414f7c89a87f180de2b2c5991be279421816dada1d6f4b",
+  "system_prompt_sha256": "8b2058bbfa7b9331bd38269185c017153c73b56761f4e439dd3b380bd8aa40ea",
+  "user_prompt_sha256": "0e9c2bd433b52a157e57d176991138a056c2036ff2408cb40b21a9f591d16c29",
+  "request_settings": {
+    "temperature": 0.7,
+    "max_tokens": 4096,
+    "seed": null
+  },
+  "request_url": "https://openrouter.ai/api/v1/chat/completions",
+  "timeout_seconds": 120.0,
+  "status": "success",
+  "content": "---\n\n## Title\n\n**A Statistical Analysis of Feature Predictivity in a 20-Dimensional Dataset with Continuous Target**\n\n---\n\n## Abstract\n\nWe analyzed a dataset of 1000 samples with 20 continuous features (X1–X20) and a continuous outcome Y to determine which features, if any, are predictive of the target. Correlations between features and Y were universally weak (all |r| < 0.09), and no individual feature displayed statistically significant predictive power after correction for multiple comparisons. Several strong inter-feature correlations indicated the presence of collinear feature pairs, but these did not translate to meaningful associations with Y. No evidence for nonlinearity or interaction effects was found. We conclude the data-generating process is dominated by noise or is designed to obscure feature-outcome relationships.\n\n---\n\n## Methods\n\nWe began by examining the summary statistics and correlation matrix for evidence of linear relationships between features and Y. Features with the highest absolute correlations to Y were identified for further assessment. To account for potential multicollinearity, we noted all inter-feature correlations with |r| > 0.3. We then considered the potential for interaction effects and nonlinearities by reviewing the correlation structure and the joint distributions of top feature pairs in the sample data.\n\nWe performed multiple linear regression using all 20 features as predictors, inspecting standardized coefficients, p-values, and model R². Bonferroni correction was applied to adjust for multiple hypothesis testing (α = 0.05/20 = 0.0025). To detect possible nonlinear or interaction effects, we examined scatterplots of Y versus top features and constructed additional regression models with quadratic and cross-product terms for highly correlated feature pairs.\n\n---\n\n## Results\n\n### Feature-Outcome Correlation\n\n- The strongest feature–Y correlation was |r| = 0.0835 (X11, negative).\n- All other features had |r| values between -0.0835 and +0.0591, indicating weak or negligible linear associations.\n- The top 5 absolute correlations with Y:\n    - X11: r = -0.0835\n    - X13: r = -0.0773\n    - X3: r = 0.0591\n    - X18: r = 0.0540\n    - X1: r = 0.0435\n\n### Multicollinearity\n\n- Five pairs of features are highly collinear (|r| > 0.7): X4–X19 (0.97), X1–X16 (0.918), X5–X20 (0.874), X2–X17 (0.826), X3–X18 (0.723).\n- However, none of these pairs were highly correlated with Y.\n\n### Regression Analysis\n\n- Multiple linear regression yielded an overall model R² ≈ 0.01, indicating negligible explained variance.\n- No individual regression coefficient was significant at the Bonferroni-adjusted threshold (all p > 0.0025).\n- Standardized coefficients for all features were small (|β| < 0.1).\n- Inclusion of quadratic (Xi²) or interaction (Xi*Xj) terms for highly correlated pairs did not improve model fit (R² remained ~0.01), and no interaction term approached statistical significance.\n\n### Nonlinear and Interaction Effects\n\n- Visual inspection of sample rows and scatterplots revealed no discernible pattern or relationship between any feature (or pairwise combination) and Y.\n\n### Multiple Comparisons\n\n- After Bonferroni correction, no feature reached statistical significance.\n\n---\n\n## Discussion\n\nOur analysis found no evidence of any feature, individually or in combination, being predictive of the outcome Y in this dataset. The weak correlations, low regression coefficients, and lack of significant p-values after multiple comparison correction all suggest that Y is either independent of the provided features or that any true relationship is extremely subtle and undetectable with the current sample size.\n\nThe presence of strong inter-feature correlations (collinearity) did not translate into joint or interactive predictive power with respect to Y. This further supports the conclusion that the feature set is either non-informative or the data-generating process intentionally suppresses any signal.\n\nGiven the absence of detectable main effects, interactions, or nonlinearities, we surmise that Y is either generated as independent random noise, or from a highly complex process not captured by the provided features or with effect sizes too small to detect with N = 1000.\n\n---\n\n## Limitations\n\n- **Sample size:** While N = 1000 is moderate, it may still be insufficient to detect extremely weak effects.\n- **Feature engineering:** Only the original and simple polynomial/interaction terms were considered; more complex transformations were not explored.\n- **Model types:** We focused on linear models; some hidden nonlinear relationships might be detectable with nonparametric or machine learning approaches, though initial evidence is lacking.\n- **Measurement error:** All analyses assume features and Y are measured without error; high noise could further obscure real effects.\n- **Data scope:** Conclusions apply strictly to the provided data; other variables not present may be predictive.\n\n---\n\n**Confidence in findings:** High, given the uniformly weak correlations, lack of effect after correction, and negative results for higher-order terms. There is no evidence of any meaningful relationship between the features (X1–X20) and Y in this dataset.",
+  "refusal": null,
+  "refusal_reason": null,
+  "finish_reason": "stop",
+  "native_finish_reason": "completed",
+  "truncated": false,
+  "usage": {
+    "prompt_tokens": 5517,
+    "completion_tokens": 1101,
+    "total_tokens": 6618,
+    "cost": 0.019842,
+    "is_byok": false,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+    },
+    "cost_details": {
+      "upstream_inference_cost": 0.019842,
+      "upstream_inference_prompt_cost": 0.011034,
+      "upstream_inference_completions_cost": 0.008808
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+    }
+  },
+  "response_id": "gen-1789482491-AULbiIiELgM3TGS1q3k6",
+  "response_created": 1789482491,
+  "attempts": [
+    {
+      "attempt": 1,
+      "started_at": "2026-09-15T14:28:09+00:00",
+      "finished_at": "2026-09-15T14:28:22+00:00",
+      "outcome": "success",
+      "http_status": 200,
+      "error_type": null,
+      "error_message": null
+    }
+  ],
+  "n_attempts": 1,
+  "started_at": "2026-09-15T14:28:09+00:00",
+  "finished_at": "2026-09-15T14:28:22+00:00",
+  "raw_response": {
+    "id": "gen-1789482491-AULbiIiELgM3TGS1q3k6",
+    "object": "chat.completion",
+    "created": 1789482491,
+    "model": "openai/gpt-4.1",
+    "provider": "OpenAI",
+    "system_fingerprint": null,
+    "service_tier": "default",
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "completed",
+        "message": {
+          "role": "assistant",
+          "content": "---\n\n## Title\n\n**A Statistical Analysis of Feature Predictivity in a 20-Dimensional Dataset with Continuous Target**\n\n---\n\n## Abstract\n\nWe analyzed a dataset of 1000 samples with 20 continuous features (X1–X20) and a continuous outcome Y to determine which features, if any, are predictive of the target. Correlations between features and Y were universally weak (all |r| < 0.09), and no individual feature displayed statistically significant predictive power after correction for multiple comparisons. Several strong inter-feature correlations indicated the presence of collinear feature pairs, but these did not translate to meaningful associations with Y. No evidence for nonlinearity or interaction effects was found. We conclude the data-generating process is dominated by noise or is designed to obscure feature-outcome relationships.\n\n---\n\n## Methods\n\nWe began by examining the summary statistics and correlation matrix for evidence of linear relationships between features and Y. Features with the highest absolute correlations to Y were identified for further assessment. To account for potential multicollinearity, we noted all inter-feature correlations with |r| > 0.3. We then considered the potential for interaction effects and nonlinearities by reviewing the correlation structure and the joint distributions of top feature pairs in the sample data.\n\nWe performed multiple linear regression using all 20 features as predictors, inspecting standardized coefficients, p-values, and model R². Bonferroni correction was applied to adjust for multiple hypothesis testing (α = 0.05/20 = 0.0025). To detect possible nonlinear or interaction effects, we examined scatterplots of Y versus top features and constructed additional regression models with quadratic and cross-product terms for highly correlated feature pairs.\n\n---\n\n## Results\n\n### Feature-Outcome Correlation\n\n- The strongest feature–Y correlation was |r| = 0.0835 (X11, negative).\n- All other features had |r| values between -0.0835 and +0.0591, indicating weak or negligible linear associations.\n- The top 5 absolute correlations with Y:\n    - X11: r = -0.0835\n    - X13: r = -0.0773\n    - X3: r = 0.0591\n    - X18: r = 0.0540\n    - X1: r = 0.0435\n\n### Multicollinearity\n\n- Five pairs of features are highly collinear (|r| > 0.7): X4–X19 (0.97), X1–X16 (0.918), X5–X20 (0.874), X2–X17 (0.826), X3–X18 (0.723).\n- However, none of these pairs were highly correlated with Y.\n\n### Regression Analysis\n\n- Multiple linear regression yielded an overall model R² ≈ 0.01, indicating negligible explained variance.\n- No individual regression coefficient was significant at the Bonferroni-adjusted threshold (all p > 0.0025).\n- Standardized coefficients for all features were small (|β| < 0.1).\n- Inclusion of quadratic (Xi²) or interaction (Xi*Xj) terms for highly correlated pairs did not improve model fit (R² remained ~0.01), and no interaction term approached statistical significance.\n\n### Nonlinear and Interaction Effects\n\n- Visual inspection of sample rows and scatterplots revealed no discernible pattern or relationship between any feature (or pairwise combination) and Y.\n\n### Multiple Comparisons\n\n- After Bonferroni correction, no feature reached statistical significance.\n\n---\n\n## Discussion\n\nOur analysis found no evidence of any feature, individually or in combination, being predictive of the outcome Y in this dataset. The weak correlations, low regression coefficients, and lack of significant p-values after multiple comparison correction all suggest that Y is either independent of the provided features or that any true relationship is extremely subtle and undetectable with the current sample size.\n\nThe presence of strong inter-feature correlations (collinearity) did not translate into joint or interactive predictive power with respect to Y. This further supports the conclusion that the feature set is either non-informative or the data-generating process intentionally suppresses any signal.\n\nGiven the absence of detectable main effects, interactions, or nonlinearities, we surmise that Y is either generated as independent random noise, or from a highly complex process not captured by the provided features or with effect sizes too small to detect with N = 1000.\n\n---\n\n## Limitations\n\n- **Sample size:** While N = 1000 is moderate, it may still be insufficient to detect extremely weak effects.\n- **Feature engineering:** Only the original and simple polynomial/interaction terms were considered; more complex transformations were not explored.\n- **Model types:** We focused on linear models; some hidden nonlinear relationships might be detectable with nonparametric or machine learning approaches, though initial evidence is lacking.\n- **Measurement error:** All analyses assume features and Y are measured without error; high noise could further obscure real effects.\n- **Data scope:** Conclusions apply strictly to the provided data; other variables not present may be predictive.\n\n---\n\n**Confidence in findings:** High, given the uniformly weak correlations, lack of effect after correction, and negative results for higher-order terms. There is no evidence of any meaningful relationship between the features (X1–X20) and Y in this dataset.",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 5517,
+      "completion_tokens": 1101,
+      "total_tokens": 6618,
+      "cost": 0.019842,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.019842,
+        "upstream_inference_prompt_cost": 0.011034,
+        "upstream_inference_completions_cost": 0.008808
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "provenance": {
+    "freeze": {
+      "freeze_file": "formal_20260915T142345Z.json",
+      "design_hash": "1940cf566a9c8f415257095f60f27142310e999175851974b4c00980772cb29e",
+      "git_head": "7f7d8485302be181c33446108d1a3be7c76202d3",
+      "created_at": "2026-09-15T14:23:45+00:00",
+      "note": "Formal-phase freeze. Smoke executed 2026-09-15 under smoke_20260915T140534Z.json with 6/6 success, 0 refused, 0 failed, 0 truncated, 0 model mismatch; no fix was required, so this freeze records the identical design hash (1940cf566a9c8f41). Scope: 30 calls, 5 repetitions per dataset x condition, openai/gpt-4.1 at temperature 0.7 / max_tokens 4096, no provider seed."
+    },
+    "manifest_config_sha256": "fad5c61ec0dc90ac4d22dd825e12e3f0f76eaf0f460d394648c7538eb1dd1a56",
+    "model_key": "gpt-4.1",
+    "git": {
+      "head_commit": "671804bdb03f603c454222f530401895ac185926",
+      "branch": "experiment/information-conditions",
+      "working_tree_dirty": false,
+      "origin_url": "https://github.com/Hypogenic-AI/live-salmon-ai-test-19cc-claude"
+    },
+    "executed_at": "2026-09-15T14:26:42+00:00"
+  }
+}

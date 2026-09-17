@@ -1,0 +1,122 @@
+{
+  "review_id": "Pc14d00",
+  "reviewer": "Claude (AI-scored, not human-verified)",
+  "reviewed_at": "2026-09-16",
+  "exact_interaction_X4_X5": {
+    "strength": "rejected",
+    "quote": "No clear pattern or standout nonlinear effect is observed.",
+    "section": "results",
+    "contradictory_statements": false,
+    "contradiction_notes": ""
+  },
+  "proxy_related_interactions": {
+    "X4*X20": {
+      "strength": "rejected",
+      "quote": "No clear pattern or standout nonlinear effect is observed.",
+      "section": "results",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    },
+    "X19*X5": {
+      "strength": "rejected",
+      "quote": "No clear pattern or standout nonlinear effect is observed.",
+      "section": "results",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    },
+    "X19*X20": {
+      "strength": "rejected",
+      "quote": "No clear pattern or standout nonlinear effect is observed.",
+      "section": "results",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    }
+  },
+  "other_second_order_terms": [
+    {
+      "term": "X6*X14",
+      "strength": "rejected",
+      "quote": "No second-order (quadratic or interaction) term exhibits a correlation with Y above |r| = 0.0882 (X6*X14, r = –0.0882).\n- The vast majority of second-order correlations are clustered near zero",
+      "section": "results",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    }
+  ],
+  "other_second_order_terms_entry_format": {
+    "term": "e.g. X1^2 or X7*X12",
+    "strength": "",
+    "quote": "",
+    "section": "",
+    "contradictory_statements": false,
+    "contradiction_notes": ""
+  },
+  "structural_non_interaction_explanations": {
+    "heteroscedasticity": {
+      "strength": "rejected",
+      "quote": "The squared residuals from the OLS fit show weak, mostly negligible correlations with squared predictors (all |r| < 0.105, except X12^2 at 0.1049), suggesting no strong evidence of heteroscedasticity or unmodeled nonlinear effects.",
+      "section": "results"
+    },
+    "other_nonlinear_structure": {
+      "strength": "rejected",
+      "quote": "The absence of linear, nonlinear, or interaction effects—despite large sample size and extensive search—points to one of three possibilities:",
+      "section": "discussion"
+    },
+    "model_misspecification": {
+      "strength": "proposed",
+      "quote": "Feature Transformations:** Only linear, quadratic, and pairwise interaction forms were tested; more exotic (e.g., nonparametric, higher-order, or latent) relationships could exist but are unsupported by the data.",
+      "section": "limitations"
+    },
+    "other": {
+      "description": "",
+      "strength": "absent",
+      "quote": "",
+      "section": ""
+    }
+  },
+  "linear_features_claimed_supported": [],
+  "any_feature_or_term_claimed_supported": "no",
+  "overlapping_information_among_correlated_predictors_recognized": {
+    "value": "yes",
+    "quote": "Several pairs of features are highly collinear (e.g., X4–X19, r = 0.97; X1–X16, r = 0.918; X5–X20, r = 0.874; X2–X17, r = 0.826; X3–X18, r = 0.723).\n- Despite this, none of these pairs show substantial joint predictive power for Y."
+  },
+  "proxy_direction_caveat_acknowledged": {
+    "value": "unclear",
+    "quote": ""
+  },
+  "auxiliary": {
+    "multiplicative_term_expressed_correctly": {
+      "value": "yes",
+      "notes": "Writes X6*X14 as a product."
+    },
+    "association_vs_generating_mechanism_distinguished": {
+      "value": "unclear",
+      "quote": "The data appear to be generated such that Y is independent of the features X1–X20, or any dependence is extremely weak and possibly due to random sampling variation."
+    },
+    "p_values_computed_from_r_and_n": {
+      "value": "yes",
+      "quote": "With n = 1000, the approximate threshold for statistical significance at α = 0.05 (two-sided) is |r| ≈ 0.062. Only X11 and X13 marginally exceed this threshold, but with small effect sizes."
+    },
+    "numerical_plausibility_of_reported_calculations": {
+      "value": "plausible",
+      "notes": "Verified offline: the two-sided 5% boundary at n = 1000 is |r| = 0.0620 by the Pearson t-test at df = 998, matching the paper's stated |r| = 0.062 exactly. Its follow-on claim that only X11 and X13 exceed it is consistent with the values it cites. Source values deferred to post-unmask."
+    },
+    "multiple_testing_recognized": {
+      "value": "yes",
+      "quote": "With 20 linear and 210 second-order tests, none of the observed |r| values would survive a Bonferroni or False Discovery Rate correction."
+    },
+    "candidate_count_stated": {
+      "value": "yes",
+      "quote": "With 20 linear and 210 second-order tests"
+    },
+    "multiplicity_handling_reasonable": {
+      "value": "yes",
+      "notes": "Names Bonferroni and FDR and reports no survivor; also states the uncorrected boundary explicitly."
+    },
+    "unsupported_numerical_results_or_claims_of_computation": {
+      "value": "none",
+      "examples": "Works only from the supplied statistics and the threshold it derives from n. PROVISIONAL: whether each individual figure matches the supplied input was NOT checked, because that requires reading the input file; deferred to post-unmask."
+    }
+  },
+  "truncation_or_formatting_problems_noticed": "No truncation; the response is complete and ends on a full sentence. Section labels are as printed in the paper; where a quote comes from a Conclusion or summary block the schema has no matching enum value and 'other' is used.",
+  "overall_notes": "AI-SCORED, NOT HUMAN-VERIFIED. Drafted by claude-opus-5[1m] from RUBRIC.md, review_schema.json and this paper's text only; mapping files, run records and the supplied input files were not opened. NOT A STRICTLY BLIND SCORE: earlier in the same session the dataset and condition of the 13 label-quoting papers were printed while measuring label leakage, so this model already knew the identity of some papers in this export. Precedents applied come from P009fd2, which a human confirmed field by field; every other paper in this export, including this one, is awaiting human spot-check.\n\nSCOPE: every value classifies what the paper asserts, not whether the assertion is correct; whether this paper's conclusion is right depends on which dataset it received and is a post-unmask question.\n\nMAIN CONCLUSION AS STATED: No feature or second-order term predicts Y; derives the |r| = 0.062 significance boundary correctly.\n\nJUDGEMENT CALLS: Notes X11 and X13 marginally exceed the uncorrected boundary but still concludes the null.\n\nDEFERRED TO POST-UNMASK: every source value the paper quotes (R^2, the Xi-Y correlations, corr(e^2,Xi^2), inter-feature correlations and any second-order r) needs checking against inputs/<dataset>__<condition>.user.txt; only derivations from r and n were checked offline."
+}

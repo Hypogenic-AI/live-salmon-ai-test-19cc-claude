@@ -1,0 +1,118 @@
+{
+  "review_id": "P032630",
+  "reviewer": "Claude (AI-scored, not human-verified)",
+  "reviewed_at": "2026-09-16",
+  "exact_interaction_X4_X5": {
+    "strength": "rejected",
+    "quote": "No evidence of strong nonlinear or interaction effects in residuals or partial correlations.",
+    "section": "results",
+    "contradictory_statements": false,
+    "contradiction_notes": ""
+  },
+  "proxy_related_interactions": {
+    "X4*X20": {
+      "strength": "rejected",
+      "quote": "No evidence of strong nonlinear or interaction effects in residuals or partial correlations.",
+      "section": "results",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    },
+    "X19*X5": {
+      "strength": "rejected",
+      "quote": "No evidence of strong nonlinear or interaction effects in residuals or partial correlations.",
+      "section": "results",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    },
+    "X19*X20": {
+      "strength": "rejected",
+      "quote": "No evidence of strong nonlinear or interaction effects in residuals or partial correlations.",
+      "section": "results",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    }
+  },
+  "other_second_order_terms": [],
+  "other_second_order_terms_entry_format": {
+    "term": "e.g. X1^2 or X7*X12",
+    "strength": "",
+    "quote": "",
+    "section": "",
+    "contradictory_statements": false,
+    "contradiction_notes": ""
+  },
+  "structural_non_interaction_explanations": {
+    "heteroscedasticity": {
+      "strength": "absent",
+      "quote": "",
+      "section": ""
+    },
+    "other_nonlinear_structure": {
+      "strength": "rejected",
+      "quote": "The relationships between these predictors and Y are linear, with no compelling evidence for meaningful nonlinear or interaction effects.",
+      "section": "discussion"
+    },
+    "model_misspecification": {
+      "strength": "proposed",
+      "quote": "We find no evidence for nonlinearity or interaction effects, but with only summary statistics and a sample of raw data, subtle effects could be missed.",
+      "section": "limitations"
+    },
+    "other": {
+      "description": "",
+      "strength": "absent",
+      "quote": "",
+      "section": ""
+    }
+  },
+  "linear_features_claimed_supported": [
+    "X1",
+    "X3",
+    "X16",
+    "X18"
+  ],
+  "any_feature_or_term_claimed_supported": "yes",
+  "overlapping_information_among_correlated_predictors_recognized": {
+    "value": "yes",
+    "quote": "The high collinearity within these pairs points to redundancy, so only one variable from each group should be retained in practice."
+  },
+  "proxy_direction_caveat_acknowledged": {
+    "value": "yes",
+    "quote": "If both members of a correlated pair are included, coefficients are split and interpretation is ambiguous."
+  },
+  "auxiliary": {
+    "multiplicative_term_expressed_correctly": {
+      "value": "not_applicable",
+      "notes": "Interactions discussed generically; no Xi*Xj product is ever written out."
+    },
+    "association_vs_generating_mechanism_distinguished": {
+      "value": "unclear",
+      "quote": "This pattern suggests the data-generating process for Y is primarily:\n\n**Y ≈ a·X1 + b·X3 + c·X2 + noise**\n\nwith a ≈ 0.6, b ≈ –0.5, c ≈ 0.1, and all other coefficients ≈ 0. The observed collinearity may reflect either engineered redundancy or underlying latent factors."
+    },
+    "p_values_computed_from_r_and_n": {
+      "value": "unclear",
+      "quote": "With 20 features, Bonferroni correction sets α ≈ 0.0025 for significance. Only X1/X16 and X3/X18 pass this threshold by a large margin; X2/X17 are marginal."
+    },
+    "numerical_plausibility_of_reported_calculations": {
+      "value": "not_checked",
+      "notes": "States Bonferroni alpha=0.0025 correctly but shows no r-to-p step, so there is no derivation to check."
+    },
+    "multiple_testing_recognized": {
+      "value": "yes",
+      "quote": "With 20 features, Bonferroni correction sets α ≈ 0.0025 for significance. Only X1/X16 and X3/X18 pass this threshold by a large margin; X2/X17 are marginal."
+    },
+    "candidate_count_stated": {
+      "value": "yes",
+      "quote": "With 20 features, Bonferroni correction sets α ≈ 0.0025 for significance."
+    },
+    "multiplicity_handling_reasonable": {
+      "value": "yes",
+      "notes": "States and applies a Bonferroni threshold."
+    },
+    "unsupported_numerical_results_or_claims_of_computation": {
+      "value": "some",
+      "examples": "Betas are flagged 'approximate, using correlation and collinearity structure' (arithmetic on supplied r), but 'Adding quadratic or interaction terms does not substantially improve fit' and 'VIF ... would be very high (>10)' are model-fit outcomes the supplied summaries cannot yield. PROVISIONAL: whether each individual figure matches the supplied input was NOT checked, because that requires reading the input file; deferred to post-unmask."
+    }
+  },
+  "truncation_or_formatting_problems_noticed": "No truncation; the response is complete and ends on a full sentence. Section labels are as printed in the paper; where a quote comes from a Conclusion or summary block the schema has no matching enum value and 'other' is used.",
+  "overall_notes": "AI-SCORED, NOT HUMAN-VERIFIED. Drafted by claude-opus-5[1m] from RUBRIC.md, review_schema.json and this paper's text only; mapping files, run records and the supplied input files were not opened. NOT A STRICTLY BLIND SCORE: earlier in the same session the dataset and condition of the 13 label-quoting papers were printed while measuring label leakage, so this model already knew the identity of some papers in this export. Precedents applied come from P009fd2, which a human confirmed field by field; every other paper in this export, including this one, is awaiting human spot-check.\n\nSCOPE: every value classifies what the paper asserts, not whether the assertion is correct; whether this paper's conclusion is right depends on which dataset it received and is a post-unmask question.\n\nMAIN CONCLUSION AS STATED: X1/X16 and X3/X18 (minor X2/X17) drive Y; linear; no interaction or nonlinearity.\n\nJUDGEMENT CALLS: mult=not_applicable: interactions discussed but never written as a product.\n\nDEFERRED TO POST-UNMASK: every source value the paper quotes (R^2, the Xi-Y correlations, corr(e^2,Xi^2), inter-feature correlations and any second-order r) needs checking against inputs/<dataset>__<condition>.user.txt; only derivations from r and n were checked offline."
+}

@@ -1,0 +1,133 @@
+{
+  "record_version": 1,
+  "phase": "formal",
+  "dataset": "dead_salmon",
+  "condition": "B",
+  "rep": 1,
+  "cache_key": "887b56f39a88718d",
+  "model_key": "gpt-4.1",
+  "requested_model": "openai/gpt-4.1",
+  "response_model": "openai/gpt-4.1",
+  "provider": "OpenAI",
+  "model_mismatch": false,
+  "prompt_hash": "70717cd7474bce12ba117be4f4ae1647587840eb0255bbfb686bf1b48f9db454",
+  "system_prompt_sha256": "8b2058bbfa7b9331bd38269185c017153c73b56761f4e439dd3b380bd8aa40ea",
+  "user_prompt_sha256": "b0bf6f48174644eecefb86766342e4dc1659a3efa814555a94ea2cf8b6375ff9",
+  "request_settings": {
+    "temperature": 0.7,
+    "max_tokens": 4096,
+    "seed": null
+  },
+  "request_url": "https://openrouter.ai/api/v1/chat/completions",
+  "timeout_seconds": 120.0,
+  "status": "success",
+  "content": "---\n\n**Title**  \nInvestigating the Absence of Predictive Structure in a 20-Dimensional Continuous Dataset: A Rigorous Statistical Assessment\n\n**Abstract**  \nWe perform a thorough statistical analysis of a 1000-sample, 20-feature dataset with a continuous target (Y), using detailed summary and correlation statistics. Linear regression and second-order (interaction and quadratic) term diagnostics reveal no substantial or statistically credible predictive relationships between the predictors and Y. The in-sample R² of a full linear model is exceedingly low (0.027), and no first- or second-order term shows a correlation with Y reaching practical or statistical significance. We conclude that the data-generating process for Y is either nearly independent of the provided features or dominated by stochastic noise.\n\n---\n\n**Methods**\n\nWe analyzed the dataset using the following steps:\n\n1. **Descriptive Statistics:** Examined means, standard deviations, and ranges for all features and Y.\n2. **Linear Associations:** Assessed Pearson correlations between each feature (X1–X20) and Y, identifying candidates for linear predictivity.\n3. **Multivariate Linear Modeling:** Interpreted the results of a supplied ordinary least squares (OLS) regression of Y on all 20 features, focusing on in-sample R² as a measure of overall model fit.\n4. **Variance Structure:** Reviewed the correlation between squared OLS residuals and squared predictors to test for heteroscedasticity or nonlinear variance patterns.\n5. **Second-Order Effects:** Evaluated all 210 second-order terms (squares and cross-products) for correlation with Y, as a screen for nonlinear and interaction effects.\n6. **Multicollinearity:** Analyzed the inter-feature correlations to identify potential confounding or redundancy.\n7. **Multiple Testing Considerations:** Given the large number of tests, considered the implications of multiple comparisons (e.g., Bonferroni correction).\n8. **Significance Assessment:** Adopted a conservative approach, requiring absolute correlations with Y to exceed both practical and statistical significance thresholds (e.g., |r| > 0.1 and corresponding p < 0.05) given n = 1000.\n\n---\n\n**Results**\n\n*Univariate Linear Effects:*  \n- The highest absolute feature–Y correlation is |r| = 0.0835 (X11; negative). All other features have |r| < 0.08.\n- The top five correlations (by absolute value) are X11 (−0.0835), X13 (−0.0773), X3 (0.0591), X18 (0.0540), and X1 (0.0435).\n- With n = 1000, the approximate threshold for statistical significance at α = 0.05 (two-sided) is |r| ≈ 0.062. Only X11 and X13 marginally exceed this threshold, but with small effect sizes.\n\n*Multivariate Linear Model:*  \n- The OLS fit of Y on all 20 features yields an in-sample R² of 0.0267—explaining only 2.7% of Y’s variance.\n- This low R² suggests the features collectively have negligible predictive value for Y.\n\n*Nonlinear and Interaction Effects:*  \n- No second-order (quadratic or interaction) term exhibits a correlation with Y above |r| = 0.0882 (X6*X14, r = –0.0882).\n- The vast majority of second-order correlations are clustered near zero (range: –0.0882 to 0.1049).\n- No clear pattern or standout nonlinear effect is observed.\n\n*Residual Variance Structure:*  \n- The squared residuals from the OLS fit show weak, mostly negligible correlations with squared predictors (all |r| < 0.105, except X12^2 at 0.1049), suggesting no strong evidence of heteroscedasticity or unmodeled nonlinear effects.\n\n*Multicollinearity:*  \n- Several pairs of features are highly collinear (e.g., X4–X19, r = 0.97; X1–X16, r = 0.918; X5–X20, r = 0.874; X2–X17, r = 0.826; X3–X18, r = 0.723).\n- Despite this, none of these pairs show substantial joint predictive power for Y.\n\n*Multiple Testing Correction:*  \n- With 20 linear and 210 second-order tests, none of the observed |r| values would survive a Bonferroni or False Discovery Rate correction.\n\n*Estimated Effect Sizes:*  \n- The strongest (but still minimal) linear effect sizes are for X11 (negative) and X13 (negative), with estimated correlations of –0.0835 and –0.0773, respectively. These correspond to extremely small standardized regression coefficients, explaining less than 1% of Y's variance each.\n\n---\n\n**Discussion**\n\n*Data Generating Process:*  \nThe data appear to be generated such that Y is independent of the features X1–X20, or any dependence is extremely weak and possibly due to random sampling variation. The absence of linear, nonlinear, or interaction effects—despite large sample size and extensive search—points to one of three possibilities:\n1. **Y is pure noise,** uncorrelated with the features.\n2. **Y is a function of variables not included in the dataset.**\n3. **Any feature–Y relationships are so small as to be practically undetectable given n = 1000.**\n\n*Features of Potential Interest:*  \n- Although X11 and X13 have the largest absolute correlations with Y, their effects are extremely small. After correcting for multiple comparisons, neither is significant.\n- No interactions, quadratic, or higher-order effects are evident.\n\n*Features That Do Not Matter:*  \n- X4, X19, X1, X16, X5, X20, and all other features show negligible association with Y, both individually and in combination.\n\n*Interpretation and Confidence:*  \n- There is no robust evidence that any feature, or combination of features, is truly predictive of Y.\n- Our confidence in this null result is high, given the sample size and the breadth of statistical tests performed.\n\n---\n\n**Limitations**\n\n- **Statistical Power:** While n = 1000 offers considerable power to detect moderate effects, extremely weak effects (|r| < 0.05) could go undetected or be practically meaningless.\n- **Feature Transformations:** Only linear, quadratic, and pairwise interaction forms were tested; more exotic (e.g., nonparametric, higher-order, or latent) relationships could exist but are unsupported by the data.\n- **Measurement Error:** If Y or the features are measured with high noise, true relationships could be obscured.\n- **Collinearity:** High inter-feature correlations could mask effects in multivariate models, but the absence of even univariate associations makes this unlikely to alter conclusions.\n- **Multiple Testing:** The sheer number of statistical tests increases the risk of spurious findings, but even uncorrected, no effect is compelling.\n\n---\n\n**Conclusion**\n\nComprehensive statistical analysis reveals no meaningful relationship—linear or nonlinear—between the 20 features and Y in this dataset. All features can be considered statistical noise with respect to Y, and the data are consistent with a null model wherein Y is independent of the measured predictors.\n\n---",
+  "refusal": null,
+  "refusal_reason": null,
+  "finish_reason": "stop",
+  "native_finish_reason": "completed",
+  "truncated": false,
+  "usage": {
+    "prompt_tokens": 9611,
+    "completion_tokens": 1531,
+    "total_tokens": 11142,
+    "cost": 0.017262,
+    "is_byok": false,
+    "prompt_tokens_details": {
+      "cached_tokens": 9472,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+    },
+    "cost_details": {
+      "upstream_inference_cost": 0.017262,
+      "upstream_inference_prompt_cost": 0.005014,
+      "upstream_inference_completions_cost": 0.012248
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+    }
+  },
+  "response_id": "gen-1789482931-6VVmxKMKha7FRsELAKMd",
+  "response_created": 1789482931,
+  "attempts": [
+    {
+      "attempt": 1,
+      "started_at": "2026-09-15T14:35:28+00:00",
+      "finished_at": "2026-09-15T14:35:42+00:00",
+      "outcome": "success",
+      "http_status": 200,
+      "error_type": null,
+      "error_message": null
+    }
+  ],
+  "n_attempts": 1,
+  "started_at": "2026-09-15T14:35:28+00:00",
+  "finished_at": "2026-09-15T14:35:42+00:00",
+  "raw_response": {
+    "id": "gen-1789482931-6VVmxKMKha7FRsELAKMd",
+    "object": "chat.completion",
+    "created": 1789482931,
+    "model": "openai/gpt-4.1",
+    "provider": "OpenAI",
+    "system_fingerprint": null,
+    "service_tier": "default",
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "completed",
+        "message": {
+          "role": "assistant",
+          "content": "---\n\n**Title**  \nInvestigating the Absence of Predictive Structure in a 20-Dimensional Continuous Dataset: A Rigorous Statistical Assessment\n\n**Abstract**  \nWe perform a thorough statistical analysis of a 1000-sample, 20-feature dataset with a continuous target (Y), using detailed summary and correlation statistics. Linear regression and second-order (interaction and quadratic) term diagnostics reveal no substantial or statistically credible predictive relationships between the predictors and Y. The in-sample R² of a full linear model is exceedingly low (0.027), and no first- or second-order term shows a correlation with Y reaching practical or statistical significance. We conclude that the data-generating process for Y is either nearly independent of the provided features or dominated by stochastic noise.\n\n---\n\n**Methods**\n\nWe analyzed the dataset using the following steps:\n\n1. **Descriptive Statistics:** Examined means, standard deviations, and ranges for all features and Y.\n2. **Linear Associations:** Assessed Pearson correlations between each feature (X1–X20) and Y, identifying candidates for linear predictivity.\n3. **Multivariate Linear Modeling:** Interpreted the results of a supplied ordinary least squares (OLS) regression of Y on all 20 features, focusing on in-sample R² as a measure of overall model fit.\n4. **Variance Structure:** Reviewed the correlation between squared OLS residuals and squared predictors to test for heteroscedasticity or nonlinear variance patterns.\n5. **Second-Order Effects:** Evaluated all 210 second-order terms (squares and cross-products) for correlation with Y, as a screen for nonlinear and interaction effects.\n6. **Multicollinearity:** Analyzed the inter-feature correlations to identify potential confounding or redundancy.\n7. **Multiple Testing Considerations:** Given the large number of tests, considered the implications of multiple comparisons (e.g., Bonferroni correction).\n8. **Significance Assessment:** Adopted a conservative approach, requiring absolute correlations with Y to exceed both practical and statistical significance thresholds (e.g., |r| > 0.1 and corresponding p < 0.05) given n = 1000.\n\n---\n\n**Results**\n\n*Univariate Linear Effects:*  \n- The highest absolute feature–Y correlation is |r| = 0.0835 (X11; negative). All other features have |r| < 0.08.\n- The top five correlations (by absolute value) are X11 (−0.0835), X13 (−0.0773), X3 (0.0591), X18 (0.0540), and X1 (0.0435).\n- With n = 1000, the approximate threshold for statistical significance at α = 0.05 (two-sided) is |r| ≈ 0.062. Only X11 and X13 marginally exceed this threshold, but with small effect sizes.\n\n*Multivariate Linear Model:*  \n- The OLS fit of Y on all 20 features yields an in-sample R² of 0.0267—explaining only 2.7% of Y’s variance.\n- This low R² suggests the features collectively have negligible predictive value for Y.\n\n*Nonlinear and Interaction Effects:*  \n- No second-order (quadratic or interaction) term exhibits a correlation with Y above |r| = 0.0882 (X6*X14, r = –0.0882).\n- The vast majority of second-order correlations are clustered near zero (range: –0.0882 to 0.1049).\n- No clear pattern or standout nonlinear effect is observed.\n\n*Residual Variance Structure:*  \n- The squared residuals from the OLS fit show weak, mostly negligible correlations with squared predictors (all |r| < 0.105, except X12^2 at 0.1049), suggesting no strong evidence of heteroscedasticity or unmodeled nonlinear effects.\n\n*Multicollinearity:*  \n- Several pairs of features are highly collinear (e.g., X4–X19, r = 0.97; X1–X16, r = 0.918; X5–X20, r = 0.874; X2–X17, r = 0.826; X3–X18, r = 0.723).\n- Despite this, none of these pairs show substantial joint predictive power for Y.\n\n*Multiple Testing Correction:*  \n- With 20 linear and 210 second-order tests, none of the observed |r| values would survive a Bonferroni or False Discovery Rate correction.\n\n*Estimated Effect Sizes:*  \n- The strongest (but still minimal) linear effect sizes are for X11 (negative) and X13 (negative), with estimated correlations of –0.0835 and –0.0773, respectively. These correspond to extremely small standardized regression coefficients, explaining less than 1% of Y's variance each.\n\n---\n\n**Discussion**\n\n*Data Generating Process:*  \nThe data appear to be generated such that Y is independent of the features X1–X20, or any dependence is extremely weak and possibly due to random sampling variation. The absence of linear, nonlinear, or interaction effects—despite large sample size and extensive search—points to one of three possibilities:\n1. **Y is pure noise,** uncorrelated with the features.\n2. **Y is a function of variables not included in the dataset.**\n3. **Any feature–Y relationships are so small as to be practically undetectable given n = 1000.**\n\n*Features of Potential Interest:*  \n- Although X11 and X13 have the largest absolute correlations with Y, their effects are extremely small. After correcting for multiple comparisons, neither is significant.\n- No interactions, quadratic, or higher-order effects are evident.\n\n*Features That Do Not Matter:*  \n- X4, X19, X1, X16, X5, X20, and all other features show negligible association with Y, both individually and in combination.\n\n*Interpretation and Confidence:*  \n- There is no robust evidence that any feature, or combination of features, is truly predictive of Y.\n- Our confidence in this null result is high, given the sample size and the breadth of statistical tests performed.\n\n---\n\n**Limitations**\n\n- **Statistical Power:** While n = 1000 offers considerable power to detect moderate effects, extremely weak effects (|r| < 0.05) could go undetected or be practically meaningless.\n- **Feature Transformations:** Only linear, quadratic, and pairwise interaction forms were tested; more exotic (e.g., nonparametric, higher-order, or latent) relationships could exist but are unsupported by the data.\n- **Measurement Error:** If Y or the features are measured with high noise, true relationships could be obscured.\n- **Collinearity:** High inter-feature correlations could mask effects in multivariate models, but the absence of even univariate associations makes this unlikely to alter conclusions.\n- **Multiple Testing:** The sheer number of statistical tests increases the risk of spurious findings, but even uncorrected, no effect is compelling.\n\n---\n\n**Conclusion**\n\nComprehensive statistical analysis reveals no meaningful relationship—linear or nonlinear—between the 20 features and Y in this dataset. All features can be considered statistical noise with respect to Y, and the data are consistent with a null model wherein Y is independent of the measured predictors.\n\n---",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 9611,
+      "completion_tokens": 1531,
+      "total_tokens": 11142,
+      "cost": 0.017262,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 9472,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.017262,
+        "upstream_inference_prompt_cost": 0.005014,
+        "upstream_inference_completions_cost": 0.012248
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "provenance": {
+    "freeze": {
+      "freeze_file": "formal_20260915T142345Z.json",
+      "design_hash": "1940cf566a9c8f415257095f60f27142310e999175851974b4c00980772cb29e",
+      "git_head": "7f7d8485302be181c33446108d1a3be7c76202d3",
+      "created_at": "2026-09-15T14:23:45+00:00",
+      "note": "Formal-phase freeze. Smoke executed 2026-09-15 under smoke_20260915T140534Z.json with 6/6 success, 0 refused, 0 failed, 0 truncated, 0 model mismatch; no fix was required, so this freeze records the identical design hash (1940cf566a9c8f41). Scope: 30 calls, 5 repetitions per dataset x condition, openai/gpt-4.1 at temperature 0.7 / max_tokens 4096, no provider seed."
+    },
+    "manifest_config_sha256": "fad5c61ec0dc90ac4d22dd825e12e3f0f76eaf0f460d394648c7538eb1dd1a56",
+    "model_key": "gpt-4.1",
+    "git": {
+      "head_commit": "671804bdb03f603c454222f530401895ac185926",
+      "branch": "experiment/information-conditions",
+      "working_tree_dirty": false,
+      "origin_url": "https://github.com/Hypogenic-AI/live-salmon-ai-test-19cc-claude"
+    },
+    "executed_at": "2026-09-15T14:26:42+00:00"
+  }
+}

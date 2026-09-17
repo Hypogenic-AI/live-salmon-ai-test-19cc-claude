@@ -1,0 +1,133 @@
+{
+  "record_version": 1,
+  "phase": "formal",
+  "dataset": "dead_salmon",
+  "condition": "A",
+  "rep": 5,
+  "cache_key": "e3403952e9738ccd",
+  "model_key": "gpt-4.1",
+  "requested_model": "openai/gpt-4.1",
+  "response_model": "openai/gpt-4.1",
+  "provider": "OpenAI",
+  "model_mismatch": false,
+  "prompt_hash": "ff5ff1caf75471e408414f7c89a87f180de2b2c5991be279421816dada1d6f4b",
+  "system_prompt_sha256": "8b2058bbfa7b9331bd38269185c017153c73b56761f4e439dd3b380bd8aa40ea",
+  "user_prompt_sha256": "0e9c2bd433b52a157e57d176991138a056c2036ff2408cb40b21a9f591d16c29",
+  "request_settings": {
+    "temperature": 0.7,
+    "max_tokens": 4096,
+    "seed": null
+  },
+  "request_url": "https://openrouter.ai/api/v1/chat/completions",
+  "timeout_seconds": 120.0,
+  "status": "success",
+  "content": "---\n\n# Feature Relevance in a 20-Dimensional Continuous Dataset: A Statistical Analysis\n\n## Abstract\n\nWe analyze a dataset with 20 continuous features (X1–X20) and a continuous target variable Y (n=1000). Using summary statistics, correlation analysis, and consideration of multicollinearity, we assess the predictive power and relationships of features to Y. No feature exhibits a strong linear relationship with Y; the largest absolute correlation is 0.0835. Several feature pairs show high inter-feature correlations, indicating potential multicollinearity. We find no compelling evidence for strong predictors, interaction effects, or nonlinearities, and conclude that Y is approximately independent of the features.\n\n---\n\n## Methods\n\nWe employ the following statistical approaches:\n\n1. **Univariate Correlation Analysis:** We examine Pearson correlations between each feature (X1–X20) and target Y.\n2. **Multivariate Linear Regression:** We would fit an ordinary least squares (OLS) regression of Y on all 20 features to estimate effect sizes and their statistical significance.\n3. **Collinearity Diagnostics:** We scrutinize the correlation matrix for highly correlated features (|r| > 0.7) to assess multicollinearity and its impact on regression coefficients.\n4. **Interaction and Nonlinearity Assessment:** We consider whether feature pairs with high correlations to each other and to Y might contribute to interaction or nonlinear effects.\n5. **Multiple Comparisons Correction:** Given the number of tests, we would apply the Bonferroni correction when evaluating univariate statistical significance.\n6. **Model Fit Evaluation:** We would examine R² and adjusted R² for the linear model to assess overall predictive power.\n\nAll analyses are based solely on the provided summary statistics and sample data.\n\n---\n\n## Results\n\n### 1. **Univariate Correlation Analysis**\n\n- The strongest correlation between any feature and Y is modest: X3 (0.059), X18 (0.054), X1 (0.043), X16 (0.038), X4 (0.038), X19 (0.029), X10 (0.025).\n- The largest negative correlations are: X11 (−0.084), X13 (−0.077), X8 (−0.044), X9 (−0.043), X12 (−0.034).\n- All correlations are weak (|r| < 0.09). At n=1000, the Bonferroni-adjusted p-value threshold for 20 tests is roughly 0.0025; none of these correlations would approach significance.\n\n### 2. **Multivariate Linear Regression (Expected)**\n\n- Given the weak univariate relationships, we expect all regression coefficients to be near zero and statistically non-significant.\n- Features with high inter-feature correlations (X1–X16, X4–X19, X5–X20, X2–X17, X3–X18) would lead to unstable coefficient estimates but do not increase their explanatory power for Y, as none are strongly correlated with Y.\n- We expect R² and adjusted R² to be near zero, indicating negligible explained variance.\n\n### 3. **Collinearity Diagnostics**\n\n- Several features are highly collinear (notably X1/X16, X4/X19, X5/X20, X2/X17, X3/X18). These pairs have r > 0.7.\n- However, since none of these features are predictive of Y, collinearity does not meaningfully affect model fit or inference.\n\n### 4. **Interaction and Nonlinearity Assessment**\n\n- No pair of features is jointly or individually predictive of Y.\n- No evidence from the correlation matrix suggests meaningful nonlinear or interaction terms.\n\n### 5. **Effect Size Estimates**\n\n- All features: Expected regression coefficients near zero, with standard errors sufficiently large that no feature would be statistically significant after multiple comparison correction.\n- For example, the largest effect (X3) could have an unstandardized coefficient on the order of 0.06 (scaled by Y's standard deviation), but this is likely not significant.\n\n### 6. **Other Observations**\n\n- The sample data and summary statistics show Y is centered at zero (mean ≈ 0) with unit variance (std ≈ 1), as are the features.\n- No feature or combination of features stands out as predictive.\n\n---\n\n## Discussion\n\n### Data Generating Process\n\nThe data appears to be generated such that Y is independent of all 20 features, or at most only negligibly related. The largest observed correlation is only 0.0835 (X11 with Y), which explains less than 1% of the variance in Y (r² ≈ 0.007). Strong collinearity among some feature pairs does not translate to predictive power for Y.\n\n### Which Features Matter?\n\n**None of the features (X1–X20) are meaningfully predictive of Y.** Neither univariate nor multivariate analyses reveal significant relationships. All effect sizes are small, and none pass conventional or corrected statistical significance thresholds. There is no evidence of interaction or nonlinear effects.\n\n### Confidence Level\n\nGiven the large sample size (n=1000) and consistently near-zero correlations, we are highly confident in these findings.\n\n---\n\n## Limitations\n\n- **Data Access:** Our analysis is based on summary statistics and sample data, not the full raw dataset, precluding more advanced modeling (e.g., regularization, tree-based methods, or nonlinear fits).\n- **Functional Form:** While linear relationships and pairwise interactions are ruled out, complex higher-order or non-monotonic relationships could exist but would be undetectable from summary correlations alone.\n- **Generality:** These findings apply only to the provided dataset. Other samples or related data may yield different results.\n- **Statistical Power:** While n=1000 is substantial, the effect sizes are so small that even with more data, practical significance would remain negligible.\n\n---\n\n**Conclusion:**  \nIn this dataset, none of the 20 features is a meaningful predictor of Y. The data is consistent with Y being independent of X1–X20. No functional relationships, interaction effects, or nonlinearities are detected. The features are best interpreted as statistical noise with respect to the outcome.",
+  "refusal": null,
+  "refusal_reason": null,
+  "finish_reason": "stop",
+  "native_finish_reason": "completed",
+  "truncated": false,
+  "usage": {
+    "prompt_tokens": 5517,
+    "completion_tokens": 1288,
+    "total_tokens": 6805,
+    "cost": 0.013274,
+    "is_byok": false,
+    "prompt_tokens_details": {
+      "cached_tokens": 5376,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+    },
+    "cost_details": {
+      "upstream_inference_cost": 0.013274,
+      "upstream_inference_prompt_cost": 0.00297,
+      "upstream_inference_completions_cost": 0.010304
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+    }
+  },
+  "response_id": "gen-1789482849-veeoMtndi6Y4UCpAyl5v",
+  "response_created": 1789482849,
+  "attempts": [
+    {
+      "attempt": 1,
+      "started_at": "2026-09-15T14:34:06+00:00",
+      "finished_at": "2026-09-15T14:34:20+00:00",
+      "outcome": "success",
+      "http_status": 200,
+      "error_type": null,
+      "error_message": null
+    }
+  ],
+  "n_attempts": 1,
+  "started_at": "2026-09-15T14:34:06+00:00",
+  "finished_at": "2026-09-15T14:34:20+00:00",
+  "raw_response": {
+    "id": "gen-1789482849-veeoMtndi6Y4UCpAyl5v",
+    "object": "chat.completion",
+    "created": 1789482849,
+    "model": "openai/gpt-4.1",
+    "provider": "OpenAI",
+    "system_fingerprint": null,
+    "service_tier": "default",
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "completed",
+        "message": {
+          "role": "assistant",
+          "content": "---\n\n# Feature Relevance in a 20-Dimensional Continuous Dataset: A Statistical Analysis\n\n## Abstract\n\nWe analyze a dataset with 20 continuous features (X1–X20) and a continuous target variable Y (n=1000). Using summary statistics, correlation analysis, and consideration of multicollinearity, we assess the predictive power and relationships of features to Y. No feature exhibits a strong linear relationship with Y; the largest absolute correlation is 0.0835. Several feature pairs show high inter-feature correlations, indicating potential multicollinearity. We find no compelling evidence for strong predictors, interaction effects, or nonlinearities, and conclude that Y is approximately independent of the features.\n\n---\n\n## Methods\n\nWe employ the following statistical approaches:\n\n1. **Univariate Correlation Analysis:** We examine Pearson correlations between each feature (X1–X20) and target Y.\n2. **Multivariate Linear Regression:** We would fit an ordinary least squares (OLS) regression of Y on all 20 features to estimate effect sizes and their statistical significance.\n3. **Collinearity Diagnostics:** We scrutinize the correlation matrix for highly correlated features (|r| > 0.7) to assess multicollinearity and its impact on regression coefficients.\n4. **Interaction and Nonlinearity Assessment:** We consider whether feature pairs with high correlations to each other and to Y might contribute to interaction or nonlinear effects.\n5. **Multiple Comparisons Correction:** Given the number of tests, we would apply the Bonferroni correction when evaluating univariate statistical significance.\n6. **Model Fit Evaluation:** We would examine R² and adjusted R² for the linear model to assess overall predictive power.\n\nAll analyses are based solely on the provided summary statistics and sample data.\n\n---\n\n## Results\n\n### 1. **Univariate Correlation Analysis**\n\n- The strongest correlation between any feature and Y is modest: X3 (0.059), X18 (0.054), X1 (0.043), X16 (0.038), X4 (0.038), X19 (0.029), X10 (0.025).\n- The largest negative correlations are: X11 (−0.084), X13 (−0.077), X8 (−0.044), X9 (−0.043), X12 (−0.034).\n- All correlations are weak (|r| < 0.09). At n=1000, the Bonferroni-adjusted p-value threshold for 20 tests is roughly 0.0025; none of these correlations would approach significance.\n\n### 2. **Multivariate Linear Regression (Expected)**\n\n- Given the weak univariate relationships, we expect all regression coefficients to be near zero and statistically non-significant.\n- Features with high inter-feature correlations (X1–X16, X4–X19, X5–X20, X2–X17, X3–X18) would lead to unstable coefficient estimates but do not increase their explanatory power for Y, as none are strongly correlated with Y.\n- We expect R² and adjusted R² to be near zero, indicating negligible explained variance.\n\n### 3. **Collinearity Diagnostics**\n\n- Several features are highly collinear (notably X1/X16, X4/X19, X5/X20, X2/X17, X3/X18). These pairs have r > 0.7.\n- However, since none of these features are predictive of Y, collinearity does not meaningfully affect model fit or inference.\n\n### 4. **Interaction and Nonlinearity Assessment**\n\n- No pair of features is jointly or individually predictive of Y.\n- No evidence from the correlation matrix suggests meaningful nonlinear or interaction terms.\n\n### 5. **Effect Size Estimates**\n\n- All features: Expected regression coefficients near zero, with standard errors sufficiently large that no feature would be statistically significant after multiple comparison correction.\n- For example, the largest effect (X3) could have an unstandardized coefficient on the order of 0.06 (scaled by Y's standard deviation), but this is likely not significant.\n\n### 6. **Other Observations**\n\n- The sample data and summary statistics show Y is centered at zero (mean ≈ 0) with unit variance (std ≈ 1), as are the features.\n- No feature or combination of features stands out as predictive.\n\n---\n\n## Discussion\n\n### Data Generating Process\n\nThe data appears to be generated such that Y is independent of all 20 features, or at most only negligibly related. The largest observed correlation is only 0.0835 (X11 with Y), which explains less than 1% of the variance in Y (r² ≈ 0.007). Strong collinearity among some feature pairs does not translate to predictive power for Y.\n\n### Which Features Matter?\n\n**None of the features (X1–X20) are meaningfully predictive of Y.** Neither univariate nor multivariate analyses reveal significant relationships. All effect sizes are small, and none pass conventional or corrected statistical significance thresholds. There is no evidence of interaction or nonlinear effects.\n\n### Confidence Level\n\nGiven the large sample size (n=1000) and consistently near-zero correlations, we are highly confident in these findings.\n\n---\n\n## Limitations\n\n- **Data Access:** Our analysis is based on summary statistics and sample data, not the full raw dataset, precluding more advanced modeling (e.g., regularization, tree-based methods, or nonlinear fits).\n- **Functional Form:** While linear relationships and pairwise interactions are ruled out, complex higher-order or non-monotonic relationships could exist but would be undetectable from summary correlations alone.\n- **Generality:** These findings apply only to the provided dataset. Other samples or related data may yield different results.\n- **Statistical Power:** While n=1000 is substantial, the effect sizes are so small that even with more data, practical significance would remain negligible.\n\n---\n\n**Conclusion:**  \nIn this dataset, none of the 20 features is a meaningful predictor of Y. The data is consistent with Y being independent of X1–X20. No functional relationships, interaction effects, or nonlinearities are detected. The features are best interpreted as statistical noise with respect to the outcome.",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 5517,
+      "completion_tokens": 1288,
+      "total_tokens": 6805,
+      "cost": 0.013274,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 5376,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.013274,
+        "upstream_inference_prompt_cost": 0.00297,
+        "upstream_inference_completions_cost": 0.010304
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "provenance": {
+    "freeze": {
+      "freeze_file": "formal_20260915T142345Z.json",
+      "design_hash": "1940cf566a9c8f415257095f60f27142310e999175851974b4c00980772cb29e",
+      "git_head": "7f7d8485302be181c33446108d1a3be7c76202d3",
+      "created_at": "2026-09-15T14:23:45+00:00",
+      "note": "Formal-phase freeze. Smoke executed 2026-09-15 under smoke_20260915T140534Z.json with 6/6 success, 0 refused, 0 failed, 0 truncated, 0 model mismatch; no fix was required, so this freeze records the identical design hash (1940cf566a9c8f41). Scope: 30 calls, 5 repetitions per dataset x condition, openai/gpt-4.1 at temperature 0.7 / max_tokens 4096, no provider seed."
+    },
+    "manifest_config_sha256": "fad5c61ec0dc90ac4d22dd825e12e3f0f76eaf0f460d394648c7538eb1dd1a56",
+    "model_key": "gpt-4.1",
+    "git": {
+      "head_commit": "671804bdb03f603c454222f530401895ac185926",
+      "branch": "experiment/information-conditions",
+      "working_tree_dirty": false,
+      "origin_url": "https://github.com/Hypogenic-AI/live-salmon-ai-test-19cc-claude"
+    },
+    "executed_at": "2026-09-15T14:26:42+00:00"
+  }
+}

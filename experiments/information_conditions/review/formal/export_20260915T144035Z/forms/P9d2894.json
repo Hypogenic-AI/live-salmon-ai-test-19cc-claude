@@ -1,0 +1,113 @@
+{
+  "review_id": "P9d2894",
+  "reviewer": "Claude (AI-scored, not human-verified)",
+  "reviewed_at": "2026-09-16",
+  "exact_interaction_X4_X5": {
+    "strength": "rejected",
+    "quote": "No evidence for interaction effects was supplied or suggested by the diagnostics.",
+    "section": "results",
+    "contradictory_statements": false,
+    "contradiction_notes": ""
+  },
+  "proxy_related_interactions": {
+    "X4*X20": {
+      "strength": "rejected",
+      "quote": "No evidence for interaction effects was supplied or suggested by the diagnostics.",
+      "section": "results",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    },
+    "X19*X5": {
+      "strength": "rejected",
+      "quote": "No evidence for interaction effects was supplied or suggested by the diagnostics.",
+      "section": "results",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    },
+    "X19*X20": {
+      "strength": "rejected",
+      "quote": "No evidence for interaction effects was supplied or suggested by the diagnostics.",
+      "section": "results",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    }
+  },
+  "other_second_order_terms": [],
+  "other_second_order_terms_entry_format": {
+    "term": "e.g. X1^2 or X7*X12",
+    "strength": "",
+    "quote": "",
+    "section": "",
+    "contradictory_statements": false,
+    "contradiction_notes": ""
+  },
+  "structural_non_interaction_explanations": {
+    "heteroscedasticity": {
+      "strength": "rejected",
+      "quote": "The largest value (X12, corr = 0.105) is still insufficient to suggest a meaningful nonlinear or variance effect, especially after accounting for multiple hypothesis testing.",
+      "section": "results"
+    },
+    "other_nonlinear_structure": {
+      "strength": "rejected",
+      "quote": "The absence of nonlinear or interaction effects further supports the conclusion that the data generating process is either dominated by noise or Y is generated independently of these features.",
+      "section": "discussion"
+    },
+    "model_misspecification": {
+      "strength": "proposed",
+      "quote": "We could not test higher-order or more complex nonlinearities, nor construct composite or interaction terms beyond the diagnostics provided.",
+      "section": "limitations"
+    },
+    "other": {
+      "description": "",
+      "strength": "absent",
+      "quote": "",
+      "section": ""
+    }
+  },
+  "linear_features_claimed_supported": [],
+  "any_feature_or_term_claimed_supported": "no",
+  "overlapping_information_among_correlated_predictors_recognized": {
+    "value": "yes",
+    "quote": "Collinearity among some predictors is present but irrelevant in this context, as none are associated with Y."
+  },
+  "proxy_direction_caveat_acknowledged": {
+    "value": "unclear",
+    "quote": ""
+  },
+  "auxiliary": {
+    "multiplicative_term_expressed_correctly": {
+      "value": "not_applicable",
+      "notes": "No Xi*Xj product term is written out anywhere."
+    },
+    "association_vs_generating_mechanism_distinguished": {
+      "value": "unclear",
+      "quote": "The weak correlations between individual features and Y, coupled with the extremely low total variance explained by all predictors combined, suggest that Y is essentially independent of X1"
+    },
+    "p_values_computed_from_r_and_n": {
+      "value": "unclear",
+      "quote": "With 20 predictors, even nominal correlations up to r ≈ 0.08 could easily arise by chance; none of the observed correlations would survive adjustment for multiple testing (e.g., Bonferroni or FDR)."
+    },
+    "numerical_plausibility_of_reported_calculations": {
+      "value": "not_checked",
+      "notes": "Asserts that no correlation would survive Bonferroni or FDR but shows no derivation from r and n."
+    },
+    "multiple_testing_recognized": {
+      "value": "yes",
+      "quote": "Considered the effective threshold for significance, given the number of features and the magnitude of observed correlations."
+    },
+    "candidate_count_stated": {
+      "value": "yes",
+      "quote": "With 20 predictors, even nominal correlations up to r ≈ 0.08 could easily arise by chance"
+    },
+    "multiplicity_handling_reasonable": {
+      "value": "yes",
+      "notes": "Names Bonferroni and FDR and uses them to support the null; no survivor reported."
+    },
+    "unsupported_numerical_results_or_claims_of_computation": {
+      "value": "none",
+      "examples": "States 'All analyses are strictly confined to the provided summary statistics and diagnostics.' PROVISIONAL: whether each individual figure matches the supplied input was NOT checked, because that requires reading the input file; deferred to post-unmask."
+    }
+  },
+  "truncation_or_formatting_problems_noticed": "No truncation; the response is complete and ends on a full sentence. Section labels are as printed in the paper; where a quote comes from a Conclusion or summary block the schema has no matching enum value and 'other' is used.",
+  "overall_notes": "AI-SCORED, NOT HUMAN-VERIFIED. Drafted by claude-opus-5[1m] from RUBRIC.md, review_schema.json and this paper's text only; mapping files, run records and the supplied input files were not opened. NOT A STRICTLY BLIND SCORE: earlier in the same session the dataset and condition of the 13 label-quoting papers were printed while measuring label leakage, so this model already knew the identity of some papers in this export. Precedents applied come from P009fd2, which a human confirmed field by field; every other paper in this export, including this one, is awaiting human spot-check.\n\nSCOPE: every value classifies what the paper asserts, not whether the assertion is correct; whether this paper's conclusion is right depends on which dataset it received and is a post-unmask question.\n\nMAIN CONCLUSION AS STATED: No feature predicts Y; R^2=0.0267; heteroskedasticity and nonlinearity ruled out.\n\nJUDGEMENT CALLS: None material.\n\nDEFERRED TO POST-UNMASK: every source value the paper quotes (R^2, the Xi-Y correlations, corr(e^2,Xi^2), inter-feature correlations and any second-order r) needs checking against inputs/<dataset>__<condition>.user.txt; only derivations from r and n were checked offline."
+}

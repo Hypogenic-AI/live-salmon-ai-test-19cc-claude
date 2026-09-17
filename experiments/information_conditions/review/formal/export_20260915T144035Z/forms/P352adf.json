@@ -1,0 +1,118 @@
+{
+  "review_id": "P352adf",
+  "reviewer": "Claude (AI-scored, not human-verified)",
+  "reviewed_at": "2026-09-16",
+  "exact_interaction_X4_X5": {
+    "strength": "rejected",
+    "quote": "The largest correlation between Y and any second-order term is for X4*X5 (r = 0.26) and X19*X20 (r = 0.21), but these features themselves are not predictive of Y",
+    "section": "results",
+    "contradictory_statements": false,
+    "contradiction_notes": ""
+  },
+  "proxy_related_interactions": {
+    "X4*X20": {
+      "strength": "rejected",
+      "quote": "The largest correlation between Y and any second-order term is for X4*X5 (r = 0.26) and X19*X20 (r = 0.21), but these features themselves are not predictive of Y",
+      "section": "results",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    },
+    "X19*X5": {
+      "strength": "rejected",
+      "quote": "The largest correlation between Y and any second-order term is for X4*X5 (r = 0.26) and X19*X20 (r = 0.21), but these features themselves are not predictive of Y",
+      "section": "results",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    },
+    "X19*X20": {
+      "strength": "rejected",
+      "quote": "The largest correlation between Y and any second-order term is for X4*X5 (r = 0.26) and X19*X20 (r = 0.21), but these features themselves are not predictive of Y",
+      "section": "results",
+      "contradictory_statements": false,
+      "contradiction_notes": ""
+    }
+  },
+  "other_second_order_terms": [],
+  "other_second_order_terms_entry_format": {
+    "term": "e.g. X1^2 or X7*X12",
+    "strength": "",
+    "quote": "",
+    "section": "",
+    "contradictory_statements": false,
+    "contradiction_notes": ""
+  },
+  "structural_non_interaction_explanations": {
+    "heteroscedasticity": {
+      "strength": "proposed",
+      "quote": "Their association with residual variance suggests possible heteroscedasticity, but not predictive power for Y itself.",
+      "section": "results"
+    },
+    "other_nonlinear_structure": {
+      "strength": "rejected",
+      "quote": "No substantive evidence of strong interaction or nonlinear effects involving the principal predictors is observed.",
+      "section": "results"
+    },
+    "model_misspecification": {
+      "strength": "proposed",
+      "quote": "Our findings depend on the absence of strong nonlinearities or interactions in the true data generating process, as supported but not definitively proven by the supplied statistics.",
+      "section": "limitations"
+    },
+    "other": {
+      "description": "",
+      "strength": "absent",
+      "quote": "",
+      "section": ""
+    }
+  },
+  "linear_features_claimed_supported": [
+    "X1",
+    "X16",
+    "X3",
+    "X18"
+  ],
+  "any_feature_or_term_claimed_supported": "yes",
+  "overlapping_information_among_correlated_predictors_recognized": {
+    "value": "yes",
+    "quote": "The very high inter-feature correlations suggest that X1 and X16 (similarly, X3 and X18) function as redundant predictors."
+  },
+  "proxy_direction_caveat_acknowledged": {
+    "value": "yes",
+    "quote": "with X1/X16 and X3/X18 being functionally interchangeable due to collinearity"
+  },
+  "auxiliary": {
+    "multiplicative_term_expressed_correctly": {
+      "value": "yes",
+      "notes": "Writes X4*X5 and X19*X20 as products."
+    },
+    "association_vs_generating_mechanism_distinguished": {
+      "value": "unclear",
+      "quote": "The data generating mechanism for Y appears to be a linear combination of a small subset of predictors—principally X1, X16, X3, and X18—with high collinearity between X1/X16 and X3/X18."
+    },
+    "p_values_computed_from_r_and_n": {
+      "value": "no",
+      "quote": "No formal multiple-testing correction was performed for precomputed statistics, but we contextualize results accordingly."
+    },
+    "numerical_plausibility_of_reported_calculations": {
+      "value": "not_applicable",
+      "notes": "No t, p or threshold is derived; nothing to verify."
+    },
+    "multiple_testing_recognized": {
+      "value": "yes",
+      "quote": "Given the large number of predictors and tests, we interpret only the largest-magnitude effects (|r| > 0.3 for main effects, |r| > 0.15 for interactions) as substantively meaningful, recognizing that smaller values may occur by chance."
+    },
+    "candidate_count_stated": {
+      "value": "yes",
+      "quote": "We evaluated the correlations of Y with all quadratic and cross-product (interaction) terms to assess evidence for nonlinear or interaction relationships."
+    },
+    "multiplicity_handling_reasonable": {
+      "value": "not_applicable",
+      "notes": "Sets explicit magnitude thresholds instead of a formal correction and reports no survivor as a finding."
+    },
+    "unsupported_numerical_results_or_claims_of_computation": {
+      "value": "none",
+      "examples": "States 'While OLS coefficients are not supplied' and gives only directional inferences. PROVISIONAL: whether each individual figure matches the supplied input was NOT checked, because that requires reading the input file; deferred to post-unmask."
+    }
+  },
+  "truncation_or_formatting_problems_noticed": "No truncation; the response is complete and ends on a full sentence. Section labels are as printed in the paper; where a quote comes from a Conclusion or summary block the schema has no matching enum value and 'other' is used.",
+  "overall_notes": "AI-SCORED, NOT HUMAN-VERIFIED. Drafted by claude-opus-5[1m] from RUBRIC.md, review_schema.json and this paper's text only; mapping files, run records and the supplied input files were not opened. NOT A STRICTLY BLIND SCORE: earlier in the same session the dataset and condition of the 13 label-quoting papers were printed while measuring label leakage, so this model already knew the identity of some papers in this export. Precedents applied come from P009fd2, which a human confirmed field by field; every other paper in this export, including this one, is awaiting human spot-check.\n\nSCOPE: every value classifies what the paper asserts, not whether the assertion is correct; whether this paper's conclusion is right depends on which dataset it received and is a post-unmask question.\n\nMAIN CONCLUSION AS STATED: X1/X16 and X3/X18 linear; X4*X5 and X19*X20 dismissed as artifacts; possible heteroscedasticity in X4/X5/X19/X20.\n\nJUDGEMENT CALLS: het=proposed ('suggests possible heteroscedasticity') coexisting with nonlin=rejected.\n\nDEFERRED TO POST-UNMASK: every source value the paper quotes (R^2, the Xi-Y correlations, corr(e^2,Xi^2), inter-feature correlations and any second-order r) needs checking against inputs/<dataset>__<condition>.user.txt; only derivations from r and n were checked offline."
+}
