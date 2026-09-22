@@ -21,6 +21,11 @@ warnings.filterwarnings("ignore")
 np.random.seed(42)
 
 
+def fit_ols(X, y):
+    """Fit ordinary least squares, shared by the baseline and task extensions."""
+    return LinearRegression().fit(X, y)
+
+
 def analyze_dataset(csv_path: str, label: str) -> dict:
     """Run standard analyses on a dataset."""
     df = pd.read_csv(csv_path)
@@ -48,7 +53,7 @@ def analyze_dataset(csv_path: str, label: str) -> dict:
     results["significant_bonferroni_p05"] = sig_bonferroni
 
     # 2. OLS Linear Regression
-    ols = LinearRegression().fit(X, y)
+    ols = fit_ols(X, y)
     ols_r2 = ols.score(X, y)
     ols_cv = cross_val_score(ols, X, y, cv=5, scoring="r2").mean()
     ols_coefs = dict(zip(features, np.round(ols.coef_, 4)))
@@ -85,7 +90,7 @@ def analyze_dataset(csv_path: str, label: str) -> dict:
     # 5. Check for interaction: add X4*X5 to OLS
     X_inter = X.copy()
     X_inter["X4_X5"] = X["X4"] * X["X5"]
-    ols_inter = LinearRegression().fit(X_inter, y)
+    ols_inter = fit_ols(X_inter, y)
     r2_gain = ols_inter.score(X_inter, y) - ols_r2
     results["interaction_test"] = {
         "r2_with_X4X5": round(ols_inter.score(X_inter, y), 4),

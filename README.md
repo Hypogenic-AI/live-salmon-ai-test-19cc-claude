@@ -66,3 +66,7 @@ python src/create_visualizations.py
 ```
 
 See [REPORT.md](REPORT.md) for full details.
+
+An optional [fixed-evidence versus adaptive-analysis experiment](experiments/adaptive_analysis/README.md)
+reuses this setup and adds a conditional interaction task. Its [status and validation report](experiments/adaptive_analysis/REPORT.md)
+distinguish offline checks from pending LLM comparisons.
