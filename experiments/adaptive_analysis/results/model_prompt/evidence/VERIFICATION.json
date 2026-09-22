@@ -1,0 +1,39 @@
+{
+  "restored_files": 248,
+  "episodes": 216,
+  "stage_counts": {
+    "development": 36,
+    "formal": 180
+  },
+  "every_restored_file_sha256_matches": true,
+  "frozen_source_file_sha256_matches": true,
+  "original_raw_inventory_matches": true,
+  "original_raw_files": 221,
+  "original_raw_bytes": 666963392,
+  "reporter_core_metrics_match": true,
+  "excluded_volatile_metric_fields": [
+    "generated_at_utc",
+    "source_sha256"
+  ],
+  "core_metrics_sha256": "97b87fd5eae9d13544be5e1a5d646fb60957811361be196a0fb82180b3263803",
+  "statistical_refits": 0,
+  "model_api_calls": 0,
+  "candidate_deduplication": {
+    "method": "Exact JSON candidate objects and original key order; all exact variants retained",
+    "bank_count": 18,
+    "unique_candidate_versions": 65016,
+    "candidate_references": 408576,
+    "fixed_model_ids_with_multiple_exact_versions": 0
+  },
+  "credential_prefix_screen": {
+    "uncompressed_included_payloads_screened": true,
+    "patterns": [
+      "aws-access-key-prefix",
+      "github-token-prefix",
+      "private-key-header",
+      "provider-secret-prefix",
+      "slack-token-prefix"
+    ],
+    "matches": 0
+  }
+}

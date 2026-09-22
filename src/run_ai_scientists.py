@@ -69,8 +69,17 @@ USER_PROMPT_TEMPLATE = """Please analyze the following dataset and write a resea
 Remember: Write a complete short research paper with Title, Abstract, Methods, Results, Discussion, and Limitations sections. Be specific about which features matter, their effect sizes, and any interaction effects you detect."""
 
 
-def call_openrouter(model_id: str, system: str, user: str, run_id: int) -> dict:
-    """Call OpenRouter API and return the response."""
+def call_openrouter(
+    model_id: str, system: str, user: str, run_id: int, *,
+    temperature: float | None = 0.7, max_tokens: int = 4096,
+    reasoning_effort: str | None = None,
+) -> dict:
+    """Call OpenRouter, preserving legacy defaults and safe response metadata.
+
+    Reasoning and visible output share ``max_tokens`` on most providers. An
+    empty completion can therefore still have billable usage and a length finish
+    reason; retain both for the caller instead of discarding that response.
+    """
     headers = {
         "Authorization": f"Bearer {OPENROUTER_KEY}",
         "Content-Type": "application/json",
@@ -82,36 +91,85 @@ def call_openrouter(model_id: str, system: str, user: str, run_id: int) -> dict:
             {"role": "system", "content": system},
             {"role": "user", "content": user},
         ],
-        "temperature": 0.7,
-        "max_tokens": 4096,
+        "max_tokens": max_tokens,
     }
+    if temperature is not None:
+        payload["temperature"] = temperature
+    if reasoning_effort is not None:
+        payload["reasoning"] = {"effort": reasoning_effort}
+    response_metadata = {}
+    response_usage = {}
+
+    def failure(code: str, http_status: int | None = None) -> dict:
+        # Exceptions and API error messages may contain request bodies or keys.
+        # Only locally defined codes and numeric HTTP status are safe to retain.
+        print(f"    ERROR: {code}")
+        return {
+            "model": model_id, "run_id": run_id, "content": "",
+            "usage": response_usage, "status": "error", "error": code,
+            "error_code": code, "http_status": http_status,
+            "actual_model": None, "provider": None, "generation_id": None,
+            "finish_reason": None, "native_finish_reason": None,
+            "refusal": False,
+            **response_metadata,
+        }
+
+    def optional_string(value):
+        return value if isinstance(value, str) else None
 
     print(f"  Calling {model_id} (run {run_id})...", flush=True)
+    http_status = None
     try:
         resp = httpx.post(
             OPENROUTER_URL, json=payload, headers=headers, timeout=120.0
         )
+        http_status = resp.status_code
         resp.raise_for_status()
         data = resp.json()
-        content = data["choices"][0]["message"]["content"]
-        usage = data.get("usage", {})
-        print(f"    Done. Tokens: {usage.get('total_tokens', '?')}")
+        if not isinstance(data, dict):
+            return failure("invalid_response", http_status)
+        usage = data.get("usage")
+        response_usage = usage if isinstance(usage, dict) else {}
+        response_metadata = {
+            "actual_model": optional_string(data.get("model")),
+            "provider": optional_string(data.get("provider")),
+            "generation_id": optional_string(data.get("id")),
+            "refusal": False,
+        }
+        if "error" in data:
+            return failure("api_error", http_status)
+        choice = data["choices"][0]
+        response_metadata.update({
+            "finish_reason": optional_string(choice.get("finish_reason")),
+            "native_finish_reason": optional_string(choice.get("native_finish_reason")),
+        })
+        if "error" in choice or choice.get("finish_reason") == "error":
+            return failure("api_error", http_status)
+        message = choice["message"]
+        response_metadata["refusal"] = bool(message.get("refusal"))
+        content = message.get("content")
+        if content is not None and not isinstance(content, str):
+            return failure("invalid_response", http_status)
+        print(f"    Done. Tokens: {response_usage.get('total_tokens', '?')}")
         return {
             "model": model_id,
             "run_id": run_id,
             "content": content,
-            "usage": usage,
+            "usage": response_usage,
             "status": "success",
+            "http_status": http_status,
+            **response_metadata,
         }
-    except Exception as e:
-        print(f"    ERROR: {e}")
-        return {
-            "model": model_id,
-            "run_id": run_id,
-            "content": "",
-            "error": str(e),
-            "status": "error",
-        }
+    except httpx.HTTPStatusError:
+        return failure("http_error", http_status)
+    except httpx.TimeoutException:
+        return failure("request_timeout")
+    except httpx.RequestError:
+        return failure("request_error")
+    except (ValueError, KeyError, IndexError, TypeError, AttributeError):
+        return failure("invalid_response", http_status)
+    except Exception:
+        return failure("unexpected_error", http_status)
 
 
 def run_experiments():

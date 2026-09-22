@@ -66,3 +66,10 @@ python src/create_visualizations.py
 ```
 
 See [REPORT.md](REPORT.md) for full details.
+
+An optional [fixed-evidence versus adaptive-analysis experiment](experiments/adaptive_analysis/README.md)
+reuses this setup and adds a conditional interaction task. Its [completed three-model study](experiments/adaptive_analysis/REPORT.md) compares
+fixed statistical evidence with adaptive tool use across 180 formal episodes,
+with separate measures of structure recovery, execution reliability, and cost.
+[Saved evidence and offline reproduction](experiments/adaptive_analysis/results/model_prompt/README.md)
+are included.
