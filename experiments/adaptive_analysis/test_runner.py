@@ -12,7 +12,7 @@ from unittest.mock import patch
 
 from experiments.adaptive_analysis.run import (
     Config, EpisodeError, build_config_hash, flatten_episode, main, parse_action,
-    parser, run_episode, usage_totals,
+    parser, run_episode, usage_totals, profile_config, system_prompt, transport_options,
 )
 
 
@@ -267,6 +267,43 @@ class RunnerTests(unittest.TestCase):
         self.assertNotEqual(original, build_config_hash(Config(), **{**args, "code_hash": "code2"}))
         self.assertNotEqual(original, build_config_hash(Config(), **{**args, "fingerprint": "data2"}))
         self.assertNotEqual(original, build_config_hash(Config(model="other"), **args))
+
+    def test_profiles_prompts_and_budgets_do_not_share_cached_results(self):
+        args = dict(seed=301, condition="null", workflow="fixed", fingerprint="same", code_hash="same")
+        hashes = {build_config_hash(profile_config(p, v), **args)
+                  for p in ("gpt4.1", "sol_medium", "astra_medium") for v in ("P0", "P1")}
+        self.assertEqual(len(hashes), 6)
+        self.assertNotEqual(build_config_hash(Config(), **args),
+                            build_config_hash(Config(max_completion_tokens=8192), **args))
+        self.assertIsNone(transport_options(profile_config("astra_medium", "P0"))["temperature"])
+        self.assertEqual(transport_options(profile_config("sol_medium", "P1"))["reasoning_effort"], "medium")
+
+    def test_rules_only_change_system_prompt_not_fixed_evidence(self):
+        prompts = []
+        payloads = []
+        def transport(_model, system, user, _round):
+            prompts.append(system)
+            payloads.append(json.loads(user))
+            return response(submit())
+        for variant in ("P0", "P1"):
+            result = self.episode(transport, config=profile_config("gpt4.1", variant))
+            self.assertEqual(result["status"], "success")
+        self.assertEqual(payloads[0], payloads[1])
+        self.assertEqual(prompts, [system_prompt("P0"), system_prompt("P1")])
+        self.assertTrue(prompts[1].startswith(prompts[0]))
+
+    def test_truncated_completion_keeps_metadata_usage_and_does_not_score(self):
+        result = self.episode(lambda *_: response(submit(), actual_model="resolved-model",
+            finish_reason="length", provider="provider", generation_id="gen-123",
+            usage={"cost": 0.2, "completion_tokens": 8192,
+                   "completion_tokens_details": {"reasoning_tokens": 8000}}))
+        self.assertEqual(result["failure"]["code"], "completion_truncated")
+        event = [e for e in result["events"] if e["type"] == "model_call"][0]
+        self.assertEqual(event["reasoning_tokens"], 8000)
+        self.assertEqual(event["finish_reason"], "length")
+        self.assertEqual(result["actual_model"], "resolved-model")
+        self.assertEqual(result["usage"]["reported_cost"], 0.2)
+        self.assertEqual(self.score_calls, 0)
 
     def test_offline_reference_never_calls_model(self):
         result = self.episode(lambda *_: self.fail("offline API call"), "offline_reference",

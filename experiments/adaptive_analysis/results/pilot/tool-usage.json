@@ -1,0 +1,16 @@
+{
+  "diagnose_calls": {
+    "pairwise": 30
+  },
+  "selected_kind": {
+    "interaction": 30
+  },
+  "unused_actions_min": 4,
+  "unused_actions_max": 6,
+  "path_counts": {
+    "fit_model(linear) -> diagnose(pairwise) -> submit": 21,
+    "fit_model(linear) -> diagnose(pairwise) -> fit_model(interaction) -> submit": 5,
+    "fit_model(null) -> fit_model(linear) -> diagnose(pairwise) -> submit": 3,
+    "fit_model(null) -> fit_model(linear) -> diagnose(pairwise) -> fit_model(interaction) -> submit": 1
+  }
+}

@@ -1,180 +1,187 @@
-# Fixed evidence versus adaptive analysis
+# Can an AI analyst decide which statistical check to run next?
 
-This experiment compares **a fixed statistical workflow followed by one LLM
-response** with **the same LLM choosing statistical analyses after seeing their
-results**. Both workflows use the same fitted models, numerical tools, discovery
-data, and held-out evaluator. See [REPORT.md](REPORT.md) for what has actually run.
+This experiment asks whether an AI analyst can investigate a relationship beyond
+its first promising result, and what that ability costs. It compares **fixed
+statistical analysis followed by one AI decision** with **an agent choosing
+statistical analyses from intermediate results**. Both use the same candidate
+model family, OLS implementation, cross-validation folds, and scoring rule.
 
-## Why add a conditional interaction?
+This contributes a task and an executed evaluation to
+[roadmap #1](https://github.com/Hypogenic-AI/live-salmon-ai-test-19cc-claude/issues/1),
+which asks contributors to design a task and explore how current AI agents perform.
+The conditional-interaction task is this PR's proposed implementation of that item.
 
-The original Live Salmon task contains an interaction with the same coefficient
-across all samples. Finding that interaction answers the main nonlinear question,
-but offers limited evidence about whether an analyst checks where a relationship
-holds. We add one variant in which the existing interaction is active only when
-another observed feature is positive:
+**The main experiment is complete:** 180 formal episodes across three model
+configurations and two prompts, plus 36 separate development episodes. With
+Astra and the basic prompt, both workflows selected the correct structure in
+15/15 cases. The agent used 94.3% fewer statistical fits, but about 3.10 times the
+API cost. Other configurations exposed missed follow-up analyses, incorrect
+numerical comparisons, and invalid tool actions. See [the report](REPORT.md)
+and [the reproducible evidence](results/model_prompt/README.md).
+
+## The problem this task makes observable
+
+The original Live Salmon generator has 20 variables, linear effects, correlated
+proxies, and one interaction whose coefficient is constant across samples. A
+fixed scan of all 190 variable pairs can find that interaction. Asking an agent
+to perform that scan alone provides little evidence about its ability to decide
+what to investigate next.
+
+We change one term: the interaction is active only when another observed variable
+is positive. A pooled pairwise scan still finds a useful interaction, but misses
+where it applies. An analyst can then ask whether its strength changes across
+conditions. An exhaustive statistical workflow can also answer that question;
+the experiment measures whether an agent chooses the relevant checks, interprets
+their results correctly, and uses fewer resources.
+
+For example, an interaction between X4 and X5 might help predict Y overall, while
+actually operating only in samples with X6 > 0. Stopping after the pairwise scan
+misses that condition. Conversely, adding a condition to a genuinely constant
+interaction adds unnecessary structure. Pure-noise data tests whether the analyst
+will select the null model at all.
+
+## One small change to the data-generating process
 
 ```text
-Original:    Y = 2 X1 + 0.5 X2 - 1.5 X3 + 0.8 X4 X5 + noise
+Global:      Y = 2 X1 + 0.5 X2 - 1.5 X3 + 0.8 X4 X5 + noise
 Conditional: Y = 2 X1 + 0.5 X2 - 1.5 X3
                 + sqrt(2) * 0.8 X4 X5 * I(X6 > 0) + noise
 Null:        Y = noise
 ```
 
-The feature distribution, correlated proxies, 20 columns, 1,000 samples, and
-standard-normal noise remain those of the original generator. X6 changes role
-from distractor to conditioning variable. Because the gate is independent and
-active with probability one half, multiplying by `sqrt(2)` preserves interaction
-signal variance (`0.64`). It does not preserve every aspect of difficulty.
+The original feature distribution, proxies, 20 variables, 1,000 observations,
+and standard-normal noise are retained. X6 takes the role of a conditioning
+variable in the new task. The independent gate is active with probability one
+half, so the `sqrt(2)` scaling preserves interaction signal variance (0.64).
+It does not make the two tasks identical in difficulty.
 
-The conditional variant still has a detectable pooled interaction: its population
-coefficient is about `0.566`. The full relationship additionally requires finding
-that its coefficient is zero for `X6 <= 0` and about `1.131` for `X6 > 0`.
-These are **properties of the generator, not experimental results**. A scan of
-190 pairs remains useful; the added question is whether that average effect
-describes all samples. Stability tools inspect interaction slopes, since residual
-means or variances alone need not reveal the gate.
+The pooled interaction coefficient in the conditional population is about 0.566;
+its two group coefficients are 0 and about 1.131. These are generator properties,
+not estimates supplied to the AI. Feature roles are anonymously relabeled per
+seed. The model receives neither the condition label nor the true pair/gate.
 
-Fixed analysis can solve this task too. Both workflows can check conditional
-interactions. The experiment tests analysis choices, use of evidence, and total
-cost without assuming that an agent will help. Keeping the original and null
-conditions also checks whether a workflow adds unnecessary explanations.
+## What A and B actually do
 
-## What is reused?
+| | A: fixed evidence + AI | B: adaptive agent |
+|---|---|---|
+| Starting information | Discovery summary plus precomputed evidence | The same discovery summary |
+| Statistical work | Fit null and linear baselines, all 190 interactions, and all 3,420 pair/gate combinations | Choose analyses after seeing their results; at most eight analysis actions |
+| Evidence shown | Both baselines and the top ten candidates from each interaction family | Results of requested analyses, with the same candidate-card fields and ranking |
+| AI decision | One response selects an exposed model | Each response requests one action or submits an exposed model |
+| Evaluation | Freeze the selection, then score on hidden data | The same evaluator, used only after submission |
 
-| Base component | Use in this experiment |
-| --- | --- |
-| `datasets/generate_live_salmon_data.py` | Import feature, live-target, and null-target generators; wrap paired seeds, relabeling, and the one conditional target. |
-| `src/prepare_data_summary.py` | Use the original summary on discovery rows only, with a neutral label. |
-| `src/run_ai_scientists.py` | Reuse `call_openrouter`, including its temperature `0.7` and output cap `4096`. Supply workflow-specific prompts. |
-| `src/baseline_analysis.py` | Extract its unchanged `LinearRegression().fit` operation into `fit_ols`; both the old script and the new tools call it. |
-| Known-ground-truth evaluation | Score submitted model objects deterministically. No extra LLM paper-extraction call is needed. |
+**A is a new comparison workflow in this PR.** The repository's original pipeline
+sends summary statistics to an LLM and asks for a paper; its separate statistical
+baseline script was not an interactive analysis environment. A adds model fitting
+and conditional evidence so that B is compared with a capable fixed workflow.
 
-The original summary-to-paper workflow is **not** workflow A below. A is an
-expanded baseline with actual model fitting and conditional evidence. The base
-OLS/Lasso/random-forest script was separate from the original model input; its
-hardcoded `X4 * X5` check is not used as a discovery tool. Lasso and random forest
-remain in the original script rather than enlarging the new action menu.
+The agent has three tools:
 
-This directory adds data wrapping, shared analysis tools, two runner modes, and
-structured evaluation. No agent framework, execution sandbox, Jev integration,
-or dependency on an unmerged PR is required.
+| Tool | Numerical work performed by Python |
+|---|---|
+| `fit_model(spec)` | Fit a null, linear, interaction, or conditional candidate; return coefficients and five-fold discovery CV MSE. |
+| `diagnose(..., mode="pairwise")` | Fit all 190 pairwise interaction candidates; return the ten lowest-CV candidates. |
+| `diagnose(..., mode="stability", term=pair)` | For one chosen pair, fit all 18 other features as gates; return the top ten candidates and group slopes. |
+| `submit(model_id, evidence_ids, explanation)` | Select an already exposed candidate and end the analysis. |
 
-## Workflows and tools
+`diagnose` has two modes, so the table lists four actions but only three tools.
+A possible path is `linear → pairwise → stability for a promising pair → submit`.
+The runner does not prescribe that path. Each scan consumes one action but can
+fit many models; all underlying fits are counted. Repeated fits are cached.
 
-**A — fixed:** compute the intercept-only and linear models, all 190 global
-interactions, and all `190 * 18 = 3,420` conditional interactions. Then the LLM
-chooses one fitted model in one response. Evidence includes the two baselines
-and the top 10 candidates of each interaction family, ranked by discovery CV MSE.
-All candidate records are saved, but are not all placed in the prompt.
+Every non-null candidate retains all 20 main effects. A conditional candidate
+adds both the pair product and its gated product, allowing both groups to have
+nonzero interaction slopes. The only supported gate threshold is zero. This is
+a bounded task about selecting and interpreting analyses; the agent does not
+invent estimators or execute arbitrary code.
 
-**B — adaptive:** start with the same discovery summary. The LLM chooses up to
-eight analysis actions and may submit earlier. After the limit it can only submit.
-The tools use the same models and evidence fields as A:
+## Reuse and implementation scope
 
-| Tool | Arguments and result |
-| --- | --- |
-| `fit_model` | A `spec` with `kind`: `null`, `linear`, `interaction`, or `conditional`; the latter kinds require a two-feature `pair`, and conditional also requires `gate`. Returns a fitted model and CV scores. |
-| `diagnose` | An exposed `model_id` and `mode`: `pairwise` scans all pairs; `stability` additionally takes a `term` pair and scans the remaining conditioning variables. Returns top-ranked candidates. |
-| `submit` | An exposed `model_id`, supporting `evidence_ids`, and a short `explanation`. Freezes the selection. |
+| Existing component | Reuse or change |
+|---|---|
+| `datasets/generate_live_salmon_data.py` | Reuse features and global/null targets; add a wrapper for the conditional target, paired splits, and anonymous roles. |
+| `src/prepare_data_summary.py` | Reuse the summary formatter on discovery rows only. |
+| `src/baseline_analysis.py` | Extract the existing `LinearRegression().fit` operation into `fit_ols`, shared by the original script and new tools. |
+| `src/run_ai_scientists.py` | Reuse OpenRouter transport; add optional generation parameters and response/usage metadata while preserving legacy defaults. |
+| New experiment directory | Add shared analysis tools, fixed/adaptive runners, structured selection, and deterministic hidden-data scoring. |
 
-For example, an adaptive trajectory can fit the linear model, scan all pairs,
-check stability for the best-looking pair, and submit a conditional model. The
-runner does not prescribe that trajectory. It may miss a needed check or pursue
-an unhelpful candidate.
+The original Lasso/random-forest baseline remains separate. Its hardcoded true
+interaction is not used as a discovery shortcut. No agent framework or new
+project dependency is introduced.
 
-All non-null models include the 20 main effects. Conditional models contain both
-the global product and its gated product; neither group's coefficient is forced
-to zero. The only allowed threshold is zero. Both workflows know the candidate
-family, not which condition or variable roles generated the current dataset.
-This is a bounded analysis task, not unrestricted scientific discovery.
+## Model and prompt comparison
 
-The candidate table and its scores are exploratory evidence, not
-multiplicity-corrected significance tests. The tools perform statistical search;
-the LLM arranges or interprets that search. Success is not evidence that an LLM
-invented a better statistical estimator.
+The completed follow-up crosses:
 
-## Data isolation and measurement
+- GPT-4.1 (temperature 0.7), Sol (medium reasoning), and Astra (medium reasoning).
+- P0: complete tool documentation; P1: the same documentation plus four rules.
+- A and B; global, conditional, and null data; five paired seeds (301–305).
 
-* A seed pairs features, Gaussian noise, anonymous column roles, and the row split
-  across all three conditions. Relabeling preserves the original proxy structure.
-  Newly generated episodes are not claimed to reproduce historical CSVs exactly.
-* Each episode has 700 discovery and 300 held-out rows. Five shuffled, seed-fixed
-  CV folds use discovery data only. A and B share the folds.
-* Tools receive only discovery data. Condition names, original variable roles,
-  mappings, truth, and held-out values are not included in requests. Prediction
-  and scoring happen after submission; no test feedback is returned to the LLM.
-* A and B have separate session caches. Within a session, repeated models reuse
-  fits. Every candidate's CV fits and final fit count, including undisplayed
-  candidates; a batch tool request is not one fit.
-* Compare held-out MSE, exact interaction/condition recovery, false conditional
-  selections on the global task, false signal selections on null data, completion
-  rates, tokens, and elapsed time. Keep failed attempts and report denominators.
-* Conditional direction recovery is a descriptive check: the fitted positive-side
-  slope must be positive and exceed the absolute nonpositive-side slope. This is
-  not a hypothesis test or a claim that a coefficient is exactly zero.
-* Provider cost is reported only when supplied. Tokens are not automatically
-  converted into an unverified dollar estimate. Cached runs are identified as such.
+This gives **180 formal episodes**. Development seed 9010 supplies 36 separate
+protocol checks. All three profiles have an 8,192-token completion cap; reasoning
+tokens consume that cap. Reasoning profiles omit temperature. Actual response
+model IDs are recorded when returned.
 
-The planned pilot is 10 seeds (`101` through `110`), three conditions, and two
-workflows: 30 fixed LLM responses and 30 adaptive trajectories. Development seeds
-are separate (`9001` through `9003`). This small experiment compares complete
-workflows; information volume, model call count, and feedback differ. It does not
-isolate the causal contribution of feedback alone or establish a calibrated
-false-positive rate.
+P1 asks the model to compare null/linear baselines, reconcile numerical claims
+with evidence, consider complexity and search, and explain whether further
+analysis could change its decision. The same rules apply to A and B. They do
+not force a tool order or reveal the true pair/gate. P1 also reiterates the JSON
+format, so its effects include protocol reliability. Exact text and settings
+are in the [frozen protocol](results/model_prompt/protocol.json).
 
-## Run from the repository root
+Each episode uses 700 discovery and 300 hidden rows, with five seed-fixed CV
+folds. The compared configurations share data, relabeling, splits, and folds.
+No hidden score is returned to the AI. Code, prompts, budgets, and randomized
+submission order were frozen before execution. There were no automatic retries,
+output repairs, or performance-based changes during the run.
 
-Use the existing dependency lock, without changing project dependencies:
+## Reproduce or run a new experiment
+
+From the repository root:
 
 ```bash
 uv sync --frozen --no-install-project
-.venv/bin/python -m unittest discover -s experiments/adaptive_analysis -p 'test_*.py' -v
+.venv/bin/python -m unittest discover -s experiments/adaptive_analysis -p 'test_*.py'
 
-# Print the plan only: no API call and no full candidate search.
-.venv/bin/python -m experiments.adaptive_analysis.run
+# Print the full matrix; no credentials, statistical fitting, or API calls.
+.venv/bin/python experiments/adaptive_analysis/scripts/run_matrix.py
 
-# Exercise real statistics/evaluation without a model: an OFFLINE REFERENCE.
+# Run a statistical reference with no model calls.
 .venv/bin/python -m experiments.adaptive_analysis.run --offline --seeds 9001
-
-# Render the resulting offline-reference tables.
-.venv/bin/python -m experiments.adaptive_analysis.evaluate \
-  experiments/adaptive_analysis/artifacts/offline_summary.json \
-  --output-dir experiments/adaptive_analysis/artifacts/offline-report
 ```
 
-Configure `OPENROUTER_KEY` in the local environment before real model calls. Do
-not commit credentials. Offline reference results must not be labeled as A/B LLM
-results. The default requested model is `openai/gpt-4.1`. The inherited transport
-does not expose the provider-resolved model/version, so logs explicitly keep
-`actual_model` unknown; requested identity and frozen configuration are recorded.
+[Rebuild the published results offline](results/model_prompt/README.md) to verify
+the completed experiment from saved responses, coefficients, and frozen source.
+This does not require an API key or refit models. Historical model outputs cannot
+be reproduced by making new stochastic API requests.
+
+For **new billable runs**, configure `OPENROUTER_KEY` in the environment, then:
 
 ```bash
-# Development run; includes actual billable API calls.
-.venv/bin/python -m experiments.adaptive_analysis.run --execute --seeds 9002
-
-# Planned pilot, after freezing implementation and prompts.
+# One model/prompt configuration with both workflows and all three conditions.
 .venv/bin/python -m experiments.adaptive_analysis.run --execute \
-  --seeds 101 102 103 104 105 106 107 108 109 110
+  --profile sol_medium --prompt-variant P1 --seeds 301 302 303 304 305
 
-.venv/bin/python -m experiments.adaptive_analysis.evaluate \
-  experiments/adaptive_analysis/artifacts/summary.json \
-  --output-dir experiments/adaptive_analysis/artifacts/pilot-report
+# Entire matrix, including separate development checks.
+.venv/bin/python experiments/adaptive_analysis/scripts/run_matrix.py --execute
 ```
 
-Artifacts are written beneath this directory's ignored `artifacts/` folder by
-default. Run metadata includes configuration/code/data identity, actual usage,
-actions, evidence, submitted model, and evaluation. Successful matching episodes
-can be resumed; failed attempts need explicit `--retry-failed` and are preserved.
+The current source creates a new configuration hash; the evidence archive retains
+the exact source used for the reported run. Raw outputs go under `artifacts/`,
+which is ignored by Git. Successful matching episodes are cached; individual
+failed episodes require explicit `--retry-failed`, retaining previous attempts.
+The published experiment did not use retries.
 
-## Roadmap and related work
+## How to read the results
 
-This implements one concrete task under [roadmap #1](https://github.com/Hypogenic-AI/live-salmon-ai-test-19cc-claude/issues/1),
-which asks for task design and evaluation of current AI agents. The roadmap does
-not prescribe this particular conditional mechanism.
+Report structure recovery, hidden-set MSE, completion, and resources separately.
+Exact structure includes family, pair, gate when applicable, and a descriptive
+slope-direction check; it is not causal identification. CV search is exploratory,
+not a multiplicity-corrected significance test. A wrong completed selection and
+an invalid action are different outcomes.
 
-[PR #4](https://github.com/Hypogenic-AI/live-salmon-ai-test-19cc-claude/pull/4)
-already examines time-dependent coefficient changes. Here the condition is a
-feature of a static multivariate sample, and the comparison concerns executed
-analysis workflows. [PR #5](https://github.com/Hypogenic-AI/live-salmon-ai-test-19cc-claude/pull/5)
-compares precomputed information conditions. This experiment contrasts fixed
-precomputation with feedback-dependent use of a shared toolset.
+This compares complete workflows with different evidence volume, statistical
+work, model calls, and feedback. It does not isolate feedback alone or establish
+superiority over all statistical selection methods. Five seeds per condition and
+one model sample per cell support a small descriptive study, not a general model
+ranking. See [REPORT.md](REPORT.md) for the observed tradeoffs and limitations.

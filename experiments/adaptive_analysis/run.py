@@ -7,6 +7,7 @@ Held-out outcomes and generator truth are used only after a valid submission.
 from __future__ import annotations
 
 import argparse
+from functools import partial
 from contextlib import redirect_stderr, redirect_stdout
 from dataclasses import asdict, dataclass
 import hashlib
@@ -31,6 +32,17 @@ Available schemas (no extra fields):
 {"tool":"diagnose","model_id":"exposed model ID","mode":"pairwise"}
 {"tool":"diagnose","model_id":"exposed model ID","mode":"stability","term":["X1","X2"]}
 {"tool":"submit","model_id":"exposed model ID","evidence_ids":["fit:chosen model ID"],"explanation":"evidence-grounded explanation"}
+Tool behavior:
+fit_model fits the specified candidate and returns its coefficients and five-fold
+discovery cross-validation scores, with model and evidence IDs.
+diagnose with mode pairwise fits all 190 distinct feature-pair interaction models
+and returns the top-ranked candidates by the same cross-validation MSE.
+diagnose with mode stability fits the supplied pair's conditional models for all
+18 other features as gates, returning top-ranked candidates and group slopes.
+Each diagnose scan uses one analysis action but fits many candidate models.
+Repeated fits of the same model reuse cached results; they are not independent
+replications. All candidates use the same discovery cross-validation folds.
+submit selects an already exposed fitted model and ends analysis.
 Feature names must exist in the supplied data; pair members and gate are distinct.
 Use only model and evidence IDs already exposed. Submit must cite the selected
 model's own fit evidence ID, with any additional supporting evidence IDs.
@@ -38,6 +50,33 @@ The null model is an intercept, linear includes all main effects, interaction ad
 one product to those main effects, and conditional permits the pair's interaction
 to differ between gate <= 0 and gate > 0. No test outcomes are available.
 """
+
+RULES_PROMPT = """
+Before submitting:
+1. Compare the selected candidate with the intercept-only null and linear
+   baselines using available discovery CV evidence. Obtain a missing baseline
+   when analysis tools are available. Do not assume that a signal exists.
+2. Lower MSE is better. In the submission explanation, identify the selected
+   model and the lowest-CV model you have actually observed, with their model
+   IDs and CV MSE values. If they differ, explain the tradeoff; never describe
+   a larger MSE as smaller. Use recorded numbers, not invented estimates.
+3. Account for complexity and the fact that many candidates were searched.
+   Consider fold-to-fold error variation and model complexity. A small CV
+   improvement alone does not establish a real effect or statistical significance.
+4. Identify an unresolved alternative that could change the selection, if any.
+   When useful evidence is missing and permitted tools and budget remain,
+   choose an informative follow-up analysis. Otherwise explain why stopping
+   is reasonable and what remains untested. Do not use all actions merely
+   because they are available.
+Keep the existing JSON action schema. Give a concise evidence-based explanation
+when submitting; do not add prose outside the action object.
+"""
+
+
+def system_prompt(variant: str) -> str:
+    if variant not in {"P0", "P1"}:
+        raise ValueError("Unknown prompt variant")
+    return BASE_PROMPT + (RULES_PROMPT if variant == "P1" else "")
 
 
 class EpisodeError(ValueError):
@@ -47,6 +86,11 @@ class EpisodeError(ValueError):
 @dataclass(frozen=True)
 class Config:
     model: str = "openai/gpt-4.1"
+    profile: str = "legacy"
+    prompt_variant: str = "P0"
+    max_completion_tokens: int = 4096
+    temperature: float | None = 0.7
+    reasoning_effort: str | None = None
     folds: int = 5
     max_steps: int = 8
     top_k: int = 10
@@ -54,6 +98,27 @@ class Config:
     n_discovery: int = 700
     mode: str = "execute"
     blas_threads: int = 1
+
+
+MODEL_PROFILES = {
+    "gpt4.1": {"model": "openai/gpt-4.1", "temperature": 0.7,
+               "reasoning_effort": None},
+    "sol_medium": {"model": "openai/gpt-5.6-sol", "temperature": None,
+                   "reasoning_effort": "medium"},
+    "astra_medium": {"model": "openai/gpt-6-astra", "temperature": None,
+                     "reasoning_effort": "medium"},
+}
+
+
+def profile_config(profile: str, prompt_variant: str, **kwargs) -> Config:
+    return Config(profile=profile, prompt_variant=prompt_variant,
+                  max_completion_tokens=8192, **MODEL_PROFILES[profile], **kwargs)
+
+
+def transport_options(config: Config) -> dict:
+    return {"temperature": config.temperature,
+            "max_tokens": config.max_completion_tokens,
+            "reasoning_effort": config.reasoning_effort}
 
 
 def canonical(value: Any) -> str:
@@ -80,9 +145,8 @@ def build_config_hash(config: Config, *, seed: int, condition: str,
                       workflow: str, fingerprint: str, code_hash: str) -> str:
     return digest({"config": asdict(config), "seed": seed, "condition": condition,
                    "workflow": workflow, "data_fingerprint": fingerprint,
-                   "code_hash": code_hash, "system_prompt": BASE_PROMPT,
-                   "transport": {"temperature": 0.7, "max_tokens": 4096},
-                   "protocol_version": 1})
+                   "code_hash": code_hash, "system_prompt": system_prompt(config.prompt_variant),
+                   "transport": transport_options(config), "protocol_version": 2})
 
 
 def parse_action(content: str, features: set[str], *, allowed_tools: set[str],
@@ -237,6 +301,8 @@ def flatten_episode(record: dict) -> dict:
         values = [cost[key] for cost in costs]
         cumulative[key] = sum(values) if all(value is not None for value in values) else None
     return {"seed": record["seed"], "condition": record["condition"],
+            "profile": record["config"].get("profile", "legacy"),
+            "prompt_variant": record["config"].get("prompt_variant", "P0"),
             "workflow": record["workflow"], "status": record["status"],
             "requested_model": record.get("requested_model", record["config"]["model"]),
             "actual_model": record.get("actual_model"),
@@ -288,9 +354,10 @@ def run_episode(*, case: Any, seed: int, condition: str, workflow: str,
             {k: v for k, v in previous.items() if k != "previous_attempts"}]
 
     started = time.monotonic()
+    prompt = system_prompt(config.prompt_variant)
     record = {"config_hash": episode_hash, "code_hash": code_hash,
               "config": asdict(config), "seed": seed, "condition": condition,
-              "requested_model": config.model, "actual_model": None,
+              "requested_model": config.model, "actual_model": None, "actual_models": [],
               "workflow": workflow, "data_fingerprint": case.fingerprint,
               "status": "running", "attempt": len(attempts) + 1,
               "previous_attempts": attempts, "events": [], "submission": None,
@@ -344,8 +411,10 @@ def run_episode(*, case: Any, seed: int, condition: str, workflow: str,
                 user_prompt = canonical(payload)
                 event = {"type": "model_call", "round": len([e for e in record["events"] if e["type"] == "model_call"]) + 1,
                          "requested_model": config.model, "actual_model": None,
-                         "system_prompt": BASE_PROMPT, "user_prompt": user_prompt,
-                         "prompt_hash": digest({"system": BASE_PROMPT, "user": user_prompt}),
+                         "system_prompt": prompt, "user_prompt": user_prompt,
+                         "transport_options": transport_options(config),
+                         "analysis_actions_remaining": payload["analysis_actions_remaining"],
+                         "prompt_hash": digest({"system": prompt, "user": user_prompt}),
                          "status": "pending"}
                 record["events"].append(event)
                 persist()
@@ -353,7 +422,7 @@ def run_episode(*, case: Any, seed: int, condition: str, workflow: str,
                 try:
                     # The reused transport prints arbitrary exceptions; never expose those.
                     with redirect_stdout(io.StringIO()), redirect_stderr(io.StringIO()):
-                        response = transport(config.model, BASE_PROMPT, user_prompt, event["round"])
+                        response = transport(config.model, prompt, user_prompt, event["round"])
                 except Exception:
                     event["status"] = "failed"
                     raise EpisodeError("transport_exception") from None
@@ -365,6 +434,17 @@ def run_episode(*, case: Any, seed: int, condition: str, workflow: str,
                     event["status"] = "failed"
                     raise EpisodeError("invalid_transport_response")
                 event["usage"] = numeric_usage(response.get("usage"))
+                for key in ("actual_model", "provider", "finish_reason", "native_finish_reason",
+                            "generation_id", "error_code", "http_status", "refusal"):
+                    event[key] = response.get(key)
+                completion_details = event["usage"].get("completion_tokens_details")
+                event["reasoning_tokens"] = (completion_details.get("reasoning_tokens")
+                                              if isinstance(completion_details, dict) else None)
+                event["truncated"] = event["finish_reason"] in {"length", "max_tokens"}
+                record["actual_models"] = sorted({e["actual_model"] for e in record["events"]
+                                                  if e.get("actual_model")})
+                record["actual_model"] = (record["actual_models"][0]
+                                           if len(record["actual_models"]) == 1 else None)
                 if response.get("status") != "success":
                     event["status"] = "failed"
                     raise EpisodeError("api_failure")
@@ -372,6 +452,8 @@ def run_episode(*, case: Any, seed: int, condition: str, workflow: str,
                 event["content"] = content if isinstance(content, str) else None
                 event["status"] = "received"
                 persist()
+                if event["truncated"]:
+                    raise EpisodeError("completion_truncated")
                 action = parse_action(content, features, allowed_tools=allowed,
                                       exposed_models=session.exposed_model_ids,
                                       evidence_ids=session.evidence_ids)
@@ -424,6 +506,8 @@ def parser() -> argparse.ArgumentParser:
                         default=["global", "conditional", "null"])
     result.add_argument("--workflows", nargs="+", choices=["fixed", "adaptive"], default=["fixed", "adaptive"])
     result.add_argument("--model", default="openai/gpt-4.1")
+    result.add_argument("--profile", choices=sorted(MODEL_PROFILES))
+    result.add_argument("--prompt-variant", choices=["P0", "P1"], default="P0")
     result.add_argument("--folds", type=int, default=5)
     result.add_argument("--max-steps", type=int, default=8)
     result.add_argument("--top-k", type=int, default=10)
@@ -449,7 +533,11 @@ def main(argv=None) -> int:
     workflows = ["offline_reference"] if args.offline else args.workflows
     config = Config(model=args.model, folds=args.folds, max_steps=args.max_steps,
                     top_k=args.top_k, n_samples=args.n_samples,
-                    n_discovery=args.n_discovery, mode=mode)
+                    n_discovery=args.n_discovery, mode=mode, prompt_variant=args.prompt_variant)
+    if args.profile:
+        config = profile_config(args.profile, args.prompt_variant, folds=args.folds,
+                                max_steps=args.max_steps, top_k=args.top_k,
+                                n_samples=args.n_samples, n_discovery=args.n_discovery, mode=mode)
     plan = {"mode": mode, "config": asdict(config),
             "seeds": args.seeds, "conditions": args.conditions, "workflows": workflows,
             "episode_count": len(args.seeds) * len(args.conditions) * len(workflows),
@@ -472,7 +560,7 @@ def main(argv=None) -> int:
         if not run_ai_scientists.OPENROUTER_KEY:
             print("Transport credentials are unavailable; no episodes were run.")
             return 2
-        transport = run_ai_scientists.call_openrouter
+        transport = partial(run_ai_scientists.call_openrouter, **transport_options(config))
 
     from .analysis import AnalysisSession
     from .data import make_case, make_summary
