@@ -1,0 +1,94 @@
+{
+  "collected": {
+    "n": 174,
+    "estimable": true,
+    "t": -13.89,
+    "p": 1.97e-29,
+    "rank": 1,
+    "pairs_testable": 21,
+    "identifiable": true
+  },
+  "code": {
+    "blocks": 6,
+    "errors": 2,
+    "timeouts": 0,
+    "formed_product": 0,
+    "grouped_by_both": 0,
+    "screened_and_shown": 0,
+    "tested": false,
+    "output_lines_naming_both": [
+      "run  mass  radius   shape  reflectance  temperature  stripes  hardness  batch  height  speed  angle  air_density  flight_time  distance  impact_speed",
+      "print(s[m][['rt','rv','reflectance','temperature','stripes','hardness','batch','radius','mass']].corr().loc[['rt','rv']].round(2).to_string())</parameter>",
+      "rt    rv  reflectance  temperature  stripes  hardness  batch  radius  mass",
+      "rt    rv  reflectance  temperature  stripes  hardness  batch  radius  mass",
+      "rt    rv  reflectance  temperature  stripes  hardness  batch  radius  mass"
+    ]
+  },
+  "report_sentences": [
+    "- Sets with temperature at \u221220 and 80, and with reflectance at 0 and 1."
+  ],
+  "irrelevant_property_sentences": [
+    "Temperature, stripes, hardness and batch showed no detectable effect.",
+    "- **Stripes, hardness, batch:** The regressions showed no significant effect.",
+    "Temperature, stripes, hardness and batch are irrelevant at the precision tested."
+  ],
+  "law": {
+    "ran": true,
+    "pairs": 20,
+    "pairs_right": 0,
+    "captures_new_law": false,
+    "median_ratio_of_gaps": 0.0,
+    "flight_time_error": 0.0031,
+    "distance_error": 0.0046,
+    "impact_speed_error": 0.0047,
+    "baseline_flight_time_error": 0.0021
+  },
+  "design": {
+    "runs": 174,
+    "runs_per_turn": [
+      70,
+      48,
+      0,
+      56,
+      0,
+      0,
+      0
+    ],
+    "runs_random_object": 40,
+    "runs_in_vacuum": 15,
+    "runs_setting_reflectance_and_temperature": 0,
+    "runs_setting_both_away_from_neutral": 0,
+    "distinct_settings": 23,
+    "properties_ever_set": [
+      "mass",
+      "radius",
+      "shape",
+      "reflectance",
+      "temperature"
+    ],
+    "evidence_after_each_turn": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ]
+  },
+  "found": false,
+  "invented": false,
+  "turns_used": 8,
+  "finish_reasons": [
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop"
+  ],
+  "cost": 0.1484
+}

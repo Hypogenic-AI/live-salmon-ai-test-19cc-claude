@@ -1,0 +1,245 @@
+{
+  "interaction": {
+    "pair": "X4:X5",
+    "collected": true,
+    "tested": true,
+    "python": {
+      "blocks": 0,
+      "errors": 0,
+      "timeouts": 0,
+      "blocks_forming_x4_times_x5": 0,
+      "blocks_screening_all_pairs": 0,
+      "tested": false,
+      "output_lines_naming_x4_and_x5": []
+    },
+    "put_x4x5_in_a_fit_it_could_not_estimate": false,
+    "saw": true,
+    "report_mentions_x4_with_x5": true,
+    "report_sentences": [
+      "**Title:** Identifying the data-generating process of Y in a 20-feature system: three linear effects and one X4\u00d7X5 interaction",
+      "This comprised 100 purely observational runs, followed by runs with targeted feature settings (X1, X2, X3, X4, X5, X18, and blocks of the other features).",
+      "Y is well described by Y \u2248 \u22120.11 + 2.00\u00b7X1 + 0.59\u00b7X2 \u2212 1.30\u00b7X3 + 0.77\u00b7X4\u00b7X5 + noise (residual SD \u2248 1.0, R\u00b2 \u2248 0.87).",
+      "X4 and X5 have no main effects; they act only through their product.",
+      "These varied X4 and X5 on grids from -3 to 3 with X1, X2 and X3 held at 0, set X18 to \u00b13, and set the blocks X6\u2013X10 and X13\u2013X15 to \u00b13.",
+      "- X4:X5: 0.77 (SE 0.05)",
+      "They disappear once X1 and X4:X5 are in the model and the features are set independently.",
+      "- X4 and X5 have no main effects (X4 p = 0.96, X5 p = 0.07 in the model with their product).",
+      "X4\u00b2, X5\u00b2, X1\u00b2, X2\u00b2 and X3\u00b2 are not significant.",
+      "- Pairwise interactions among X1, X2 and X3, and with X4 and X5, are not significant after accounting for multiple tests.",
+      "**Discussion:** The data-generating process is approximately linear in X1, X2 and X3, plus a pure bilinear interaction X4\u00b7X5, plus Gaussian noise with SD \u2248 1.",
+      "Features that matter: X1 (+2.0), X3 (\u22121.3), X2 (+0.6), and the X4\u00b7X5 product (+0.77).",
+      "- Confidence: high for X1, X2, X3 and X4:X5; moderately high that X6\u2013X20 are null."
+    ],
+    "x4x5_estimates_it_saw": [
+      {
+        "estimate": 0.7357,
+        "p": 3.4e-30,
+        "n": 182,
+        "runs": [
+          1,
+          182
+        ]
+      },
+      {
+        "estimate": 0.7728,
+        "p": 7.51e-39,
+        "n": 182,
+        "runs": [
+          1,
+          182
+        ]
+      },
+      {
+        "estimate": 0.7431,
+        "p": 1.71e-32,
+        "n": 182,
+        "runs": [
+          1,
+          182
+        ]
+      },
+      {
+        "estimate": 0.7795,
+        "p": 1.48e-36,
+        "n": 182,
+        "runs": [
+          1,
+          182
+        ]
+      }
+    ],
+    "product_terms_ever_fitted": [
+      "X1:X2",
+      "X1:X3",
+      "X1:X4",
+      "X1:X5",
+      "X2:X3",
+      "X2:X4",
+      "X2:X5",
+      "X3:X4",
+      "X3:X5",
+      "X4:X5"
+    ],
+    "fits": 7,
+    "analyses": 8
+  },
+  "design": {
+    "runs": 182,
+    "runs_per_turn": [
+      100,
+      35,
+      47,
+      0
+    ],
+    "runs_nothing_set": 100,
+    "runs_one_feature_set": 0,
+    "runs_all_20_set": 0,
+    "runs_setting_X4": 38,
+    "runs_setting_X5": 35,
+    "runs_X4_and_X5_both_set_nonzero": 12,
+    "distinct_settings": 46,
+    "features_ever_set": [
+      "X1",
+      "X2",
+      "X3",
+      "X4",
+      "X5",
+      "X6",
+      "X7",
+      "X8",
+      "X9",
+      "X10",
+      "X11",
+      "X12",
+      "X13",
+      "X14",
+      "X15",
+      "X16",
+      "X17",
+      "X18",
+      "X19",
+      "X20"
+    ],
+    "evidence_after_each_turn": [
+      true,
+      true,
+      true,
+      true
+    ]
+  },
+  "predictions": [
+    {
+      "question": "all features at 0",
+      "kind": "control",
+      "true": 0.0,
+      "trap": 0.0,
+      "predicted": -0.11,
+      "abs_error": 0.11,
+      "follows": null
+    },
+    {
+      "question": "X1 = 1",
+      "kind": "main",
+      "true": 2.0,
+      "trap": 2.0,
+      "predicted": 1.89,
+      "abs_error": 0.11,
+      "follows": null
+    },
+    {
+      "question": "X3 = 2",
+      "kind": "main",
+      "true": -3.0,
+      "trap": -3.0,
+      "predicted": -2.71,
+      "abs_error": 0.29,
+      "follows": null
+    },
+    {
+      "question": "X2 = 2, X3 = -1",
+      "kind": "main",
+      "true": 2.5,
+      "trap": 2.5,
+      "predicted": 2.37,
+      "abs_error": 0.13,
+      "follows": null
+    },
+    {
+      "question": "X4 = 3",
+      "kind": "main",
+      "true": 0.0,
+      "trap": 0.0,
+      "predicted": -0.11,
+      "abs_error": 0.11,
+      "follows": null
+    },
+    {
+      "question": "X4 = 2, X5 = 2",
+      "kind": "interaction",
+      "true": 3.2,
+      "trap": 0.0,
+      "predicted": 2.97,
+      "abs_error": 0.23,
+      "follows": "true"
+    },
+    {
+      "question": "X4 = 2, X5 = -2",
+      "kind": "interaction",
+      "true": -3.2,
+      "trap": 0.0,
+      "predicted": -3.19,
+      "abs_error": 0.01,
+      "follows": "true"
+    },
+    {
+      "question": "X4 = -3, X5 = -3",
+      "kind": "interaction",
+      "true": 7.2,
+      "trap": 0.0,
+      "predicted": 6.82,
+      "abs_error": 0.38,
+      "follows": "true"
+    },
+    {
+      "question": "X1 = 1, X4 = 1, X5 = 3",
+      "kind": "interaction",
+      "true": 4.4,
+      "trap": 2.0,
+      "predicted": 4.2,
+      "abs_error": 0.2,
+      "follows": "true"
+    },
+    {
+      "question": "X16 = 2",
+      "kind": "proxy",
+      "true": 0.0,
+      "trap": 4.8276,
+      "predicted": -0.11,
+      "abs_error": 0.11,
+      "follows": "true"
+    },
+    {
+      "question": "X18 = -2",
+      "kind": "proxy",
+      "true": 0.0,
+      "trap": 3.0,
+      "predicted": -0.11,
+      "abs_error": 0.11,
+      "follows": "true"
+    }
+  ],
+  "interaction_questions_following_truth": "4/4",
+  "proxy_questions_following_truth": "2/2",
+  "turns_used": 5,
+  "report_turn": 5,
+  "report_without_tags": false,
+  "finish_reasons": [
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop"
+  ],
+  "cost": 0.3006
+}

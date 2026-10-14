@@ -1,0 +1,92 @@
+{
+  "collected": {
+    "n": 157,
+    "estimable": true,
+    "t": 0.48,
+    "p": 0.635,
+    "rank": 14,
+    "pairs_testable": 21,
+    "identifiable": false
+  },
+  "code": {
+    "blocks": 5,
+    "errors": 0,
+    "timeouts": 0,
+    "formed_product": 0,
+    "grouped_by_both": 0,
+    "screened_and_shown": 0,
+    "tested": false,
+    "output_lines_naming_both": []
+  },
+  "report_sentences": [
+    "Reflectance, temperature, stripes, hardness and batch showed no detectable effect.",
+    "- Null tests on a 0.2 kg, 0.15 m sphere dropped from 10 m, at the extremes of temperature, reflectance, stripes, hardness and batch (4 runs per extreme).",
+    "- Irrelevant properties (null effects): reflectance, temperature, stripes, hardness and batch.",
+    "Reflectance, temperature, stripes, hardness and batch are irrelevant."
+  ],
+  "irrelevant_property_sentences": [
+    "Reflectance, temperature, stripes, hardness and batch showed no detectable effect.",
+    "- Null tests on a 0.2 kg, 0.15 m sphere dropped from 10 m, at the extremes of temperature, reflectance, stripes, hardness and batch (4 runs per extreme).",
+    "- Irrelevant properties (null effects): reflectance, temperature, stripes, hardness and batch.",
+    "Reflectance, temperature, stripes, hardness and batch are irrelevant."
+  ],
+  "law": {
+    "ran": true,
+    "pairs": 20,
+    "pairs_with_invented_gap": 0,
+    "invents_new_law": false,
+    "median_gap_vs_usual_law": 0.0,
+    "flight_time_error": 0.0006,
+    "distance_error": 0.0006,
+    "impact_speed_error": 0.0005,
+    "baseline_flight_time_error": 0.0
+  },
+  "design": {
+    "runs": 157,
+    "runs_per_turn": [
+      55,
+      42,
+      0,
+      0,
+      60,
+      0
+    ],
+    "runs_random_object": 40,
+    "runs_in_vacuum": 15,
+    "runs_setting_reflectance_and_temperature": 0,
+    "runs_setting_both_away_from_neutral": 0,
+    "distinct_settings": 33,
+    "properties_ever_set": [
+      "mass",
+      "radius",
+      "shape",
+      "reflectance",
+      "temperature",
+      "stripes",
+      "hardness",
+      "batch"
+    ],
+    "evidence_after_each_turn": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ]
+  },
+  "found": false,
+  "invented": false,
+  "turns_used": 7,
+  "finish_reasons": [
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop"
+  ],
+  "cost": 0.1731
+}

@@ -1,0 +1,185 @@
+{
+  "interaction": {
+    "pair": "X4:X5",
+    "collected": true,
+    "tested": true,
+    "python": {
+      "blocks": 4,
+      "errors": 0,
+      "timeouts": 0,
+      "blocks_forming_x4_times_x5": 1,
+      "blocks_screening_all_pairs": 0,
+      "tested": true,
+      "output_lines_naming_x4_and_x5": [
+        "X4:X5          0.8237      0.045     18.421      0.000       0.736       0.912"
+      ]
+    },
+    "put_x4x5_in_a_fit_it_could_not_estimate": false,
+    "saw": false,
+    "report_mentions_x4_with_x5": true,
+    "report_sentences": [
+      "**Title:** Y depends on X1, X2, X3 and an X4\u00d7X5 interaction: a 300-run experimental study of a 20-feature system",
+      "Y is driven by three linear effects, X1 (about +1.95), X3 (about \u22121.5) and X2 (about +0.44), plus a strong X4:X5 interaction (about +0.82).",
+      "X4 and X5 have no main effects.",
+      "Pairs X16/X1, X17/X2, X18/X3, X19/X4 and X20/X5 are highly correlated (r\u22480.8\u20130.98), but the correlated partners are downstream copies of the first member and not causes of Y.",
+      "- Final full model on 299 runs (these coefficients were estimated with an X4:X5 term present):",
+      "| X4:X5 | 0.824 | 18.4 | yes |",
+      "- So the relationship appears linear in X1\u2013X3, with a pure product interaction between X4 and X5.",
+      "- Approximate model: Y \u2248 1.95\u00b7X1 + 0.44\u00b7X2 \u2212 1.5\u00b7X3 + 0.82\u00b7X4\u00b7X5 + noise.",
+      "Four ingredients matter: X1, X2 and X3 linearly, and the X4\u00b7X5 product.",
+      "X16\u2013X20 are noisy proxies of X1\u2013X5 and carry no independent effect (X16\u2013X18 mirror the causal variables X1\u2013X3; X19 and X20 mirror X4 and X5).",
+      "X4 and X5 are detectable only through their interaction, which is why they were invisible in the initial main-effect regression.",
+      "My confidence is high for X1, X3 and X4:X5, high for X2, and moderate that no smaller effects were missed.",
+      "Interactions involving X6\u2013X20 were not systematically tested, and their coefficients were never examined in a model that also included the X4:X5 term.",
+      "- The X4:X5 term was discovered post hoc, but it is overwhelmingly significant (t=18)."
+    ],
+    "x4x5_estimates_it_saw": [],
+    "product_terms_ever_fitted": [],
+    "fits": 0,
+    "analyses": 0
+  },
+  "design": {
+    "runs": 299,
+    "runs_per_turn": [
+      100,
+      0,
+      99,
+      100
+    ],
+    "runs_nothing_set": 200,
+    "runs_one_feature_set": 0,
+    "runs_all_20_set": 0,
+    "runs_setting_X4": 99,
+    "runs_setting_X5": 99,
+    "runs_X4_and_X5_both_set_nonzero": 66,
+    "distinct_settings": 34,
+    "features_ever_set": [
+      "X1",
+      "X2",
+      "X3",
+      "X4",
+      "X5"
+    ],
+    "evidence_after_each_turn": [
+      true,
+      true,
+      true,
+      true
+    ]
+  },
+  "predictions": [
+    {
+      "question": "all features at 0",
+      "kind": "control",
+      "true": 0.0,
+      "trap": 0.0,
+      "predicted": 0,
+      "abs_error": 0.0,
+      "follows": null
+    },
+    {
+      "question": "X1 = 1",
+      "kind": "main",
+      "true": 2.0,
+      "trap": 2.0,
+      "predicted": 1.95,
+      "abs_error": 0.05,
+      "follows": null
+    },
+    {
+      "question": "X3 = 2",
+      "kind": "main",
+      "true": -3.0,
+      "trap": -3.0,
+      "predicted": -3.0,
+      "abs_error": 0.0,
+      "follows": null
+    },
+    {
+      "question": "X2 = 2, X3 = -1",
+      "kind": "main",
+      "true": 2.5,
+      "trap": 2.5,
+      "predicted": 2.4,
+      "abs_error": 0.1,
+      "follows": null
+    },
+    {
+      "question": "X4 = 3",
+      "kind": "main",
+      "true": 0.0,
+      "trap": 0.0,
+      "predicted": 0,
+      "abs_error": 0.0,
+      "follows": null
+    },
+    {
+      "question": "X4 = 2, X5 = 2",
+      "kind": "interaction",
+      "true": 3.2,
+      "trap": 0.0,
+      "predicted": 3.3,
+      "abs_error": 0.1,
+      "follows": "true"
+    },
+    {
+      "question": "X4 = 2, X5 = -2",
+      "kind": "interaction",
+      "true": -3.2,
+      "trap": 0.0,
+      "predicted": -3.3,
+      "abs_error": 0.1,
+      "follows": "true"
+    },
+    {
+      "question": "X4 = -3, X5 = -3",
+      "kind": "interaction",
+      "true": 7.2,
+      "trap": 0.0,
+      "predicted": 7.4,
+      "abs_error": 0.2,
+      "follows": "true"
+    },
+    {
+      "question": "X1 = 1, X4 = 1, X5 = 3",
+      "kind": "interaction",
+      "true": 4.4,
+      "trap": 2.0,
+      "predicted": 4.4,
+      "abs_error": 0.0,
+      "follows": "true"
+    },
+    {
+      "question": "X16 = 2",
+      "kind": "proxy",
+      "true": 0.0,
+      "trap": 4.8276,
+      "predicted": 0,
+      "abs_error": 0.0,
+      "follows": "true"
+    },
+    {
+      "question": "X18 = -2",
+      "kind": "proxy",
+      "true": 0.0,
+      "trap": 3.0,
+      "predicted": 0,
+      "abs_error": 0.0,
+      "follows": "true"
+    }
+  ],
+  "interaction_questions_following_truth": "4/4",
+  "proxy_questions_following_truth": "2/2",
+  "turns_used": 5,
+  "report_turn": 5,
+  "report_without_tags": false,
+  "finish_reasons": [
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop"
+  ],
+  "cost": 0.3182
+}

@@ -1,0 +1,100 @@
+{
+  "collected": {
+    "n": 239,
+    "estimable": true,
+    "t": -57.93,
+    "p": 2.2e-138,
+    "rank": 1,
+    "pairs_testable": 21,
+    "identifiable": true
+  },
+  "code": {
+    "blocks": 7,
+    "errors": 0,
+    "timeouts": 0,
+    "formed_product": 0,
+    "grouped_by_both": 0,
+    "screened_and_shown": 0,
+    "tested": false,
+    "output_lines_naming_both": []
+  },
+  "report_sentences": [
+    "# Drag in a simulated laboratory: quadratic air drag modulated by an interaction of reflectance and temperature",
+    "A smaller additional effect depends on the product (reflectance \u2212 0.5) \u00d7 (temperature \u2212 20 \u00b0C): the drag coefficient is multiplied by about 1 \u2212 0.0095 (R \u2212 0.5)(T \u2212 20).",
+    "- Reflectance was set to 0 or 1, and temperature to \u221220 or 80, in separate sweeps.",
+    "**Reflectance \u00d7 temperature interaction:**",
+    "For a black object (reflectance 0), flight time rose with temperature from about 3.5 s at \u221213 \u00b0C to about 4.1 s at 80 \u00b0C.",
+    "- For a white object (reflectance 1), flight time fell with temperature, from about 3.9 s at \u221218 \u00b0C to about 3.4 s at 75 \u00b0C.",
+    "Their correlations with the model residuals were all below 0.12 in absolute value, and the larger ones are plausibly absorbed by the reflectance and temperature term.",
+    "The relevant properties are mass, radius, shape, reflectance \u00d7 temperature, air density, height, speed and angle.",
+    "I have moderate confidence in the exact form and size of the reflectance \u00d7 temperature interaction."
+  ],
+  "irrelevant_property_sentences": [
+    "Stripes, hardness and batch showed no detectable effect.",
+    "**No detectable effect:** Stripes, hardness and batch had no detectable effect.",
+    "The irrelevant ones are stripes, hardness and batch.",
+    "- Hardness, stripes and batch were never set individually."
+  ],
+  "law": {
+    "ran": true,
+    "pairs": 20,
+    "pairs_right": 1,
+    "captures_new_law": false,
+    "median_ratio_of_gaps": 0.003,
+    "flight_time_error": 0.0153,
+    "distance_error": 0.0069,
+    "impact_speed_error": 0.01,
+    "baseline_flight_time_error": 0.0138
+  },
+  "design": {
+    "runs": 239,
+    "runs_per_turn": [
+      60,
+      49,
+      90,
+      0,
+      0,
+      0,
+      40,
+      0
+    ],
+    "runs_random_object": 40,
+    "runs_in_vacuum": 20,
+    "runs_setting_reflectance_and_temperature": 0,
+    "runs_setting_both_away_from_neutral": 0,
+    "distinct_settings": 24,
+    "properties_ever_set": [
+      "mass",
+      "radius",
+      "shape",
+      "reflectance",
+      "temperature"
+    ],
+    "evidence_after_each_turn": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ]
+  },
+  "found": false,
+  "invented": false,
+  "turns_used": 9,
+  "finish_reasons": [
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop"
+  ],
+  "cost": 0.1991
+}

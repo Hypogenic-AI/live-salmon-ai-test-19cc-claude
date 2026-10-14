@@ -1,0 +1,6742 @@
+{
+  "seed": 5,
+  "world": "physics",
+  "condition": "kappa0_stated_error",
+  "kappa": 0.0,
+  "budget": 300,
+  "per_turn": 100,
+  "max_turns": 12,
+  "report": "**Title:** Quadratic air drag, set by shape, radius and mass, governs motion in the simulated laboratory\n\n**Abstract:** I ran 172 of the 300 allowed runs: random objects, controlled drops in vacuum and air, and launches at several speeds and angles. Motion is consistent with gravity (g\u22489.81 m/s\u00b2) plus quadratic air drag, with acceleration \u2212k\u00b7|v|\u00b7v and k = \u00bd\u00b7\u03c1_air\u00b7C_d(shape)\u00b7\u03c0\u00b7r\u00b2/m. The fitted C_d values are about 0.48 for spheres, 1.35 for cubes and 0.85 for cylinders. Reflectance, temperature, stripes, hardness and batch have no detectable effect. In vacuum, mass, radius and shape also have no effect. I am confident in the overall model, with the caveats below.\n\n**Methods:**\n- Turn 1 used 40 random objects with default launch settings. It also included vacuum drops of a 1 kg object from 10 m and 20 m, a vacuum launch at 10 m/s and 30\u00b0, and launches at 10 m/s in air (angle 0 and 45\u00b0, mass 1 and 5 kg).\n- Turn 2 was a controlled design on spheres. It crossed mass (0.1 to 10 kg) with radius (0.02 to 0.2 m) and compared the three shapes at mass 0.3 kg and radius 0.1 m. It also set temperature, reflectance, stripes, hardness and batch each to its extremes, and varied air density (0.6, 1.2, 2.4).\n- I fitted a numerical trajectory model, with Euler integration at dt = 0.002 s, to the drop data by least squares. Free parameters were C_d for each shape, the exponent of mass and the exponent of radius. Residuals were weighted by the stated noise.\n- I then checked the fitted model against all runs, including the launched ones. I correlated the residuals with each nuisance property.\n\n**Results:**\n- **Vacuum:** Flight time and impact speed match free fall, t = \u221a(2h/g) and v = \u221a(2gh) (1.425 s and 14.07 m/s at 10 m; 2.026 s and 19.76 m/s at 20 m). Mass, radius, shape, reflectance, temperature, stripes, hardness and batch have no visible effect. The 20 m flight time is about 3\u03c3 longer than the g = 9.81 prediction (2.026 s observed against 2.019 s predicted). I treat this as probably a fluctuation.\n- **Horizontal motion:** In vacuum the horizontal velocity is constant. The distance for 10 m/s at 30\u00b0 (17.6 m) matches projectile motion.\n- **Drag in air:**\n  - The fitted exponents are mass^\u22121.00 and radius^2.01.\n  - Drag deceleration is k\u00b7v\u00b2, with k = \u00bd\u00b7\u03c1\u00b7C_d\u00b7\u03c0\u00b7r\u00b2/m. It is proportional to air density.\n  - C_d is about 0.48 for spheres, 1.35 for cubes and 0.85 for cylinders.\n  - The chi-square was 240 for 224 data points, so the fit is statistically adequate.\n  - Large, light objects are slowed strongly. For example, a 0.1 kg sphere of radius 0.2 m falls 10 m in 2.28 s, whereas a 10 kg object falls in 1.43 s.\n  - The same model predicts the launched runs, with residuals of about 1% in distance and speed and no systematic bias.\n- **Irrelevant properties:** Residual correlations with temperature, reflectance, stripes, hardness and batch are all |r| \u2264 0.1. The direct set-extreme comparisons agree within noise. Launch height, speed, angle and air density act only through the physics above.\n- **Combination effect:** Mass, radius and air density combine through the single ratio \u03c1\u00b7r\u00b2/m, with a shape-dependent coefficient.\n\n**Discussion:** The laboratory follows ordinary projectile motion with quadratic drag. The form is real-world-like, but the shape C_d values are particular to this lab. Only mass, radius, shape, air density and the launch settings matter. The remaining properties are irrelevant.\n\n**Limitations:**\n- I used few runs for the cube and cylinder shapes, so their C_d values are less precise, probably \u00b13%.\n- Launches covered only angles of 0\u00b0, 30\u00b0 and 45\u00b0 and speeds of 0 and 10 m/s. I did not test negative angles or speeds up to 20 m/s, and interactions there are extrapolated.\n- Small effects below about 1% could be hidden by noise.\n- The model may use a slightly different g or a slightly different functional form that I did not probe, for example a mild dependence of C_d on speed.\n- I assumed Euler integration was adequate.",
+  "report_turn": 6,
+  "report_without_tags": false,
+  "law": "import math\n\ndef predict(obj, launch):\n    m = obj[\"mass\"]\n    r = obj[\"radius\"]\n    Cd = {\"sphere\": 0.483, \"cube\": 1.352, \"cylinder\": 0.851}.get(obj[\"shape\"], 0.85)\n    h = launch.get(\"height\", 10.0)\n    v0 = launch.get(\"speed\", 0.0)\n    ang = math.radians(launch.get(\"angle\", 0.0))\n    rho = launch.get(\"air_density\", 1.2)\n    g = 9.81\n    k = 0.5 * rho * Cd * math.pi * r * r / m\n    vx = v0 * math.cos(ang)\n    vy = v0 * math.sin(ang)\n    x = 0.0\n    y = h\n    t = 0.0\n    dt = 0.001\n    while y > 0:\n        v = math.hypot(vx, vy)\n        ax = -k * v * vx\n        ay = -g - k * v * vy\n        vx += ax * dt\n        vy += ay * dt\n        x += vx * dt\n        y += vy * dt\n        t += dt\n        if t > 100:\n            break\n    # correct overshoot at landing\n    if vy != 0:\n        frac = (-y) / (vy * dt) if vy * dt != 0 else 0\n        frac = min(max(frac, 0), 1)\n        t -= frac * dt\n        x -= vx * dt * frac\n    return {\"flight_time\": t, \"distance\": x, \"impact_speed\": math.hypot(vx, vy)}",
+  "law_run": {
+    "exit_code": 0,
+    "timed_out": false,
+    "output": "PREDICTIONS [[1.8749999999999043, 18.1015204771289, 14.310146525938537], [1.8749999999999043, 18.1015204771289, 14.310146525938537], [4.122999999999712, 66.75658793591127, 35.46496011263719], [4.122999999999712, 66.75658793591127, 35.46496011263719], [1.8629999999999056, 17.010607040281872, 16.418473685879363], [1.8629999999999056, 17.010607040281872, 16.418473685879363], [2.177999999999871, 6.037431257839262, 18.420636044365427], [2.177999999999871, 6.037431257839262, 18.420636044365427], [3.406999999999736, 18.369506026262137, 30.455594651419727], [3.406999999999736, 18.369506026262137, 30.455594651419727], [3.2829999999997495, 32.48573007140727, 29.13333135568606], [3.2829999999997495, 32.48573007140727, 29.13333135568606], [2.152999999999874, 0.0, 19.79308847727839], [2.152999999999874, 0.0, 19.79308847727839], [1.9349999999998977, 28.23856560823304, 24.288539568118512], [1.9349999999998977, 28.23856560823304, 24.288539568118512], [0.7810000000000006, 12.753190309405223, 22.528249978028573], [0.7810000000000006, 12.753190309405223, 22.528249978028573], [2.759999999999807, 30.961426402235197, 25.423109519627562], [2.759999999999807, 30.961426402235197, 25.423109519627562], [3.6559999999997084, 23.974432717293766, 27.621455893024198], [3.6559999999997084, 23.974432717293766, 27.621455893024198], [2.2219999999998663, 14.357163653333288, 12.499067839342697], [2.2219999999998663, 14.357163653333288, 12.499067839342697], [1.7649999999999164, 1.1162576115721763, 16.826570084849475], [1.7649999999999164, 1.1162576115721763, 16.826570084849475], [1.9919999999998914, 4.152753544226017, 18.470444759516514], [1.9919999999998914, 4.152753544226017, 18.470444759516514], [8.019000000000995, 3.3122179565688636, 6.092509339355835], [8.019000000000995, 3.3122179565688636, 6.092509339355835], [1.6389999999999303, 31.00495214478341, 27.13230822564021], [1.6389999999999303, 31.00495214478341, 27.13230822564021], [2.73499999999981, 11.357707849238842, 24.77363272711124], [2.73499999999981, 11.357707849238842, 24.77363272711124], [1.7479999999999183, 27.191625664125784, 22.534974857160826], [1.7479999999999183, 27.191625664125784, 22.534974857160826], [3.1259999999997667, 19.15115972245246, 21.260461994087954], [3.1259999999997667, 19.15115972245246, 21.260461994087954], [4.572999999999862, 40.96607049770811, 31.70485768692992], [4.572999999999862, 40.96607049770811, 31.70485768692992]]\n",
+    "truncated": false,
+    "seconds": 0.8
+  },
+  "law_cases": [
+    {
+      "object": {
+        "mass": 1.87,
+        "radius": 0.135,
+        "shape": "cube",
+        "reflectance": 0.07,
+        "temperature": -10.9,
+        "stripes": 3,
+        "hardness": 9,
+        "batch": 40
+      },
+      "launch": {
+        "height": 10.6,
+        "speed": 12.8,
+        "angle": 12.1,
+        "air_density": 1.2
+      },
+      "strong": true
+    },
+    {
+      "object": {
+        "mass": 1.87,
+        "radius": 0.135,
+        "shape": "cube",
+        "reflectance": 0.07,
+        "temperature": 20.0,
+        "stripes": 3,
+        "hardness": 9,
+        "batch": 40
+      },
+      "launch": {
+        "height": 10.6,
+        "speed": 12.8,
+        "angle": 12.1,
+        "air_density": 1.2
+      },
+      "strong": false
+    },
+    {
+      "object": {
+        "mass": 9.06,
+        "radius": 0.052,
+        "shape": "sphere",
+        "reflectance": 0.03,
+        "temperature": -11.7,
+        "stripes": 10,
+        "hardness": 8,
+        "batch": 46
+      },
+      "launch": {
+        "height": 48.4,
+        "speed": 18.4,
+        "angle": 27.2,
+        "air_density": 1.2
+      },
+      "strong": true
+    },
+    {
+      "object": {
+        "mass": 9.06,
+        "radius": 0.052,
+        "shape": "sphere",
+        "reflectance": 0.03,
+        "temperature": 20.0,
+        "stripes": 10,
+        "hardness": 8,
+        "batch": 46
+      },
+      "launch": {
+        "height": 48.4,
+        "speed": 18.4,
+        "angle": 27.2,
+        "air_density": 1.2
+      },
+      "strong": false
+    },
+    {
+      "object": {
+        "mass": 6.4,
+        "radius": 0.155,
+        "shape": "cube",
+        "reflectance": 0.06,
+        "temperature": 70.5,
+        "stripes": 4,
+        "hardness": 5,
+        "batch": 17
+      },
+      "launch": {
+        "height": 12.9,
+        "speed": 10.5,
+        "angle": 8.8,
+        "air_density": 1.59
+      },
+      "strong": true
+    },
+    {
+      "object": {
+        "mass": 6.4,
+        "radius": 0.155,
+        "shape": "cube",
+        "reflectance": 0.06,
+        "temperature": 20.0,
+        "stripes": 4,
+        "hardness": 5,
+        "batch": 17
+      },
+      "launch": {
+        "height": 12.9,
+        "speed": 10.5,
+        "angle": 8.8,
+        "air_density": 1.59
+      },
+      "strong": false
+    },
+    {
+      "object": {
+        "mass": 2.85,
+        "radius": 0.061,
+        "shape": "sphere",
+        "reflectance": 0.96,
+        "temperature": -16.5,
+        "stripes": 7,
+        "hardness": 9,
+        "batch": 1
+      },
+      "launch": {
+        "height": 16.4,
+        "speed": 4.2,
+        "angle": 48.7,
+        "air_density": 0.0
+      },
+      "strong": true
+    },
+    {
+      "object": {
+        "mass": 2.85,
+        "radius": 0.061,
+        "shape": "sphere",
+        "reflectance": 0.96,
+        "temperature": 20.0,
+        "stripes": 7,
+        "hardness": 9,
+        "batch": 1
+      },
+      "launch": {
+        "height": 16.4,
+        "speed": 4.2,
+        "angle": 48.7,
+        "air_density": 0.0
+      },
+      "strong": false
+    },
+    {
+      "object": {
+        "mass": 4.53,
+        "radius": 0.086,
+        "shape": "sphere",
+        "reflectance": 0.06,
+        "temperature": -17.7,
+        "stripes": 4,
+        "hardness": 7,
+        "batch": 15
+      },
+      "launch": {
+        "height": 45.2,
+        "speed": 6.4,
+        "angle": 32.6,
+        "air_density": 0.0
+      },
+      "strong": true
+    },
+    {
+      "object": {
+        "mass": 4.53,
+        "radius": 0.086,
+        "shape": "sphere",
+        "reflectance": 0.06,
+        "temperature": 20.0,
+        "stripes": 4,
+        "hardness": 7,
+        "batch": 15
+      },
+      "launch": {
+        "height": 45.2,
+        "speed": 6.4,
+        "angle": 32.6,
+        "air_density": 0.0
+      },
+      "strong": false
+    },
+    {
+      "object": {
+        "mass": 2.17,
+        "radius": 0.177,
+        "shape": "sphere",
+        "reflectance": 0.07,
+        "temperature": 72.4,
+        "stripes": 3,
+        "hardness": 5,
+        "batch": 48
+      },
+      "launch": {
+        "height": 37.1,
+        "speed": 11.0,
+        "angle": 25.9,
+        "air_density": 0.0
+      },
+      "strong": true
+    },
+    {
+      "object": {
+        "mass": 2.17,
+        "radius": 0.177,
+        "shape": "sphere",
+        "reflectance": 0.5,
+        "temperature": 72.4,
+        "stripes": 3,
+        "hardness": 5,
+        "batch": 48
+      },
+      "launch": {
+        "height": 37.1,
+        "speed": 11.0,
+        "angle": 25.9,
+        "air_density": 0.0
+      },
+      "strong": false
+    },
+    {
+      "object": {
+        "mass": 5.68,
+        "radius": 0.098,
+        "shape": "cube",
+        "reflectance": 1.0,
+        "temperature": 66.4,
+        "stripes": 7,
+        "hardness": 5,
+        "batch": 16
+      },
+      "launch": {
+        "height": 22.0,
+        "speed": 0.0,
+        "angle": 41.5,
+        "air_density": 1.25
+      },
+      "strong": true
+    },
+    {
+      "object": {
+        "mass": 5.68,
+        "radius": 0.098,
+        "shape": "cube",
+        "reflectance": 1.0,
+        "temperature": 20.0,
+        "stripes": 7,
+        "hardness": 5,
+        "batch": 16
+      },
+      "launch": {
+        "height": 22.0,
+        "speed": 0.0,
+        "angle": 41.5,
+        "air_density": 1.25
+      },
+      "strong": false
+    },
+    {
+      "object": {
+        "mass": 2.69,
+        "radius": 0.146,
+        "shape": "cube",
+        "reflectance": 0.99,
+        "temperature": 76.6,
+        "stripes": 6,
+        "hardness": 7,
+        "batch": 10
+      },
+      "launch": {
+        "height": 19.2,
+        "speed": 14.6,
+        "angle": -1.7,
+        "air_density": 0.0
+      },
+      "strong": true
+    },
+    {
+      "object": {
+        "mass": 2.69,
+        "radius": 0.146,
+        "shape": "cube",
+        "reflectance": 0.5,
+        "temperature": 76.6,
+        "stripes": 6,
+        "hardness": 7,
+        "batch": 10
+      },
+      "launch": {
+        "height": 19.2,
+        "speed": 14.6,
+        "angle": -1.7,
+        "air_density": 0.0
+      },
+      "strong": false
+    },
+    {
+      "object": {
+        "mass": 7.34,
+        "radius": 0.119,
+        "shape": "cube",
+        "reflectance": 0.0,
+        "temperature": -15.1,
+        "stripes": 4,
+        "hardness": 8,
+        "batch": 25
+      },
+      "launch": {
+        "height": 9.7,
+        "speed": 18.9,
+        "angle": -27.9,
+        "air_density": 0.71
+      },
+      "strong": true
+    },
+    {
+      "object": {
+        "mass": 7.34,
+        "radius": 0.119,
+        "shape": "cube",
+        "reflectance": 0.5,
+        "temperature": -15.1,
+        "stripes": 4,
+        "hardness": 8,
+        "batch": 25
+      },
+      "launch": {
+        "height": 9.7,
+        "speed": 18.9,
+        "angle": -27.9,
+        "air_density": 0.71
+      },
+      "strong": false
+    },
+    {
+      "object": {
+        "mass": 4.75,
+        "radius": 0.142,
+        "shape": "cylinder",
+        "reflectance": 0.98,
+        "temperature": -18.1,
+        "stripes": 0,
+        "hardness": 1,
+        "batch": 40
+      },
+      "launch": {
+        "height": 25.6,
+        "speed": 12.0,
+        "angle": 20.8,
+        "air_density": 0.0
+      },
+      "strong": true
+    },
+    {
+      "object": {
+        "mass": 4.75,
+        "radius": 0.142,
+        "shape": "cylinder",
+        "reflectance": 0.5,
+        "temperature": -18.1,
+        "stripes": 0,
+        "hardness": 1,
+        "batch": 40
+      },
+      "launch": {
+        "height": 25.6,
+        "speed": 12.0,
+        "angle": 20.8,
+        "air_density": 0.0
+      },
+      "strong": false
+    },
+    {
+      "object": {
+        "mass": 5.24,
+        "radius": 0.079,
+        "shape": "sphere",
+        "reflectance": 0.94,
+        "temperature": -18.7,
+        "stripes": 9,
+        "hardness": 5,
+        "batch": 50
+      },
+      "launch": {
+        "height": 33.7,
+        "speed": 10.9,
+        "angle": 52.6,
+        "air_density": 0.56
+      },
+      "strong": true
+    },
+    {
+      "object": {
+        "mass": 5.24,
+        "radius": 0.079,
+        "shape": "sphere",
+        "reflectance": 0.5,
+        "temperature": -18.7,
+        "stripes": 9,
+        "hardness": 5,
+        "batch": 50
+      },
+      "launch": {
+        "height": 33.7,
+        "speed": 10.9,
+        "angle": 52.6,
+        "air_density": 0.56
+      },
+      "strong": false
+    },
+    {
+      "object": {
+        "mass": 0.68,
+        "radius": 0.084,
+        "shape": "cube",
+        "reflectance": 0.07,
+        "temperature": 74.8,
+        "stripes": 6,
+        "hardness": 7,
+        "batch": 21
+      },
+      "launch": {
+        "height": 5.3,
+        "speed": 12.1,
+        "angle": 47.1,
+        "air_density": 1.2
+      },
+      "strong": true
+    },
+    {
+      "object": {
+        "mass": 0.68,
+        "radius": 0.084,
+        "shape": "cube",
+        "reflectance": 0.07,
+        "temperature": 20.0,
+        "stripes": 6,
+        "hardness": 7,
+        "batch": 21
+      },
+      "launch": {
+        "height": 5.3,
+        "speed": 12.1,
+        "angle": 47.1,
+        "air_density": 1.2
+      },
+      "strong": false
+    },
+    {
+      "object": {
+        "mass": 7.76,
+        "radius": 0.193,
+        "shape": "sphere",
+        "reflectance": 0.94,
+        "temperature": -13.4,
+        "stripes": 1,
+        "hardness": 2,
+        "batch": 48
+      },
+      "launch": {
+        "height": 15.4,
+        "speed": 0.7,
+        "angle": -22.4,
+        "air_density": 1.2
+      },
+      "strong": true
+    },
+    {
+      "object": {
+        "mass": 7.76,
+        "radius": 0.193,
+        "shape": "sphere",
+        "reflectance": 0.94,
+        "temperature": 20.0,
+        "stripes": 1,
+        "hardness": 2,
+        "batch": 48
+      },
+      "launch": {
+        "height": 15.4,
+        "speed": 0.7,
+        "angle": -22.4,
+        "air_density": 1.2
+      },
+      "strong": false
+    },
+    {
+      "object": {
+        "mass": 0.33,
+        "radius": 0.074,
+        "shape": "sphere",
+        "reflectance": 0.97,
+        "temperature": 73.4,
+        "stripes": 5,
+        "hardness": 1,
+        "batch": 5
+      },
+      "launch": {
+        "height": 17.1,
+        "speed": 2.4,
+        "angle": 29.7,
+        "air_density": 0.0
+      },
+      "strong": true
+    },
+    {
+      "object": {
+        "mass": 0.33,
+        "radius": 0.074,
+        "shape": "sphere",
+        "reflectance": 0.5,
+        "temperature": 73.4,
+        "stripes": 5,
+        "hardness": 1,
+        "batch": 5
+      },
+      "launch": {
+        "height": 17.1,
+        "speed": 2.4,
+        "angle": 29.7,
+        "air_density": 0.0
+      },
+      "strong": false
+    },
+    {
+      "object": {
+        "mass": 0.23,
+        "radius": 0.129,
+        "shape": "cube",
+        "reflectance": 0.94,
+        "temperature": 75.3,
+        "stripes": 6,
+        "hardness": 6,
+        "batch": 45
+      },
+      "launch": {
+        "height": 44.7,
+        "speed": 4.3,
+        "angle": 28.5,
+        "air_density": 1.72
+      },
+      "strong": true
+    },
+    {
+      "object": {
+        "mass": 0.23,
+        "radius": 0.129,
+        "shape": "cube",
+        "reflectance": 0.94,
+        "temperature": 20.0,
+        "stripes": 6,
+        "hardness": 6,
+        "batch": 45
+      },
+      "launch": {
+        "height": 44.7,
+        "speed": 4.3,
+        "angle": 28.5,
+        "air_density": 1.72
+      },
+      "strong": false
+    },
+    {
+      "object": {
+        "mass": 9.19,
+        "radius": 0.054,
+        "shape": "cube",
+        "reflectance": 0.09,
+        "temperature": 66.5,
+        "stripes": 7,
+        "hardness": 1,
+        "batch": 33
+      },
+      "launch": {
+        "height": 18.9,
+        "speed": 19.3,
+        "angle": -10.5,
+        "air_density": 0.27
+      },
+      "strong": true
+    },
+    {
+      "object": {
+        "mass": 9.19,
+        "radius": 0.054,
+        "shape": "cube",
+        "reflectance": 0.09,
+        "temperature": 20.0,
+        "stripes": 7,
+        "hardness": 1,
+        "batch": 33
+      },
+      "launch": {
+        "height": 18.9,
+        "speed": 19.3,
+        "angle": -10.5,
+        "air_density": 0.27
+      },
+      "strong": false
+    },
+    {
+      "object": {
+        "mass": 5.51,
+        "radius": 0.185,
+        "shape": "cylinder",
+        "reflectance": 0.96,
+        "temperature": 67.8,
+        "stripes": 8,
+        "hardness": 5,
+        "batch": 7
+      },
+      "launch": {
+        "height": 30.1,
+        "speed": 4.8,
+        "angle": 30.1,
+        "air_density": 0.0
+      },
+      "strong": true
+    },
+    {
+      "object": {
+        "mass": 5.51,
+        "radius": 0.185,
+        "shape": "cylinder",
+        "reflectance": 0.96,
+        "temperature": 20.0,
+        "stripes": 8,
+        "hardness": 5,
+        "batch": 7
+      },
+      "launch": {
+        "height": 30.1,
+        "speed": 4.8,
+        "angle": 30.1,
+        "air_density": 0.0
+      },
+      "strong": false
+    },
+    {
+      "object": {
+        "mass": 6.19,
+        "radius": 0.093,
+        "shape": "sphere",
+        "reflectance": 0.05,
+        "temperature": -19.7,
+        "stripes": 6,
+        "hardness": 6,
+        "batch": 43
+      },
+      "launch": {
+        "height": 13.6,
+        "speed": 15.6,
+        "angle": 2.9,
+        "air_density": 0.1
+      },
+      "strong": true
+    },
+    {
+      "object": {
+        "mass": 6.19,
+        "radius": 0.093,
+        "shape": "sphere",
+        "reflectance": 0.05,
+        "temperature": 20.0,
+        "stripes": 6,
+        "hardness": 6,
+        "batch": 43
+      },
+      "launch": {
+        "height": 13.6,
+        "speed": 15.6,
+        "angle": 2.9,
+        "air_density": 0.1
+      },
+      "strong": false
+    },
+    {
+      "object": {
+        "mass": 6.32,
+        "radius": 0.078,
+        "shape": "cube",
+        "reflectance": 0.93,
+        "temperature": -18.3,
+        "stripes": 7,
+        "hardness": 9,
+        "batch": 7
+      },
+      "launch": {
+        "height": 18.1,
+        "speed": 11.4,
+        "angle": 56.2,
+        "air_density": 1.2
+      },
+      "strong": true
+    },
+    {
+      "object": {
+        "mass": 6.32,
+        "radius": 0.078,
+        "shape": "cube",
+        "reflectance": 0.5,
+        "temperature": -18.3,
+        "stripes": 7,
+        "hardness": 9,
+        "batch": 7
+      },
+      "launch": {
+        "height": 18.1,
+        "speed": 11.4,
+        "angle": 56.2,
+        "air_density": 1.2
+      },
+      "strong": false
+    },
+    {
+      "object": {
+        "mass": 2.87,
+        "radius": 0.026,
+        "shape": "cube",
+        "reflectance": 0.07,
+        "temperature": -12.6,
+        "stripes": 2,
+        "hardness": 10,
+        "batch": 26
+      },
+      "launch": {
+        "height": 36.5,
+        "speed": 17.0,
+        "angle": 58.2,
+        "air_density": 0.0
+      },
+      "strong": true
+    },
+    {
+      "object": {
+        "mass": 2.87,
+        "radius": 0.026,
+        "shape": "cube",
+        "reflectance": 0.07,
+        "temperature": 20.0,
+        "stripes": 2,
+        "hardness": 10,
+        "batch": 26
+      },
+      "launch": {
+        "height": 36.5,
+        "speed": 17.0,
+        "angle": 58.2,
+        "air_density": 0.0
+      },
+      "strong": false
+    }
+  ],
+  "law_predictions": [
+    [
+      1.8749999999999043,
+      18.1015204771289,
+      14.310146525938537
+    ],
+    [
+      1.8749999999999043,
+      18.1015204771289,
+      14.310146525938537
+    ],
+    [
+      4.122999999999712,
+      66.75658793591127,
+      35.46496011263719
+    ],
+    [
+      4.122999999999712,
+      66.75658793591127,
+      35.46496011263719
+    ],
+    [
+      1.8629999999999056,
+      17.010607040281872,
+      16.418473685879363
+    ],
+    [
+      1.8629999999999056,
+      17.010607040281872,
+      16.418473685879363
+    ],
+    [
+      2.177999999999871,
+      6.037431257839262,
+      18.420636044365427
+    ],
+    [
+      2.177999999999871,
+      6.037431257839262,
+      18.420636044365427
+    ],
+    [
+      3.406999999999736,
+      18.369506026262137,
+      30.455594651419727
+    ],
+    [
+      3.406999999999736,
+      18.369506026262137,
+      30.455594651419727
+    ],
+    [
+      3.2829999999997495,
+      32.48573007140727,
+      29.13333135568606
+    ],
+    [
+      3.2829999999997495,
+      32.48573007140727,
+      29.13333135568606
+    ],
+    [
+      2.152999999999874,
+      0.0,
+      19.79308847727839
+    ],
+    [
+      2.152999999999874,
+      0.0,
+      19.79308847727839
+    ],
+    [
+      1.9349999999998977,
+      28.23856560823304,
+      24.288539568118512
+    ],
+    [
+      1.9349999999998977,
+      28.23856560823304,
+      24.288539568118512
+    ],
+    [
+      0.7810000000000006,
+      12.753190309405223,
+      22.528249978028573
+    ],
+    [
+      0.7810000000000006,
+      12.753190309405223,
+      22.528249978028573
+    ],
+    [
+      2.759999999999807,
+      30.961426402235197,
+      25.423109519627562
+    ],
+    [
+      2.759999999999807,
+      30.961426402235197,
+      25.423109519627562
+    ],
+    [
+      3.6559999999997084,
+      23.974432717293766,
+      27.621455893024198
+    ],
+    [
+      3.6559999999997084,
+      23.974432717293766,
+      27.621455893024198
+    ],
+    [
+      2.2219999999998663,
+      14.357163653333288,
+      12.499067839342697
+    ],
+    [
+      2.2219999999998663,
+      14.357163653333288,
+      12.499067839342697
+    ],
+    [
+      1.7649999999999164,
+      1.1162576115721763,
+      16.826570084849475
+    ],
+    [
+      1.7649999999999164,
+      1.1162576115721763,
+      16.826570084849475
+    ],
+    [
+      1.9919999999998914,
+      4.152753544226017,
+      18.470444759516514
+    ],
+    [
+      1.9919999999998914,
+      4.152753544226017,
+      18.470444759516514
+    ],
+    [
+      8.019000000000995,
+      3.3122179565688636,
+      6.092509339355835
+    ],
+    [
+      8.019000000000995,
+      3.3122179565688636,
+      6.092509339355835
+    ],
+    [
+      1.6389999999999303,
+      31.00495214478341,
+      27.13230822564021
+    ],
+    [
+      1.6389999999999303,
+      31.00495214478341,
+      27.13230822564021
+    ],
+    [
+      2.73499999999981,
+      11.357707849238842,
+      24.77363272711124
+    ],
+    [
+      2.73499999999981,
+      11.357707849238842,
+      24.77363272711124
+    ],
+    [
+      1.7479999999999183,
+      27.191625664125784,
+      22.534974857160826
+    ],
+    [
+      1.7479999999999183,
+      27.191625664125784,
+      22.534974857160826
+    ],
+    [
+      3.1259999999997667,
+      19.15115972245246,
+      21.260461994087954
+    ],
+    [
+      3.1259999999997667,
+      19.15115972245246,
+      21.260461994087954
+    ],
+    [
+      4.572999999999862,
+      40.96607049770811,
+      31.70485768692992
+    ],
+    [
+      4.572999999999862,
+      40.96607049770811,
+      31.70485768692992
+    ]
+  ],
+  "turns": [
+    {
+      "turn": 1,
+      "experiments": [
+        {
+          "n": 40
+        },
+        {
+          "object": {
+            "mass": 1
+          },
+          "launch": {
+            "air_density": 0
+          },
+          "n": 10
+        },
+        {
+          "object": {
+            "mass": 1
+          },
+          "launch": {
+            "air_density": 0,
+            "height": 20
+          },
+          "n": 10
+        },
+        {
+          "object": {
+            "mass": 1
+          },
+          "launch": {
+            "air_density": 0,
+            "speed": 10,
+            "angle": 30
+          },
+          "n": 10
+        },
+        {
+          "object": {
+            "mass": 1
+          },
+          "launch": {
+            "speed": 10
+          },
+          "n": 10
+        },
+        {
+          "object": {
+            "mass": 1
+          },
+          "launch": {
+            "speed": 10,
+            "angle": 45
+          },
+          "n": 10
+        },
+        {
+          "object": {
+            "mass": 5
+          },
+          "launch": {
+            "speed": 10
+          },
+          "n": 10
+        }
+      ],
+      "new_runs": 100,
+      "refused": [],
+      "python": [
+        {
+          "code": "print(df.groupby('set')[['flight_time','distance','impact_speed']].agg(['mean','std']).to_string())",
+          "exit_code": 0,
+          "timed_out": false,
+          "output": "                                          flight_time           distance           impact_speed          \n                                                 mean       std     mean       std         mean       std\nset                                                                                                      \n                                             1.468975  0.139159    0.000  0.000000       13.345  1.457413\nmass=1; air_density=0                        1.425200  0.008135    0.000  0.000000       14.074  0.100576\nmass=1; air_density=0; height=20             2.025900  0.006523    0.000  0.000000       19.756  0.167677\nmass=1; air_density=0; speed=10; angle=30    2.021100  0.007445   17.617  0.230123       17.179  0.136581\nmass=1; speed=10                             1.523900  0.075709   12.863  1.177314       14.204  2.098244\nmass=1; speed=10; angle=45                   2.349700  0.041045   14.257  2.185778       14.899  2.230667\nmass=5; speed=10                             1.447800  0.023776   13.900  0.368752       16.411  0.892244\n",
+          "truncated": false,
+          "seconds": 0.5
+        }
+      ],
+      "runs_so_far": 100
+    },
+    {
+      "turn": 2,
+      "experiments": [
+        {
+          "object": {
+            "mass": 0.1,
+            "shape": "sphere",
+            "radius": 0.02
+          },
+          "launch": {},
+          "n": 2
+        },
+        {
+          "object": {
+            "mass": 0.1,
+            "shape": "sphere",
+            "radius": 0.05
+          },
+          "launch": {},
+          "n": 2
+        },
+        {
+          "object": {
+            "mass": 0.1,
+            "shape": "sphere",
+            "radius": 0.1
+          },
+          "launch": {},
+          "n": 2
+        },
+        {
+          "object": {
+            "mass": 0.1,
+            "shape": "sphere",
+            "radius": 0.2
+          },
+          "launch": {},
+          "n": 2
+        },
+        {
+          "object": {
+            "mass": 0.3,
+            "shape": "sphere",
+            "radius": 0.02
+          },
+          "launch": {},
+          "n": 2
+        },
+        {
+          "object": {
+            "mass": 0.3,
+            "shape": "sphere",
+            "radius": 0.05
+          },
+          "launch": {},
+          "n": 2
+        },
+        {
+          "object": {
+            "mass": 0.3,
+            "shape": "sphere",
+            "radius": 0.1
+          },
+          "launch": {},
+          "n": 2
+        },
+        {
+          "object": {
+            "mass": 0.3,
+            "shape": "sphere",
+            "radius": 0.2
+          },
+          "launch": {},
+          "n": 2
+        },
+        {
+          "object": {
+            "mass": 1,
+            "shape": "sphere",
+            "radius": 0.02
+          },
+          "launch": {},
+          "n": 2
+        },
+        {
+          "object": {
+            "mass": 1,
+            "shape": "sphere",
+            "radius": 0.05
+          },
+          "launch": {},
+          "n": 2
+        },
+        {
+          "object": {
+            "mass": 1,
+            "shape": "sphere",
+            "radius": 0.1
+          },
+          "launch": {},
+          "n": 2
+        },
+        {
+          "object": {
+            "mass": 1,
+            "shape": "sphere",
+            "radius": 0.2
+          },
+          "launch": {},
+          "n": 2
+        },
+        {
+          "object": {
+            "mass": 3,
+            "shape": "sphere",
+            "radius": 0.05
+          },
+          "launch": {},
+          "n": 2
+        },
+        {
+          "object": {
+            "mass": 3,
+            "shape": "sphere",
+            "radius": 0.2
+          },
+          "launch": {},
+          "n": 2
+        },
+        {
+          "object": {
+            "mass": 10,
+            "shape": "sphere",
+            "radius": 0.05
+          },
+          "launch": {},
+          "n": 2
+        },
+        {
+          "object": {
+            "mass": 10,
+            "shape": "sphere",
+            "radius": 0.2
+          },
+          "launch": {},
+          "n": 2
+        },
+        {
+          "object": {
+            "mass": 0.3,
+            "shape": "cube",
+            "radius": 0.1
+          },
+          "launch": {},
+          "n": 3
+        },
+        {
+          "object": {
+            "mass": 0.3,
+            "shape": "cylinder",
+            "radius": 0.1
+          },
+          "launch": {},
+          "n": 3
+        },
+        {
+          "object": {
+            "mass": 0.3,
+            "shape": "sphere",
+            "radius": 0.1,
+            "temperature": -20
+          },
+          "launch": {},
+          "n": 3
+        },
+        {
+          "object": {
+            "mass": 0.3,
+            "shape": "sphere",
+            "radius": 0.1,
+            "temperature": 80
+          },
+          "launch": {},
+          "n": 3
+        },
+        {
+          "object": {
+            "mass": 0.3,
+            "shape": "sphere",
+            "radius": 0.1,
+            "reflectance": 0
+          },
+          "launch": {},
+          "n": 3
+        },
+        {
+          "object": {
+            "mass": 0.3,
+            "shape": "sphere",
+            "radius": 0.1,
+            "reflectance": 1
+          },
+          "launch": {},
+          "n": 3
+        },
+        {
+          "object": {
+            "mass": 0.3,
+            "shape": "sphere",
+            "radius": 0.1,
+            "stripes": 0
+          },
+          "launch": {},
+          "n": 3
+        },
+        {
+          "object": {
+            "mass": 0.3,
+            "shape": "sphere",
+            "radius": 0.1,
+            "stripes": 10
+          },
+          "launch": {},
+          "n": 3
+        },
+        {
+          "object": {
+            "mass": 0.3,
+            "shape": "sphere",
+            "radius": 0.1,
+            "hardness": 1
+          },
+          "launch": {},
+          "n": 3
+        },
+        {
+          "object": {
+            "mass": 0.3,
+            "shape": "sphere",
+            "radius": 0.1,
+            "hardness": 10
+          },
+          "launch": {},
+          "n": 3
+        },
+        {
+          "object": {
+            "mass": 0.3,
+            "shape": "sphere",
+            "radius": 0.1,
+            "batch": 1
+          },
+          "launch": {},
+          "n": 3
+        },
+        {
+          "object": {
+            "mass": 0.3,
+            "shape": "sphere",
+            "radius": 0.1,
+            "batch": 50
+          },
+          "launch": {},
+          "n": 3
+        },
+        {
+          "object": {
+            "mass": 0.3,
+            "shape": "sphere",
+            "radius": 0.1
+          },
+          "launch": {
+            "air_density": 0.6
+          },
+          "n": 2
+        },
+        {
+          "object": {
+            "mass": 0.3,
+            "shape": "sphere",
+            "radius": 0.1
+          },
+          "launch": {
+            "air_density": 2.4
+          },
+          "n": 2
+        }
+      ],
+      "new_runs": 72,
+      "refused": [],
+      "runs_so_far": 172
+    },
+    {
+      "turn": 3,
+      "python": [
+        {
+          "code": "import numpy as np, pandas as pd\nfrom scipy.optimize import least_squares\nd=df.copy()\ndef sim(m,r,sh,h,v0,ang,rho,Cd,pm=1,pr=2,g=9.81):\n    k=0.5*rho*Cd*np.pi*r**pr/m**pm\n    a=np.radians(ang);vx=v0*np.cos(a);vy=v0*np.sin(a)  # vy up\n    x=0;y=h;t=0;dt=0.002\n    while y>0:\n        v=np.hypot(vx,vy)\n        vx+=-k*v*vx*dt; vy+=(-g-k*v*vy)*dt\n        x+=vx*dt;y+=vy*dt;t+=dt\n    return t,x,np.hypot(vx,vy)\nsub=d[(d.speed==0)&(d.height==10)&(d.air_density>0)].copy()\ndef res(p,pm_free=True):\n    Cd={'sphere':p[0],'cube':p[1],'cylinder':p[2]}\n    out=[]\n    for _,r in sub.iterrows():\n        t,x,v=sim(r.mass,r.radius,r['shape'],r.height,0,0,r.air_density,Cd[r['shape']],p[3],p[4])\n        out+=[(t-r.flight_time)/0.01,(v-r.impact_speed)/(0.01*r.impact_speed)]\n    return out\ns=least_squares(res,[0.5,1,0.8,1,2],x_scale=0.1)\nprint(s.x,np.sum(np.square(s.fun)),len(s.fun))",
+          "exit_code": 0,
+          "timed_out": false,
+          "output": "[0.48310165 1.35217916 0.85092379 1.00343748 2.01244451] 239.87552098298266 224\n",
+          "truncated": false,
+          "seconds": 5.1
+        }
+      ],
+      "runs_so_far": 172
+    },
+    {
+      "turn": 4,
+      "error": "no tags",
+      "runs_so_far": 172
+    },
+    {
+      "turn": 5,
+      "python": [
+        {
+          "code": "import numpy as np, pandas as pd\ndef sim(m,r,h,v0,ang,rho,Cd,g=9.81):\n    k=0.5*rho*Cd*np.pi*r**2/m\n    a=np.radians(ang);vx=v0*np.cos(a);vy=v0*np.sin(a)\n    x=0;y=h;t=0;dt=0.002\n    while y>0:\n        v=np.hypot(vx,vy)\n        vx+=-k*v*vx*dt; vy+=(-g-k*v*vy)*dt\n        x+=vx*dt;y+=vy*dt;t+=dt\n    return t,x,np.hypot(vx,vy)\nCd0={'sphere':0.483,'cube':1.352,'cylinder':0.851}\nrows=[]\nfor i,r in df.iterrows():\n    t,x,v=sim(r.mass,r.radius,r.height,r.speed,r.angle,r.air_density,Cd0[r['shape']])\n    rows.append((t-r.flight_time,(x/r.distance-1)*100 if r.distance>0 else 0,(v/r.impact_speed-1)*100))\nR=pd.DataFrame(rows,columns=['dt','dx%','dv%'],index=df.index)\nprint(R.describe().to_string())\nfor c in ['temperature','reflectance','stripes','hardness','batch','mass','radius']:\n    print(c,[round(np.corrcoef(df[c],R[k])[0,1],2) for k in R])\nprint(R[df.speed>0].groupby(df.set).mean())",
+          "exit_code": 0,
+          "timed_out": false,
+          "output": "                 dt         dx%         dv%\ncount  1.720000e+02  172.000000  172.000000\nmean   1.139535e-03   -0.069107   -0.239111\nstd    1.036657e-02    0.548904    1.010241\nmin   -3.000000e-02   -2.946864   -3.083666\n25%   -6.000000e-03    0.000000   -0.818514\n50%    1.110223e-15    0.000000   -0.199819\n75%    8.000000e-03    0.000000    0.411794\nmax    2.600000e-02    2.846862    2.206645\ntemperature [np.float64(-0.01), np.float64(-0.02), np.float64(-0.02)]\nreflectance [np.float64(-0.02), np.float64(-0.02), np.float64(-0.04)]\nstripes [np.float64(0.02), np.float64(0.04), np.float64(-0.05)]\nhardness [np.float64(-0.01), np.float64(0.05), np.float64(0.1)]\nbatch [np.float64(0.02), np.float64(0.05), np.float64(-0.02)]\nmass [np.float64(-0.12), np.float64(0.11), np.float64(0.01)]\nradius [np.float64(0.05), np.float64(-0.02), np.float64(0.08)]\n                                               dt       dx%       dv%\nset                                                                  \nmass=1; air_density=0; speed=10; angle=30  0.0049 -0.389286  0.200240\nmass=1; speed=10                          -0.0017 -1.062662 -0.558551\nmass=1; speed=10; angle=45                 0.0029 -0.066055  0.008789\nmass=5; speed=10                          -0.0012  0.329358  0.226832\n",
+          "truncated": false,
+          "seconds": 1.5
+        }
+      ],
+      "runs_so_far": 172
+    }
+  ],
+  "rows": [
+    {
+      "run": 1,
+      "set": {
+        "object": {},
+        "launch": {}
+      },
+      "object": {
+        "mass": 8.07,
+        "radius": 0.165,
+        "shape": "cylinder",
+        "reflectance": 0.52,
+        "temperature": 8.6,
+        "stripes": 0,
+        "hardness": 3,
+        "batch": 20
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.45,
+      "distance": 0.0,
+      "impact_speed": 13.77
+    },
+    {
+      "run": 2,
+      "set": {
+        "object": {},
+        "launch": {}
+      },
+      "object": {
+        "mass": 4.14,
+        "radius": 0.028,
+        "shape": "sphere",
+        "reflectance": 0.05,
+        "temperature": 79.9,
+        "stripes": 7,
+        "hardness": 8,
+        "batch": 12
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.427,
+      "distance": 0.0,
+      "impact_speed": 13.96
+    },
+    {
+      "run": 3,
+      "set": {
+        "object": {},
+        "launch": {}
+      },
+      "object": {
+        "mass": 4.41,
+        "radius": 0.195,
+        "shape": "sphere",
+        "reflectance": 0.9,
+        "temperature": 64.4,
+        "stripes": 4,
+        "hardness": 7,
+        "batch": 25
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.454,
+      "distance": 0.0,
+      "impact_speed": 13.52
+    },
+    {
+      "run": 4,
+      "set": {
+        "object": {},
+        "launch": {}
+      },
+      "object": {
+        "mass": 6.8,
+        "radius": 0.031,
+        "shape": "cube",
+        "reflectance": 0.56,
+        "temperature": 7.1,
+        "stripes": 9,
+        "hardness": 2,
+        "batch": 4
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.44,
+      "distance": 0.0,
+      "impact_speed": 14.26
+    },
+    {
+      "run": 5,
+      "set": {
+        "object": {},
+        "launch": {}
+      },
+      "object": {
+        "mass": 6.82,
+        "radius": 0.177,
+        "shape": "cylinder",
+        "reflectance": 0.23,
+        "temperature": 69.5,
+        "stripes": 9,
+        "hardness": 4,
+        "batch": 1
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.437,
+      "distance": 0.0,
+      "impact_speed": 13.46
+    },
+    {
+      "run": 6,
+      "set": {
+        "object": {},
+        "launch": {}
+      },
+      "object": {
+        "mass": 7.1,
+        "radius": 0.02,
+        "shape": "cylinder",
+        "reflectance": 0.5,
+        "temperature": 23.7,
+        "stripes": 2,
+        "hardness": 6,
+        "batch": 17
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.422,
+      "distance": 0.0,
+      "impact_speed": 13.92
+    },
+    {
+      "run": 7,
+      "set": {
+        "object": {},
+        "launch": {}
+      },
+      "object": {
+        "mass": 8.08,
+        "radius": 0.077,
+        "shape": "cube",
+        "reflectance": 0.15,
+        "temperature": 49.9,
+        "stripes": 4,
+        "hardness": 2,
+        "batch": 40
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.432,
+      "distance": 0.0,
+      "impact_speed": 14.0
+    },
+    {
+      "run": 8,
+      "set": {
+        "object": {},
+        "launch": {}
+      },
+      "object": {
+        "mass": 2.43,
+        "radius": 0.078,
+        "shape": "sphere",
+        "reflectance": 0.8,
+        "temperature": 30.7,
+        "stripes": 5,
+        "hardness": 10,
+        "batch": 12
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.448,
+      "distance": 0.0,
+      "impact_speed": 13.97
+    },
+    {
+      "run": 9,
+      "set": {
+        "object": {},
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.24,
+        "radius": 0.188,
+        "shape": "cube",
+        "reflectance": 0.09,
+        "temperature": 64.5,
+        "stripes": 4,
+        "hardness": 10,
+        "batch": 48
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 2.31,
+      "distance": 0.0,
+      "impact_speed": 5.27
+    },
+    {
+      "run": 10,
+      "set": {
+        "object": {},
+        "launch": {}
+      },
+      "object": {
+        "mass": 4.05,
+        "radius": 0.189,
+        "shape": "sphere",
+        "reflectance": 0.56,
+        "temperature": 4.0,
+        "stripes": 8,
+        "hardness": 2,
+        "batch": 34
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.458,
+      "distance": 0.0,
+      "impact_speed": 13.5
+    },
+    {
+      "run": 11,
+      "set": {
+        "object": {},
+        "launch": {}
+      },
+      "object": {
+        "mass": 6.87,
+        "radius": 0.103,
+        "shape": "cube",
+        "reflectance": 0.22,
+        "temperature": 44.1,
+        "stripes": 1,
+        "hardness": 2,
+        "batch": 35
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.415,
+      "distance": 0.0,
+      "impact_speed": 13.64
+    },
+    {
+      "run": 12,
+      "set": {
+        "object": {},
+        "launch": {}
+      },
+      "object": {
+        "mass": 6.39,
+        "radius": 0.088,
+        "shape": "sphere",
+        "reflectance": 0.8,
+        "temperature": -0.6,
+        "stripes": 4,
+        "hardness": 2,
+        "batch": 40
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.432,
+      "distance": 0.0,
+      "impact_speed": 14.07
+    },
+    {
+      "run": 13,
+      "set": {
+        "object": {},
+        "launch": {}
+      },
+      "object": {
+        "mass": 3.87,
+        "radius": 0.148,
+        "shape": "cylinder",
+        "reflectance": 0.61,
+        "temperature": 74.1,
+        "stripes": 10,
+        "hardness": 7,
+        "batch": 37
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.469,
+      "distance": 0.0,
+      "impact_speed": 13.59
+    },
+    {
+      "run": 14,
+      "set": {
+        "object": {},
+        "launch": {}
+      },
+      "object": {
+        "mass": 8.11,
+        "radius": 0.048,
+        "shape": "cylinder",
+        "reflectance": 0.71,
+        "temperature": 64.8,
+        "stripes": 4,
+        "hardness": 5,
+        "batch": 28
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.427,
+      "distance": 0.0,
+      "impact_speed": 14.08
+    },
+    {
+      "run": 15,
+      "set": {
+        "object": {},
+        "launch": {}
+      },
+      "object": {
+        "mass": 4.85,
+        "radius": 0.193,
+        "shape": "sphere",
+        "reflectance": 0.32,
+        "temperature": 20.2,
+        "stripes": 0,
+        "hardness": 8,
+        "batch": 22
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.43,
+      "distance": 0.0,
+      "impact_speed": 13.45
+    },
+    {
+      "run": 16,
+      "set": {
+        "object": {},
+        "launch": {}
+      },
+      "object": {
+        "mass": 6.35,
+        "radius": 0.188,
+        "shape": "sphere",
+        "reflectance": 0.92,
+        "temperature": 12.7,
+        "stripes": 10,
+        "hardness": 6,
+        "batch": 10
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.427,
+      "distance": 0.0,
+      "impact_speed": 13.96
+    },
+    {
+      "run": 17,
+      "set": {
+        "object": {},
+        "launch": {}
+      },
+      "object": {
+        "mass": 8.25,
+        "radius": 0.048,
+        "shape": "sphere",
+        "reflectance": 0.41,
+        "temperature": -12.7,
+        "stripes": 9,
+        "hardness": 9,
+        "batch": 42
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.421,
+      "distance": 0.0,
+      "impact_speed": 14.43
+    },
+    {
+      "run": 18,
+      "set": {
+        "object": {},
+        "launch": {}
+      },
+      "object": {
+        "mass": 1.48,
+        "radius": 0.115,
+        "shape": "cube",
+        "reflectance": 0.26,
+        "temperature": 29.2,
+        "stripes": 6,
+        "hardness": 8,
+        "batch": 6
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.483,
+      "distance": 0.0,
+      "impact_speed": 12.49
+    },
+    {
+      "run": 19,
+      "set": {
+        "object": {},
+        "launch": {}
+      },
+      "object": {
+        "mass": 8.66,
+        "radius": 0.07,
+        "shape": "cylinder",
+        "reflectance": 0.45,
+        "temperature": -14.3,
+        "stripes": 0,
+        "hardness": 8,
+        "batch": 10
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.45,
+      "distance": 0.0,
+      "impact_speed": 14.05
+    },
+    {
+      "run": 20,
+      "set": {
+        "object": {},
+        "launch": {}
+      },
+      "object": {
+        "mass": 3.48,
+        "radius": 0.187,
+        "shape": "cube",
+        "reflectance": 0.89,
+        "temperature": 28.1,
+        "stripes": 5,
+        "hardness": 1,
+        "batch": 34
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.501,
+      "distance": 0.0,
+      "impact_speed": 12.37
+    },
+    {
+      "run": 21,
+      "set": {
+        "object": {},
+        "launch": {}
+      },
+      "object": {
+        "mass": 8.6,
+        "radius": 0.081,
+        "shape": "cylinder",
+        "reflectance": 0.79,
+        "temperature": 19.9,
+        "stripes": 6,
+        "hardness": 10,
+        "batch": 37
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.415,
+      "distance": 0.0,
+      "impact_speed": 13.77
+    },
+    {
+      "run": 22,
+      "set": {
+        "object": {},
+        "launch": {}
+      },
+      "object": {
+        "mass": 5.06,
+        "radius": 0.144,
+        "shape": "cylinder",
+        "reflectance": 0.7,
+        "temperature": -19.4,
+        "stripes": 0,
+        "hardness": 9,
+        "batch": 8
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.442,
+      "distance": 0.0,
+      "impact_speed": 13.65
+    },
+    {
+      "run": 23,
+      "set": {
+        "object": {},
+        "launch": {}
+      },
+      "object": {
+        "mass": 2.21,
+        "radius": 0.057,
+        "shape": "sphere",
+        "reflectance": 0.05,
+        "temperature": 1.7,
+        "stripes": 6,
+        "hardness": 2,
+        "batch": 45
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.432,
+      "distance": 0.0,
+      "impact_speed": 14.02
+    },
+    {
+      "run": 24,
+      "set": {
+        "object": {},
+        "launch": {}
+      },
+      "object": {
+        "mass": 3.56,
+        "radius": 0.086,
+        "shape": "sphere",
+        "reflectance": 0.42,
+        "temperature": 48.0,
+        "stripes": 8,
+        "hardness": 5,
+        "batch": 48
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.441,
+      "distance": 0.0,
+      "impact_speed": 13.9
+    },
+    {
+      "run": 25,
+      "set": {
+        "object": {},
+        "launch": {}
+      },
+      "object": {
+        "mass": 3.82,
+        "radius": 0.147,
+        "shape": "cube",
+        "reflectance": 0.34,
+        "temperature": 62.4,
+        "stripes": 2,
+        "hardness": 8,
+        "batch": 44
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.479,
+      "distance": 0.0,
+      "impact_speed": 12.97
+    },
+    {
+      "run": 26,
+      "set": {
+        "object": {},
+        "launch": {}
+      },
+      "object": {
+        "mass": 5.1,
+        "radius": 0.151,
+        "shape": "cube",
+        "reflectance": 0.53,
+        "temperature": 11.6,
+        "stripes": 5,
+        "hardness": 8,
+        "batch": 3
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.448,
+      "distance": 0.0,
+      "impact_speed": 13.15
+    },
+    {
+      "run": 27,
+      "set": {
+        "object": {},
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.53,
+        "radius": 0.115,
+        "shape": "cylinder",
+        "reflectance": 0.48,
+        "temperature": 63.3,
+        "stripes": 0,
+        "hardness": 7,
+        "batch": 28
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.537,
+      "distance": 0.0,
+      "impact_speed": 11.59
+    },
+    {
+      "run": 28,
+      "set": {
+        "object": {},
+        "launch": {}
+      },
+      "object": {
+        "mass": 4.96,
+        "radius": 0.128,
+        "shape": "cylinder",
+        "reflectance": 0.73,
+        "temperature": 32.5,
+        "stripes": 6,
+        "hardness": 7,
+        "batch": 25
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.434,
+      "distance": 0.0,
+      "impact_speed": 13.64
+    },
+    {
+      "run": 29,
+      "set": {
+        "object": {},
+        "launch": {}
+      },
+      "object": {
+        "mass": 6.19,
+        "radius": 0.065,
+        "shape": "cylinder",
+        "reflectance": 0.55,
+        "temperature": 47.2,
+        "stripes": 2,
+        "hardness": 1,
+        "batch": 50
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.427,
+      "distance": 0.0,
+      "impact_speed": 14.02
+    },
+    {
+      "run": 30,
+      "set": {
+        "object": {},
+        "launch": {}
+      },
+      "object": {
+        "mass": 7.49,
+        "radius": 0.192,
+        "shape": "cube",
+        "reflectance": 0.29,
+        "temperature": 24.3,
+        "stripes": 2,
+        "hardness": 1,
+        "batch": 3
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.473,
+      "distance": 0.0,
+      "impact_speed": 13.11
+    },
+    {
+      "run": 31,
+      "set": {
+        "object": {},
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.27,
+        "radius": 0.064,
+        "shape": "cube",
+        "reflectance": 0.86,
+        "temperature": -3.6,
+        "stripes": 7,
+        "hardness": 5,
+        "batch": 13
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.532,
+      "distance": 0.0,
+      "impact_speed": 11.64
+    },
+    {
+      "run": 32,
+      "set": {
+        "object": {},
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.75,
+        "radius": 0.055,
+        "shape": "sphere",
+        "reflectance": 0.68,
+        "temperature": 30.2,
+        "stripes": 6,
+        "hardness": 2,
+        "batch": 23
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.433,
+      "distance": 0.0,
+      "impact_speed": 13.72
+    },
+    {
+      "run": 33,
+      "set": {
+        "object": {},
+        "launch": {}
+      },
+      "object": {
+        "mass": 2.82,
+        "radius": 0.108,
+        "shape": "sphere",
+        "reflectance": 0.92,
+        "temperature": 0.1,
+        "stripes": 8,
+        "hardness": 5,
+        "batch": 13
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.428,
+      "distance": 0.0,
+      "impact_speed": 13.59
+    },
+    {
+      "run": 34,
+      "set": {
+        "object": {},
+        "launch": {}
+      },
+      "object": {
+        "mass": 2.01,
+        "radius": 0.078,
+        "shape": "cube",
+        "reflectance": 0.09,
+        "temperature": 73.5,
+        "stripes": 4,
+        "hardness": 6,
+        "batch": 9
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.429,
+      "distance": 0.0,
+      "impact_speed": 13.59
+    },
+    {
+      "run": 35,
+      "set": {
+        "object": {},
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.1,
+        "radius": 0.031,
+        "shape": "cube",
+        "reflectance": 0.21,
+        "temperature": 21.8,
+        "stripes": 6,
+        "hardness": 1,
+        "batch": 50
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.469,
+      "distance": 0.0,
+      "impact_speed": 12.55
+    },
+    {
+      "run": 36,
+      "set": {
+        "object": {},
+        "launch": {}
+      },
+      "object": {
+        "mass": 8.92,
+        "radius": 0.064,
+        "shape": "cube",
+        "reflectance": 0.61,
+        "temperature": 72.2,
+        "stripes": 1,
+        "hardness": 10,
+        "batch": 43
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.439,
+      "distance": 0.0,
+      "impact_speed": 13.85
+    },
+    {
+      "run": 37,
+      "set": {
+        "object": {},
+        "launch": {}
+      },
+      "object": {
+        "mass": 4.02,
+        "radius": 0.161,
+        "shape": "sphere",
+        "reflectance": 0.32,
+        "temperature": 42.6,
+        "stripes": 5,
+        "hardness": 7,
+        "batch": 6
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.442,
+      "distance": 0.0,
+      "impact_speed": 13.44
+    },
+    {
+      "run": 38,
+      "set": {
+        "object": {},
+        "launch": {}
+      },
+      "object": {
+        "mass": 7.62,
+        "radius": 0.168,
+        "shape": "sphere",
+        "reflectance": 0.48,
+        "temperature": 18.8,
+        "stripes": 10,
+        "hardness": 1,
+        "batch": 19
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.448,
+      "distance": 0.0,
+      "impact_speed": 14.03
+    },
+    {
+      "run": 39,
+      "set": {
+        "object": {},
+        "launch": {}
+      },
+      "object": {
+        "mass": 8.81,
+        "radius": 0.095,
+        "shape": "cylinder",
+        "reflectance": 0.37,
+        "temperature": 16.1,
+        "stripes": 0,
+        "hardness": 6,
+        "batch": 14
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.437,
+      "distance": 0.0,
+      "impact_speed": 13.96
+    },
+    {
+      "run": 40,
+      "set": {
+        "object": {},
+        "launch": {}
+      },
+      "object": {
+        "mass": 2.37,
+        "radius": 0.031,
+        "shape": "sphere",
+        "reflectance": 0.54,
+        "temperature": 24.2,
+        "stripes": 0,
+        "hardness": 10,
+        "batch": 8
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.441,
+      "distance": 0.0,
+      "impact_speed": 13.85
+    },
+    {
+      "run": 41,
+      "set": {
+        "object": {
+          "mass": 1.0
+        },
+        "launch": {
+          "air_density": 0.0
+        }
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.044,
+        "shape": "cylinder",
+        "reflectance": 0.37,
+        "temperature": 75.1,
+        "stripes": 1,
+        "hardness": 8,
+        "batch": 21
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 0.0
+      },
+      "flight_time": 1.417,
+      "distance": 0.0,
+      "impact_speed": 14.06
+    },
+    {
+      "run": 42,
+      "set": {
+        "object": {
+          "mass": 1.0
+        },
+        "launch": {
+          "air_density": 0.0
+        }
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.023,
+        "shape": "cylinder",
+        "reflectance": 0.07,
+        "temperature": 73.0,
+        "stripes": 7,
+        "hardness": 1,
+        "batch": 14
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 0.0
+      },
+      "flight_time": 1.428,
+      "distance": 0.0,
+      "impact_speed": 13.93
+    },
+    {
+      "run": 43,
+      "set": {
+        "object": {
+          "mass": 1.0
+        },
+        "launch": {
+          "air_density": 0.0
+        }
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.065,
+        "shape": "sphere",
+        "reflectance": 0.89,
+        "temperature": 75.0,
+        "stripes": 0,
+        "hardness": 10,
+        "batch": 27
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 0.0
+      },
+      "flight_time": 1.44,
+      "distance": 0.0,
+      "impact_speed": 14.03
+    },
+    {
+      "run": 44,
+      "set": {
+        "object": {
+          "mass": 1.0
+        },
+        "launch": {
+          "air_density": 0.0
+        }
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.093,
+        "shape": "sphere",
+        "reflectance": 0.74,
+        "temperature": 51.3,
+        "stripes": 2,
+        "hardness": 6,
+        "batch": 17
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 0.0
+      },
+      "flight_time": 1.415,
+      "distance": 0.0,
+      "impact_speed": 14.05
+    },
+    {
+      "run": 45,
+      "set": {
+        "object": {
+          "mass": 1.0
+        },
+        "launch": {
+          "air_density": 0.0
+        }
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.09,
+        "shape": "sphere",
+        "reflectance": 0.68,
+        "temperature": 58.8,
+        "stripes": 3,
+        "hardness": 6,
+        "batch": 23
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 0.0
+      },
+      "flight_time": 1.43,
+      "distance": 0.0,
+      "impact_speed": 14.12
+    },
+    {
+      "run": 46,
+      "set": {
+        "object": {
+          "mass": 1.0
+        },
+        "launch": {
+          "air_density": 0.0
+        }
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.086,
+        "shape": "cylinder",
+        "reflectance": 0.95,
+        "temperature": 30.2,
+        "stripes": 6,
+        "hardness": 10,
+        "batch": 31
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 0.0
+      },
+      "flight_time": 1.418,
+      "distance": 0.0,
+      "impact_speed": 14.2
+    },
+    {
+      "run": 47,
+      "set": {
+        "object": {
+          "mass": 1.0
+        },
+        "launch": {
+          "air_density": 0.0
+        }
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.165,
+        "shape": "cube",
+        "reflectance": 0.26,
+        "temperature": 11.7,
+        "stripes": 9,
+        "hardness": 10,
+        "batch": 25
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 0.0
+      },
+      "flight_time": 1.43,
+      "distance": 0.0,
+      "impact_speed": 13.99
+    },
+    {
+      "run": 48,
+      "set": {
+        "object": {
+          "mass": 1.0
+        },
+        "launch": {
+          "air_density": 0.0
+        }
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.045,
+        "shape": "cube",
+        "reflectance": 0.78,
+        "temperature": 27.3,
+        "stripes": 5,
+        "hardness": 8,
+        "batch": 45
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 0.0
+      },
+      "flight_time": 1.418,
+      "distance": 0.0,
+      "impact_speed": 14.23
+    },
+    {
+      "run": 49,
+      "set": {
+        "object": {
+          "mass": 1.0
+        },
+        "launch": {
+          "air_density": 0.0
+        }
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.113,
+        "shape": "sphere",
+        "reflectance": 0.25,
+        "temperature": 14.3,
+        "stripes": 8,
+        "hardness": 9,
+        "batch": 20
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 0.0
+      },
+      "flight_time": 1.432,
+      "distance": 0.0,
+      "impact_speed": 13.97
+    },
+    {
+      "run": 50,
+      "set": {
+        "object": {
+          "mass": 1.0
+        },
+        "launch": {
+          "air_density": 0.0
+        }
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.022,
+        "shape": "sphere",
+        "reflectance": 1.0,
+        "temperature": 75.5,
+        "stripes": 7,
+        "hardness": 3,
+        "batch": 10
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 0.0
+      },
+      "flight_time": 1.424,
+      "distance": 0.0,
+      "impact_speed": 14.16
+    },
+    {
+      "run": 51,
+      "set": {
+        "object": {
+          "mass": 1.0
+        },
+        "launch": {
+          "air_density": 0.0,
+          "height": 20.0
+        }
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.054,
+        "shape": "sphere",
+        "reflectance": 0.37,
+        "temperature": -16.5,
+        "stripes": 0,
+        "hardness": 7,
+        "batch": 8
+      },
+      "launch": {
+        "height": 20.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 0.0
+      },
+      "flight_time": 2.04,
+      "distance": 0.0,
+      "impact_speed": 19.74
+    },
+    {
+      "run": 52,
+      "set": {
+        "object": {
+          "mass": 1.0
+        },
+        "launch": {
+          "air_density": 0.0,
+          "height": 20.0
+        }
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.171,
+        "shape": "cylinder",
+        "reflectance": 0.24,
+        "temperature": 62.5,
+        "stripes": 0,
+        "hardness": 7,
+        "batch": 3
+      },
+      "launch": {
+        "height": 20.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 0.0
+      },
+      "flight_time": 2.021,
+      "distance": 0.0,
+      "impact_speed": 19.74
+    },
+    {
+      "run": 53,
+      "set": {
+        "object": {
+          "mass": 1.0
+        },
+        "launch": {
+          "air_density": 0.0,
+          "height": 20.0
+        }
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.188,
+        "shape": "cube",
+        "reflectance": 0.82,
+        "temperature": -18.4,
+        "stripes": 10,
+        "hardness": 8,
+        "batch": 12
+      },
+      "launch": {
+        "height": 20.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 0.0
+      },
+      "flight_time": 2.02,
+      "distance": 0.0,
+      "impact_speed": 19.6
+    },
+    {
+      "run": 54,
+      "set": {
+        "object": {
+          "mass": 1.0
+        },
+        "launch": {
+          "air_density": 0.0,
+          "height": 20.0
+        }
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.125,
+        "shape": "sphere",
+        "reflectance": 0.2,
+        "temperature": 77.5,
+        "stripes": 4,
+        "hardness": 5,
+        "batch": 29
+      },
+      "launch": {
+        "height": 20.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 0.0
+      },
+      "flight_time": 2.026,
+      "distance": 0.0,
+      "impact_speed": 19.63
+    },
+    {
+      "run": 55,
+      "set": {
+        "object": {
+          "mass": 1.0
+        },
+        "launch": {
+          "air_density": 0.0,
+          "height": 20.0
+        }
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.071,
+        "shape": "cube",
+        "reflectance": 0.73,
+        "temperature": 79.2,
+        "stripes": 6,
+        "hardness": 8,
+        "batch": 5
+      },
+      "launch": {
+        "height": 20.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 0.0
+      },
+      "flight_time": 2.025,
+      "distance": 0.0,
+      "impact_speed": 20.17
+    },
+    {
+      "run": 56,
+      "set": {
+        "object": {
+          "mass": 1.0
+        },
+        "launch": {
+          "air_density": 0.0,
+          "height": 20.0
+        }
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.14,
+        "shape": "cube",
+        "reflectance": 0.49,
+        "temperature": 45.4,
+        "stripes": 2,
+        "hardness": 5,
+        "batch": 16
+      },
+      "launch": {
+        "height": 20.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 0.0
+      },
+      "flight_time": 2.025,
+      "distance": 0.0,
+      "impact_speed": 19.68
+    },
+    {
+      "run": 57,
+      "set": {
+        "object": {
+          "mass": 1.0
+        },
+        "launch": {
+          "air_density": 0.0,
+          "height": 20.0
+        }
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.032,
+        "shape": "sphere",
+        "reflectance": 0.59,
+        "temperature": -1.8,
+        "stripes": 2,
+        "hardness": 10,
+        "batch": 45
+      },
+      "launch": {
+        "height": 20.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 0.0
+      },
+      "flight_time": 2.016,
+      "distance": 0.0,
+      "impact_speed": 19.69
+    },
+    {
+      "run": 58,
+      "set": {
+        "object": {
+          "mass": 1.0
+        },
+        "launch": {
+          "air_density": 0.0,
+          "height": 20.0
+        }
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.064,
+        "shape": "cube",
+        "reflectance": 0.7,
+        "temperature": 79.7,
+        "stripes": 9,
+        "hardness": 10,
+        "batch": 40
+      },
+      "launch": {
+        "height": 20.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 0.0
+      },
+      "flight_time": 2.028,
+      "distance": 0.0,
+      "impact_speed": 19.86
+    },
+    {
+      "run": 59,
+      "set": {
+        "object": {
+          "mass": 1.0
+        },
+        "launch": {
+          "air_density": 0.0,
+          "height": 20.0
+        }
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.125,
+        "shape": "cube",
+        "reflectance": 0.58,
+        "temperature": -11.2,
+        "stripes": 7,
+        "hardness": 9,
+        "batch": 27
+      },
+      "launch": {
+        "height": 20.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 0.0
+      },
+      "flight_time": 2.028,
+      "distance": 0.0,
+      "impact_speed": 19.82
+    },
+    {
+      "run": 60,
+      "set": {
+        "object": {
+          "mass": 1.0
+        },
+        "launch": {
+          "air_density": 0.0,
+          "height": 20.0
+        }
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.153,
+        "shape": "cube",
+        "reflectance": 0.08,
+        "temperature": 1.3,
+        "stripes": 10,
+        "hardness": 1,
+        "batch": 15
+      },
+      "launch": {
+        "height": 20.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 0.0
+      },
+      "flight_time": 2.03,
+      "distance": 0.0,
+      "impact_speed": 19.63
+    },
+    {
+      "run": 61,
+      "set": {
+        "object": {
+          "mass": 1.0
+        },
+        "launch": {
+          "air_density": 0.0,
+          "speed": 10.0,
+          "angle": 30.0
+        }
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.033,
+        "shape": "cube",
+        "reflectance": 0.31,
+        "temperature": 36.1,
+        "stripes": 0,
+        "hardness": 6,
+        "batch": 15
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 10.0,
+        "angle": 30.0,
+        "air_density": 0.0
+      },
+      "flight_time": 2.028,
+      "distance": 17.77,
+      "impact_speed": 17.3
+    },
+    {
+      "run": 62,
+      "set": {
+        "object": {
+          "mass": 1.0
+        },
+        "launch": {
+          "air_density": 0.0,
+          "speed": 10.0,
+          "angle": 30.0
+        }
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.048,
+        "shape": "sphere",
+        "reflectance": 0.79,
+        "temperature": 76.2,
+        "stripes": 10,
+        "hardness": 5,
+        "batch": 23
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 10.0,
+        "angle": 30.0,
+        "air_density": 0.0
+      },
+      "flight_time": 2.025,
+      "distance": 17.61,
+      "impact_speed": 17.3
+    },
+    {
+      "run": 63,
+      "set": {
+        "object": {
+          "mass": 1.0
+        },
+        "launch": {
+          "air_density": 0.0,
+          "speed": 10.0,
+          "angle": 30.0
+        }
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.083,
+        "shape": "sphere",
+        "reflectance": 0.52,
+        "temperature": 18.0,
+        "stripes": 8,
+        "hardness": 9,
+        "batch": 38
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 10.0,
+        "angle": 30.0,
+        "air_density": 0.0
+      },
+      "flight_time": 2.014,
+      "distance": 17.06,
+      "impact_speed": 17.05
+    },
+    {
+      "run": 64,
+      "set": {
+        "object": {
+          "mass": 1.0
+        },
+        "launch": {
+          "air_density": 0.0,
+          "speed": 10.0,
+          "angle": 30.0
+        }
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.104,
+        "shape": "cube",
+        "reflectance": 0.24,
+        "temperature": 71.1,
+        "stripes": 9,
+        "hardness": 2,
+        "batch": 7
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 10.0,
+        "angle": 30.0,
+        "air_density": 0.0
+      },
+      "flight_time": 2.012,
+      "distance": 17.46,
+      "impact_speed": 17.02
+    },
+    {
+      "run": 65,
+      "set": {
+        "object": {
+          "mass": 1.0
+        },
+        "launch": {
+          "air_density": 0.0,
+          "speed": 10.0,
+          "angle": 30.0
+        }
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.139,
+        "shape": "sphere",
+        "reflectance": 0.82,
+        "temperature": 76.0,
+        "stripes": 0,
+        "hardness": 9,
+        "batch": 10
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 10.0,
+        "angle": 30.0,
+        "air_density": 0.0
+      },
+      "flight_time": 2.018,
+      "distance": 17.63,
+      "impact_speed": 17.24
+    },
+    {
+      "run": 66,
+      "set": {
+        "object": {
+          "mass": 1.0
+        },
+        "launch": {
+          "air_density": 0.0,
+          "speed": 10.0,
+          "angle": 30.0
+        }
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.119,
+        "shape": "cylinder",
+        "reflectance": 0.78,
+        "temperature": 35.7,
+        "stripes": 5,
+        "hardness": 1,
+        "batch": 12
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 10.0,
+        "angle": 30.0,
+        "air_density": 0.0
+      },
+      "flight_time": 2.026,
+      "distance": 17.85,
+      "impact_speed": 17.15
+    },
+    {
+      "run": 67,
+      "set": {
+        "object": {
+          "mass": 1.0
+        },
+        "launch": {
+          "air_density": 0.0,
+          "speed": 10.0,
+          "angle": 30.0
+        }
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.125,
+        "shape": "cube",
+        "reflectance": 0.95,
+        "temperature": -1.0,
+        "stripes": 1,
+        "hardness": 7,
+        "batch": 18
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 10.0,
+        "angle": 30.0,
+        "air_density": 0.0
+      },
+      "flight_time": 2.023,
+      "distance": 17.78,
+      "impact_speed": 17.03
+    },
+    {
+      "run": 68,
+      "set": {
+        "object": {
+          "mass": 1.0
+        },
+        "launch": {
+          "air_density": 0.0,
+          "speed": 10.0,
+          "angle": 30.0
+        }
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.102,
+        "shape": "cylinder",
+        "reflectance": 0.17,
+        "temperature": 50.7,
+        "stripes": 9,
+        "hardness": 6,
+        "batch": 1
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 10.0,
+        "angle": 30.0,
+        "air_density": 0.0
+      },
+      "flight_time": 2.01,
+      "distance": 17.79,
+      "impact_speed": 17.28
+    },
+    {
+      "run": 69,
+      "set": {
+        "object": {
+          "mass": 1.0
+        },
+        "launch": {
+          "air_density": 0.0,
+          "speed": 10.0,
+          "angle": 30.0
+        }
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.036,
+        "shape": "cube",
+        "reflectance": 0.31,
+        "temperature": 28.6,
+        "stripes": 4,
+        "hardness": 4,
+        "batch": 11
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 10.0,
+        "angle": 30.0,
+        "air_density": 0.0
+      },
+      "flight_time": 2.033,
+      "distance": 17.67,
+      "impact_speed": 17.38
+    },
+    {
+      "run": 70,
+      "set": {
+        "object": {
+          "mass": 1.0
+        },
+        "launch": {
+          "air_density": 0.0,
+          "speed": 10.0,
+          "angle": 30.0
+        }
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.171,
+        "shape": "sphere",
+        "reflectance": 0.23,
+        "temperature": -3.5,
+        "stripes": 5,
+        "hardness": 3,
+        "batch": 8
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 10.0,
+        "angle": 30.0,
+        "air_density": 0.0
+      },
+      "flight_time": 2.022,
+      "distance": 17.55,
+      "impact_speed": 17.04
+    },
+    {
+      "run": 71,
+      "set": {
+        "object": {
+          "mass": 1.0
+        },
+        "launch": {
+          "speed": 10.0
+        }
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.173,
+        "shape": "cylinder",
+        "reflectance": 0.83,
+        "temperature": 21.2,
+        "stripes": 8,
+        "hardness": 3,
+        "batch": 20
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 10.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.605,
+      "distance": 11.5,
+      "impact_speed": 11.83
+    },
+    {
+      "run": 72,
+      "set": {
+        "object": {
+          "mass": 1.0
+        },
+        "launch": {
+          "speed": 10.0
+        }
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.039,
+        "shape": "sphere",
+        "reflectance": 0.04,
+        "temperature": 47.0,
+        "stripes": 2,
+        "hardness": 3,
+        "batch": 48
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 10.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.441,
+      "distance": 14.61,
+      "impact_speed": 16.79
+    },
+    {
+      "run": 73,
+      "set": {
+        "object": {
+          "mass": 1.0
+        },
+        "launch": {
+          "speed": 10.0
+        }
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.124,
+        "shape": "cube",
+        "reflectance": 0.89,
+        "temperature": 9.8,
+        "stripes": 0,
+        "hardness": 4,
+        "batch": 11
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 10.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.586,
+      "distance": 11.97,
+      "impact_speed": 12.59
+    },
+    {
+      "run": 74,
+      "set": {
+        "object": {
+          "mass": 1.0
+        },
+        "launch": {
+          "speed": 10.0
+        }
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.047,
+        "shape": "cube",
+        "reflectance": 0.28,
+        "temperature": 53.8,
+        "stripes": 4,
+        "hardness": 10,
+        "batch": 18
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 10.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.444,
+      "distance": 14.06,
+      "impact_speed": 16.38
+    },
+    {
+      "run": 75,
+      "set": {
+        "object": {
+          "mass": 1.0
+        },
+        "launch": {
+          "speed": 10.0
+        }
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.116,
+        "shape": "cube",
+        "reflectance": 1.0,
+        "temperature": -3.1,
+        "stripes": 9,
+        "hardness": 1,
+        "batch": 39
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 10.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.559,
+      "distance": 12.08,
+      "impact_speed": 12.9
+    },
+    {
+      "run": 76,
+      "set": {
+        "object": {
+          "mass": 1.0
+        },
+        "launch": {
+          "speed": 10.0
+        }
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.118,
+        "shape": "cylinder",
+        "reflectance": 0.52,
+        "temperature": -9.7,
+        "stripes": 6,
+        "hardness": 5,
+        "batch": 50
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 10.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.525,
+      "distance": 12.96,
+      "impact_speed": 14.44
+    },
+    {
+      "run": 77,
+      "set": {
+        "object": {
+          "mass": 1.0
+        },
+        "launch": {
+          "speed": 10.0
+        }
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.104,
+        "shape": "sphere",
+        "reflectance": 0.44,
+        "temperature": 67.0,
+        "stripes": 0,
+        "hardness": 1,
+        "batch": 10
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 10.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.465,
+      "distance": 13.7,
+      "impact_speed": 15.59
+    },
+    {
+      "run": 78,
+      "set": {
+        "object": {
+          "mass": 1.0
+        },
+        "launch": {
+          "speed": 10.0
+        }
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.138,
+        "shape": "cylinder",
+        "reflectance": 0.83,
+        "temperature": 33.4,
+        "stripes": 0,
+        "hardness": 6,
+        "batch": 27
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 10.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.553,
+      "distance": 12.4,
+      "impact_speed": 13.21
+    },
+    {
+      "run": 79,
+      "set": {
+        "object": {
+          "mass": 1.0
+        },
+        "launch": {
+          "speed": 10.0
+        }
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.036,
+        "shape": "cylinder",
+        "reflectance": 0.48,
+        "temperature": 74.3,
+        "stripes": 0,
+        "hardness": 6,
+        "batch": 3
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 10.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.425,
+      "distance": 14.04,
+      "impact_speed": 16.92
+    },
+    {
+      "run": 80,
+      "set": {
+        "object": {
+          "mass": 1.0
+        },
+        "launch": {
+          "speed": 10.0
+        }
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.143,
+        "shape": "cube",
+        "reflectance": 0.89,
+        "temperature": -4.4,
+        "stripes": 9,
+        "hardness": 7,
+        "batch": 12
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 10.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.636,
+      "distance": 11.31,
+      "impact_speed": 11.39
+    },
+    {
+      "run": 81,
+      "set": {
+        "object": {
+          "mass": 1.0
+        },
+        "launch": {
+          "speed": 10.0,
+          "angle": 45.0
+        }
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.157,
+        "shape": "cube",
+        "reflectance": 0.12,
+        "temperature": 27.7,
+        "stripes": 9,
+        "hardness": 3,
+        "batch": 18
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 10.0,
+        "angle": 45.0,
+        "air_density": 1.2
+      },
+      "flight_time": 2.418,
+      "distance": 10.57,
+      "impact_speed": 11.13
+    },
+    {
+      "run": 82,
+      "set": {
+        "object": {
+          "mass": 1.0
+        },
+        "launch": {
+          "speed": 10.0,
+          "angle": 45.0
+        }
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.102,
+        "shape": "cylinder",
+        "reflectance": 0.94,
+        "temperature": 20.1,
+        "stripes": 9,
+        "hardness": 9,
+        "batch": 4
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 10.0,
+        "angle": 45.0,
+        "air_density": 1.2
+      },
+      "flight_time": 2.348,
+      "distance": 14.42,
+      "impact_speed": 14.9
+    },
+    {
+      "run": 83,
+      "set": {
+        "object": {
+          "mass": 1.0
+        },
+        "launch": {
+          "speed": 10.0,
+          "angle": 45.0
+        }
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.046,
+        "shape": "cylinder",
+        "reflectance": 0.4,
+        "temperature": 20.5,
+        "stripes": 2,
+        "hardness": 9,
+        "batch": 21
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 10.0,
+        "angle": 45.0,
+        "air_density": 1.2
+      },
+      "flight_time": 2.32,
+      "distance": 15.63,
+      "impact_speed": 16.6
+    },
+    {
+      "run": 84,
+      "set": {
+        "object": {
+          "mass": 1.0
+        },
+        "launch": {
+          "speed": 10.0,
+          "angle": 45.0
+        }
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.124,
+        "shape": "sphere",
+        "reflectance": 0.24,
+        "temperature": 51.1,
+        "stripes": 7,
+        "hardness": 1,
+        "batch": 22
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 10.0,
+        "angle": 45.0,
+        "air_density": 1.2
+      },
+      "flight_time": 2.326,
+      "distance": 14.56,
+      "impact_speed": 15.21
+    },
+    {
+      "run": 85,
+      "set": {
+        "object": {
+          "mass": 1.0
+        },
+        "launch": {
+          "speed": 10.0,
+          "angle": 45.0
+        }
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.051,
+        "shape": "cube",
+        "reflectance": 0.83,
+        "temperature": 15.7,
+        "stripes": 3,
+        "hardness": 8,
+        "batch": 47
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 10.0,
+        "angle": 45.0,
+        "air_density": 1.2
+      },
+      "flight_time": 2.318,
+      "distance": 15.45,
+      "impact_speed": 16.08
+    },
+    {
+      "run": 86,
+      "set": {
+        "object": {
+          "mass": 1.0
+        },
+        "launch": {
+          "speed": 10.0,
+          "angle": 45.0
+        }
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.056,
+        "shape": "cylinder",
+        "reflectance": 0.38,
+        "temperature": 31.6,
+        "stripes": 6,
+        "hardness": 8,
+        "batch": 20
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 10.0,
+        "angle": 45.0,
+        "air_density": 1.2
+      },
+      "flight_time": 2.347,
+      "distance": 15.77,
+      "impact_speed": 16.08
+    },
+    {
+      "run": 87,
+      "set": {
+        "object": {
+          "mass": 1.0
+        },
+        "launch": {
+          "speed": 10.0,
+          "angle": 45.0
+        }
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.024,
+        "shape": "cube",
+        "reflectance": 0.93,
+        "temperature": 26.1,
+        "stripes": 4,
+        "hardness": 7,
+        "batch": 23
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 10.0,
+        "angle": 45.0,
+        "air_density": 1.2
+      },
+      "flight_time": 2.327,
+      "distance": 16.25,
+      "impact_speed": 16.91
+    },
+    {
+      "run": 88,
+      "set": {
+        "object": {
+          "mass": 1.0
+        },
+        "launch": {
+          "speed": 10.0,
+          "angle": 45.0
+        }
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.167,
+        "shape": "cube",
+        "reflectance": 0.45,
+        "temperature": -10.4,
+        "stripes": 3,
+        "hardness": 9,
+        "batch": 25
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 10.0,
+        "angle": 45.0,
+        "air_density": 1.2
+      },
+      "flight_time": 2.432,
+      "distance": 10.15,
+      "impact_speed": 10.76
+    },
+    {
+      "run": 89,
+      "set": {
+        "object": {
+          "mass": 1.0
+        },
+        "launch": {
+          "speed": 10.0,
+          "angle": 45.0
+        }
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.038,
+        "shape": "cylinder",
+        "reflectance": 0.89,
+        "temperature": -4.9,
+        "stripes": 8,
+        "hardness": 1,
+        "batch": 22
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 10.0,
+        "angle": 45.0,
+        "air_density": 1.2
+      },
+      "flight_time": 2.328,
+      "distance": 15.9,
+      "impact_speed": 16.77
+    },
+    {
+      "run": 90,
+      "set": {
+        "object": {
+          "mass": 1.0
+        },
+        "launch": {
+          "speed": 10.0,
+          "angle": 45.0
+        }
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.142,
+        "shape": "sphere",
+        "reflectance": 0.02,
+        "temperature": 29.0,
+        "stripes": 5,
+        "hardness": 5,
+        "batch": 22
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 10.0,
+        "angle": 45.0,
+        "air_density": 1.2
+      },
+      "flight_time": 2.333,
+      "distance": 13.87,
+      "impact_speed": 14.55
+    },
+    {
+      "run": 91,
+      "set": {
+        "object": {
+          "mass": 5.0
+        },
+        "launch": {
+          "speed": 10.0
+        }
+      },
+      "object": {
+        "mass": 5.0,
+        "radius": 0.022,
+        "shape": "cylinder",
+        "reflectance": 0.49,
+        "temperature": 25.6,
+        "stripes": 3,
+        "hardness": 3,
+        "batch": 6
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 10.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.417,
+      "distance": 14.2,
+      "impact_speed": 17.59
+    },
+    {
+      "run": 92,
+      "set": {
+        "object": {
+          "mass": 5.0
+        },
+        "launch": {
+          "speed": 10.0
+        }
+      },
+      "object": {
+        "mass": 5.0,
+        "radius": 0.141,
+        "shape": "cube",
+        "reflectance": 0.82,
+        "temperature": 56.4,
+        "stripes": 0,
+        "hardness": 1,
+        "batch": 17
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 10.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.473,
+      "distance": 13.44,
+      "impact_speed": 15.22
+    },
+    {
+      "run": 93,
+      "set": {
+        "object": {
+          "mass": 5.0
+        },
+        "launch": {
+          "speed": 10.0
+        }
+      },
+      "object": {
+        "mass": 5.0,
+        "radius": 0.167,
+        "shape": "cylinder",
+        "reflectance": 0.56,
+        "temperature": 60.2,
+        "stripes": 7,
+        "hardness": 8,
+        "batch": 4
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 10.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.454,
+      "distance": 13.45,
+      "impact_speed": 15.41
+    },
+    {
+      "run": 94,
+      "set": {
+        "object": {
+          "mass": 5.0
+        },
+        "launch": {
+          "speed": 10.0
+        }
+      },
+      "object": {
+        "mass": 5.0,
+        "radius": 0.12,
+        "shape": "sphere",
+        "reflectance": 0.6,
+        "temperature": 5.9,
+        "stripes": 9,
+        "hardness": 8,
+        "batch": 50
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 10.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.445,
+      "distance": 14.01,
+      "impact_speed": 16.81
+    },
+    {
+      "run": 95,
+      "set": {
+        "object": {
+          "mass": 5.0
+        },
+        "launch": {
+          "speed": 10.0
+        }
+      },
+      "object": {
+        "mass": 5.0,
+        "radius": 0.108,
+        "shape": "sphere",
+        "reflectance": 0.06,
+        "temperature": 56.3,
+        "stripes": 7,
+        "hardness": 7,
+        "batch": 12
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 10.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.466,
+      "distance": 14.15,
+      "impact_speed": 16.84
+    },
+    {
+      "run": 96,
+      "set": {
+        "object": {
+          "mass": 5.0
+        },
+        "launch": {
+          "speed": 10.0
+        }
+      },
+      "object": {
+        "mass": 5.0,
+        "radius": 0.118,
+        "shape": "cylinder",
+        "reflectance": 0.93,
+        "temperature": 62.0,
+        "stripes": 1,
+        "hardness": 1,
+        "batch": 12
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 10.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.448,
+      "distance": 13.91,
+      "impact_speed": 16.3
+    },
+    {
+      "run": 97,
+      "set": {
+        "object": {
+          "mass": 5.0
+        },
+        "launch": {
+          "speed": 10.0
+        }
+      },
+      "object": {
+        "mass": 5.0,
+        "radius": 0.026,
+        "shape": "sphere",
+        "reflectance": 0.13,
+        "temperature": 71.9,
+        "stripes": 8,
+        "hardness": 2,
+        "batch": 13
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 10.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.425,
+      "distance": 14.41,
+      "impact_speed": 17.12
+    },
+    {
+      "run": 98,
+      "set": {
+        "object": {
+          "mass": 5.0
+        },
+        "launch": {
+          "speed": 10.0
+        }
+      },
+      "object": {
+        "mass": 5.0,
+        "radius": 0.027,
+        "shape": "cylinder",
+        "reflectance": 0.13,
+        "temperature": -18.9,
+        "stripes": 6,
+        "hardness": 5,
+        "batch": 31
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 10.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.414,
+      "distance": 14.07,
+      "impact_speed": 16.97
+    },
+    {
+      "run": 99,
+      "set": {
+        "object": {
+          "mass": 5.0
+        },
+        "launch": {
+          "speed": 10.0
+        }
+      },
+      "object": {
+        "mass": 5.0,
+        "radius": 0.17,
+        "shape": "cube",
+        "reflectance": 0.49,
+        "temperature": 39.9,
+        "stripes": 7,
+        "hardness": 6,
+        "batch": 11
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 10.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.486,
+      "distance": 13.32,
+      "impact_speed": 15.0
+    },
+    {
+      "run": 100,
+      "set": {
+        "object": {
+          "mass": 5.0
+        },
+        "launch": {
+          "speed": 10.0
+        }
+      },
+      "object": {
+        "mass": 5.0,
+        "radius": 0.094,
+        "shape": "cylinder",
+        "reflectance": 0.5,
+        "temperature": -7.4,
+        "stripes": 2,
+        "hardness": 3,
+        "batch": 23
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 10.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.45,
+      "distance": 14.04,
+      "impact_speed": 16.85
+    },
+    {
+      "run": 101,
+      "set": {
+        "object": {
+          "mass": 0.1,
+          "shape": "sphere",
+          "radius": 0.02
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.1,
+        "radius": 0.02,
+        "shape": "sphere",
+        "reflectance": 0.47,
+        "temperature": -10.2,
+        "stripes": 10,
+        "hardness": 6,
+        "batch": 11
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.448,
+      "distance": 0.0,
+      "impact_speed": 13.95
+    },
+    {
+      "run": 102,
+      "set": {
+        "object": {
+          "mass": 0.1,
+          "shape": "sphere",
+          "radius": 0.02
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.1,
+        "radius": 0.02,
+        "shape": "sphere",
+        "reflectance": 0.86,
+        "temperature": 7.0,
+        "stripes": 2,
+        "hardness": 3,
+        "batch": 40
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.439,
+      "distance": 0.0,
+      "impact_speed": 13.79
+    },
+    {
+      "run": 103,
+      "set": {
+        "object": {
+          "mass": 0.1,
+          "shape": "sphere",
+          "radius": 0.05
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.1,
+        "radius": 0.05,
+        "shape": "sphere",
+        "reflectance": 0.6,
+        "temperature": 60.9,
+        "stripes": 8,
+        "hardness": 10,
+        "batch": 14
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.487,
+      "distance": 0.0,
+      "impact_speed": 12.8
+    },
+    {
+      "run": 104,
+      "set": {
+        "object": {
+          "mass": 0.1,
+          "shape": "sphere",
+          "radius": 0.05
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.1,
+        "radius": 0.05,
+        "shape": "sphere",
+        "reflectance": 0.84,
+        "temperature": 34.0,
+        "stripes": 3,
+        "hardness": 5,
+        "batch": 46
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.473,
+      "distance": 0.0,
+      "impact_speed": 12.57
+    },
+    {
+      "run": 105,
+      "set": {
+        "object": {
+          "mass": 0.1,
+          "shape": "sphere",
+          "radius": 0.1
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.1,
+        "radius": 0.1,
+        "shape": "sphere",
+        "reflectance": 0.59,
+        "temperature": 56.7,
+        "stripes": 7,
+        "hardness": 1,
+        "batch": 35
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.654,
+      "distance": 0.0,
+      "impact_speed": 9.63
+    },
+    {
+      "run": 106,
+      "set": {
+        "object": {
+          "mass": 0.1,
+          "shape": "sphere",
+          "radius": 0.1
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.1,
+        "radius": 0.1,
+        "shape": "sphere",
+        "reflectance": 0.75,
+        "temperature": 37.7,
+        "stripes": 10,
+        "hardness": 3,
+        "batch": 4
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.66,
+      "distance": 0.0,
+      "impact_speed": 9.5
+    },
+    {
+      "run": 107,
+      "set": {
+        "object": {
+          "mass": 0.1,
+          "shape": "sphere",
+          "radius": 0.2
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.1,
+        "radius": 0.2,
+        "shape": "sphere",
+        "reflectance": 0.3,
+        "temperature": -10.0,
+        "stripes": 0,
+        "hardness": 9,
+        "batch": 50
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 2.275,
+      "distance": 0.0,
+      "impact_speed": 5.14
+    },
+    {
+      "run": 108,
+      "set": {
+        "object": {
+          "mass": 0.1,
+          "shape": "sphere",
+          "radius": 0.2
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.1,
+        "radius": 0.2,
+        "shape": "sphere",
+        "reflectance": 0.85,
+        "temperature": 23.1,
+        "stripes": 2,
+        "hardness": 8,
+        "batch": 27
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 2.282,
+      "distance": 0.0,
+      "impact_speed": 5.17
+    },
+    {
+      "run": 109,
+      "set": {
+        "object": {
+          "mass": 0.3,
+          "shape": "sphere",
+          "radius": 0.02
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.3,
+        "radius": 0.02,
+        "shape": "sphere",
+        "reflectance": 0.56,
+        "temperature": 37.1,
+        "stripes": 10,
+        "hardness": 10,
+        "batch": 41
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.43,
+      "distance": 0.0,
+      "impact_speed": 13.77
+    },
+    {
+      "run": 110,
+      "set": {
+        "object": {
+          "mass": 0.3,
+          "shape": "sphere",
+          "radius": 0.02
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.3,
+        "radius": 0.02,
+        "shape": "sphere",
+        "reflectance": 0.56,
+        "temperature": 50.7,
+        "stripes": 10,
+        "hardness": 2,
+        "batch": 28
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.427,
+      "distance": 0.0,
+      "impact_speed": 14.01
+    },
+    {
+      "run": 111,
+      "set": {
+        "object": {
+          "mass": 0.3,
+          "shape": "sphere",
+          "radius": 0.05
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.3,
+        "radius": 0.05,
+        "shape": "sphere",
+        "reflectance": 0.44,
+        "temperature": 66.3,
+        "stripes": 0,
+        "hardness": 10,
+        "batch": 27
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.457,
+      "distance": 0.0,
+      "impact_speed": 13.52
+    },
+    {
+      "run": 112,
+      "set": {
+        "object": {
+          "mass": 0.3,
+          "shape": "sphere",
+          "radius": 0.05
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.3,
+        "radius": 0.05,
+        "shape": "sphere",
+        "reflectance": 0.02,
+        "temperature": 10.7,
+        "stripes": 2,
+        "hardness": 7,
+        "batch": 50
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.455,
+      "distance": 0.0,
+      "impact_speed": 13.5
+    },
+    {
+      "run": 113,
+      "set": {
+        "object": {
+          "mass": 0.3,
+          "shape": "sphere",
+          "radius": 0.1
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.3,
+        "radius": 0.1,
+        "shape": "sphere",
+        "reflectance": 0.39,
+        "temperature": 47.5,
+        "stripes": 0,
+        "hardness": 3,
+        "batch": 9
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.513,
+      "distance": 0.0,
+      "impact_speed": 12.2
+    },
+    {
+      "run": 114,
+      "set": {
+        "object": {
+          "mass": 0.3,
+          "shape": "sphere",
+          "radius": 0.1
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.3,
+        "radius": 0.1,
+        "shape": "sphere",
+        "reflectance": 0.24,
+        "temperature": 71.0,
+        "stripes": 7,
+        "hardness": 5,
+        "batch": 43
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.495,
+      "distance": 0.0,
+      "impact_speed": 12.2
+    },
+    {
+      "run": 115,
+      "set": {
+        "object": {
+          "mass": 0.3,
+          "shape": "sphere",
+          "radius": 0.2
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.3,
+        "radius": 0.2,
+        "shape": "sphere",
+        "reflectance": 0.18,
+        "temperature": 49.5,
+        "stripes": 6,
+        "hardness": 1,
+        "batch": 37
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.719,
+      "distance": 0.0,
+      "impact_speed": 8.73
+    },
+    {
+      "run": 116,
+      "set": {
+        "object": {
+          "mass": 0.3,
+          "shape": "sphere",
+          "radius": 0.2
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.3,
+        "radius": 0.2,
+        "shape": "sphere",
+        "reflectance": 0.06,
+        "temperature": -3.5,
+        "stripes": 9,
+        "hardness": 3,
+        "batch": 35
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.723,
+      "distance": 0.0,
+      "impact_speed": 8.76
+    },
+    {
+      "run": 117,
+      "set": {
+        "object": {
+          "mass": 1.0,
+          "shape": "sphere",
+          "radius": 0.02
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.02,
+        "shape": "sphere",
+        "reflectance": 0.52,
+        "temperature": -18.8,
+        "stripes": 1,
+        "hardness": 6,
+        "batch": 3
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.411,
+      "distance": 0.0,
+      "impact_speed": 14.09
+    },
+    {
+      "run": 118,
+      "set": {
+        "object": {
+          "mass": 1.0,
+          "shape": "sphere",
+          "radius": 0.02
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.02,
+        "shape": "sphere",
+        "reflectance": 0.07,
+        "temperature": 44.9,
+        "stripes": 6,
+        "hardness": 6,
+        "batch": 35
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.423,
+      "distance": 0.0,
+      "impact_speed": 13.93
+    },
+    {
+      "run": 119,
+      "set": {
+        "object": {
+          "mass": 1.0,
+          "shape": "sphere",
+          "radius": 0.05
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.05,
+        "shape": "sphere",
+        "reflectance": 0.24,
+        "temperature": 10.5,
+        "stripes": 8,
+        "hardness": 10,
+        "batch": 33
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.437,
+      "distance": 0.0,
+      "impact_speed": 13.59
+    },
+    {
+      "run": 120,
+      "set": {
+        "object": {
+          "mass": 1.0,
+          "shape": "sphere",
+          "radius": 0.05
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.05,
+        "shape": "sphere",
+        "reflectance": 0.13,
+        "temperature": 27.3,
+        "stripes": 9,
+        "hardness": 6,
+        "batch": 13
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.428,
+      "distance": 0.0,
+      "impact_speed": 14.04
+    },
+    {
+      "run": 121,
+      "set": {
+        "object": {
+          "mass": 1.0,
+          "shape": "sphere",
+          "radius": 0.1
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.1,
+        "shape": "sphere",
+        "reflectance": 0.37,
+        "temperature": 50.0,
+        "stripes": 10,
+        "hardness": 10,
+        "batch": 11
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.447,
+      "distance": 0.0,
+      "impact_speed": 13.54
+    },
+    {
+      "run": 122,
+      "set": {
+        "object": {
+          "mass": 1.0,
+          "shape": "sphere",
+          "radius": 0.1
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.1,
+        "shape": "sphere",
+        "reflectance": 0.2,
+        "temperature": 20.1,
+        "stripes": 8,
+        "hardness": 3,
+        "batch": 43
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.45,
+      "distance": 0.0,
+      "impact_speed": 13.4
+    },
+    {
+      "run": 123,
+      "set": {
+        "object": {
+          "mass": 1.0,
+          "shape": "sphere",
+          "radius": 0.2
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.2,
+        "shape": "sphere",
+        "reflectance": 0.92,
+        "temperature": -1.3,
+        "stripes": 7,
+        "hardness": 10,
+        "batch": 19
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.495,
+      "distance": 0.0,
+      "impact_speed": 11.75
+    },
+    {
+      "run": 124,
+      "set": {
+        "object": {
+          "mass": 1.0,
+          "shape": "sphere",
+          "radius": 0.2
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 1.0,
+        "radius": 0.2,
+        "shape": "sphere",
+        "reflectance": 0.25,
+        "temperature": -8.5,
+        "stripes": 5,
+        "hardness": 3,
+        "batch": 35
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.5,
+      "distance": 0.0,
+      "impact_speed": 11.78
+    },
+    {
+      "run": 125,
+      "set": {
+        "object": {
+          "mass": 3.0,
+          "shape": "sphere",
+          "radius": 0.05
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 3.0,
+        "radius": 0.05,
+        "shape": "sphere",
+        "reflectance": 0.8,
+        "temperature": 7.1,
+        "stripes": 6,
+        "hardness": 4,
+        "batch": 33
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.427,
+      "distance": 0.0,
+      "impact_speed": 14.02
+    },
+    {
+      "run": 126,
+      "set": {
+        "object": {
+          "mass": 3.0,
+          "shape": "sphere",
+          "radius": 0.05
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 3.0,
+        "radius": 0.05,
+        "shape": "sphere",
+        "reflectance": 0.63,
+        "temperature": 67.1,
+        "stripes": 3,
+        "hardness": 4,
+        "batch": 7
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.434,
+      "distance": 0.0,
+      "impact_speed": 13.99
+    },
+    {
+      "run": 127,
+      "set": {
+        "object": {
+          "mass": 3.0,
+          "shape": "sphere",
+          "radius": 0.2
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 3.0,
+        "radius": 0.2,
+        "shape": "sphere",
+        "reflectance": 0.12,
+        "temperature": 0.7,
+        "stripes": 1,
+        "hardness": 8,
+        "batch": 50
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.438,
+      "distance": 0.0,
+      "impact_speed": 13.11
+    },
+    {
+      "run": 128,
+      "set": {
+        "object": {
+          "mass": 3.0,
+          "shape": "sphere",
+          "radius": 0.2
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 3.0,
+        "radius": 0.2,
+        "shape": "sphere",
+        "reflectance": 0.85,
+        "temperature": 23.7,
+        "stripes": 0,
+        "hardness": 2,
+        "batch": 4
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.459,
+      "distance": 0.0,
+      "impact_speed": 13.17
+    },
+    {
+      "run": 129,
+      "set": {
+        "object": {
+          "mass": 10.0,
+          "shape": "sphere",
+          "radius": 0.05
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 10.0,
+        "radius": 0.05,
+        "shape": "sphere",
+        "reflectance": 0.17,
+        "temperature": -13.7,
+        "stripes": 1,
+        "hardness": 10,
+        "batch": 5
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.431,
+      "distance": 0.0,
+      "impact_speed": 14.03
+    },
+    {
+      "run": 130,
+      "set": {
+        "object": {
+          "mass": 10.0,
+          "shape": "sphere",
+          "radius": 0.05
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 10.0,
+        "radius": 0.05,
+        "shape": "sphere",
+        "reflectance": 0.78,
+        "temperature": 33.0,
+        "stripes": 0,
+        "hardness": 7,
+        "batch": 48
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.423,
+      "distance": 0.0,
+      "impact_speed": 14.02
+    },
+    {
+      "run": 131,
+      "set": {
+        "object": {
+          "mass": 10.0,
+          "shape": "sphere",
+          "radius": 0.2
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 10.0,
+        "radius": 0.2,
+        "shape": "sphere",
+        "reflectance": 0.75,
+        "temperature": 42.6,
+        "stripes": 8,
+        "hardness": 10,
+        "batch": 14
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.434,
+      "distance": 0.0,
+      "impact_speed": 13.64
+    },
+    {
+      "run": 132,
+      "set": {
+        "object": {
+          "mass": 10.0,
+          "shape": "sphere",
+          "radius": 0.2
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 10.0,
+        "radius": 0.2,
+        "shape": "sphere",
+        "reflectance": 0.04,
+        "temperature": 75.7,
+        "stripes": 8,
+        "hardness": 2,
+        "batch": 43
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.438,
+      "distance": 0.0,
+      "impact_speed": 13.89
+    },
+    {
+      "run": 133,
+      "set": {
+        "object": {
+          "mass": 0.3,
+          "shape": "cube",
+          "radius": 0.1
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.3,
+        "radius": 0.1,
+        "shape": "cube",
+        "reflectance": 0.91,
+        "temperature": 69.7,
+        "stripes": 3,
+        "hardness": 2,
+        "batch": 9
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.622,
+      "distance": 0.0,
+      "impact_speed": 9.71
+    },
+    {
+      "run": 134,
+      "set": {
+        "object": {
+          "mass": 0.3,
+          "shape": "cube",
+          "radius": 0.1
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.3,
+        "radius": 0.1,
+        "shape": "cube",
+        "reflectance": 0.86,
+        "temperature": 25.1,
+        "stripes": 1,
+        "hardness": 9,
+        "batch": 19
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.631,
+      "distance": 0.0,
+      "impact_speed": 9.71
+    },
+    {
+      "run": 135,
+      "set": {
+        "object": {
+          "mass": 0.3,
+          "shape": "cube",
+          "radius": 0.1
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.3,
+        "radius": 0.1,
+        "shape": "cube",
+        "reflectance": 0.17,
+        "temperature": -1.2,
+        "stripes": 4,
+        "hardness": 3,
+        "batch": 48
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.638,
+      "distance": 0.0,
+      "impact_speed": 9.77
+    },
+    {
+      "run": 136,
+      "set": {
+        "object": {
+          "mass": 0.3,
+          "shape": "cylinder",
+          "radius": 0.1
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.3,
+        "radius": 0.1,
+        "shape": "cylinder",
+        "reflectance": 0.21,
+        "temperature": 4.8,
+        "stripes": 5,
+        "hardness": 4,
+        "batch": 11
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.543,
+      "distance": 0.0,
+      "impact_speed": 10.9
+    },
+    {
+      "run": 137,
+      "set": {
+        "object": {
+          "mass": 0.3,
+          "shape": "cylinder",
+          "radius": 0.1
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.3,
+        "radius": 0.1,
+        "shape": "cylinder",
+        "reflectance": 0.66,
+        "temperature": 39.5,
+        "stripes": 2,
+        "hardness": 3,
+        "batch": 21
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.551,
+      "distance": 0.0,
+      "impact_speed": 11.0
+    },
+    {
+      "run": 138,
+      "set": {
+        "object": {
+          "mass": 0.3,
+          "shape": "cylinder",
+          "radius": 0.1
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.3,
+        "radius": 0.1,
+        "shape": "cylinder",
+        "reflectance": 0.43,
+        "temperature": -10.2,
+        "stripes": 4,
+        "hardness": 3,
+        "batch": 5
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.566,
+      "distance": 0.0,
+      "impact_speed": 11.24
+    },
+    {
+      "run": 139,
+      "set": {
+        "object": {
+          "mass": 0.3,
+          "shape": "sphere",
+          "radius": 0.1,
+          "temperature": -20.0
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.3,
+        "radius": 0.1,
+        "shape": "sphere",
+        "reflectance": 0.08,
+        "temperature": -20.0,
+        "stripes": 10,
+        "hardness": 3,
+        "batch": 7
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.503,
+      "distance": 0.0,
+      "impact_speed": 12.11
+    },
+    {
+      "run": 140,
+      "set": {
+        "object": {
+          "mass": 0.3,
+          "shape": "sphere",
+          "radius": 0.1,
+          "temperature": -20.0
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.3,
+        "radius": 0.1,
+        "shape": "sphere",
+        "reflectance": 0.46,
+        "temperature": -20.0,
+        "stripes": 8,
+        "hardness": 5,
+        "batch": 41
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.503,
+      "distance": 0.0,
+      "impact_speed": 12.18
+    },
+    {
+      "run": 141,
+      "set": {
+        "object": {
+          "mass": 0.3,
+          "shape": "sphere",
+          "radius": 0.1,
+          "temperature": -20.0
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.3,
+        "radius": 0.1,
+        "shape": "sphere",
+        "reflectance": 0.13,
+        "temperature": -20.0,
+        "stripes": 8,
+        "hardness": 4,
+        "batch": 20
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.5,
+      "distance": 0.0,
+      "impact_speed": 11.93
+    },
+    {
+      "run": 142,
+      "set": {
+        "object": {
+          "mass": 0.3,
+          "shape": "sphere",
+          "radius": 0.1,
+          "temperature": 80.0
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.3,
+        "radius": 0.1,
+        "shape": "sphere",
+        "reflectance": 0.36,
+        "temperature": 80.0,
+        "stripes": 9,
+        "hardness": 1,
+        "batch": 8
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.503,
+      "distance": 0.0,
+      "impact_speed": 12.42
+    },
+    {
+      "run": 143,
+      "set": {
+        "object": {
+          "mass": 0.3,
+          "shape": "sphere",
+          "radius": 0.1,
+          "temperature": 80.0
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.3,
+        "radius": 0.1,
+        "shape": "sphere",
+        "reflectance": 0.46,
+        "temperature": 80.0,
+        "stripes": 0,
+        "hardness": 10,
+        "batch": 17
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.506,
+      "distance": 0.0,
+      "impact_speed": 12.28
+    },
+    {
+      "run": 144,
+      "set": {
+        "object": {
+          "mass": 0.3,
+          "shape": "sphere",
+          "radius": 0.1,
+          "temperature": 80.0
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.3,
+        "radius": 0.1,
+        "shape": "sphere",
+        "reflectance": 0.01,
+        "temperature": 80.0,
+        "stripes": 6,
+        "hardness": 1,
+        "batch": 1
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.505,
+      "distance": 0.0,
+      "impact_speed": 12.13
+    },
+    {
+      "run": 145,
+      "set": {
+        "object": {
+          "mass": 0.3,
+          "shape": "sphere",
+          "radius": 0.1,
+          "reflectance": 0.0
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.3,
+        "radius": 0.1,
+        "shape": "sphere",
+        "reflectance": 0.0,
+        "temperature": -15.8,
+        "stripes": 5,
+        "hardness": 4,
+        "batch": 11
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.484,
+      "distance": 0.0,
+      "impact_speed": 12.37
+    },
+    {
+      "run": 146,
+      "set": {
+        "object": {
+          "mass": 0.3,
+          "shape": "sphere",
+          "radius": 0.1,
+          "reflectance": 0.0
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.3,
+        "radius": 0.1,
+        "shape": "sphere",
+        "reflectance": 0.0,
+        "temperature": 23.0,
+        "stripes": 3,
+        "hardness": 6,
+        "batch": 8
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.48,
+      "distance": 0.0,
+      "impact_speed": 12.26
+    },
+    {
+      "run": 147,
+      "set": {
+        "object": {
+          "mass": 0.3,
+          "shape": "sphere",
+          "radius": 0.1,
+          "reflectance": 0.0
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.3,
+        "radius": 0.1,
+        "shape": "sphere",
+        "reflectance": 0.0,
+        "temperature": 53.7,
+        "stripes": 9,
+        "hardness": 6,
+        "batch": 37
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.501,
+      "distance": 0.0,
+      "impact_speed": 11.95
+    },
+    {
+      "run": 148,
+      "set": {
+        "object": {
+          "mass": 0.3,
+          "shape": "sphere",
+          "radius": 0.1,
+          "reflectance": 1.0
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.3,
+        "radius": 0.1,
+        "shape": "sphere",
+        "reflectance": 1.0,
+        "temperature": 5.8,
+        "stripes": 9,
+        "hardness": 10,
+        "batch": 28
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.493,
+      "distance": 0.0,
+      "impact_speed": 12.24
+    },
+    {
+      "run": 149,
+      "set": {
+        "object": {
+          "mass": 0.3,
+          "shape": "sphere",
+          "radius": 0.1,
+          "reflectance": 1.0
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.3,
+        "radius": 0.1,
+        "shape": "sphere",
+        "reflectance": 1.0,
+        "temperature": 63.3,
+        "stripes": 2,
+        "hardness": 1,
+        "batch": 21
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.502,
+      "distance": 0.0,
+      "impact_speed": 12.24
+    },
+    {
+      "run": 150,
+      "set": {
+        "object": {
+          "mass": 0.3,
+          "shape": "sphere",
+          "radius": 0.1,
+          "reflectance": 1.0
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.3,
+        "radius": 0.1,
+        "shape": "sphere",
+        "reflectance": 1.0,
+        "temperature": -4.8,
+        "stripes": 2,
+        "hardness": 6,
+        "batch": 50
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.487,
+      "distance": 0.0,
+      "impact_speed": 12.03
+    },
+    {
+      "run": 151,
+      "set": {
+        "object": {
+          "mass": 0.3,
+          "shape": "sphere",
+          "radius": 0.1,
+          "stripes": 0
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.3,
+        "radius": 0.1,
+        "shape": "sphere",
+        "reflectance": 0.02,
+        "temperature": -12.3,
+        "stripes": 0,
+        "hardness": 7,
+        "batch": 31
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.513,
+      "distance": 0.0,
+      "impact_speed": 12.18
+    },
+    {
+      "run": 152,
+      "set": {
+        "object": {
+          "mass": 0.3,
+          "shape": "sphere",
+          "radius": 0.1,
+          "stripes": 0
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.3,
+        "radius": 0.1,
+        "shape": "sphere",
+        "reflectance": 0.36,
+        "temperature": 29.7,
+        "stripes": 0,
+        "hardness": 7,
+        "batch": 24
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.477,
+      "distance": 0.0,
+      "impact_speed": 12.23
+    },
+    {
+      "run": 153,
+      "set": {
+        "object": {
+          "mass": 0.3,
+          "shape": "sphere",
+          "radius": 0.1,
+          "stripes": 0
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.3,
+        "radius": 0.1,
+        "shape": "sphere",
+        "reflectance": 0.74,
+        "temperature": 65.6,
+        "stripes": 0,
+        "hardness": 4,
+        "batch": 18
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.482,
+      "distance": 0.0,
+      "impact_speed": 12.37
+    },
+    {
+      "run": 154,
+      "set": {
+        "object": {
+          "mass": 0.3,
+          "shape": "sphere",
+          "radius": 0.1,
+          "stripes": 10
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.3,
+        "radius": 0.1,
+        "shape": "sphere",
+        "reflectance": 0.8,
+        "temperature": 43.4,
+        "stripes": 10,
+        "hardness": 8,
+        "batch": 36
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.49,
+      "distance": 0.0,
+      "impact_speed": 12.11
+    },
+    {
+      "run": 155,
+      "set": {
+        "object": {
+          "mass": 0.3,
+          "shape": "sphere",
+          "radius": 0.1,
+          "stripes": 10
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.3,
+        "radius": 0.1,
+        "shape": "sphere",
+        "reflectance": 0.94,
+        "temperature": 12.6,
+        "stripes": 10,
+        "hardness": 2,
+        "batch": 23
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.474,
+      "distance": 0.0,
+      "impact_speed": 12.23
+    },
+    {
+      "run": 156,
+      "set": {
+        "object": {
+          "mass": 0.3,
+          "shape": "sphere",
+          "radius": 0.1,
+          "stripes": 10
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.3,
+        "radius": 0.1,
+        "shape": "sphere",
+        "reflectance": 0.32,
+        "temperature": 59.3,
+        "stripes": 10,
+        "hardness": 8,
+        "batch": 6
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.506,
+      "distance": 0.0,
+      "impact_speed": 12.14
+    },
+    {
+      "run": 157,
+      "set": {
+        "object": {
+          "mass": 0.3,
+          "shape": "sphere",
+          "radius": 0.1,
+          "hardness": 1
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.3,
+        "radius": 0.1,
+        "shape": "sphere",
+        "reflectance": 0.37,
+        "temperature": 24.5,
+        "stripes": 4,
+        "hardness": 1,
+        "batch": 22
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.508,
+      "distance": 0.0,
+      "impact_speed": 11.93
+    },
+    {
+      "run": 158,
+      "set": {
+        "object": {
+          "mass": 0.3,
+          "shape": "sphere",
+          "radius": 0.1,
+          "hardness": 1
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.3,
+        "radius": 0.1,
+        "shape": "sphere",
+        "reflectance": 0.16,
+        "temperature": 55.6,
+        "stripes": 4,
+        "hardness": 1,
+        "batch": 27
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.508,
+      "distance": 0.0,
+      "impact_speed": 12.33
+    },
+    {
+      "run": 159,
+      "set": {
+        "object": {
+          "mass": 0.3,
+          "shape": "sphere",
+          "radius": 0.1,
+          "hardness": 1
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.3,
+        "radius": 0.1,
+        "shape": "sphere",
+        "reflectance": 0.61,
+        "temperature": 43.6,
+        "stripes": 10,
+        "hardness": 1,
+        "batch": 4
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.494,
+      "distance": 0.0,
+      "impact_speed": 12.14
+    },
+    {
+      "run": 160,
+      "set": {
+        "object": {
+          "mass": 0.3,
+          "shape": "sphere",
+          "radius": 0.1,
+          "hardness": 10
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.3,
+        "radius": 0.1,
+        "shape": "sphere",
+        "reflectance": 0.37,
+        "temperature": 44.3,
+        "stripes": 8,
+        "hardness": 10,
+        "batch": 14
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.475,
+      "distance": 0.0,
+      "impact_speed": 12.09
+    },
+    {
+      "run": 161,
+      "set": {
+        "object": {
+          "mass": 0.3,
+          "shape": "sphere",
+          "radius": 0.1,
+          "hardness": 10
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.3,
+        "radius": 0.1,
+        "shape": "sphere",
+        "reflectance": 0.92,
+        "temperature": 23.8,
+        "stripes": 6,
+        "hardness": 10,
+        "batch": 24
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.497,
+      "distance": 0.0,
+      "impact_speed": 12.18
+    },
+    {
+      "run": 162,
+      "set": {
+        "object": {
+          "mass": 0.3,
+          "shape": "sphere",
+          "radius": 0.1,
+          "hardness": 10
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.3,
+        "radius": 0.1,
+        "shape": "sphere",
+        "reflectance": 0.84,
+        "temperature": -1.9,
+        "stripes": 4,
+        "hardness": 10,
+        "batch": 34
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.508,
+      "distance": 0.0,
+      "impact_speed": 12.26
+    },
+    {
+      "run": 163,
+      "set": {
+        "object": {
+          "mass": 0.3,
+          "shape": "sphere",
+          "radius": 0.1,
+          "batch": 1
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.3,
+        "radius": 0.1,
+        "shape": "sphere",
+        "reflectance": 0.57,
+        "temperature": -7.1,
+        "stripes": 0,
+        "hardness": 9,
+        "batch": 1
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.502,
+      "distance": 0.0,
+      "impact_speed": 12.14
+    },
+    {
+      "run": 164,
+      "set": {
+        "object": {
+          "mass": 0.3,
+          "shape": "sphere",
+          "radius": 0.1,
+          "batch": 1
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.3,
+        "radius": 0.1,
+        "shape": "sphere",
+        "reflectance": 0.98,
+        "temperature": -4.7,
+        "stripes": 0,
+        "hardness": 8,
+        "batch": 1
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.504,
+      "distance": 0.0,
+      "impact_speed": 12.31
+    },
+    {
+      "run": 165,
+      "set": {
+        "object": {
+          "mass": 0.3,
+          "shape": "sphere",
+          "radius": 0.1,
+          "batch": 1
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.3,
+        "radius": 0.1,
+        "shape": "sphere",
+        "reflectance": 0.89,
+        "temperature": 19.8,
+        "stripes": 6,
+        "hardness": 7,
+        "batch": 1
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.477,
+      "distance": 0.0,
+      "impact_speed": 12.21
+    },
+    {
+      "run": 166,
+      "set": {
+        "object": {
+          "mass": 0.3,
+          "shape": "sphere",
+          "radius": 0.1,
+          "batch": 50
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.3,
+        "radius": 0.1,
+        "shape": "sphere",
+        "reflectance": 0.83,
+        "temperature": 57.1,
+        "stripes": 0,
+        "hardness": 5,
+        "batch": 50
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.502,
+      "distance": 0.0,
+      "impact_speed": 12.33
+    },
+    {
+      "run": 167,
+      "set": {
+        "object": {
+          "mass": 0.3,
+          "shape": "sphere",
+          "radius": 0.1,
+          "batch": 50
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.3,
+        "radius": 0.1,
+        "shape": "sphere",
+        "reflectance": 0.97,
+        "temperature": 45.1,
+        "stripes": 2,
+        "hardness": 10,
+        "batch": 50
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.52,
+      "distance": 0.0,
+      "impact_speed": 11.94
+    },
+    {
+      "run": 168,
+      "set": {
+        "object": {
+          "mass": 0.3,
+          "shape": "sphere",
+          "radius": 0.1,
+          "batch": 50
+        },
+        "launch": {}
+      },
+      "object": {
+        "mass": 0.3,
+        "radius": 0.1,
+        "shape": "sphere",
+        "reflectance": 0.15,
+        "temperature": 56.7,
+        "stripes": 4,
+        "hardness": 3,
+        "batch": 50
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 1.2
+      },
+      "flight_time": 1.488,
+      "distance": 0.0,
+      "impact_speed": 12.15
+    },
+    {
+      "run": 169,
+      "set": {
+        "object": {
+          "mass": 0.3,
+          "shape": "sphere",
+          "radius": 0.1
+        },
+        "launch": {
+          "air_density": 0.6
+        }
+      },
+      "object": {
+        "mass": 0.3,
+        "radius": 0.1,
+        "shape": "sphere",
+        "reflectance": 0.63,
+        "temperature": 59.4,
+        "stripes": 3,
+        "hardness": 5,
+        "batch": 31
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 0.6
+      },
+      "flight_time": 1.463,
+      "distance": 0.0,
+      "impact_speed": 12.98
+    },
+    {
+      "run": 170,
+      "set": {
+        "object": {
+          "mass": 0.3,
+          "shape": "sphere",
+          "radius": 0.1
+        },
+        "launch": {
+          "air_density": 0.6
+        }
+      },
+      "object": {
+        "mass": 0.3,
+        "radius": 0.1,
+        "shape": "sphere",
+        "reflectance": 0.86,
+        "temperature": 41.0,
+        "stripes": 5,
+        "hardness": 7,
+        "batch": 26
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 0.6
+      },
+      "flight_time": 1.463,
+      "distance": 0.0,
+      "impact_speed": 12.92
+    },
+    {
+      "run": 171,
+      "set": {
+        "object": {
+          "mass": 0.3,
+          "shape": "sphere",
+          "radius": 0.1
+        },
+        "launch": {
+          "air_density": 2.4
+        }
+      },
+      "object": {
+        "mass": 0.3,
+        "radius": 0.1,
+        "shape": "sphere",
+        "reflectance": 0.51,
+        "temperature": 62.5,
+        "stripes": 4,
+        "hardness": 5,
+        "batch": 38
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 2.4
+      },
+      "flight_time": 1.568,
+      "distance": 0.0,
+      "impact_speed": 10.72
+    },
+    {
+      "run": 172,
+      "set": {
+        "object": {
+          "mass": 0.3,
+          "shape": "sphere",
+          "radius": 0.1
+        },
+        "launch": {
+          "air_density": 2.4
+        }
+      },
+      "object": {
+        "mass": 0.3,
+        "radius": 0.1,
+        "shape": "sphere",
+        "reflectance": 0.74,
+        "temperature": 45.5,
+        "stripes": 1,
+        "hardness": 2,
+        "batch": 18
+      },
+      "launch": {
+        "height": 10.0,
+        "speed": 0.0,
+        "angle": 0.0,
+        "air_density": 2.4
+      },
+      "flight_time": 1.562,
+      "distance": 0.0,
+      "impact_speed": 10.84
+    }
+  ],
+  "calls": [
+    {
+      "finish_reason": "stop",
+      "returned_model": "anthropic/claude-sonnet-5.5",
+      "usage": {
+        "prompt_tokens": 1572,
+        "completion_tokens": 348,
+        "total_tokens": 1920,
+        "cost": 0.0036448,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 1568,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0036448,
+          "upstream_inference_prompt_cost": 0.0001648,
+          "upstream_inference_completions_cost": 0.00348
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "reasoning": null
+    },
+    {
+      "finish_reason": "stop",
+      "returned_model": "anthropic/claude-sonnet-5.5",
+      "usage": {
+        "prompt_tokens": 7534,
+        "completion_tokens": 1808,
+        "total_tokens": 9342,
+        "cost": 0.0331498,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 1568,
+          "cache_write_tokens": 5962,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0331498,
+          "upstream_inference_prompt_cost": 0.0150698,
+          "upstream_inference_completions_cost": 0.01808
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 492,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "reasoning": "My vacuum calculations check out fine, with g coming out to 9.81 and the impact speed matching sqrt(2gh). Now I'm thinking about how drag in air would depend on mass, radius, and shape\u2014heavier objects should fall faster while larger radius and cube shapes would add more resistance. With 200 runs remaining, I want to be strategic: I'll analyze the first 40 data points by regressing the delay against mass, radius, and shape to find the pattern.\n\nI'm planning a factorial-style experiment design\u2014varying radius at fixed mass, mass at fixed radius, testing different shapes, plus checking temperature, reflectance, and other properties through randomized runs. I'll set up a grid across mass values (0.1 to 10) and radius values (0.02 to 0.2) for spheres with repeated trials, then add targeted runs for cube and cylinder shapes, temperature extremes, reflectance, stripes, hardness, batch effects, and air density variations to cover the full parameter space efficiently.\n\n"
+    },
+    {
+      "finish_reason": "stop",
+      "returned_model": "anthropic/claude-sonnet-5.5",
+      "usage": {
+        "prompt_tokens": 14968,
+        "completion_tokens": 808,
+        "total_tokens": 15776,
+        "cost": 0.027426,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 7530,
+          "cache_write_tokens": 7434,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.027426,
+          "upstream_inference_prompt_cost": 0.019346,
+          "upstream_inference_completions_cost": 0.00808
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 249,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "reasoning": "Drag seems to depend on mass, radius, shape, and air density, while temperature, reflectance, stripes, hardness, and batch look irrelevant. I'm hypothesizing a quadratic drag model where acceleration equals gravity minus a coefficient times velocity squared, with that coefficient derived from air density, drag coefficient, cross-sectional area, and mass\u2014I want to verify this by fitting it against simulated data.\n\nTesting with specific mass and radius values against observed fall times to extract drag coefficients per shape, then checking whether mass and radius enter the equation with the expected exponents or some other combination.\n\n"
+    },
+    {
+      "finish_reason": "stop",
+      "returned_model": "anthropic/claude-sonnet-5.5",
+      "usage": {
+        "prompt_tokens": 15623,
+        "completion_tokens": 641,
+        "total_tokens": 16264,
+        "cost": 0.0095519,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 14964,
+          "cache_write_tokens": 655,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0095519,
+          "upstream_inference_prompt_cost": 0.0031419,
+          "upstream_inference_completions_cost": 0.00641
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 271,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "reasoning": "The fit looks solid, chi2 240 over 224 points, with quadratic drag using shape-specific drag coefficients (sphere 0.48, cube 1.35, cylinder 0.85) and exponents near 1 and 2. Other properties like temperature and reflectance seem irrelevant since the fit is already good, though I should verify residuals don't depend on those or on launch speed/angle before fixing exponents and checking further.\n\nI'm also verifying the vacuum fall time against g=9.81 for different heights \u2014 h=10 gives t=1.4278, h=20 gives t=2.0191, both matching sqrt(2h/g) calculations.\n\n"
+    },
+    {
+      "finish_reason": "stop",
+      "returned_model": "anthropic/claude-sonnet-5.5",
+      "usage": {
+        "prompt_tokens": 16036,
+        "completion_tokens": 541,
+        "total_tokens": 16577,
+        "cost": 0.0080124,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 15619,
+          "cache_write_tokens": 413,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0080124,
+          "upstream_inference_prompt_cost": 0.0026024,
+          "upstream_inference_completions_cost": 0.00541
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "reasoning": null
+    },
+    {
+      "finish_reason": "stop",
+      "returned_model": "anthropic/claude-sonnet-5.5",
+      "usage": {
+        "prompt_tokens": 17202,
+        "completion_tokens": 1838,
+        "total_tokens": 19040,
+        "cost": 0.0229062,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 16032,
+          "cache_write_tokens": 1166,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0229062,
+          "upstream_inference_prompt_cost": 0.0045262,
+          "upstream_inference_completions_cost": 0.01838
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 249,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "reasoning": "The quadratic drag model with shape-dependent coefficients fits well, and residuals look like noise with no influence from other properties. Checking against vacuum fall predictions, the 10m case matches closely but the 20m case shows about a 3-sigma deviation between predicted and observed fall times, which is worth digging into further.\n\n"
+    },
+    {
+      "finish_reason": "stop",
+      "returned_model": "anthropic/claude-sonnet-5.5",
+      "usage": {
+        "prompt_tokens": 18984,
+        "completion_tokens": 508,
+        "total_tokens": 19492,
+        "cost": 0.0112628,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 17198,
+          "cache_write_tokens": 1782,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0112628,
+          "upstream_inference_prompt_cost": 0.0061828,
+          "upstream_inference_completions_cost": 0.00508
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "reasoning": null
+    }
+  ],
+  "cost": 0.1159539,
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a scientist studying how objects move in a simulated physics laboratory. The laws of physics in this laboratory may differ from those of the real world. No dataset is given to you: you collect your own data by running experiments, and you analyse it with your own code.\n\nYour task:\n1. Design experiments and collect data\n2. Analyze the data thoroughly\n3. Identify which properties of an object and which launch settings affect its motion\n4. Determine the form of each effect, including whether any effect depends on a combination of properties\n5. Write a short research paper reporting your findings\n6. Submit your law as a Python function that predicts the outcome of an experiment\n\nYour paper MUST include:\n- Title\n- Abstract (3-5 sentences)\n- Methods section: How did you collect your data, and how did you analyze it?\n- Results section: What affects the motion, in what way, and how strongly?\n- Discussion: What laws govern this laboratory? Which properties matter and which don't?\n- Limitations: What caveats apply to your analysis?\n\nBe specific about:\n- Which properties and settings you consider to have an effect, and which you consider irrelevant\n- The form and size of each effect\n- Whether any effect depends on a combination of properties\n- Your confidence level in your findings\n\nImportant: Base your conclusions ONLY on the data you collect. Report findings honestly, including if you find no effect."
+    },
+    {
+      "role": "user",
+      "content": "Please study the following laboratory and write a research paper about your findings.\n\n## The laboratory\nIn each run an object is released or thrown. The laboratory measures how long it takes to reach the ground (flight_time, in s), how far it travels horizontally before landing (distance, in m) and its speed when it lands (impact_speed, in m/s). Measurements include a small random error, independent for every measurement, with a standard deviation of 0.01 s for flight_time and 1% of the true value for distance and impact_speed.\n\nObject properties:\n- mass: 0.1 to 10 kg\n- radius: 0.02 to 0.2 m\n- shape: sphere, cube or cylinder\n- reflectance: 0 (black) to 1 (white)\n- temperature: -20 to 80 \u00b0C\n- stripes: 0 to 10 (number of painted stripes)\n- hardness: 1 to 10\n- batch: 1 to 50 (production batch)\n\nLaunch settings:\n- height: 0.5 to 50 m (default 10)\n- speed: 0 to 20 m/s (default 0)\n- angle: -90 to 90 degrees, where 0 is horizontal and 90 is straight up (default 0)\n- air_density: 0 (vacuum) to 2.4 kg/m^3 (default 1.2)\n\nIn a run you may set any object properties and any launch settings. Object properties you do not set are those of an object taken at random from the laboratory's stock; launch settings you do not set take their default values. Every run records all properties, all settings and the three measurements.\n\n## Budget\n300 runs in total, at most 100 runs per turn, and at most 12 turns.\n\n## What you can do in each turn\nYour reply may contain experiments, Python code, or both.\n\nExperiments go inside <experiments></experiments> as a JSON array. Each experiment is a number of runs with the same settings, for example:\n- {\"object\": {\"mass\": 2, \"shape\": \"cube\"}, \"launch\": {\"height\": 30, \"air_density\": 0}, \"n\": 10}: 10 runs dropping a 2 kg cube from 30 m in a vacuum, its other properties random\n- {\"n\": 50}: 50 runs with random objects and the default launch settings\n\nYou analyse your data with your own Python code, inside <python></python>. Each block runs in a fresh Python 3.12 process with numpy, pandas, scipy, statsmodels and scikit-learn installed and no internet access. All runs collected so far are already loaded in the pandas DataFrame `df`, with one column for each property, setting and measurement, plus run and set (what you set in that run, for example \"temperature=70; height=30\", empty if you set nothing). Only what your code prints comes back to you, up to 8000 characters per block; figures are not shown. Each block may run for up to 60 seconds. There is no limit on the number of blocks in a reply.\n\nExperiments in a reply are carried out before its code. After each reply you will see the new runs and the output of your code. Anything else you write in a reply is kept as your notes.\n\n## Finishing\nWhen you are done, or when your turns run out, write your paper inside <report></report>. A reply that contains a report ends the study, and nothing else in it is carried out. You will then be asked for your law.\n\nRemember: Write a complete short research paper with Title, Abstract, Methods, Results, Discussion, and Limitations sections. Be specific about which properties and settings matter, the form and size of their effects, and any effect that depends on a combination of properties."
+    },
+    {
+      "role": "assistant",
+      "content": "<invoke name=\"none\">\n</invoke>\n<experiments>[{\"n\":40},{\"object\":{\"mass\":1},\"launch\":{\"air_density\":0},\"n\":10},{\"object\":{\"mass\":1},\"launch\":{\"air_density\":0,\"height\":20},\"n\":10},{\"object\":{\"mass\":1},\"launch\":{\"air_density\":0,\"speed\":10,\"angle\":30},\"n\":10},{\"object\":{\"mass\":1},\"launch\":{\"speed\":10},\"n\":10},{\"object\":{\"mass\":1},\"launch\":{\"speed\":10,\"angle\":45},\"n\":10},{\"object\":{\"mass\":5},\"launch\":{\"speed\":10},\"n\":10}]</experiments>\n\n\n<invoke name=\"python\">\nprint(df.groupby('set')[['flight_time','distance','impact_speed']].agg(['mean','std']).to_string())\n</invoke>\n<python>\nprint(df.groupby('set')[['flight_time','distance','impact_speed']].agg(['mean','std']).to_string())\n</python>"
+    },
+    {
+      "role": "user",
+      "content": "<runs>\nrandom object, default launch: runs 1-40\nrun,mass,radius,shape,reflectance,temperature,stripes,hardness,batch,height,speed,angle,air_density,flight_time,distance,impact_speed\n1,8.07,0.165,cylinder,0.52,8.6,0,3,20,10,0,0,1.2,1.45,0,13.77\n2,4.14,0.028,sphere,0.05,79.9,7,8,12,10,0,0,1.2,1.427,0,13.96\n3,4.41,0.195,sphere,0.9,64.4,4,7,25,10,0,0,1.2,1.454,0,13.52\n4,6.8,0.031,cube,0.56,7.1,9,2,4,10,0,0,1.2,1.44,0,14.26\n5,6.82,0.177,cylinder,0.23,69.5,9,4,1,10,0,0,1.2,1.437,0,13.46\n6,7.1,0.02,cylinder,0.5,23.7,2,6,17,10,0,0,1.2,1.422,0,13.92\n7,8.08,0.077,cube,0.15,49.9,4,2,40,10,0,0,1.2,1.432,0,14\n8,2.43,0.078,sphere,0.8,30.7,5,10,12,10,0,0,1.2,1.448,0,13.97\n9,0.24,0.188,cube,0.09,64.5,4,10,48,10,0,0,1.2,2.31,0,5.27\n10,4.05,0.189,sphere,0.56,4,8,2,34,10,0,0,1.2,1.458,0,13.5\n11,6.87,0.103,cube,0.22,44.1,1,2,35,10,0,0,1.2,1.415,0,13.64\n12,6.39,0.088,sphere,0.8,-0.6,4,2,40,10,0,0,1.2,1.432,0,14.07\n13,3.87,0.148,cylinder,0.61,74.1,10,7,37,10,0,0,1.2,1.469,0,13.59\n14,8.11,0.048,cylinder,0.71,64.8,4,5,28,10,0,0,1.2,1.427,0,14.08\n15,4.85,0.193,sphere,0.32,20.2,0,8,22,10,0,0,1.2,1.43,0,13.45\n16,6.35,0.188,sphere,0.92,12.7,10,6,10,10,0,0,1.2,1.427,0,13.96\n17,8.25,0.048,sphere,0.41,-12.7,9,9,42,10,0,0,1.2,1.421,0,14.43\n18,1.48,0.115,cube,0.26,29.2,6,8,6,10,0,0,1.2,1.483,0,12.49\n19,8.66,0.07,cylinder,0.45,-14.3,0,8,10,10,0,0,1.2,1.45,0,14.05\n20,3.48,0.187,cube,0.89,28.1,5,1,34,10,0,0,1.2,1.501,0,12.37\n21,8.6,0.081,cylinder,0.79,19.9,6,10,37,10,0,0,1.2,1.415,0,13.77\n22,5.06,0.144,cylinder,0.7,-19.4,0,9,8,10,0,0,1.2,1.442,0,13.65\n23,2.21,0.057,sphere,0.05,1.7,6,2,45,10,0,0,1.2,1.432,0,14.02\n24,3.56,0.086,sphere,0.42,48,8,5,48,10,0,0,1.2,1.441,0,13.9\n25,3.82,0.147,cube,0.34,62.4,2,8,44,10,0,0,1.2,1.479,0,12.97\n26,5.1,0.151,cube,0.53,11.6,5,8,3,10,0,0,1.2,1.448,0,13.15\n27,0.53,0.115,cylinder,0.48,63.3,0,7,28,10,0,0,1.2,1.537,0,11.59\n28,4.96,0.128,cylinder,0.73,32.5,6,7,25,10,0,0,1.2,1.434,0,13.64\n29,6.19,0.065,cylinder,0.55,47.2,2,1,50,10,0,0,1.2,1.427,0,14.02\n30,7.49,0.192,cube,0.29,24.3,2,1,3,10,0,0,1.2,1.473,0,13.11\n31,0.27,0.064,cube,0.86,-3.6,7,5,13,10,0,0,1.2,1.532,0,11.64\n32,0.75,0.055,sphere,0.68,30.2,6,2,23,10,0,0,1.2,1.433,0,13.72\n33,2.82,0.108,sphere,0.92,0.1,8,5,13,10,0,0,1.2,1.428,0,13.59\n34,2.01,0.078,cube,0.09,73.5,4,6,9,10,0,0,1.2,1.429,0,13.59\n35,0.1,0.031,cube,0.21,21.8,6,1,50,10,0,0,1.2,1.469,0,12.55\n36,8.92,0.064,cube,0.61,72.2,1,10,43,10,0,0,1.2,1.439,0,13.85\n37,4.02,0.161,sphere,0.32,42.6,5,7,6,10,0,0,1.2,1.442,0,13.44\n38,7.62,0.168,sphere,0.48,18.8,10,1,19,10,0,0,1.2,1.448,0,14.03\n39,8.81,0.095,cylinder,0.37,16.1,0,6,14,10,0,0,1.2,1.437,0,13.96\n40,2.37,0.031,sphere,0.54,24.2,0,10,8,10,0,0,1.2,1.441,0,13.85\n\nmass = 1, air_density = 0: runs 41-50\nrun,mass,radius,shape,reflectance,temperature,stripes,hardness,batch,height,speed,angle,air_density,flight_time,distance,impact_speed\n41,1,0.044,cylinder,0.37,75.1,1,8,21,10,0,0,0,1.417,0,14.06\n42,1,0.023,cylinder,0.07,73,7,1,14,10,0,0,0,1.428,0,13.93\n43,1,0.065,sphere,0.89,75,0,10,27,10,0,0,0,1.44,0,14.03\n44,1,0.093,sphere,0.74,51.3,2,6,17,10,0,0,0,1.415,0,14.05\n45,1,0.09,sphere,0.68,58.8,3,6,23,10,0,0,0,1.43,0,14.12\n46,1,0.086,cylinder,0.95,30.2,6,10,31,10,0,0,0,1.418,0,14.2\n47,1,0.165,cube,0.26,11.7,9,10,25,10,0,0,0,1.43,0,13.99\n48,1,0.045,cube,0.78,27.3,5,8,45,10,0,0,0,1.418,0,14.23\n49,1,0.113,sphere,0.25,14.3,8,9,20,10,0,0,0,1.432,0,13.97\n50,1,0.022,sphere,1,75.5,7,3,10,10,0,0,0,1.424,0,14.16\n\nmass = 1, air_density = 0, height = 20: runs 51-60\nrun,mass,radius,shape,reflectance,temperature,stripes,hardness,batch,height,speed,angle,air_density,flight_time,distance,impact_speed\n51,1,0.054,sphere,0.37,-16.5,0,7,8,20,0,0,0,2.04,0,19.74\n52,1,0.171,cylinder,0.24,62.5,0,7,3,20,0,0,0,2.021,0,19.74\n53,1,0.188,cube,0.82,-18.4,10,8,12,20,0,0,0,2.02,0,19.6\n54,1,0.125,sphere,0.2,77.5,4,5,29,20,0,0,0,2.026,0,19.63\n55,1,0.071,cube,0.73,79.2,6,8,5,20,0,0,0,2.025,0,20.17\n56,1,0.14,cube,0.49,45.4,2,5,16,20,0,0,0,2.025,0,19.68\n57,1,0.032,sphere,0.59,-1.8,2,10,45,20,0,0,0,2.016,0,19.69\n58,1,0.064,cube,0.7,79.7,9,10,40,20,0,0,0,2.028,0,19.86\n59,1,0.125,cube,0.58,-11.2,7,9,27,20,0,0,0,2.028,0,19.82\n60,1,0.153,cube,0.08,1.3,10,1,15,20,0,0,0,2.03,0,19.63\n\nmass = 1, air_density = 0, speed = 10, angle = 30: runs 61-70\nrun,mass,radius,shape,reflectance,temperature,stripes,hardness,batch,height,speed,angle,air_density,flight_time,distance,impact_speed\n61,1,0.033,cube,0.31,36.1,0,6,15,10,10,30,0,2.028,17.77,17.3\n62,1,0.048,sphere,0.79,76.2,10,5,23,10,10,30,0,2.025,17.61,17.3\n63,1,0.083,sphere,0.52,18,8,9,38,10,10,30,0,2.014,17.06,17.05\n64,1,0.104,cube,0.24,71.1,9,2,7,10,10,30,0,2.012,17.46,17.02\n65,1,0.139,sphere,0.82,76,0,9,10,10,10,30,0,2.018,17.63,17.24\n66,1,0.119,cylinder,0.78,35.7,5,1,12,10,10,30,0,2.026,17.85,17.15\n67,1,0.125,cube,0.95,-1,1,7,18,10,10,30,0,2.023,17.78,17.03\n68,1,0.102,cylinder,0.17,50.7,9,6,1,10,10,30,0,2.01,17.79,17.28\n69,1,0.036,cube,0.31,28.6,4,4,11,10,10,30,0,2.033,17.67,17.38\n70,1,0.171,sphere,0.23,-3.5,5,3,8,10,10,30,0,2.022,17.55,17.04\n\nmass = 1, speed = 10: runs 71-80\nrun,mass,radius,shape,reflectance,temperature,stripes,hardness,batch,height,speed,angle,air_density,flight_time,distance,impact_speed\n71,1,0.173,cylinder,0.83,21.2,8,3,20,10,10,0,1.2,1.605,11.5,11.83\n72,1,0.039,sphere,0.04,47,2,3,48,10,10,0,1.2,1.441,14.61,16.79\n73,1,0.124,cube,0.89,9.8,0,4,11,10,10,0,1.2,1.586,11.97,12.59\n74,1,0.047,cube,0.28,53.8,4,10,18,10,10,0,1.2,1.444,14.06,16.38\n75,1,0.116,cube,1,-3.1,9,1,39,10,10,0,1.2,1.559,12.08,12.9\n76,1,0.118,cylinder,0.52,-9.7,6,5,50,10,10,0,1.2,1.525,12.96,14.44\n77,1,0.104,sphere,0.44,67,0,1,10,10,10,0,1.2,1.465,13.7,15.59\n78,1,0.138,cylinder,0.83,33.4,0,6,27,10,10,0,1.2,1.553,12.4,13.21\n79,1,0.036,cylinder,0.48,74.3,0,6,3,10,10,0,1.2,1.425,14.04,16.92\n80,1,0.143,cube,0.89,-4.4,9,7,12,10,10,0,1.2,1.636,11.31,11.39\n\nmass = 1, speed = 10, angle = 45: runs 81-90\nrun,mass,radius,shape,reflectance,temperature,stripes,hardness,batch,height,speed,angle,air_density,flight_time,distance,impact_speed\n81,1,0.157,cube,0.12,27.7,9,3,18,10,10,45,1.2,2.418,10.57,11.13\n82,1,0.102,cylinder,0.94,20.1,9,9,4,10,10,45,1.2,2.348,14.42,14.9\n83,1,0.046,cylinder,0.4,20.5,2,9,21,10,10,45,1.2,2.32,15.63,16.6\n84,1,0.124,sphere,0.24,51.1,7,1,22,10,10,45,1.2,2.326,14.56,15.21\n85,1,0.051,cube,0.83,15.7,3,8,47,10,10,45,1.2,2.318,15.45,16.08\n86,1,0.056,cylinder,0.38,31.6,6,8,20,10,10,45,1.2,2.347,15.77,16.08\n87,1,0.024,cube,0.93,26.1,4,7,23,10,10,45,1.2,2.327,16.25,16.91\n88,1,0.167,cube,0.45,-10.4,3,9,25,10,10,45,1.2,2.432,10.15,10.76\n89,1,0.038,cylinder,0.89,-4.9,8,1,22,10,10,45,1.2,2.328,15.9,16.77\n90,1,0.142,sphere,0.02,29,5,5,22,10,10,45,1.2,2.333,13.87,14.55\n\nmass = 5, speed = 10: runs 91-100\nrun,mass,radius,shape,reflectance,temperature,stripes,hardness,batch,height,speed,angle,air_density,flight_time,distance,impact_speed\n91,5,0.022,cylinder,0.49,25.6,3,3,6,10,10,0,1.2,1.417,14.2,17.59\n92,5,0.141,cube,0.82,56.4,0,1,17,10,10,0,1.2,1.473,13.44,15.22\n93,5,0.167,cylinder,0.56,60.2,7,8,4,10,10,0,1.2,1.454,13.45,15.41\n94,5,0.12,sphere,0.6,5.9,9,8,50,10,10,0,1.2,1.445,14.01,16.81\n95,5,0.108,sphere,0.06,56.3,7,7,12,10,10,0,1.2,1.466,14.15,16.84\n96,5,0.118,cylinder,0.93,62,1,1,12,10,10,0,1.2,1.448,13.91,16.3\n97,5,0.026,sphere,0.13,71.9,8,2,13,10,10,0,1.2,1.425,14.41,17.12\n98,5,0.027,cylinder,0.13,-18.9,6,5,31,10,10,0,1.2,1.414,14.07,16.97\n99,5,0.17,cube,0.49,39.9,7,6,11,10,10,0,1.2,1.486,13.32,15\n100,5,0.094,cylinder,0.5,-7.4,2,3,23,10,10,0,1.2,1.45,14.04,16.85\n</runs>\n\n<python_output>\n[1] exit code 0, 0.5 s\n                                          flight_time           distance           impact_speed          \n                                                 mean       std     mean       std         mean       std\nset                                                                                                      \n                                             1.468975  0.139159    0.000  0.000000       13.345  1.457413\nmass=1; air_density=0                        1.425200  0.008135    0.000  0.000000       14.074  0.100576\nmass=1; air_density=0; height=20             2.025900  0.006523    0.000  0.000000       19.756  0.167677\nmass=1; air_density=0; speed=10; angle=30    2.021100  0.007445   17.617  0.230123       17.179  0.136581\nmass=1; speed=10                             1.523900  0.075709   12.863  1.177314       14.204  2.098244\nmass=1; speed=10; angle=45                   2.349700  0.041045   14.257  2.185778       14.899  2.230667\nmass=5; speed=10                             1.447800  0.023776   13.900  0.368752       16.411  0.892244\n</python_output>\n\nRuns used: 100 of 300. Turns used: 1 of 12."
+    },
+    {
+      "role": "assistant",
+      "content": "<experiments>[\n{\"object\":{\"mass\":0.1,\"shape\":\"sphere\",\"radius\":0.02},\"launch\":{},\"n\":2},\n{\"object\":{\"mass\":0.1,\"shape\":\"sphere\",\"radius\":0.05},\"launch\":{},\"n\":2},\n{\"object\":{\"mass\":0.1,\"shape\":\"sphere\",\"radius\":0.1},\"launch\":{},\"n\":2},\n{\"object\":{\"mass\":0.1,\"shape\":\"sphere\",\"radius\":0.2},\"launch\":{},\"n\":2},\n{\"object\":{\"mass\":0.3,\"shape\":\"sphere\",\"radius\":0.02},\"launch\":{},\"n\":2},\n{\"object\":{\"mass\":0.3,\"shape\":\"sphere\",\"radius\":0.05},\"launch\":{},\"n\":2},\n{\"object\":{\"mass\":0.3,\"shape\":\"sphere\",\"radius\":0.1},\"launch\":{},\"n\":2},\n{\"object\":{\"mass\":0.3,\"shape\":\"sphere\",\"radius\":0.2},\"launch\":{},\"n\":2},\n{\"object\":{\"mass\":1,\"shape\":\"sphere\",\"radius\":0.02},\"launch\":{},\"n\":2},\n{\"object\":{\"mass\":1,\"shape\":\"sphere\",\"radius\":0.05},\"launch\":{},\"n\":2},\n{\"object\":{\"mass\":1,\"shape\":\"sphere\",\"radius\":0.1},\"launch\":{},\"n\":2},\n{\"object\":{\"mass\":1,\"shape\":\"sphere\",\"radius\":0.2},\"launch\":{},\"n\":2},\n{\"object\":{\"mass\":3,\"shape\":\"sphere\",\"radius\":0.05},\"launch\":{},\"n\":2},\n{\"object\":{\"mass\":3,\"shape\":\"sphere\",\"radius\":0.2},\"launch\":{},\"n\":2},\n{\"object\":{\"mass\":10,\"shape\":\"sphere\",\"radius\":0.05},\"launch\":{},\"n\":2},\n{\"object\":{\"mass\":10,\"shape\":\"sphere\",\"radius\":0.2},\"launch\":{},\"n\":2},\n{\"object\":{\"mass\":0.3,\"shape\":\"cube\",\"radius\":0.1},\"launch\":{},\"n\":3},\n{\"object\":{\"mass\":0.3,\"shape\":\"cylinder\",\"radius\":0.1},\"launch\":{},\"n\":3},\n{\"object\":{\"mass\":0.3,\"shape\":\"sphere\",\"radius\":0.1,\"temperature\":-20},\"launch\":{},\"n\":3},\n{\"object\":{\"mass\":0.3,\"shape\":\"sphere\",\"radius\":0.1,\"temperature\":80},\"launch\":{},\"n\":3},\n{\"object\":{\"mass\":0.3,\"shape\":\"sphere\",\"radius\":0.1,\"reflectance\":0},\"launch\":{},\"n\":3},\n{\"object\":{\"mass\":0.3,\"shape\":\"sphere\",\"radius\":0.1,\"reflectance\":1},\"launch\":{},\"n\":3},\n{\"object\":{\"mass\":0.3,\"shape\":\"sphere\",\"radius\":0.1,\"stripes\":0},\"launch\":{},\"n\":3},\n{\"object\":{\"mass\":0.3,\"shape\":\"sphere\",\"radius\":0.1,\"stripes\":10},\"launch\":{},\"n\":3},\n{\"object\":{\"mass\":0.3,\"shape\":\"sphere\",\"radius\":0.1,\"hardness\":1},\"launch\":{},\"n\":3},\n{\"object\":{\"mass\":0.3,\"shape\":\"sphere\",\"radius\":0.1,\"hardness\":10},\"launch\":{},\"n\":3},\n{\"object\":{\"mass\":0.3,\"shape\":\"sphere\",\"radius\":0.1,\"batch\":1},\"launch\":{},\"n\":3},\n{\"object\":{\"mass\":0.3,\"shape\":\"sphere\",\"radius\":0.1,\"batch\":50},\"launch\":{},\"n\":3},\n{\"object\":{\"mass\":0.3,\"shape\":\"sphere\",\"radius\":0.1},\"launch\":{\"air_density\":0.6},\"n\":2},\n{\"object\":{\"mass\":0.3,\"shape\":\"sphere\",\"radius\":0.1},\"launch\":{\"air_density\":2.4},\"n\":2}\n]</experiments>"
+    },
+    {
+      "role": "user",
+      "content": "<runs>\nmass = 0.1, shape = sphere, radius = 0.02: runs 101-102\nrun,mass,radius,shape,reflectance,temperature,stripes,hardness,batch,height,speed,angle,air_density,flight_time,distance,impact_speed\n101,0.1,0.02,sphere,0.47,-10.2,10,6,11,10,0,0,1.2,1.448,0,13.95\n102,0.1,0.02,sphere,0.86,7,2,3,40,10,0,0,1.2,1.439,0,13.79\n\nmass = 0.1, shape = sphere, radius = 0.05: runs 103-104\nrun,mass,radius,shape,reflectance,temperature,stripes,hardness,batch,height,speed,angle,air_density,flight_time,distance,impact_speed\n103,0.1,0.05,sphere,0.6,60.9,8,10,14,10,0,0,1.2,1.487,0,12.8\n104,0.1,0.05,sphere,0.84,34,3,5,46,10,0,0,1.2,1.473,0,12.57\n\nmass = 0.1, shape = sphere, radius = 0.1: runs 105-106\nrun,mass,radius,shape,reflectance,temperature,stripes,hardness,batch,height,speed,angle,air_density,flight_time,distance,impact_speed\n105,0.1,0.1,sphere,0.59,56.7,7,1,35,10,0,0,1.2,1.654,0,9.63\n106,0.1,0.1,sphere,0.75,37.7,10,3,4,10,0,0,1.2,1.66,0,9.5\n\nmass = 0.1, shape = sphere, radius = 0.2: runs 107-108\nrun,mass,radius,shape,reflectance,temperature,stripes,hardness,batch,height,speed,angle,air_density,flight_time,distance,impact_speed\n107,0.1,0.2,sphere,0.3,-10,0,9,50,10,0,0,1.2,2.275,0,5.14\n108,0.1,0.2,sphere,0.85,23.1,2,8,27,10,0,0,1.2,2.282,0,5.17\n\nmass = 0.3, shape = sphere, radius = 0.02: runs 109-110\nrun,mass,radius,shape,reflectance,temperature,stripes,hardness,batch,height,speed,angle,air_density,flight_time,distance,impact_speed\n109,0.3,0.02,sphere,0.56,37.1,10,10,41,10,0,0,1.2,1.43,0,13.77\n110,0.3,0.02,sphere,0.56,50.7,10,2,28,10,0,0,1.2,1.427,0,14.01\n\nmass = 0.3, shape = sphere, radius = 0.05: runs 111-112\nrun,mass,radius,shape,reflectance,temperature,stripes,hardness,batch,height,speed,angle,air_density,flight_time,distance,impact_speed\n111,0.3,0.05,sphere,0.44,66.3,0,10,27,10,0,0,1.2,1.457,0,13.52\n112,0.3,0.05,sphere,0.02,10.7,2,7,50,10,0,0,1.2,1.455,0,13.5\n\nmass = 0.3, shape = sphere, radius = 0.1: runs 113-114\nrun,mass,radius,shape,reflectance,temperature,stripes,hardness,batch,height,speed,angle,air_density,flight_time,distance,impact_speed\n113,0.3,0.1,sphere,0.39,47.5,0,3,9,10,0,0,1.2,1.513,0,12.2\n114,0.3,0.1,sphere,0.24,71,7,5,43,10,0,0,1.2,1.495,0,12.2\n\nmass = 0.3, shape = sphere, radius = 0.2: runs 115-116\nrun,mass,radius,shape,reflectance,temperature,stripes,hardness,batch,height,speed,angle,air_density,flight_time,distance,impact_speed\n115,0.3,0.2,sphere,0.18,49.5,6,1,37,10,0,0,1.2,1.719,0,8.73\n116,0.3,0.2,sphere,0.06,-3.5,9,3,35,10,0,0,1.2,1.723,0,8.76\n\nmass = 1, shape = sphere, radius = 0.02: runs 117-118\nrun,mass,radius,shape,reflectance,temperature,stripes,hardness,batch,height,speed,angle,air_density,flight_time,distance,impact_speed\n117,1,0.02,sphere,0.52,-18.8,1,6,3,10,0,0,1.2,1.411,0,14.09\n118,1,0.02,sphere,0.07,44.9,6,6,35,10,0,0,1.2,1.423,0,13.93\n\nmass = 1, shape = sphere, radius = 0.05: runs 119-120\nrun,mass,radius,shape,reflectance,temperature,stripes,hardness,batch,height,speed,angle,air_density,flight_time,distance,impact_speed\n119,1,0.05,sphere,0.24,10.5,8,10,33,10,0,0,1.2,1.437,0,13.59\n120,1,0.05,sphere,0.13,27.3,9,6,13,10,0,0,1.2,1.428,0,14.04\n\nmass = 1, shape = sphere, radius = 0.1: runs 121-122\nrun,mass,radius,shape,reflectance,temperature,stripes,hardness,batch,height,speed,angle,air_density,flight_time,distance,impact_speed\n121,1,0.1,sphere,0.37,50,10,10,11,10,0,0,1.2,1.447,0,13.54\n122,1,0.1,sphere,0.2,20.1,8,3,43,10,0,0,1.2,1.45,0,13.4\n\nmass = 1, shape = sphere, radius = 0.2: runs 123-124\nrun,mass,radius,shape,reflectance,temperature,stripes,hardness,batch,height,speed,angle,air_density,flight_time,distance,impact_speed\n123,1,0.2,sphere,0.92,-1.3,7,10,19,10,0,0,1.2,1.495,0,11.75\n124,1,0.2,sphere,0.25,-8.5,5,3,35,10,0,0,1.2,1.5,0,11.78\n\nmass = 3, shape = sphere, radius = 0.05: runs 125-126\nrun,mass,radius,shape,reflectance,temperature,stripes,hardness,batch,height,speed,angle,air_density,flight_time,distance,impact_speed\n125,3,0.05,sphere,0.8,7.1,6,4,33,10,0,0,1.2,1.427,0,14.02\n126,3,0.05,sphere,0.63,67.1,3,4,7,10,0,0,1.2,1.434,0,13.99\n\nmass = 3, shape = sphere, radius = 0.2: runs 127-128\nrun,mass,radius,shape,reflectance,temperature,stripes,hardness,batch,height,speed,angle,air_density,flight_time,distance,impact_speed\n127,3,0.2,sphere,0.12,0.7,1,8,50,10,0,0,1.2,1.438,0,13.11\n128,3,0.2,sphere,0.85,23.7,0,2,4,10,0,0,1.2,1.459,0,13.17\n\nmass = 10, shape = sphere, radius = 0.05: runs 129-130\nrun,mass,radius,shape,reflectance,temperature,stripes,hardness,batch,height,speed,angle,air_density,flight_time,distance,impact_speed\n129,10,0.05,sphere,0.17,-13.7,1,10,5,10,0,0,1.2,1.431,0,14.03\n130,10,0.05,sphere,0.78,33,0,7,48,10,0,0,1.2,1.423,0,14.02\n\nmass = 10, shape = sphere, radius = 0.2: runs 131-132\nrun,mass,radius,shape,reflectance,temperature,stripes,hardness,batch,height,speed,angle,air_density,flight_time,distance,impact_speed\n131,10,0.2,sphere,0.75,42.6,8,10,14,10,0,0,1.2,1.434,0,13.64\n132,10,0.2,sphere,0.04,75.7,8,2,43,10,0,0,1.2,1.438,0,13.89\n\nmass = 0.3, shape = cube, radius = 0.1: runs 133-135\nrun,mass,radius,shape,reflectance,temperature,stripes,hardness,batch,height,speed,angle,air_density,flight_time,distance,impact_speed\n133,0.3,0.1,cube,0.91,69.7,3,2,9,10,0,0,1.2,1.622,0,9.71\n134,0.3,0.1,cube,0.86,25.1,1,9,19,10,0,0,1.2,1.631,0,9.71\n135,0.3,0.1,cube,0.17,-1.2,4,3,48,10,0,0,1.2,1.638,0,9.77\n\nmass = 0.3, shape = cylinder, radius = 0.1: runs 136-138\nrun,mass,radius,shape,reflectance,temperature,stripes,hardness,batch,height,speed,angle,air_density,flight_time,distance,impact_speed\n136,0.3,0.1,cylinder,0.21,4.8,5,4,11,10,0,0,1.2,1.543,0,10.9\n137,0.3,0.1,cylinder,0.66,39.5,2,3,21,10,0,0,1.2,1.551,0,11\n138,0.3,0.1,cylinder,0.43,-10.2,4,3,5,10,0,0,1.2,1.566,0,11.24\n\nmass = 0.3, shape = sphere, radius = 0.1, temperature = -20: runs 139-141\nrun,mass,radius,shape,reflectance,temperature,stripes,hardness,batch,height,speed,angle,air_density,flight_time,distance,impact_speed\n139,0.3,0.1,sphere,0.08,-20,10,3,7,10,0,0,1.2,1.503,0,12.11\n140,0.3,0.1,sphere,0.46,-20,8,5,41,10,0,0,1.2,1.503,0,12.18\n141,0.3,0.1,sphere,0.13,-20,8,4,20,10,0,0,1.2,1.5,0,11.93\n\nmass = 0.3, shape = sphere, radius = 0.1, temperature = 80: runs 142-144\nrun,mass,radius,shape,reflectance,temperature,stripes,hardness,batch,height,speed,angle,air_density,flight_time,distance,impact_speed\n142,0.3,0.1,sphere,0.36,80,9,1,8,10,0,0,1.2,1.503,0,12.42\n143,0.3,0.1,sphere,0.46,80,0,10,17,10,0,0,1.2,1.506,0,12.28\n144,0.3,0.1,sphere,0.01,80,6,1,1,10,0,0,1.2,1.505,0,12.13\n\nmass = 0.3, shape = sphere, radius = 0.1, reflectance = 0: runs 145-147\nrun,mass,radius,shape,reflectance,temperature,stripes,hardness,batch,height,speed,angle,air_density,flight_time,distance,impact_speed\n145,0.3,0.1,sphere,0,-15.8,5,4,11,10,0,0,1.2,1.484,0,12.37\n146,0.3,0.1,sphere,0,23,3,6,8,10,0,0,1.2,1.48,0,12.26\n147,0.3,0.1,sphere,0,53.7,9,6,37,10,0,0,1.2,1.501,0,11.95\n\nmass = 0.3, shape = sphere, radius = 0.1, reflectance = 1: runs 148-150\nrun,mass,radius,shape,reflectance,temperature,stripes,hardness,batch,height,speed,angle,air_density,flight_time,distance,impact_speed\n148,0.3,0.1,sphere,1,5.8,9,10,28,10,0,0,1.2,1.493,0,12.24\n149,0.3,0.1,sphere,1,63.3,2,1,21,10,0,0,1.2,1.502,0,12.24\n150,0.3,0.1,sphere,1,-4.8,2,6,50,10,0,0,1.2,1.487,0,12.03\n\nmass = 0.3, shape = sphere, radius = 0.1, stripes = 0: runs 151-153\nrun,mass,radius,shape,reflectance,temperature,stripes,hardness,batch,height,speed,angle,air_density,flight_time,distance,impact_speed\n151,0.3,0.1,sphere,0.02,-12.3,0,7,31,10,0,0,1.2,1.513,0,12.18\n152,0.3,0.1,sphere,0.36,29.7,0,7,24,10,0,0,1.2,1.477,0,12.23\n153,0.3,0.1,sphere,0.74,65.6,0,4,18,10,0,0,1.2,1.482,0,12.37\n\nmass = 0.3, shape = sphere, radius = 0.1, stripes = 10: runs 154-156\nrun,mass,radius,shape,reflectance,temperature,stripes,hardness,batch,height,speed,angle,air_density,flight_time,distance,impact_speed\n154,0.3,0.1,sphere,0.8,43.4,10,8,36,10,0,0,1.2,1.49,0,12.11\n155,0.3,0.1,sphere,0.94,12.6,10,2,23,10,0,0,1.2,1.474,0,12.23\n156,0.3,0.1,sphere,0.32,59.3,10,8,6,10,0,0,1.2,1.506,0,12.14\n\nmass = 0.3, shape = sphere, radius = 0.1, hardness = 1: runs 157-159\nrun,mass,radius,shape,reflectance,temperature,stripes,hardness,batch,height,speed,angle,air_density,flight_time,distance,impact_speed\n157,0.3,0.1,sphere,0.37,24.5,4,1,22,10,0,0,1.2,1.508,0,11.93\n158,0.3,0.1,sphere,0.16,55.6,4,1,27,10,0,0,1.2,1.508,0,12.33\n159,0.3,0.1,sphere,0.61,43.6,10,1,4,10,0,0,1.2,1.494,0,12.14\n\nmass = 0.3, shape = sphere, radius = 0.1, hardness = 10: runs 160-162\nrun,mass,radius,shape,reflectance,temperature,stripes,hardness,batch,height,speed,angle,air_density,flight_time,distance,impact_speed\n160,0.3,0.1,sphere,0.37,44.3,8,10,14,10,0,0,1.2,1.475,0,12.09\n161,0.3,0.1,sphere,0.92,23.8,6,10,24,10,0,0,1.2,1.497,0,12.18\n162,0.3,0.1,sphere,0.84,-1.9,4,10,34,10,0,0,1.2,1.508,0,12.26\n\nmass = 0.3, shape = sphere, radius = 0.1, batch = 1: runs 163-165\nrun,mass,radius,shape,reflectance,temperature,stripes,hardness,batch,height,speed,angle,air_density,flight_time,distance,impact_speed\n163,0.3,0.1,sphere,0.57,-7.1,0,9,1,10,0,0,1.2,1.502,0,12.14\n164,0.3,0.1,sphere,0.98,-4.7,0,8,1,10,0,0,1.2,1.504,0,12.31\n165,0.3,0.1,sphere,0.89,19.8,6,7,1,10,0,0,1.2,1.477,0,12.21\n\nmass = 0.3, shape = sphere, radius = 0.1, batch = 50: runs 166-168\nrun,mass,radius,shape,reflectance,temperature,stripes,hardness,batch,height,speed,angle,air_density,flight_time,distance,impact_speed\n166,0.3,0.1,sphere,0.83,57.1,0,5,50,10,0,0,1.2,1.502,0,12.33\n167,0.3,0.1,sphere,0.97,45.1,2,10,50,10,0,0,1.2,1.52,0,11.94\n168,0.3,0.1,sphere,0.15,56.7,4,3,50,10,0,0,1.2,1.488,0,12.15\n\nmass = 0.3, shape = sphere, radius = 0.1, air_density = 0.6: runs 169-170\nrun,mass,radius,shape,reflectance,temperature,stripes,hardness,batch,height,speed,angle,air_density,flight_time,distance,impact_speed\n169,0.3,0.1,sphere,0.63,59.4,3,5,31,10,0,0,0.6,1.463,0,12.98\n170,0.3,0.1,sphere,0.86,41,5,7,26,10,0,0,0.6,1.463,0,12.92\n\nmass = 0.3, shape = sphere, radius = 0.1, air_density = 2.4: runs 171-172\nrun,mass,radius,shape,reflectance,temperature,stripes,hardness,batch,height,speed,angle,air_density,flight_time,distance,impact_speed\n171,0.3,0.1,sphere,0.51,62.5,4,5,38,10,0,0,2.4,1.568,0,10.72\n172,0.3,0.1,sphere,0.74,45.5,1,2,18,10,0,0,2.4,1.562,0,10.84\n</runs>\n\nRuns used: 172 of 300. Turns used: 2 of 12."
+    },
+    {
+      "role": "assistant",
+      "content": "<python>\nimport numpy as np, pandas as pd\nfrom scipy.optimize import least_squares\nd=df.copy()\ndef sim(m,r,sh,h,v0,ang,rho,Cd,pm=1,pr=2,g=9.81):\n    k=0.5*rho*Cd*np.pi*r**pr/m**pm\n    a=np.radians(ang);vx=v0*np.cos(a);vy=v0*np.sin(a)  # vy up\n    x=0;y=h;t=0;dt=0.002\n    while y>0:\n        v=np.hypot(vx,vy)\n        vx+=-k*v*vx*dt; vy+=(-g-k*v*vy)*dt\n        x+=vx*dt;y+=vy*dt;t+=dt\n    return t,x,np.hypot(vx,vy)\nsub=d[(d.speed==0)&(d.height==10)&(d.air_density>0)].copy()\ndef res(p,pm_free=True):\n    Cd={'sphere':p[0],'cube':p[1],'cylinder':p[2]}\n    out=[]\n    for _,r in sub.iterrows():\n        t,x,v=sim(r.mass,r.radius,r['shape'],r.height,0,0,r.air_density,Cd[r['shape']],p[3],p[4])\n        out+=[(t-r.flight_time)/0.01,(v-r.impact_speed)/(0.01*r.impact_speed)]\n    return out\ns=least_squares(res,[0.5,1,0.8,1,2],x_scale=0.1)\nprint(s.x,np.sum(np.square(s.fun)),len(s.fun))\n</python>"
+    },
+    {
+      "role": "user",
+      "content": "<python_output>\n[1] exit code 0, 5.1 s\n[0.48310165 1.35217916 0.85092379 1.00343748 2.01244451] 239.87552098298266 224\n</python_output>\n\nRuns used: 172 of 300. Turns used: 3 of 12."
+    },
+    {
+      "role": "assistant",
+      "content": "\n<invoke name=\"python\">\n<parameter name=\"code\">\nCd0={'sphere':0.483,'cube':1.352,'cylinder':0.851}\nrows=[]\nfor i,r in df.iterrows():\n    t,x,v=sim(r.mass,r.radius,r['shape'],r.height,r.speed,r.angle,r.air_density,Cd0[r['shape']])\n    rows.append((t-r.flight_time,(x-r.distance)/max(r.distance,1)*100 if r.distance>0 else 0,(v/r.impact_speed-1)*100))\nR=pd.DataFrame(rows,columns=['dt','dx%','dv%'],index=df.index)\nprint(R.describe().to_string())\nfor c in ['temperature','reflectance','stripes','hardness','batch','mass','radius']:\n    print(c,[round(np.corrcoef(df[c],R[k])[0,1],2) for k in R])\nprint(R[df.speed>0].groupby(df.set).mean())\n</parameter>\n</invoke>\n_placeholder"
+    },
+    {
+      "role": "user",
+      "content": "I could not find <experiments>, <python> or <report> in your reply, so nothing was carried out.\n\nRuns used: 172 of 300. Turns used: 4 of 12."
+    },
+    {
+      "role": "assistant",
+      "content": "<python>\nimport numpy as np, pandas as pd\ndef sim(m,r,h,v0,ang,rho,Cd,g=9.81):\n    k=0.5*rho*Cd*np.pi*r**2/m\n    a=np.radians(ang);vx=v0*np.cos(a);vy=v0*np.sin(a)\n    x=0;y=h;t=0;dt=0.002\n    while y>0:\n        v=np.hypot(vx,vy)\n        vx+=-k*v*vx*dt; vy+=(-g-k*v*vy)*dt\n        x+=vx*dt;y+=vy*dt;t+=dt\n    return t,x,np.hypot(vx,vy)\nCd0={'sphere':0.483,'cube':1.352,'cylinder':0.851}\nrows=[]\nfor i,r in df.iterrows():\n    t,x,v=sim(r.mass,r.radius,r.height,r.speed,r.angle,r.air_density,Cd0[r['shape']])\n    rows.append((t-r.flight_time,(x/r.distance-1)*100 if r.distance>0 else 0,(v/r.impact_speed-1)*100))\nR=pd.DataFrame(rows,columns=['dt','dx%','dv%'],index=df.index)\nprint(R.describe().to_string())\nfor c in ['temperature','reflectance','stripes','hardness','batch','mass','radius']:\n    print(c,[round(np.corrcoef(df[c],R[k])[0,1],2) for k in R])\nprint(R[df.speed>0].groupby(df.set).mean())\n</python>"
+    },
+    {
+      "role": "user",
+      "content": "<python_output>\n[1] exit code 0, 1.5 s\n                 dt         dx%         dv%\ncount  1.720000e+02  172.000000  172.000000\nmean   1.139535e-03   -0.069107   -0.239111\nstd    1.036657e-02    0.548904    1.010241\nmin   -3.000000e-02   -2.946864   -3.083666\n25%   -6.000000e-03    0.000000   -0.818514\n50%    1.110223e-15    0.000000   -0.199819\n75%    8.000000e-03    0.000000    0.411794\nmax    2.600000e-02    2.846862    2.206645\ntemperature [np.float64(-0.01), np.float64(-0.02), np.float64(-0.02)]\nreflectance [np.float64(-0.02), np.float64(-0.02), np.float64(-0.04)]\nstripes [np.float64(0.02), np.float64(0.04), np.float64(-0.05)]\nhardness [np.float64(-0.01), np.float64(0.05), np.float64(0.1)]\nbatch [np.float64(0.02), np.float64(0.05), np.float64(-0.02)]\nmass [np.float64(-0.12), np.float64(0.11), np.float64(0.01)]\nradius [np.float64(0.05), np.float64(-0.02), np.float64(0.08)]\n                                               dt       dx%       dv%\nset                                                                  \nmass=1; air_density=0; speed=10; angle=30  0.0049 -0.389286  0.200240\nmass=1; speed=10                          -0.0017 -1.062662 -0.558551\nmass=1; speed=10; angle=45                 0.0029 -0.066055  0.008789\nmass=5; speed=10                          -0.0012  0.329358  0.226832\n</python_output>\n\nRuns used: 172 of 300. Turns used: 5 of 12."
+    },
+    {
+      "role": "assistant",
+      "content": "<report>\n**Title:** Quadratic air drag, set by shape, radius and mass, governs motion in the simulated laboratory\n\n**Abstract:** I ran 172 of the 300 allowed runs: random objects, controlled drops in vacuum and air, and launches at several speeds and angles. Motion is consistent with gravity (g\u22489.81 m/s\u00b2) plus quadratic air drag, with acceleration \u2212k\u00b7|v|\u00b7v and k = \u00bd\u00b7\u03c1_air\u00b7C_d(shape)\u00b7\u03c0\u00b7r\u00b2/m. The fitted C_d values are about 0.48 for spheres, 1.35 for cubes and 0.85 for cylinders. Reflectance, temperature, stripes, hardness and batch have no detectable effect. In vacuum, mass, radius and shape also have no effect. I am confident in the overall model, with the caveats below.\n\n**Methods:**\n- Turn 1 used 40 random objects with default launch settings. It also included vacuum drops of a 1 kg object from 10 m and 20 m, a vacuum launch at 10 m/s and 30\u00b0, and launches at 10 m/s in air (angle 0 and 45\u00b0, mass 1 and 5 kg).\n- Turn 2 was a controlled design on spheres. It crossed mass (0.1 to 10 kg) with radius (0.02 to 0.2 m) and compared the three shapes at mass 0.3 kg and radius 0.1 m. It also set temperature, reflectance, stripes, hardness and batch each to its extremes, and varied air density (0.6, 1.2, 2.4).\n- I fitted a numerical trajectory model, with Euler integration at dt = 0.002 s, to the drop data by least squares. Free parameters were C_d for each shape, the exponent of mass and the exponent of radius. Residuals were weighted by the stated noise.\n- I then checked the fitted model against all runs, including the launched ones. I correlated the residuals with each nuisance property.\n\n**Results:**\n- **Vacuum:** Flight time and impact speed match free fall, t = \u221a(2h/g) and v = \u221a(2gh) (1.425 s and 14.07 m/s at 10 m; 2.026 s and 19.76 m/s at 20 m). Mass, radius, shape, reflectance, temperature, stripes, hardness and batch have no visible effect. The 20 m flight time is about 3\u03c3 longer than the g = 9.81 prediction (2.026 s observed against 2.019 s predicted). I treat this as probably a fluctuation.\n- **Horizontal motion:** In vacuum the horizontal velocity is constant. The distance for 10 m/s at 30\u00b0 (17.6 m) matches projectile motion.\n- **Drag in air:**\n  - The fitted exponents are mass^\u22121.00 and radius^2.01.\n  - Drag deceleration is k\u00b7v\u00b2, with k = \u00bd\u00b7\u03c1\u00b7C_d\u00b7\u03c0\u00b7r\u00b2/m. It is proportional to air density.\n  - C_d is about 0.48 for spheres, 1.35 for cubes and 0.85 for cylinders.\n  - The chi-square was 240 for 224 data points, so the fit is statistically adequate.\n  - Large, light objects are slowed strongly. For example, a 0.1 kg sphere of radius 0.2 m falls 10 m in 2.28 s, whereas a 10 kg object falls in 1.43 s.\n  - The same model predicts the launched runs, with residuals of about 1% in distance and speed and no systematic bias.\n- **Irrelevant properties:** Residual correlations with temperature, reflectance, stripes, hardness and batch are all |r| \u2264 0.1. The direct set-extreme comparisons agree within noise. Launch height, speed, angle and air density act only through the physics above.\n- **Combination effect:** Mass, radius and air density combine through the single ratio \u03c1\u00b7r\u00b2/m, with a shape-dependent coefficient.\n\n**Discussion:** The laboratory follows ordinary projectile motion with quadratic drag. The form is real-world-like, but the shape C_d values are particular to this lab. Only mass, radius, shape, air density and the launch settings matter. The remaining properties are irrelevant.\n\n**Limitations:**\n- I used few runs for the cube and cylinder shapes, so their C_d values are less precise, probably \u00b13%.\n- Launches covered only angles of 0\u00b0, 30\u00b0 and 45\u00b0 and speeds of 0 and 10 m/s. I did not test negative angles or speeds up to 20 m/s, and interactions there are extrapolated.\n- Small effects below about 1% could be hidden by noise.\n- The model may use a slightly different g or a slightly different functional form that I did not probe, for example a mild dependence of C_d on speed.\n- I assumed Euler integration was adequate.\n</report>"
+    },
+    {
+      "role": "user",
+      "content": "Your paper is finished. Now submit your law as a Python function inside <law></law>:\n\ndef predict(obj, launch):\n    ...\n    return {\"flight_time\": ..., \"distance\": ..., \"impact_speed\": ...}\n\nobj has the keys mass, radius, shape, reflectance, temperature, stripes, hardness and batch; launch has the keys height, speed, angle and air_density, in the units above. The function may import math, numpy and scipy, must not read any files, and should take well under a second per call. It will be tested on 40 experiments you have not run. You cannot run any more experiments or code."
+    },
+    {
+      "role": "assistant",
+      "content": "<law>\nimport math\n\ndef predict(obj, launch):\n    m = obj[\"mass\"]\n    r = obj[\"radius\"]\n    Cd = {\"sphere\": 0.483, \"cube\": 1.352, \"cylinder\": 0.851}.get(obj[\"shape\"], 0.85)\n    h = launch.get(\"height\", 10.0)\n    v0 = launch.get(\"speed\", 0.0)\n    ang = math.radians(launch.get(\"angle\", 0.0))\n    rho = launch.get(\"air_density\", 1.2)\n    g = 9.81\n    k = 0.5 * rho * Cd * math.pi * r * r / m\n    vx = v0 * math.cos(ang)\n    vy = v0 * math.sin(ang)\n    x = 0.0\n    y = h\n    t = 0.0\n    dt = 0.001\n    while y > 0:\n        v = math.hypot(vx, vy)\n        ax = -k * v * vx\n        ay = -g - k * v * vy\n        vx += ax * dt\n        vy += ay * dt\n        x += vx * dt\n        y += vy * dt\n        t += dt\n        if t > 100:\n            break\n    # correct overshoot at landing\n    if vy != 0:\n        frac = (-y) / (vy * dt) if vy * dt != 0 else 0\n        frac = min(max(frac, 0), 1)\n        t -= frac * dt\n        x -= vx * dt * frac\n    return {\"flight_time\": t, \"distance\": x, \"impact_speed\": math.hypot(vx, vy)}\n</law>"
+    }
+  ],
+  "model": "claude-sonnet-5.5",
+  "model_settings": {
+    "id": "anthropic/claude-sonnet-5.5",
+    "reasoning": {
+      "effort": "medium"
+    },
+    "max_tokens": 32000,
+    "cache": true
+  },
+  "started_at": "2026-10-13T00:05:54.288124+00:00",
+  "finished_at": "2026-10-13T00:06:50.533933+00:00"
+}

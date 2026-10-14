@@ -1,0 +1,84 @@
+{
+  "collected": {
+    "n": 167,
+    "estimable": true,
+    "t": -1.32,
+    "p": 0.19,
+    "rank": 9,
+    "pairs_testable": 21,
+    "identifiable": false
+  },
+  "code": {
+    "blocks": 3,
+    "errors": 0,
+    "timeouts": 0,
+    "formed_product": 0,
+    "grouped_by_both": 0,
+    "screened_and_shown": 0,
+    "tested": false,
+    "output_lines_naming_both": []
+  },
+  "report_sentences": [
+    "Reflectance, temperature, stripes, hardness and batch have no detectable effect.",
+    "- Null effects: residuals show no significant dependence on reflectance, temperature, stripes, hardness or batch (all p > 0.25).",
+    "Reflectance, temperature, stripes, hardness and batch are irrelevant."
+  ],
+  "irrelevant_property_sentences": [
+    "Reflectance, temperature, stripes, hardness and batch have no detectable effect.",
+    "- Null effects: residuals show no significant dependence on reflectance, temperature, stripes, hardness or batch (all p > 0.25).",
+    "Reflectance, temperature, stripes, hardness and batch are irrelevant."
+  ],
+  "law": {
+    "ran": true,
+    "pairs": 20,
+    "pairs_with_invented_gap": 0,
+    "invents_new_law": false,
+    "median_gap_vs_usual_law": 0.0,
+    "flight_time_error": 0.0002,
+    "distance_error": 0.0002,
+    "impact_speed_error": 0.0002,
+    "baseline_flight_time_error": 0.0
+  },
+  "design": {
+    "runs": 167,
+    "runs_per_turn": [
+      90,
+      41,
+      36,
+      0
+    ],
+    "runs_random_object": 40,
+    "runs_in_vacuum": 30,
+    "runs_setting_reflectance_and_temperature": 6,
+    "runs_setting_both_away_from_neutral": 6,
+    "distinct_settings": 29,
+    "properties_ever_set": [
+      "mass",
+      "radius",
+      "shape",
+      "reflectance",
+      "temperature",
+      "stripes",
+      "hardness",
+      "batch"
+    ],
+    "evidence_after_each_turn": [
+      false,
+      false,
+      false,
+      false
+    ]
+  },
+  "found": false,
+  "invented": false,
+  "turns_used": 5,
+  "finish_reasons": [
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop"
+  ],
+  "cost": 0.1102
+}

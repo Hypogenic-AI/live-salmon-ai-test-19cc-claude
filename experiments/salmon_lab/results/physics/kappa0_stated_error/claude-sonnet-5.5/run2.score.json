@@ -1,0 +1,90 @@
+{
+  "collected": {
+    "n": 207,
+    "estimable": true,
+    "t": -0.66,
+    "p": 0.512,
+    "rank": 12,
+    "pairs_testable": 21,
+    "identifiable": false
+  },
+  "code": {
+    "blocks": 5,
+    "errors": 1,
+    "timeouts": 0,
+    "formed_product": 0,
+    "grouped_by_both": 0,
+    "screened_and_shown": 0,
+    "tested": false,
+    "output_lines_naming_both": [
+      "rt    rs  reflectance  temperature  ...  hardness  batch  radius  mass"
+    ]
+  },
+  "report_sentences": [
+    "Reflectance, temperature, stripes, hardness and batch showed no detectable effect.",
+    "- Reflectance, temperature, stripes, hardness and batch: no effect.",
+    "Reflectance, temperature, stripes, hardness and batch are irrelevant."
+  ],
+  "irrelevant_property_sentences": [
+    "Reflectance, temperature, stripes, hardness and batch showed no detectable effect.",
+    "I also compared the extremes of reflectance, stripes, hardness and batch against each other.",
+    "- Reflectance, temperature, stripes, hardness and batch: no effect.",
+    "Reflectance, temperature, stripes, hardness and batch are irrelevant."
+  ],
+  "law": {
+    "ran": true,
+    "pairs": 20,
+    "pairs_with_invented_gap": 0,
+    "invents_new_law": false,
+    "median_gap_vs_usual_law": 0.0,
+    "flight_time_error": 0.0012,
+    "distance_error": 0.0011,
+    "impact_speed_error": 0.0016,
+    "baseline_flight_time_error": 0.0
+  },
+  "design": {
+    "runs": 207,
+    "runs_per_turn": [
+      100,
+      53,
+      54,
+      0,
+      0
+    ],
+    "runs_random_object": 40,
+    "runs_in_vacuum": 40,
+    "runs_setting_reflectance_and_temperature": 0,
+    "runs_setting_both_away_from_neutral": 0,
+    "distinct_settings": 31,
+    "properties_ever_set": [
+      "mass",
+      "radius",
+      "shape",
+      "reflectance",
+      "temperature",
+      "stripes",
+      "hardness",
+      "batch"
+    ],
+    "evidence_after_each_turn": [
+      false,
+      false,
+      false,
+      false,
+      false
+    ]
+  },
+  "found": false,
+  "invented": false,
+  "turns_used": 6,
+  "finish_reasons": [
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop"
+  ],
+  "cost": 0.1239
+}

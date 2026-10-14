@@ -1,0 +1,100 @@
+{
+  "collected": {
+    "n": 242,
+    "estimable": true,
+    "t": -66.89,
+    "p": 3.46e-153,
+    "rank": 1,
+    "pairs_testable": 21,
+    "identifiable": true
+  },
+  "code": {
+    "blocks": 8,
+    "errors": 0,
+    "timeouts": 0,
+    "formed_product": 1,
+    "grouped_by_both": 0,
+    "screened_and_shown": 0,
+    "tested": true,
+    "output_lines_naming_both": [
+      "mass  radius     shape  reflectance  temperature  air_density    dv  flight_time",
+      "g~a+reflectance+temperature 0.9827841456388843 {'Intercept': 10.5207, 'a': -0.0673, 'reflectance': -1.3656, 'temperature': 0.0338}"
+    ]
+  },
+  "report_sentences": [
+    "**Title:** Quadratic air drag and a reflectance\u00d7temperature-dependent gravity in a simulated drop laboratory",
+    "In addition, the effective gravitational acceleration depends on the combination reflectance \u00d7 temperature: g \u2248 9.82 + 0.067 (R\u22120.5)(T\u221220).",
+    "**Methods:** I ran vacuum drops, default-air drops with random objects, air-density scans, drops of controlled mass, radius and shape from 50 m, reflectance and temperature extremes in vacuum, and angled throws.",
+    "- Reflectance and temperature have little effect individually.",
+    "**Discussion:** The laws are quadratic drag, with a shape-dependent Cd and the scaling \u03c1r\u00b2/m, plus a gravity that varies with the reflectance\u2013temperature combination."
+  ],
+  "irrelevant_property_sentences": [
+    "Stripes, hardness and batch showed no effect.",
+    "- No effect was found for stripes, hardness or batch."
+  ],
+  "law": {
+    "ran": true,
+    "pairs": 20,
+    "pairs_right": 20,
+    "captures_new_law": true,
+    "median_ratio_of_gaps": 1.011,
+    "flight_time_error": 0.0005,
+    "distance_error": 0.0005,
+    "impact_speed_error": 0.0003,
+    "baseline_flight_time_error": 0.0138
+  },
+  "design": {
+    "runs": 242,
+    "runs_per_turn": [
+      52,
+      80,
+      0,
+      0,
+      46,
+      0,
+      64,
+      0,
+      0
+    ],
+    "runs_random_object": 120,
+    "runs_in_vacuum": 96,
+    "runs_setting_reflectance_and_temperature": 0,
+    "runs_setting_both_away_from_neutral": 0,
+    "distinct_settings": 21,
+    "properties_ever_set": [
+      "mass",
+      "radius",
+      "shape",
+      "reflectance",
+      "temperature"
+    ],
+    "evidence_after_each_turn": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ]
+  },
+  "found": true,
+  "invented": false,
+  "turns_used": 10,
+  "finish_reasons": [
+    "stop",
+    "stop",
+    "length",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop"
+  ],
+  "cost": 0.5351
+}

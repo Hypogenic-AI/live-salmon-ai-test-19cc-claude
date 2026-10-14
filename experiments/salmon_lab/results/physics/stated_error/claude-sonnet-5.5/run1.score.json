@@ -1,0 +1,86 @@
+{
+  "collected": {
+    "n": 166,
+    "estimable": true,
+    "t": -10.34,
+    "p": 2.21e-19,
+    "rank": 1,
+    "pairs_testable": 21,
+    "identifiable": true
+  },
+  "code": {
+    "blocks": 4,
+    "errors": 1,
+    "timeouts": 0,
+    "formed_product": 0,
+    "grouped_by_both": 0,
+    "screened_and_shown": 0,
+    "tested": false,
+    "output_lines_naming_both": []
+  },
+  "report_sentences": [
+    "Reflectance, temperature, stripes, hardness and batch showed no detectable effect.",
+    "The factors were mass 0.1\u201310 kg, radius 0.02\u20130.2 m, shape, air_density 0.3\u20132.4, and the extremes of temperature, reflectance, stripes, hardness and batch.",
+    "- **Null effects.** Reflectance 0 vs 1, temperature \u221220 vs 80 \u00b0C, stripes 0 vs 10, hardness 1 vs 10 and batch 1 vs 50 all gave flight times within about 1% of the baseline.",
+    "The properties with no detectable effect are reflectance, temperature, stripes, hardness and batch."
+  ],
+  "irrelevant_property_sentences": [
+    "Reflectance, temperature, stripes, hardness and batch showed no detectable effect.",
+    "The factors were mass 0.1\u201310 kg, radius 0.02\u20130.2 m, shape, air_density 0.3\u20132.4, and the extremes of temperature, reflectance, stripes, hardness and batch.",
+    "- **Null effects.** Reflectance 0 vs 1, temperature \u221220 vs 80 \u00b0C, stripes 0 vs 10, hardness 1 vs 10 and batch 1 vs 50 all gave flight times within about 1% of the baseline.",
+    "The properties with no detectable effect are reflectance, temperature, stripes, hardness and batch."
+  ],
+  "law": {
+    "ran": true,
+    "pairs": 20,
+    "pairs_right": 0,
+    "captures_new_law": false,
+    "median_ratio_of_gaps": 0.0,
+    "flight_time_error": 0.0056,
+    "distance_error": 0.0037,
+    "impact_speed_error": 0.0029,
+    "baseline_flight_time_error": 0.0021
+  },
+  "design": {
+    "runs": 166,
+    "runs_per_turn": [
+      90,
+      76,
+      0,
+      0
+    ],
+    "runs_random_object": 40,
+    "runs_in_vacuum": 50,
+    "runs_setting_reflectance_and_temperature": 0,
+    "runs_setting_both_away_from_neutral": 0,
+    "distinct_settings": 30,
+    "properties_ever_set": [
+      "mass",
+      "radius",
+      "shape",
+      "reflectance",
+      "temperature",
+      "stripes",
+      "hardness",
+      "batch"
+    ],
+    "evidence_after_each_turn": [
+      true,
+      true,
+      true,
+      true
+    ]
+  },
+  "found": false,
+  "invented": false,
+  "turns_used": 5,
+  "finish_reasons": [
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop"
+  ],
+  "cost": 0.2265
+}

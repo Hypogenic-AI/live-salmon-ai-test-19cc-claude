@@ -1,0 +1,195 @@
+{
+  "interaction": {
+    "pair": "X4:X5",
+    "collected": true,
+    "tested": false,
+    "python": {
+      "blocks": 5,
+      "errors": 0,
+      "timeouts": 0,
+      "blocks_forming_x4_times_x5": 0,
+      "blocks_screening_all_pairs": 0,
+      "tested": false,
+      "output_lines_naming_x4_and_x5": [
+        "X1 -0.0; X2 0.38; X3 -0.0; X4 0.05; X5 0.22; X6 0.03; X7 0.04; X8 0.04; X9 0.03; X10 -0.06; X11 0.15; X12 -0.13; X13 -0.11; X14 -0.13; X15 -0.1; X16 0.02; X17 0.4; X18 0.15; X19 0.05; X20 0.2; =============================================================================="
+      ]
+    },
+    "put_x4x5_in_a_fit_it_could_not_estimate": false,
+    "saw": false,
+    "report_mentions_x4_with_x5": true,
+    "report_sentences": [
+      "- In the observational data, several feature pairs were highly correlated: X1\u2013X16 (r = 0.95), X4\u2013X19 (0.96), X5\u2013X20 (0.88), X2\u2013X17 (0.85) and X3\u2013X18 (0.6).",
+      "- Runs 101\u2013137 set X1\u2013X5 and X16\u2013X20 to quasi-random values in [\u22122.9, 2.9], which broke the X1/X16, X3/X18, X4/X19, X5/X20 and X2/X17 links."
+    ],
+    "x4x5_estimates_it_saw": [],
+    "product_terms_ever_fitted": [],
+    "fits": 1,
+    "analyses": 1
+  },
+  "design": {
+    "runs": 176,
+    "runs_per_turn": [
+      100,
+      0,
+      0,
+      0,
+      37,
+      0,
+      0,
+      39,
+      0
+    ],
+    "runs_nothing_set": 100,
+    "runs_one_feature_set": 0,
+    "runs_all_20_set": 0,
+    "runs_setting_X4": 37,
+    "runs_setting_X5": 76,
+    "runs_X4_and_X5_both_set_nonzero": 36,
+    "distinct_settings": 77,
+    "features_ever_set": [
+      "X1",
+      "X2",
+      "X3",
+      "X4",
+      "X5",
+      "X7",
+      "X11",
+      "X16",
+      "X17",
+      "X18",
+      "X19",
+      "X20"
+    ],
+    "evidence_after_each_turn": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ]
+  },
+  "predictions": [
+    {
+      "question": "all features at 0",
+      "kind": "control",
+      "true": 0.0,
+      "trap": 0.0,
+      "predicted": -0.2,
+      "abs_error": 0.2,
+      "follows": null
+    },
+    {
+      "question": "X1 = 1",
+      "kind": "main",
+      "true": 2.0,
+      "trap": 2.0,
+      "predicted": 1.67,
+      "abs_error": 0.33,
+      "follows": null
+    },
+    {
+      "question": "X3 = 2",
+      "kind": "main",
+      "true": -3.0,
+      "trap": -3.0,
+      "predicted": -3.72,
+      "abs_error": 0.72,
+      "follows": null
+    },
+    {
+      "question": "X2 = 2, X3 = -1",
+      "kind": "main",
+      "true": 2.5,
+      "trap": 2.5,
+      "predicted": 2.33,
+      "abs_error": 0.17,
+      "follows": null
+    },
+    {
+      "question": "X4 = 3",
+      "kind": "main",
+      "true": 0.0,
+      "trap": 0.0,
+      "predicted": -0.2,
+      "abs_error": 0.2,
+      "follows": null
+    },
+    {
+      "question": "X4 = 2, X5 = 2",
+      "kind": "interaction",
+      "true": 3.2,
+      "trap": 0.0,
+      "predicted": 0.32,
+      "abs_error": 2.88,
+      "follows": "trap"
+    },
+    {
+      "question": "X4 = 2, X5 = -2",
+      "kind": "interaction",
+      "true": -3.2,
+      "trap": 0.0,
+      "predicted": -0.72,
+      "abs_error": 2.48,
+      "follows": "trap"
+    },
+    {
+      "question": "X4 = -3, X5 = -3",
+      "kind": "interaction",
+      "true": 7.2,
+      "trap": 0.0,
+      "predicted": -0.97,
+      "abs_error": 8.17,
+      "follows": "trap"
+    },
+    {
+      "question": "X1 = 1, X4 = 1, X5 = 3",
+      "kind": "interaction",
+      "true": 4.4,
+      "trap": 2.0,
+      "predicted": 2.45,
+      "abs_error": 1.95,
+      "follows": "trap"
+    },
+    {
+      "question": "X16 = 2",
+      "kind": "proxy",
+      "true": 0.0,
+      "trap": 4.8276,
+      "predicted": -0.2,
+      "abs_error": 0.2,
+      "follows": "true"
+    },
+    {
+      "question": "X18 = -2",
+      "kind": "proxy",
+      "true": 0.0,
+      "trap": 3.0,
+      "predicted": -0.2,
+      "abs_error": 0.2,
+      "follows": "true"
+    }
+  ],
+  "interaction_questions_following_truth": "0/4",
+  "proxy_questions_following_truth": "2/2",
+  "turns_used": 10,
+  "report_turn": 10,
+  "report_without_tags": false,
+  "finish_reasons": [
+    "stop",
+    "length",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop"
+  ],
+  "cost": 1.3359
+}

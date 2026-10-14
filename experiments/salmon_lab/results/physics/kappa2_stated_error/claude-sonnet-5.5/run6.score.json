@@ -1,0 +1,109 @@
+{
+  "collected": {
+    "n": 180,
+    "estimable": true,
+    "t": -43.69,
+    "p": 5.39e-94,
+    "rank": 1,
+    "pairs_testable": 21,
+    "identifiable": true
+  },
+  "code": {
+    "blocks": 7,
+    "errors": 1,
+    "timeouts": 0,
+    "formed_product": 0,
+    "grouped_by_both": 0,
+    "screened_and_shown": 0,
+    "tested": false,
+    "output_lines_naming_both": [
+      "30 9.473405480252083 0.9274229807394092 {'g': 1.0, 'reflectance': 0.71, 'temperature': -0.24, 'stripes': -0.06, 'hardness': 0.01, 'batch': 0.36, 'radius': 0.15}",
+      "0 9.7307388029222 0.36072243488173417 {'g': 1.0, 'reflectance': -0.15, 'temperature': -0.45, 'stripes': -0.16, 'hardness': 0.17, 'batch': 0.54, 'radius': 0.12}",
+      "-30 9.554522634779115 0.6107151743099462 {'g': 1.0, 'reflectance': 0.36, 'temperature': 0.04, 'stripes': 0.1, 'hardness': 0.2, 'batch': 0.23, 'radius': -0.3}",
+      "flight_time          g  reflectance  temperature  batch  stripes  hardness  radius     shape",
+      "reflectance  temperature  speed  angle  flight_time  distance  impact_speed          g"
+    ]
+  },
+  "report_sentences": [
+    "Effective gravity set by reflectance \u00d7 temperature, plus quadratic air drag that depends on shape, radius, mass and air density",
+    "It depends on the product of reflectance and temperature: g \u2248 9.8 + 0.0656\u00b7(reflectance \u2212 0.5)\u00b7(temperature \u2212 20) m/s\u00b2.",
+    "Reflectance alone or temperature alone has no effect.",
+    "- **Reflectance/temperature factorial.** I fixed mass = 1 and used reflectance 0.05 or 0.95 crossed with temperature \u221215 or 75 (also 30 for one cell, and reflectance 0.5 at temperature 75).",
+    "- **Reflectance \u00d7 temperature.** The effect appears only as an interaction.",
+    "At reflectance 0.5, g is about 9.8 at any temperature (observed 9.7\u20139.9 at 75 \u00b0C).",
+    "In the air-run regression (random objects), the apparent effects of reflectance and temperature are likely the g interaction acting through the term, not independent drag effects.",
+    "An effective gravity that is modulated by the product (reflectance \u2212 0.5)\u00b7(temperature \u2212 20).",
+    "- It is untested whether drag couples to the reflectance/temperature modification of g."
+  ],
+  "irrelevant_property_sentences": [
+    "Stripes, hardness and batch showed no effect.",
+    "Mass, radius, shape, stripes, hardness and batch have no effect on g.",
+    "- **Null effects.** Stripes, hardness and batch showed no effect on flight time, distance or impact speed in vacuum runs.",
+    "Stripes, hardness and batch are irrelevant."
+  ],
+  "law": {
+    "ran": true,
+    "pairs": 20,
+    "pairs_right": 20,
+    "captures_new_law": true,
+    "median_ratio_of_gaps": 0.985,
+    "flight_time_error": 0.0008,
+    "distance_error": 0.0008,
+    "impact_speed_error": 0.0005,
+    "baseline_flight_time_error": 0.0138
+  },
+  "design": {
+    "runs": 180,
+    "runs_per_turn": [
+      90,
+      0,
+      0,
+      0,
+      0,
+      30,
+      30,
+      30,
+      0
+    ],
+    "runs_random_object": 40,
+    "runs_in_vacuum": 110,
+    "runs_setting_reflectance_and_temperature": 90,
+    "runs_setting_both_away_from_neutral": 57,
+    "distinct_settings": 32,
+    "properties_ever_set": [
+      "mass",
+      "radius",
+      "shape",
+      "reflectance",
+      "temperature"
+    ],
+    "evidence_after_each_turn": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ]
+  },
+  "found": true,
+  "invented": false,
+  "turns_used": 10,
+  "finish_reasons": [
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop"
+  ],
+  "cost": 0.2537
+}

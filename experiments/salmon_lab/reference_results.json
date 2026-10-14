@@ -1,0 +1,66 @@
+{
+  "observe only, 25 runs": {
+    "runs": 25,
+    "share_detectable": 0.005,
+    "share_estimable": 1.0,
+    "median_t": 1.3650000000000002,
+    "median_rank_among_pairs": 51.0,
+    "mean_estimate": 0.7985400000000001
+  },
+  "observe only, 50 runs": {
+    "runs": 50,
+    "share_detectable": 0.485,
+    "share_estimable": 1.0,
+    "median_t": 4.15,
+    "median_rank_among_pairs": 2.0,
+    "mean_estimate": 0.8085050000000001
+  },
+  "observe only, 100 runs": {
+    "runs": 100,
+    "share_detectable": 0.99,
+    "share_estimable": 1.0,
+    "median_t": 6.9,
+    "median_rank_among_pairs": 1.0,
+    "mean_estimate": 0.8110550000000001
+  },
+  "observe only, 300 runs": {
+    "runs": 300,
+    "share_detectable": 1.0,
+    "share_estimable": 1.0,
+    "median_t": 13.004999999999999,
+    "median_rank_among_pairs": 1.0,
+    "mean_estimate": 0.8004249999999999
+  },
+  "one at a time, rest held at 0 (280 runs)": {
+    "runs": 280,
+    "share_detectable": 0.0,
+    "share_estimable": 0.0,
+    "median_t": null,
+    "median_rank_among_pairs": null,
+    "mean_estimate": null
+  },
+  "one at a time, rest left natural (280 runs)": {
+    "runs": 280,
+    "share_detectable": 1.0,
+    "share_estimable": 1.0,
+    "median_t": 14.62,
+    "median_rank_among_pairs": 1.0,
+    "mean_estimate": 0.8010200000000001
+  },
+  "random settings of all 20 (300 runs)": {
+    "runs": 300,
+    "share_detectable": 1.0,
+    "share_estimable": 1.0,
+    "median_t": 40.215,
+    "median_rank_among_pairs": 1.0,
+    "mean_estimate": 0.7990600000000001
+  },
+  "observe 100, then one at a time with rest at 0 (300 runs)": {
+    "runs": 300,
+    "share_detectable": 0.995,
+    "share_estimable": 1.0,
+    "median_t": 7.220000000000001,
+    "median_rank_among_pairs": 1.0,
+    "mean_estimate": 0.80568
+  }
+}

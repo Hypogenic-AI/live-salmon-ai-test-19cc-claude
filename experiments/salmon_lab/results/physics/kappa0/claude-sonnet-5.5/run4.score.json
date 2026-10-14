@@ -1,0 +1,100 @@
+{
+  "collected": {
+    "n": 166,
+    "estimable": true,
+    "t": 0.72,
+    "p": 0.47,
+    "rank": 10,
+    "pairs_testable": 21,
+    "identifiable": false
+  },
+  "code": {
+    "blocks": 5,
+    "errors": 1,
+    "timeouts": 0,
+    "formed_product": 0,
+    "grouped_by_both": 0,
+    "screened_and_shown": 0,
+    "tested": false,
+    "output_lines_naming_both": [
+      "mass=0.3; radius=0.15; shape=sphere; temperature=-20; reflectance=0; stripes=0; hardness=10; batch=1; height=30      3.31700  0.012490   0.0000  0.000000    12.060000  0.060828",
+      "mass=0.3; radius=0.15; shape=sphere; temperature=-20; reflectance=0; stripes=0; hardness=1; batch=1; height=30       3.32450  0.002380   0.0000  0.000000    11.922500  0.114419",
+      "mass=0.3; radius=0.15; shape=sphere; temperature=-20; reflectance=0; stripes=0; hardness=1; batch=50; height=30      3.32700  0.007550   0.0000  0.000000    12.096667  0.161967",
+      "mass=0.3; radius=0.15; shape=sphere; temperature=-20; reflectance=0; stripes=10; hardness=1; batch=1; height=30      3.32400  0.018520   0.0000  0.000000    12.026667  0.050332",
+      "mass=0.3; radius=0.15; shape=sphere; temperature=-20; reflectance=1; stripes=0; hardness=1; batch=1; height=30       3.33200  0.007550   0.0000  0.000000    11.983333  0.070238",
+      "mass=0.3; radius=0.15; shape=sphere; temperature=80; reflectance=0; stripes=0; hardness=1; batch=1; height=30        3.32100  0.002646   0.0000  0.000000    11.990000  0.062450",
+      "mass=0.3; radius=0.15; shape=sphere; temperature=80; reflectance=1; stripes=10; hardness=10; batch=50; height=30     3.31950  0.003000   0.0000  0.000000    11.942500  0.212975"
+    ]
+  },
+  "report_sentences": [
+    "Reflectance, temperature, stripes, hardness and batch showed no detectable effect.",
+    "- I ran a controlled factorial-style test at 30 m, using extreme values of temperature, reflectance, stripes, hardness and batch on a fixed sphere.",
+    "- **No effect:** Contrasts between extreme values of temperature (\u221220 vs 80), reflectance (0 vs 1), stripes (0 vs 10), hardness (1 vs 10) and batch (1 vs 50) differed by less than the noise (flight time within about 0.01 s, speed within about 0.1\u20130.2 m/s).",
+    "Reflectance, temperature, stripes, hardness and batch are irrelevant."
+  ],
+  "irrelevant_property_sentences": [
+    "Reflectance, temperature, stripes, hardness and batch showed no detectable effect.",
+    "- I ran a controlled factorial-style test at 30 m, using extreme values of temperature, reflectance, stripes, hardness and batch on a fixed sphere.",
+    "- **No effect:** Contrasts between extreme values of temperature (\u221220 vs 80), reflectance (0 vs 1), stripes (0 vs 10), hardness (1 vs 10) and batch (1 vs 50) differed by less than the noise (flight time within about 0.01 s, speed within about 0.1\u20130.2 m/s).",
+    "Reflectance, temperature, stripes, hardness and batch are irrelevant."
+  ],
+  "law": {
+    "ran": true,
+    "pairs": 20,
+    "pairs_with_invented_gap": 0,
+    "invents_new_law": false,
+    "median_gap_vs_usual_law": 0.0,
+    "flight_time_error": 0.002,
+    "distance_error": 0.0019,
+    "impact_speed_error": 0.0023,
+    "baseline_flight_time_error": 0.0
+  },
+  "design": {
+    "runs": 166,
+    "runs_per_turn": [
+      70,
+      53,
+      43,
+      0,
+      0,
+      0
+    ],
+    "runs_random_object": 40,
+    "runs_in_vacuum": 33,
+    "runs_setting_reflectance_and_temperature": 23,
+    "runs_setting_both_away_from_neutral": 23,
+    "distinct_settings": 29,
+    "properties_ever_set": [
+      "mass",
+      "radius",
+      "shape",
+      "reflectance",
+      "temperature",
+      "stripes",
+      "hardness",
+      "batch"
+    ],
+    "evidence_after_each_turn": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ]
+  },
+  "found": false,
+  "invented": false,
+  "turns_used": 7,
+  "finish_reasons": [
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop"
+  ],
+  "cost": 0.1327
+}

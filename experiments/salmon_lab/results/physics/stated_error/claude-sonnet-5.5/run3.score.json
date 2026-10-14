@@ -1,0 +1,79 @@
+{
+  "collected": {
+    "n": 144,
+    "estimable": true,
+    "t": -12.99,
+    "p": 1.96e-25,
+    "rank": 1,
+    "pairs_testable": 21,
+    "identifiable": true
+  },
+  "code": {
+    "blocks": 3,
+    "errors": 0,
+    "timeouts": 0,
+    "formed_product": 0,
+    "grouped_by_both": 0,
+    "screened_and_shown": 0,
+    "tested": false,
+    "output_lines_naming_both": []
+  },
+  "report_sentences": [
+    "Reflectance, temperature, stripes, hardness and batch showed no detectable effect.",
+    "- **Other properties.** I correlated the fit residuals with reflectance, temperature, stripes, hardness and batch.",
+    "- **Irrelevant properties.** Residual correlations with reflectance, temperature, stripes, hardness and batch were all |r| < 0.16.",
+    "Reflectance, temperature, stripes, hardness and batch do not matter."
+  ],
+  "irrelevant_property_sentences": [
+    "Reflectance, temperature, stripes, hardness and batch showed no detectable effect.",
+    "- **Other properties.** I correlated the fit residuals with reflectance, temperature, stripes, hardness and batch.",
+    "- **Irrelevant properties.** Residual correlations with reflectance, temperature, stripes, hardness and batch were all |r| < 0.16.",
+    "This is consistent with no effect, though the weakest residual hints (reflectance and hardness against time residuals, about 0.13\u20130.16) are not conclusive.",
+    "Reflectance, temperature, stripes, hardness and batch do not matter."
+  ],
+  "law": {
+    "ran": true,
+    "pairs": 20,
+    "pairs_right": 0,
+    "captures_new_law": false,
+    "median_ratio_of_gaps": 0.0,
+    "flight_time_error": 0.0039,
+    "distance_error": 0.0034,
+    "impact_speed_error": 0.0045,
+    "baseline_flight_time_error": 0.0021
+  },
+  "design": {
+    "runs": 144,
+    "runs_per_turn": [
+      90,
+      54,
+      0
+    ],
+    "runs_random_object": 40,
+    "runs_in_vacuum": 30,
+    "runs_setting_reflectance_and_temperature": 0,
+    "runs_setting_both_away_from_neutral": 0,
+    "distinct_settings": 23,
+    "properties_ever_set": [
+      "mass",
+      "radius",
+      "shape"
+    ],
+    "evidence_after_each_turn": [
+      true,
+      true,
+      true
+    ]
+  },
+  "found": false,
+  "invented": false,
+  "turns_used": 4,
+  "finish_reasons": [
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop"
+  ],
+  "cost": 0.0916
+}

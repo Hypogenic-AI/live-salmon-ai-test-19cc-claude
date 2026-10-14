@@ -1,0 +1,193 @@
+{
+  "interaction": {
+    "pair": "X4:X5",
+    "collected": true,
+    "tested": false,
+    "python": {
+      "blocks": 0,
+      "errors": 0,
+      "timeouts": 0,
+      "blocks_forming_x4_times_x5": 0,
+      "blocks_screening_all_pairs": 0,
+      "tested": false,
+      "output_lines_naming_x4_and_x5": []
+    },
+    "put_x4x5_in_a_fit_it_could_not_estimate": false,
+    "saw": false,
+    "report_mentions_x4_with_x5": true,
+    "report_sentences": [
+      "- Runs 101\u2013131: 31 runs with ten features (X1, X2, X3, X4, X5, X12, X16, X17, X19, X20) set to varied values across the range, plus a few all-zero and all-\u00b11 runs.",
+      "- **Other features (X4\u2013X20, including X16, X19, X12, X5, X20, X17):** none are consistently significant.",
+      "- X19 is correlated with X4 (0.98), X17 with X2 (0.84), and X20 with X5 (0.89)."
+    ],
+    "x4x5_estimates_it_saw": [],
+    "product_terms_ever_fitted": [
+      "X1:X12",
+      "X1:X19",
+      "X1:X2",
+      "X1:X3",
+      "X1:X4",
+      "X1:X5",
+      "X2:X3",
+      "X2:X4",
+      "X2:X5",
+      "X3:X12",
+      "X3:X4",
+      "X3:X5"
+    ],
+    "fits": 6,
+    "analyses": 8
+  },
+  "design": {
+    "runs": 227,
+    "runs_per_turn": [
+      100,
+      0,
+      31,
+      0,
+      96
+    ],
+    "runs_nothing_set": 100,
+    "runs_one_feature_set": 0,
+    "runs_all_20_set": 0,
+    "runs_setting_X4": 31,
+    "runs_setting_X5": 31,
+    "runs_X4_and_X5_both_set_nonzero": 27,
+    "distinct_settings": 38,
+    "features_ever_set": [
+      "X1",
+      "X2",
+      "X3",
+      "X4",
+      "X5",
+      "X12",
+      "X16",
+      "X17",
+      "X19",
+      "X20"
+    ],
+    "evidence_after_each_turn": [
+      true,
+      true,
+      true,
+      true,
+      true
+    ]
+  },
+  "predictions": [
+    {
+      "question": "all features at 0",
+      "kind": "control",
+      "true": 0.0,
+      "trap": 0.0,
+      "predicted": 0.05,
+      "abs_error": 0.05,
+      "follows": null
+    },
+    {
+      "question": "X1 = 1",
+      "kind": "main",
+      "true": 2.0,
+      "trap": 2.0,
+      "predicted": 1.95,
+      "abs_error": 0.05,
+      "follows": null
+    },
+    {
+      "question": "X3 = 2",
+      "kind": "main",
+      "true": -3.0,
+      "trap": -3.0,
+      "predicted": -3.0,
+      "abs_error": 0.0,
+      "follows": null
+    },
+    {
+      "question": "X2 = 2, X3 = -1",
+      "kind": "main",
+      "true": 2.5,
+      "trap": 2.5,
+      "predicted": 2.2,
+      "abs_error": 0.3,
+      "follows": null
+    },
+    {
+      "question": "X4 = 3",
+      "kind": "main",
+      "true": 0.0,
+      "trap": 0.0,
+      "predicted": 0.0,
+      "abs_error": 0.0,
+      "follows": null
+    },
+    {
+      "question": "X4 = 2, X5 = 2",
+      "kind": "interaction",
+      "true": 3.2,
+      "trap": 0.0,
+      "predicted": 0.0,
+      "abs_error": 3.2,
+      "follows": "trap"
+    },
+    {
+      "question": "X4 = 2, X5 = -2",
+      "kind": "interaction",
+      "true": -3.2,
+      "trap": 0.0,
+      "predicted": 0.0,
+      "abs_error": 3.2,
+      "follows": "trap"
+    },
+    {
+      "question": "X4 = -3, X5 = -3",
+      "kind": "interaction",
+      "true": 7.2,
+      "trap": 0.0,
+      "predicted": 0.0,
+      "abs_error": 7.2,
+      "follows": "trap"
+    },
+    {
+      "question": "X1 = 1, X4 = 1, X5 = 3",
+      "kind": "interaction",
+      "true": 4.4,
+      "trap": 2.0,
+      "predicted": 1.95,
+      "abs_error": 2.45,
+      "follows": "trap"
+    },
+    {
+      "question": "X16 = 2",
+      "kind": "proxy",
+      "true": 0.0,
+      "trap": 4.8276,
+      "predicted": 0.0,
+      "abs_error": 0.0,
+      "follows": "true"
+    },
+    {
+      "question": "X18 = -2",
+      "kind": "proxy",
+      "true": 0.0,
+      "trap": 3.0,
+      "predicted": 0.0,
+      "abs_error": 0.0,
+      "follows": "true"
+    }
+  ],
+  "interaction_questions_following_truth": "0/4",
+  "proxy_questions_following_truth": "2/2",
+  "turns_used": 6,
+  "report_turn": 6,
+  "report_without_tags": false,
+  "finish_reasons": [
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop"
+  ],
+  "cost": 0.3855
+}

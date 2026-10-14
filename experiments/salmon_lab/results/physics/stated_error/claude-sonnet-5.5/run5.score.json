@@ -1,0 +1,90 @@
+{
+  "collected": {
+    "n": 175,
+    "estimable": true,
+    "t": -8.71,
+    "p": 3.22e-15,
+    "rank": 1,
+    "pairs_testable": 21,
+    "identifiable": true
+  },
+  "code": {
+    "blocks": 5,
+    "errors": 0,
+    "timeouts": 0,
+    "formed_product": 0,
+    "grouped_by_both": 0,
+    "screened_and_shown": 0,
+    "tested": false,
+    "output_lines_naming_both": [
+      "run  mass  radius     shape  reflectance  temperature  stripes  hardness  batch  height  speed  angle  air_density  flight_time  distance  impact_speed set"
+    ]
+  },
+  "report_sentences": [
+    "Reflectance, temperature, stripes, hardness and batch showed no detectable effect.",
+    "- **Targeted tests of null properties.** I compared temperature \u221220 \u00b0C vs 80 \u00b0C (8 runs each) and reflectance 0 vs 1 (8 runs each).",
+    "- **Null properties.** Residual correlations with reflectance, temperature, stripes, hardness, batch, mass and radius were all small (|r| < 0.23).",
+    "Reflectance, temperature, stripes, hardness and batch are irrelevant, to the precision tested."
+  ],
+  "irrelevant_property_sentences": [
+    "Reflectance, temperature, stripes, hardness and batch showed no detectable effect.",
+    "- **Null properties.** Residual correlations with reflectance, temperature, stripes, hardness, batch, mass and radius were all small (|r| < 0.23).",
+    "Reflectance, temperature, stripes, hardness and batch are irrelevant, to the precision tested."
+  ],
+  "law": {
+    "ran": true,
+    "pairs": 20,
+    "pairs_right": 0,
+    "captures_new_law": false,
+    "median_ratio_of_gaps": 0.0,
+    "flight_time_error": 0.0041,
+    "distance_error": 0.0026,
+    "impact_speed_error": 0.0041,
+    "baseline_flight_time_error": 0.0021
+  },
+  "design": {
+    "runs": 175,
+    "runs_per_turn": [
+      90,
+      38,
+      15,
+      0,
+      0,
+      32
+    ],
+    "runs_random_object": 40,
+    "runs_in_vacuum": 30,
+    "runs_setting_reflectance_and_temperature": 0,
+    "runs_setting_both_away_from_neutral": 0,
+    "distinct_settings": 34,
+    "properties_ever_set": [
+      "mass",
+      "radius",
+      "shape",
+      "reflectance",
+      "temperature"
+    ],
+    "evidence_after_each_turn": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ]
+  },
+  "found": false,
+  "invented": false,
+  "turns_used": 7,
+  "finish_reasons": [
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop"
+  ],
+  "cost": 0.1352
+}

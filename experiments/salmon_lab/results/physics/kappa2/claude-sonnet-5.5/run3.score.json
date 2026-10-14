@@ -1,0 +1,105 @@
+{
+  "collected": {
+    "n": 198,
+    "estimable": true,
+    "t": -64.86,
+    "p": 3.81e-130,
+    "rank": 1,
+    "pairs_testable": 21,
+    "identifiable": true
+  },
+  "code": {
+    "blocks": 8,
+    "errors": 2,
+    "timeouts": 0,
+    "formed_product": 0,
+    "grouped_by_both": 2,
+    "screened_and_shown": 0,
+    "tested": true,
+    "output_lines_naming_both": [
+      "reflectance temperature",
+      "mass radius shape    reflectance temperature air_density height               ..."
+    ]
+  },
+  "report_sentences": [
+    "# Laboratory motion: gravity modulated by temperature\u00d7reflectance, plus quadratic air drag",
+    "Motion is well described by projectile motion with quadratic air drag, and the effective gravity depends on an interaction between temperature and reflectance.",
+    "- **Factorial scans.** I ran a 2\u00d73 factorial in reflectance (0, 1) \u00d7 temperature (\u221220, 20, 80 \u00b0C) on identical spheres in vacuum.",
+    "The parameters were g0, a temperature\u00d7reflectance coefficient k, and three shape drag coefficients, fitted to 80 randomly chosen runs.",
+    "**Gravity depends on temperature \u00d7 reflectance (vacuum, 10 m drop).**",
+    "- At reflectance 0.5, temperature had no effect (80 \u00b0C gave 1.435 s, against 1.42 s at 20 \u00b0C).",
+    "Linearity in each factor was checked at only 3 temperature levels and 3 reflectance levels.",
+    "First, effective gravity is changed by an interaction of temperature and reflectance.",
+    "Relevant properties are mass (via drag only), radius, shape, temperature, reflectance, air density, height, speed and angle.",
+    "Confidence is high for the drag structure and the temperature \u00d7 reflectance interaction, and moderate for the exact shape coefficients and the linear form of the interaction.",
+    "- The forms of the temperature and reflectance dependence were checked only at 3 levels each."
+  ],
+  "irrelevant_property_sentences": [
+    "Stripes, hardness and batch showed no effect.",
+    "**No effect:** stripes, hardness and batch.",
+    "Irrelevant properties are stripes, hardness and batch.",
+    "- Small effects of stripes, hardness and batch cannot be excluded."
+  ],
+  "law": {
+    "ran": true,
+    "pairs": 20,
+    "pairs_right": 20,
+    "captures_new_law": true,
+    "median_ratio_of_gaps": 0.974,
+    "flight_time_error": 0.0012,
+    "distance_error": 0.0012,
+    "impact_speed_error": 0.001,
+    "baseline_flight_time_error": 0.0138
+  },
+  "design": {
+    "runs": 198,
+    "runs_per_turn": [
+      70,
+      0,
+      0,
+      36,
+      50,
+      42,
+      0,
+      0
+    ],
+    "runs_random_object": 40,
+    "runs_in_vacuum": 79,
+    "runs_setting_reflectance_and_temperature": 86,
+    "runs_setting_both_away_from_neutral": 24,
+    "distinct_settings": 34,
+    "properties_ever_set": [
+      "mass",
+      "radius",
+      "shape",
+      "reflectance",
+      "temperature"
+    ],
+    "evidence_after_each_turn": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ]
+  },
+  "found": true,
+  "invented": false,
+  "turns_used": 9,
+  "finish_reasons": [
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop"
+  ],
+  "cost": 0.1707
+}

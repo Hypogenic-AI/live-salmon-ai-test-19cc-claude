@@ -1,0 +1,94 @@
+{
+  "collected": {
+    "n": 228,
+    "estimable": true,
+    "t": -11.57,
+    "p": 1.96e-24,
+    "rank": 1,
+    "pairs_testable": 21,
+    "identifiable": true
+  },
+  "code": {
+    "blocks": 6,
+    "errors": 1,
+    "timeouts": 0,
+    "formed_product": 0,
+    "grouped_by_both": 0,
+    "screened_and_shown": 0,
+    "tested": false,
+    "output_lines_naming_both": [
+      "dt~reflectance+temperature+stripes+hardness+batch+mass+radius+C(shape)",
+      "rt {'Intercept': 0.176, 'C(shape)[T.cylinder]': 0.837, 'C(shape)[T.sphere]': 0.557, 'reflectance': 0.089, 'temperature': 0.575, 'stripes': 0.096, 'hardness': 0.287, 'batch': 0.36, 'mass': 0.521, 'radius': 0.284, 'C(shape)[T.cylinder]:radius': 0.457, 'C(shape)[T.sphere]:radius': 0.514}",
+      "rv {'Intercept': 0.815, 'C(shape)[T.cylinder]': 0.58, 'C(shape)[T.sphere]': 0.926, 'reflectance': 0.277, 'temperature': 0.592, 'stripes': 0.09, 'hardness': 0.236, 'batch': 0.511, 'mass': 0.655, 'radius': 0.647, 'C(shape)[T.cylinder]:radius': 0.88, 'C(shape)[T.sphere]:radius': 0.743}"
+    ]
+  },
+  "report_sentences": [
+    "Reflectance, temperature, stripes, hardness and batch have no detectable effect.",
+    "- In the controlled drops, reflectance, temperature, stripes, hardness and batch changed flight time by \u2264 0.017 s, which is within noise.",
+    "The cosmetic and material properties (reflectance, temperature, stripes, hardness, batch) are irrelevant."
+  ],
+  "irrelevant_property_sentences": [
+    "Reflectance, temperature, stripes, hardness and batch have no detectable effect.",
+    "- stripes (0 and 10);",
+    "- hardness (1 and 10);",
+    "- batch (1 and 50);",
+    "- In the controlled drops, reflectance, temperature, stripes, hardness and batch changed flight time by \u2264 0.017 s, which is within noise.",
+    "The cosmetic and material properties (reflectance, temperature, stripes, hardness, batch) are irrelevant."
+  ],
+  "law": {
+    "ran": true,
+    "pairs": 20,
+    "pairs_right": 0,
+    "captures_new_law": false,
+    "median_ratio_of_gaps": 0.0,
+    "flight_time_error": 0.0025,
+    "distance_error": 0.0009,
+    "impact_speed_error": 0.0021,
+    "baseline_flight_time_error": 0.0021
+  },
+  "design": {
+    "runs": 228,
+    "runs_per_turn": [
+      78,
+      75,
+      0,
+      75,
+      0
+    ],
+    "runs_random_object": 108,
+    "runs_in_vacuum": 18,
+    "runs_setting_reflectance_and_temperature": 75,
+    "runs_setting_both_away_from_neutral": 0,
+    "distinct_settings": 33,
+    "properties_ever_set": [
+      "mass",
+      "radius",
+      "shape",
+      "reflectance",
+      "temperature",
+      "stripes",
+      "hardness",
+      "batch"
+    ],
+    "evidence_after_each_turn": [
+      true,
+      true,
+      true,
+      true,
+      true
+    ]
+  },
+  "found": false,
+  "invented": false,
+  "turns_used": 6,
+  "finish_reasons": [
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop"
+  ],
+  "cost": 0.367
+}

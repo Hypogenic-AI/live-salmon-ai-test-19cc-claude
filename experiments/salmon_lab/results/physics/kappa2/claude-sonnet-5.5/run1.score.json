@@ -1,0 +1,91 @@
+{
+  "collected": {
+    "n": 192,
+    "estimable": true,
+    "t": -50.84,
+    "p": 4.17e-109,
+    "rank": 1,
+    "pairs_testable": 21,
+    "identifiable": true
+  },
+  "code": {
+    "blocks": 8,
+    "errors": 1,
+    "timeouts": 0,
+    "formed_product": 0,
+    "grouped_by_both": 0,
+    "screened_and_shown": 0,
+    "tested": false,
+    "output_lines_naming_both": []
+  },
+  "report_sentences": [
+    "I fitted shape-specific coefficients, a radius exponent, a mass exponent, and log-linear modifiers for reflectance, temperature, stripes, hardness and batch."
+  ],
+  "irrelevant_property_sentences": [
+    "Temperature, stripes, hardness and batch have no detectable effect.",
+    "I fitted shape-specific coefficients, a radius exponent, a mass exponent, and log-linear modifiers for reflectance, temperature, stripes, hardness and batch.",
+    "- **Irrelevant properties:** The fitted log-modifier coefficients were temperature 0.016 \u00b1 0.011, stripes 0.009 \u00b1 0.012, hardness \u22120.012 \u00b1 0.012 and batch \u22120.015 \u00b1 0.012.",
+    "Irrelevant factors: temperature, stripes, hardness and batch.",
+    "Confidence is high for the main drag law and the exponents, moderate for the shape coefficients, and moderate-to-high that temperature, stripes, hardness and batch have no effect."
+  ],
+  "law": {
+    "ran": true,
+    "pairs": 20,
+    "pairs_right": 0,
+    "captures_new_law": false,
+    "median_ratio_of_gaps": 0.0,
+    "flight_time_error": 0.0198,
+    "distance_error": 0.0137,
+    "impact_speed_error": 0.0183,
+    "baseline_flight_time_error": 0.0138
+  },
+  "design": {
+    "runs": 192,
+    "runs_per_turn": [
+      60,
+      72,
+      0,
+      60,
+      0,
+      0,
+      0,
+      0
+    ],
+    "runs_random_object": 75,
+    "runs_in_vacuum": 28,
+    "runs_setting_reflectance_and_temperature": 0,
+    "runs_setting_both_away_from_neutral": 0,
+    "distinct_settings": 18,
+    "properties_ever_set": [
+      "mass",
+      "radius",
+      "shape"
+    ],
+    "evidence_after_each_turn": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ]
+  },
+  "found": false,
+  "invented": false,
+  "turns_used": 9,
+  "finish_reasons": [
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop"
+  ],
+  "cost": 0.3593
+}

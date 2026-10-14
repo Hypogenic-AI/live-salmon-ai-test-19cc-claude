@@ -1,0 +1,109 @@
+{
+  "collected": {
+    "n": 151,
+    "estimable": true,
+    "t": -49.5,
+    "p": 1.35e-90,
+    "rank": 1,
+    "pairs_testable": 21,
+    "identifiable": true
+  },
+  "code": {
+    "blocks": 5,
+    "errors": 0,
+    "timeouts": 0,
+    "formed_product": 0,
+    "grouped_by_both": 1,
+    "screened_and_shown": 0,
+    "tested": true,
+    "output_lines_naming_both": [
+      "height  reflectance  temperature  radius  stripes  hardness  batch     shape   g_eff   a_eff",
+      "mass temperature reflectance",
+      "mass=0.5; radius=0.05; shape=cube; temperature=20; reflectance=0.5; height=40                  0.005  0.008",
+      "mass=0.5; radius=0.05; shape=cylinder; temperature=20; reflectance=0.5; height=40              0.007  0.012",
+      "mass=0.5; radius=0.05; shape=sphere; temperature=20; reflectance=0.5; height=40                0.004  0.004",
+      "mass=0.5; radius=0.2; shape=cube; temperature=20; reflectance=0.5; height=40                   0.008  0.011",
+      "mass=0.5; radius=0.2; shape=cylinder; temperature=20; reflectance=0.5; height=40               0.003  0.003",
+      "mass=0.5; radius=0.2; shape=sphere; temperature=20; reflectance=0.5; height=40                 0.013  0.001",
+      "mass=1; radius=0.1; shape=sphere; temperature=-20; reflectance=1; air_density=0                0.009  0.010",
+      "mass=1; radius=0.1; shape=sphere; temperature=20; reflectance=0.5; air_density=0               0.009  0.007",
+      "mass=1; radius=0.1; shape=sphere; temperature=20; reflectance=0.5; height=40; air_density=0.6  0.011  0.005",
+      "mass=1; radius=0.1; shape=sphere; temperature=20; reflectance=0.5; height=40; air_density=1.2  0.010  0.009"
+    ]
+  },
+  "report_sentences": [
+    "# Laws of motion in the simulated laboratory: gravity modulated by temperature \u00d7 reflectance, and quadratic drag",
+    "First, the effective gravitational acceleration depends on the product of temperature and reflectance: g \u2248 9.8 + 0.0667\u00b7(T\u221220)\u00b7(R\u22120.5) m/s\u00b2.",
+    "Reflectance, and to a lesser degree temperature, correlated with g.",
+    "- **Factorial test.** I ran a controlled factorial design on a 0.1 m, 1 kg sphere in vacuum at temperatures of \u221220, 20 and 80 \u00b0C and reflectances of 0, 0.5 and 1.",
+    "**Gravity depends on temperature \u00d7 reflectance.** The factorial results are:",
+    "| Temperature | Reflectance | Effective g (m/s\u00b2) |",
+    "Neither temperature nor reflectance acts alone: at 20 \u00b0C reflectance has no effect, and at R = 0.5 temperature has no effect.",
+    "Gravity is modulated by an interaction between temperature and reflectance, and the magnitude of this effect is separate from drag.",
+    "I am highly confident in the existence and sign of the temperature \u00d7 reflectance interaction, in the drag structure, and in the irrelevance of hardness, stripes and batch."
+  ],
+  "irrelevant_property_sentences": [
+    "Hardness, stripes and batch showed no effect, and mass acts only through drag.",
+    "Random hardness, stripes and batch values varied across these runs.",
+    "**No detectable effect** of hardness, stripes or batch.",
+    "Hardness, stripes and batch are irrelevant.",
+    "I am highly confident in the existence and sign of the temperature \u00d7 reflectance interaction, in the drag structure, and in the irrelevance of hardness, stripes and batch.",
+    "- Each factorial cell has only 2\u20134 runs, and weak effects of stripes, batch or hardness below about 1% could be missed."
+  ],
+  "law": {
+    "ran": true,
+    "pairs": 20,
+    "pairs_right": 20,
+    "captures_new_law": true,
+    "median_ratio_of_gaps": 1.002,
+    "flight_time_error": 0.0006,
+    "distance_error": 0.0006,
+    "impact_speed_error": 0.0003,
+    "baseline_flight_time_error": 0.0138
+  },
+  "design": {
+    "runs": 151,
+    "runs_per_turn": [
+      90,
+      0,
+      0,
+      28,
+      33,
+      0
+    ],
+    "runs_random_object": 40,
+    "runs_in_vacuum": 58,
+    "runs_setting_reflectance_and_temperature": 61,
+    "runs_setting_both_away_from_neutral": 16,
+    "distinct_settings": 28,
+    "properties_ever_set": [
+      "mass",
+      "radius",
+      "shape",
+      "reflectance",
+      "temperature"
+    ],
+    "evidence_after_each_turn": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ]
+  },
+  "found": true,
+  "invented": false,
+  "turns_used": 7,
+  "finish_reasons": [
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop"
+  ],
+  "cost": 0.1373
+}

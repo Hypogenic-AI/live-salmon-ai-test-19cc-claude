@@ -1,0 +1,120 @@
+{
+  "collected": {
+    "n": 196,
+    "estimable": true,
+    "t": -62.32,
+    "p": 4.11e-126,
+    "rank": 1,
+    "pairs_testable": 21,
+    "identifiable": true
+  },
+  "code": {
+    "blocks": 5,
+    "errors": 1,
+    "timeouts": 0,
+    "formed_product": 1,
+    "grouped_by_both": 0,
+    "screened_and_shown": 0,
+    "tested": true,
+    "output_lines_naming_both": [
+      "dt  reflectance  temperature      rt     shape",
+      "mass=0.1; radius=0.1; shape=sphere; reflectance=0.5; temperature=20; air_density=2.4; height=50                        0.005  0.000  0.010",
+      "mass=10; radius=0.1; shape=sphere; reflectance=0.5; temperature=20; air_density=2.4; height=50                         0.011  0.000  0.009",
+      "mass=1; radius=0.05; shape=sphere; reflectance=0.5; temperature=20; air_density=2.4; height=50                         0.009  0.000  0.005",
+      "mass=1; radius=0.05; shape=sphere; reflectance=0.5; temperature=20; stripes=5; hardness=5; batch=25; air_density=1.2   0.010  0.000  0.010",
+      "mass=1; radius=0.1; shape=cube; reflectance=0.5; temperature=20; air_density=2.4; height=50                            0.006  0.000  0.008",
+      "mass=1; radius=0.1; shape=cube; reflectance=0.5; temperature=20; stripes=5; hardness=5; batch=25; air_density=1.2      0.008  0.000  0.008",
+      "mass=1; radius=0.1; shape=cylinder; reflectance=0.5; temperature=20; air_density=2.4; height=50                        0.019  0.000  0.013",
+      "mass=1; radius=0.1; shape=cylinder; reflectance=0.5; temperature=20; stripes=5; hardness=5; batch=25; air_density=1.2  0.007  0.000  0.012",
+      "mass=1; radius=0.1; shape=sphere; reflectance=0.1; temperature=70; stripes=5; hardness=5; batch=25; air_density=0      0.011  0.000  0.007",
+      "mass=1; radius=0.1; shape=sphere; reflectance=0.5; temperature=20; air_density=2.4; height=50                          0.009  0.000  0.013",
+      "mass=1; radius=0.1; shape=sphere; reflectance=0.5; temperature=20; stripes=5; hardness=5; batch=25; air_density=0      0.005  0.000  0.010"
+    ]
+  },
+  "report_sentences": [
+    "# Laws of motion in the simulated laboratory: gravity modulated by reflectance\u00d7temperature, and quadratic air drag",
+    "First, the effective gravitational acceleration depends on the product of reflectance and temperature: g_eff \u2248 9.81\u00b7[1 + 0.007\u00b7(reflectance \u2212 0.5)\u00b7(temperature \u2212 20)].",
+    "- Controlled sets with a fixed baseline object (mass 1, r 0.1, sphere, reflectance 0.5, temperature 20, stripes 5, hardness 5, batch 25).",
+    "- A reflectance \u00d7 temperature grid in vacuum (reflectance 0, 0.5, 1; temperature \u221220, 20, 80).",
+    "They correlated with reflectance and temperature, and the grid showed they depend on the product.",
+    "- **Reflectance \u00d7 temperature (interaction).**",
+    "- At reflectance 0.5, or at temperature 20 \u00b0C, there is no effect.",
+    "- At reflectance 1 and temperature 80, flight time is about 1.30 s and impact speed about 15.3 m/s, so g is higher.",
+    "At reflectance 0 and temperature 80, flight time is about 1.60 s, so g is lower.",
+    "- Neither reflectance nor temperature has an effect alone.",
+    "The laboratory behaves like Newtonian projectile motion with quadratic drag, plus an unusual gravity that depends on reflectance \u00d7 temperature.",
+    "The properties that matter are mass (drag only), radius (drag only), shape (drag coefficient), reflectance and temperature (together, via g)."
+  ],
+  "irrelevant_property_sentences": [
+    "Stripes, hardness and batch showed no effect.",
+    "- Controlled sets with a fixed baseline object (mass 1, r 0.1, sphere, reflectance 0.5, temperature 20, stripes 5, hardness 5, batch 25).",
+    "- **Irrelevant properties.** Stripes, hardness and batch have no detectable effect, and the full model reproduces all sets without them.",
+    "Stripes, hardness and batch do not matter.",
+    "- Small effects of stripes, hardness and batch below the noise level cannot be excluded."
+  ],
+  "law": {
+    "ran": true,
+    "pairs": 20,
+    "pairs_right": 20,
+    "captures_new_law": true,
+    "median_ratio_of_gaps": 1.027,
+    "flight_time_error": 0.0009,
+    "distance_error": 0.0012,
+    "impact_speed_error": 0.0008,
+    "baseline_flight_time_error": 0.0138
+  },
+  "design": {
+    "runs": 196,
+    "runs_per_turn": [
+      90,
+      0,
+      0,
+      54,
+      52,
+      0,
+      0,
+      0
+    ],
+    "runs_random_object": 40,
+    "runs_in_vacuum": 72,
+    "runs_setting_reflectance_and_temperature": 106,
+    "runs_setting_both_away_from_neutral": 24,
+    "distinct_settings": 30,
+    "properties_ever_set": [
+      "mass",
+      "radius",
+      "shape",
+      "reflectance",
+      "temperature",
+      "stripes",
+      "hardness",
+      "batch"
+    ],
+    "evidence_after_each_turn": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ]
+  },
+  "found": true,
+  "invented": false,
+  "turns_used": 9,
+  "finish_reasons": [
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop"
+  ],
+  "cost": 0.1622
+}

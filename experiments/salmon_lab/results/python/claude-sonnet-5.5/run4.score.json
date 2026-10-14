@@ -1,0 +1,215 @@
+{
+  "interaction": {
+    "pair": "X4:X5",
+    "collected": true,
+    "tested": true,
+    "python": {
+      "blocks": 7,
+      "errors": 0,
+      "timeouts": 0,
+      "blocks_forming_x4_times_x5": 3,
+      "blocks_screening_all_pairs": 0,
+      "tested": true,
+      "output_lines_naming_x4_and_x5": [
+        "X2=-2; X17=-2; X4=2; X19=2; X5=-2; X20=-2 -3.28  1.11",
+        "X2=-2; X17=0; X4=-2; X19=0; X5=-2; X20=0   2.31  0.68",
+        "X2=-2; X17=2; X4=-2; X19=2; X5=-2; X20=2   2.87  0.91",
+        "X2=0; X17=-2; X4=0; X19=-2; X5=0; X20=-2  -0.02  0.45",
+        "X2=0; X17=2; X4=0; X19=2; X5=0; X20=2     -0.64  1.41",
+        "X2=2; X17=-2; X4=2; X19=-2; X5=2; X20=-2   2.46  1.22",
+        "X2=2; X17=0; X4=2; X19=0; X5=2; X20=0      3.74  1.06",
+        "X2=2; X17=2; X4=-2; X19=-2; X5=2; X20=2   -3.13  0.50",
+        "X4:X5          0.7729      0.127      6.102      0.000       0.523       1.023",
+        "X4:X5          0.8056      0.025     32.130      0.000       0.756       0.855",
+        "X4:X5          0.8066      0.025     32.558      0.000       0.758       0.855",
+        "X4:X5          0.8035      0.026     30.497      0.000       0.752       0.855"
+      ]
+    },
+    "put_x4x5_in_a_fit_it_could_not_estimate": false,
+    "saw": false,
+    "report_mentions_x4_with_x5": true,
+    "report_sentences": [
+      "**Title:** Identifying the data-generating process of Y in a 20-feature system: three linear drivers and one X4\u00d7X5 interaction",
+      "Y is well described by a sparse model: linear effects of X1 (+2.02), X3 (\u22121.52) and X2 (+0.41), plus a pure interaction X4:X5 (+0.81).",
+      "Several features turned out to be strongly correlated in this natural data: X1\u2013X16 (r=0.90), X2\u2013X17 (0.85), X3\u2013X18 (0.80), X4\u2013X19 (0.97), X5\u2013X20 (0.88).",
+      "They also included factorial-style settings of X4/X5 (\u00b11, \u00b12, \u00b13) and extreme settings of X1/X3 (\u00b13).",
+      "The group residuals showed that settings of X2/X4/X5 shifted Y in a pattern not explained by main effects.",
+      "That pattern led me to test the X4:X5 interaction.",
+      "**Results:** The final model is Y = 0.08 + 2.02\u00b7X1 \u2212 1.52\u00b7X3 + 0.41\u00b7X2 + 0.81\u00b7X4\u00b7X5 + \u03b5.",
+      "- X4:X5: 0.81 (SE 0.025, t=32.6).",
+      "- The X4 and X5 main effects are about 0 (0.01 and 0.04, not significant).",
+      "The X4 and X5 effect is therefore purely multiplicative.",
+      "**Discussion:** The data-generating process appears to be linear in X1, X2 and X3, with a bilinear interaction between X4 and X5 (no marginal effects), plus Gaussian noise of SD\u22481.",
+      "The relevant features are X1, X2, X3, X4 and X5.",
+      "Confidence is high for X1, X3 and X4:X5, and good for X2."
+    ],
+    "x4x5_estimates_it_saw": [],
+    "product_terms_ever_fitted": [],
+    "fits": 0,
+    "analyses": 0
+  },
+  "design": {
+    "runs": 300,
+    "runs_per_turn": [
+      100,
+      0,
+      100,
+      0,
+      0,
+      0,
+      100,
+      0
+    ],
+    "runs_nothing_set": 100,
+    "runs_one_feature_set": 0,
+    "runs_all_20_set": 0,
+    "runs_setting_X4": 140,
+    "runs_setting_X5": 140,
+    "runs_X4_and_X5_both_set_nonzero": 94,
+    "distinct_settings": 46,
+    "features_ever_set": [
+      "X1",
+      "X2",
+      "X3",
+      "X4",
+      "X5",
+      "X9",
+      "X10",
+      "X12",
+      "X16",
+      "X17",
+      "X18",
+      "X19",
+      "X20"
+    ],
+    "evidence_after_each_turn": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ]
+  },
+  "predictions": [
+    {
+      "question": "all features at 0",
+      "kind": "control",
+      "true": 0.0,
+      "trap": 0.0,
+      "predicted": 0.08,
+      "abs_error": 0.08,
+      "follows": null
+    },
+    {
+      "question": "X1 = 1",
+      "kind": "main",
+      "true": 2.0,
+      "trap": 2.0,
+      "predicted": 2.1,
+      "abs_error": 0.1,
+      "follows": null
+    },
+    {
+      "question": "X3 = 2",
+      "kind": "main",
+      "true": -3.0,
+      "trap": -3.0,
+      "predicted": -2.96,
+      "abs_error": 0.04,
+      "follows": null
+    },
+    {
+      "question": "X2 = 2, X3 = -1",
+      "kind": "main",
+      "true": 2.5,
+      "trap": 2.5,
+      "predicted": 2.42,
+      "abs_error": 0.08,
+      "follows": null
+    },
+    {
+      "question": "X4 = 3",
+      "kind": "main",
+      "true": 0.0,
+      "trap": 0.0,
+      "predicted": 0.08,
+      "abs_error": 0.08,
+      "follows": null
+    },
+    {
+      "question": "X4 = 2, X5 = 2",
+      "kind": "interaction",
+      "true": 3.2,
+      "trap": 0.0,
+      "predicted": 3.32,
+      "abs_error": 0.12,
+      "follows": "true"
+    },
+    {
+      "question": "X4 = 2, X5 = -2",
+      "kind": "interaction",
+      "true": -3.2,
+      "trap": 0.0,
+      "predicted": -3.16,
+      "abs_error": 0.04,
+      "follows": "true"
+    },
+    {
+      "question": "X4 = -3, X5 = -3",
+      "kind": "interaction",
+      "true": 7.2,
+      "trap": 0.0,
+      "predicted": 7.37,
+      "abs_error": 0.17,
+      "follows": "true"
+    },
+    {
+      "question": "X1 = 1, X4 = 1, X5 = 3",
+      "kind": "interaction",
+      "true": 4.4,
+      "trap": 2.0,
+      "predicted": 4.53,
+      "abs_error": 0.13,
+      "follows": "true"
+    },
+    {
+      "question": "X16 = 2",
+      "kind": "proxy",
+      "true": 0.0,
+      "trap": 4.8276,
+      "predicted": -0.2,
+      "abs_error": 0.2,
+      "follows": "true"
+    },
+    {
+      "question": "X18 = -2",
+      "kind": "proxy",
+      "true": 0.0,
+      "trap": 3.0,
+      "predicted": 0.0,
+      "abs_error": 0.0,
+      "follows": "true"
+    }
+  ],
+  "interaction_questions_following_truth": "4/4",
+  "proxy_questions_following_truth": "2/2",
+  "turns_used": 9,
+  "report_turn": 9,
+  "report_without_tags": false,
+  "finish_reasons": [
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop"
+  ],
+  "cost": 0.6059
+}
