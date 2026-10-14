@@ -1,0 +1,121 @@
+{
+  "collected": {
+    "n": 300,
+    "estimable": true,
+    "t": -12.93,
+    "p": 1.75e-30,
+    "rank": 1,
+    "pairs_testable": 21,
+    "identifiable": true
+  },
+  "code": {
+    "blocks": 10,
+    "errors": 3,
+    "timeouts": 0,
+    "formed_product": 1,
+    "grouped_by_both": 0,
+    "screened_and_shown": 1,
+    "tested": true,
+    "output_lines_naming_both": [
+      "mass=0.2; radius=0.1; shape=sphere; reflectance=0.5; temperature=20; stripes=5; hardness=5; batch=25; height=30                     3.046000  0.005715     4    14.192500  0.128160     4",
+      "mass=0.5; radius=0.05; shape=sphere; reflectance=0.5; temperature=20; stripes=5; hardness=5; batch=25; height=30                    2.526500  0.009183     4    22.687500  0.207585     4",
+      "mass=0.5; radius=0.1; shape=cube; reflectance=0.5; temperature=20; stripes=5; hardness=5; batch=25; height=30                       3.114750  0.008421     4    13.590000  0.039158     4",
+      "mass=0.5; radius=0.1; shape=cylinder; reflectance=0.5; temperature=20; stripes=5; hardness=5; batch=25; height=30                   2.872250  0.014268     4    16.452500  0.159243     4",
+      "mass=0.5; radius=0.1; shape=sphere; reflectance=0.5; temperature=-20; stripes=5; hardness=5; batch=25; height=30                    2.693500  0.011269     4    18.980000  0.189385     4",
+      "mass=0.5; radius=0.1; shape=sphere; reflectance=0.5; temperature=20; stripes=0; hardness=5; batch=1; height=30                      2.699000  0.013115     3    18.783333  0.101160     3",
+      "mass=0.5; radius=0.1; shape=sphere; reflectance=0.5; temperature=20; stripes=10; hardness=5; batch=50; height=30                    2.695667  0.006028     3    19.056667  0.037859     3",
+      "mass=0.5; radius=0.1; shape=sphere; reflectance=0.5; temperature=20; stripes=5; hardness=10; batch=25; height=30                    2.703250  0.011558     4    19.057500  0.302696     4",
+      "mass=0.5; radius=0.1; shape=sphere; reflectance=0.5; temperature=20; stripes=5; hardness=1; batch=25; height=30                     2.691000  0.012463     4    18.977500  0.135739     4",
+      "mass=0.5; radius=0.1; shape=sphere; reflectance=0.5; temperature=20; stripes=5; hardness=5; batch=25; height=30                     2.694800  0.012276     5    19.026000  0.100150     5",
+      "mass=0.5; radius=0.1; shape=sphere; reflectance=0.5; temperature=20; stripes=5; hardness=5; batch=25; height=30; air_density=0.6    2.577500  0.008888     4    21.527500  0.201556     4",
+      "mass=0.5; radius=0.1; shape=sphere; reflectance=0.5; temperature=20; stripes=5; hardness=5; batch=25; height=30; air_density=2.4    2.912500  0.007188     4    15.650000  0.040825     4"
+    ]
+  },
+  "report_sentences": [
+    "# Gravity, quadratic drag and a hidden temperature \u00d7 reflectance effect on flight time",
+    "Stripes, hardness and batch have no detectable effect, and temperature and reflectance have no effect on their own.",
+    "I varied shape, mass, radius, air density, temperature, reflectance, hardness, and stripes together with batch.",
+    "**Interaction between temperature and reflectance.** Setting T or R alone to an extreme, with the other at its baseline (T = 20 or R = 0.5), had no effect.",
+    "- **Direction.** Hot, white objects land up to about 1.6% sooner, and hot, black objects up to about 1.6% later.",
+    "The only non-standard feature is a small multiplicative change in flight time controlled jointly by temperature and reflectance.",
+    "- I did not separately test whether distance is affected by the temperature \u00d7 reflectance term."
+  ],
+  "irrelevant_property_sentences": [
+    "Stripes, hardness and batch have no detectable effect, and temperature and reflectance have no effect on their own.",
+    "- **One-factor tests (about 70 runs):** a baseline object (m = 0.5 kg, r = 0.1 m, sphere, R = 0.5, T = 20 \u00b0C, stripes 5, hardness 5, batch 25) dropped from 30 m.",
+    "I varied shape, mass, radius, air density, temperature, reflectance, hardness, and stripes together with batch.",
+    "**Irrelevant properties.** Stripes, hardness and batch show no effect in any test.",
+    "My confidence is high for gravity, drag and the irrelevance of stripes, hardness and batch, and moderate to high for the interaction term."
+  ],
+  "law": {
+    "ran": true,
+    "pairs": 20,
+    "pairs_right": 19,
+    "captures_new_law": true,
+    "median_ratio_of_gaps": 0.931,
+    "flight_time_error": 0.0001,
+    "distance_error": 0.0009,
+    "impact_speed_error": 0.0021,
+    "baseline_flight_time_error": 0.0021
+  },
+  "design": {
+    "runs": 300,
+    "runs_per_turn": [
+      75,
+      67,
+      0,
+      64,
+      0,
+      0,
+      31,
+      42,
+      21,
+      0
+    ],
+    "runs_random_object": 100,
+    "runs_in_vacuum": 24,
+    "runs_setting_reflectance_and_temperature": 138,
+    "runs_setting_both_away_from_neutral": 0,
+    "distinct_settings": 53,
+    "properties_ever_set": [
+      "mass",
+      "radius",
+      "shape",
+      "reflectance",
+      "temperature",
+      "stripes",
+      "hardness",
+      "batch"
+    ],
+    "evidence_after_each_turn": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ]
+  },
+  "found": true,
+  "invented": false,
+  "turns_used": 11,
+  "finish_reasons": [
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop"
+  ],
+  "cost": 0.6663
+}

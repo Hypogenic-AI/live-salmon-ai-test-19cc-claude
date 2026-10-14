@@ -1,0 +1,105 @@
+{
+  "collected": {
+    "n": 200,
+    "estimable": true,
+    "t": -48.1,
+    "p": 5.68e-108,
+    "rank": 1,
+    "pairs_testable": 21,
+    "identifiable": true
+  },
+  "code": {
+    "blocks": 6,
+    "errors": 0,
+    "timeouts": 0,
+    "formed_product": 1,
+    "grouped_by_both": 0,
+    "screened_and_shown": 0,
+    "tested": true,
+    "output_lines_naming_both": [
+      "reflectance  temperature  height  ...  speed  angle         r",
+      "mass=0.1; reflectance=1; temperature=80; air_de...  0.915227  ...     0.137949",
+      "mass=10; reflectance=1; temperature=80; air_den...  0.910884  ...     0.104259",
+      "mass=1; reflectance=0; temperature=-20; air_den...  0.932455  ...     0.149432",
+      "mass=1; reflectance=0; temperature=80; air_dens...  1.121272  ...     0.126214",
+      "mass=1; reflectance=1; temperature=-20; air_den...  1.078270  ...     0.167839",
+      "mass=1; reflectance=1; temperature=80; air_dens...  0.913826  ...     0.150000",
+      "mass=1; reflectance=1; temperature=80; radius=0...  0.910464  ...     0.140784",
+      "mass=1; reflectance=1; temperature=80; radius=0...  0.910044  ...     0.174843"
+    ]
+  },
+  "report_sentences": [
+    "**Title: Quadratic air drag and a reflectance \u00d7 temperature gravity modulation in a simulated laboratory**",
+    "(2) An effective gravity that depends on the product of reflectance and temperature: g_eff = 9.81\u00b7(1 + 0.0075\u00b7(R \u2212 0.5)\u00b7(T \u2212 30)).",
+    "- **Vacuum, reflectance 0.5 and temperature 30:** the fall time from 10 m is about 1.41 s, which matches g \u2248 9.8.",
+    "- **Reflectance and temperature:**",
+    "The unusual feature is that effective gravity is modulated by the interaction of reflectance and temperature."
+  ],
+  "irrelevant_property_sentences": [
+    "Stripes, hardness and batch showed no detectable effect.",
+    "- **Null effects:** stripes, hardness and batch had no significant effect (p > 0.1).",
+    "Stripes, hardness and batch are irrelevant."
+  ],
+  "law": {
+    "ran": true,
+    "pairs": 20,
+    "pairs_right": 20,
+    "captures_new_law": true,
+    "median_ratio_of_gaps": 1.066,
+    "flight_time_error": 0.0175,
+    "distance_error": 0.017,
+    "impact_speed_error": 0.0102,
+    "baseline_flight_time_error": 0.0138
+  },
+  "design": {
+    "runs": 200,
+    "runs_per_turn": [
+      60,
+      48,
+      0,
+      52,
+      0,
+      0,
+      40,
+      0
+    ],
+    "runs_random_object": 40,
+    "runs_in_vacuum": 68,
+    "runs_setting_reflectance_and_temperature": 40,
+    "runs_setting_both_away_from_neutral": 40,
+    "distinct_settings": 37,
+    "properties_ever_set": [
+      "mass",
+      "radius",
+      "shape",
+      "reflectance",
+      "temperature"
+    ],
+    "evidence_after_each_turn": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ]
+  },
+  "found": true,
+  "invented": false,
+  "turns_used": 9,
+  "finish_reasons": [
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop"
+  ],
+  "cost": 0.1536
+}

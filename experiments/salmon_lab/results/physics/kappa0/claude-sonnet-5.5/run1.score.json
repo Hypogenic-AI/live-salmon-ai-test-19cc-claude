@@ -1,0 +1,96 @@
+{
+  "collected": {
+    "n": 180,
+    "estimable": true,
+    "t": -0.26,
+    "p": 0.793,
+    "rank": 16,
+    "pairs_testable": 21,
+    "identifiable": false
+  },
+  "code": {
+    "blocks": 6,
+    "errors": 1,
+    "timeouts": 0,
+    "formed_product": 0,
+    "grouped_by_both": 0,
+    "screened_and_shown": 0,
+    "tested": false,
+    "output_lines_naming_both": [
+      "mass=0.2; radius=0.15; shape=sphere; reflectance=0; temperature=-20; stripes=0; hardness=1; batch=1      1.672667  0.006743   0.000000  0.000000     9.185000  0.145293",
+      "mass=0.2; radius=0.15; shape=sphere; reflectance=1; temperature=80; stripes=10; hardness=10; batch=50    1.666833  0.006646   0.000000  0.000000     9.213333  0.076855"
+    ]
+  },
+  "report_sentences": [
+    "Reflectance, temperature, stripes, hardness and batch show no detectable effect.",
+    "I also compared two extreme \"all-minimum\" and \"all-maximum\" settings of reflectance, temperature, stripes, hardness and batch.",
+    "- **Irrelevant properties:** reflectance, temperature, stripes, hardness and batch show model-residual correlations of |r| < 0.1."
+  ],
+  "irrelevant_property_sentences": [
+    "Reflectance, temperature, stripes, hardness and batch show no detectable effect.",
+    "I also compared two extreme \"all-minimum\" and \"all-maximum\" settings of reflectance, temperature, stripes, hardness and batch.",
+    "- **Irrelevant properties:** reflectance, temperature, stripes, hardness and batch show model-residual correlations of |r| < 0.1."
+  ],
+  "law": {
+    "ran": true,
+    "pairs": 20,
+    "pairs_with_invented_gap": 0,
+    "invents_new_law": false,
+    "median_gap_vs_usual_law": 0.0,
+    "flight_time_error": 0.0006,
+    "distance_error": 0.0006,
+    "impact_speed_error": 0.0004,
+    "baseline_flight_time_error": 0.0
+  },
+  "design": {
+    "runs": 180,
+    "runs_per_turn": [
+      50,
+      82,
+      0,
+      0,
+      0,
+      48,
+      0
+    ],
+    "runs_random_object": 30,
+    "runs_in_vacuum": 40,
+    "runs_setting_reflectance_and_temperature": 12,
+    "runs_setting_both_away_from_neutral": 12,
+    "distinct_settings": 29,
+    "properties_ever_set": [
+      "mass",
+      "radius",
+      "shape",
+      "reflectance",
+      "temperature",
+      "stripes",
+      "hardness",
+      "batch"
+    ],
+    "evidence_after_each_turn": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ]
+  },
+  "found": false,
+  "invented": false,
+  "turns_used": 8,
+  "finish_reasons": [
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop"
+  ],
+  "cost": 0.1569
+}

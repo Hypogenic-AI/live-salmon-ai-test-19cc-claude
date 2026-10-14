@@ -1,0 +1,81 @@
+{
+  "collected": {
+    "n": 110,
+    "estimable": true,
+    "t": -5.86,
+    "p": 6e-08,
+    "rank": 1,
+    "pairs_testable": 21,
+    "identifiable": true
+  },
+  "code": {
+    "blocks": 5,
+    "errors": 1,
+    "timeouts": 0,
+    "formed_product": 0,
+    "grouped_by_both": 0,
+    "screened_and_shown": 0,
+    "tested": false,
+    "output_lines_naming_both": []
+  },
+  "report_sentences": [
+    "Reflectance, temperature, stripes, hardness and batch showed no reliable effect.",
+    "- **Null effects:** Reflectance, temperature, stripes, hardness and batch had no significant effect on the measurements."
+  ],
+  "irrelevant_property_sentences": [
+    "Reflectance, temperature, stripes, hardness and batch showed no reliable effect.",
+    "- **Null effects:** Reflectance, temperature, stripes, hardness and batch had no significant effect on the measurements.",
+    "- Weak effects of hardness or temperature below the noise level cannot be excluded."
+  ],
+  "law": {
+    "ran": true,
+    "pairs": 20,
+    "pairs_right": 0,
+    "captures_new_law": false,
+    "median_ratio_of_gaps": 0.0,
+    "flight_time_error": 0.0066,
+    "distance_error": 0.0052,
+    "impact_speed_error": 0.0049,
+    "baseline_flight_time_error": 0.0021
+  },
+  "design": {
+    "runs": 110,
+    "runs_per_turn": [
+      62,
+      48,
+      0,
+      0,
+      0
+    ],
+    "runs_random_object": 40,
+    "runs_in_vacuum": 22,
+    "runs_setting_reflectance_and_temperature": 0,
+    "runs_setting_both_away_from_neutral": 0,
+    "distinct_settings": 16,
+    "properties_ever_set": [
+      "mass",
+      "radius",
+      "shape"
+    ],
+    "evidence_after_each_turn": [
+      true,
+      true,
+      true,
+      true,
+      true
+    ]
+  },
+  "found": false,
+  "invented": false,
+  "turns_used": 6,
+  "finish_reasons": [
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop"
+  ],
+  "cost": 0.0977
+}

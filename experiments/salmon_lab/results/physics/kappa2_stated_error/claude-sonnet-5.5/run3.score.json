@@ -1,0 +1,108 @@
+{
+  "collected": {
+    "n": 202,
+    "estimable": true,
+    "t": -49.87,
+    "p": 1.8e-111,
+    "rank": 1,
+    "pairs_testable": 21,
+    "identifiable": true
+  },
+  "code": {
+    "blocks": 6,
+    "errors": 2,
+    "timeouts": 0,
+    "formed_product": 1,
+    "grouped_by_both": 0,
+    "screened_and_shown": 0,
+    "tested": true,
+    "output_lines_naming_both": [
+      "reflectance:temperature     0.0660      0.002     29.166      0.000       0.061       0.070"
+    ]
+  },
+  "report_sentences": [
+    "**Title:** Gravity modulated by a reflectance\u00d7temperature interaction, and quadratic drag depending on shape, radius and mass, in a simulated laboratory",
+    "The effective gravitational acceleration is g \u2248 9.79 + 0.066\u00b7(reflectance\u22120.5)\u00b7(temperature\u221220) m/s\u00b2.",
+    "This is an interaction effect: reflectance and temperature have no effect on g on their own.",
+    "- **Regressions:** I regressed g on all properties, including a reflectance\u00d7temperature interaction term.",
+    "- The regression gives a reflectance\u00d7temperature coefficient of 0.066 (t\u224829).",
+    "- The main effects of reflectance and temperature alone are not meaningful, because the term is (r\u22120.5)(T\u221220) up to centering.",
+    "**Discussion:** Motion is projectile motion under an effective g that depends on the product of reflectance and temperature (the combination effect)."
+  ],
+  "irrelevant_property_sentences": [
+    "Stripes, hardness and batch showed no effect.",
+    "- Radius, mass, shape, hardness, stripes and batch have no effect in vacuum.",
+    "Hardness, stripes and batch are irrelevant."
+  ],
+  "law": {
+    "ran": true,
+    "pairs": 20,
+    "pairs_right": 20,
+    "captures_new_law": true,
+    "median_ratio_of_gaps": 0.995,
+    "flight_time_error": 0.0007,
+    "distance_error": 0.0006,
+    "impact_speed_error": 0.0011,
+    "baseline_flight_time_error": 0.0138
+  },
+  "design": {
+    "runs": 202,
+    "runs_per_turn": [
+      90,
+      0,
+      0,
+      22,
+      60,
+      0,
+      30,
+      0,
+      0,
+      0
+    ],
+    "runs_random_object": 40,
+    "runs_in_vacuum": 112,
+    "runs_setting_reflectance_and_temperature": 52,
+    "runs_setting_both_away_from_neutral": 0,
+    "distinct_settings": 32,
+    "properties_ever_set": [
+      "mass",
+      "radius",
+      "shape",
+      "reflectance",
+      "temperature",
+      "stripes",
+      "hardness",
+      "batch"
+    ],
+    "evidence_after_each_turn": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ]
+  },
+  "found": true,
+  "invented": false,
+  "turns_used": 11,
+  "finish_reasons": [
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop"
+  ],
+  "cost": 0.1677
+}

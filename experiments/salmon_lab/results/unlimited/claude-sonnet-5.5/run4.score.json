@@ -1,0 +1,183 @@
+{
+  "interaction": {
+    "pair": "X4:X5",
+    "collected": true,
+    "tested": false,
+    "python": {
+      "blocks": 0,
+      "errors": 0,
+      "timeouts": 0,
+      "blocks_forming_x4_times_x5": 0,
+      "blocks_screening_all_pairs": 0,
+      "tested": false,
+      "output_lines_naming_x4_and_x5": []
+    },
+    "put_x4x5_in_a_fit_it_could_not_estimate": false,
+    "saw": false,
+    "report_mentions_x4_with_x5": true,
+    "report_sentences": [
+      "- Runs 161\u2013200 fixed X4 at 0, runs 201\u2013250 fixed X5 and X2 at 0, and runs 251\u2013300 fixed X17, X18 and X19 at 0.",
+      "The purpose was to break the strong natural collinearity between pairs of features: X1/X16 (r=0.90), X3/X18 (0.80), X2/X17 (0.85), X4/X19 (0.97) and X5/X20 (0.88).",
+      "- X16, X18, X17, X19, X4, X20, X5, X6\u2013X9, X11\u2013X15: none were significant."
+    ],
+    "x4x5_estimates_it_saw": [],
+    "product_terms_ever_fitted": [
+      "X1:X2",
+      "X1:X3",
+      "X2:X3"
+    ],
+    "fits": 4,
+    "analyses": 7
+  },
+  "design": {
+    "runs": 300,
+    "runs_per_turn": [
+      100,
+      60,
+      40,
+      100
+    ],
+    "runs_nothing_set": 100,
+    "runs_one_feature_set": 40,
+    "runs_all_20_set": 0,
+    "runs_setting_X4": 40,
+    "runs_setting_X5": 50,
+    "runs_X4_and_X5_both_set_nonzero": 0,
+    "distinct_settings": 36,
+    "features_ever_set": [
+      "X1",
+      "X2",
+      "X3",
+      "X4",
+      "X5",
+      "X9",
+      "X10",
+      "X12",
+      "X16",
+      "X17",
+      "X18",
+      "X19"
+    ],
+    "evidence_after_each_turn": [
+      true,
+      true,
+      true,
+      true
+    ]
+  },
+  "predictions": [
+    {
+      "question": "all features at 0",
+      "kind": "control",
+      "true": 0.0,
+      "trap": 0.0,
+      "predicted": 0,
+      "abs_error": 0.0,
+      "follows": null
+    },
+    {
+      "question": "X1 = 1",
+      "kind": "main",
+      "true": 2.0,
+      "trap": 2.0,
+      "predicted": 2.06,
+      "abs_error": 0.06,
+      "follows": null
+    },
+    {
+      "question": "X3 = 2",
+      "kind": "main",
+      "true": -3.0,
+      "trap": -3.0,
+      "predicted": -3.0,
+      "abs_error": 0.0,
+      "follows": null
+    },
+    {
+      "question": "X2 = 2, X3 = -1",
+      "kind": "main",
+      "true": 2.5,
+      "trap": 2.5,
+      "predicted": 2.24,
+      "abs_error": 0.26,
+      "follows": null
+    },
+    {
+      "question": "X4 = 3",
+      "kind": "main",
+      "true": 0.0,
+      "trap": 0.0,
+      "predicted": 0,
+      "abs_error": 0.0,
+      "follows": null
+    },
+    {
+      "question": "X4 = 2, X5 = 2",
+      "kind": "interaction",
+      "true": 3.2,
+      "trap": 0.0,
+      "predicted": -0.2,
+      "abs_error": 3.4,
+      "follows": "trap"
+    },
+    {
+      "question": "X4 = 2, X5 = -2",
+      "kind": "interaction",
+      "true": -3.2,
+      "trap": 0.0,
+      "predicted": 0.2,
+      "abs_error": 3.4,
+      "follows": "trap"
+    },
+    {
+      "question": "X4 = -3, X5 = -3",
+      "kind": "interaction",
+      "true": 7.2,
+      "trap": 0.0,
+      "predicted": 0.3,
+      "abs_error": 6.9,
+      "follows": "trap"
+    },
+    {
+      "question": "X1 = 1, X4 = 1, X5 = 3",
+      "kind": "interaction",
+      "true": 4.4,
+      "trap": 2.0,
+      "predicted": 1.76,
+      "abs_error": 2.64,
+      "follows": "trap"
+    },
+    {
+      "question": "X16 = 2",
+      "kind": "proxy",
+      "true": 0.0,
+      "trap": 4.8276,
+      "predicted": 0,
+      "abs_error": 0.0,
+      "follows": "true"
+    },
+    {
+      "question": "X18 = -2",
+      "kind": "proxy",
+      "true": 0.0,
+      "trap": 3.0,
+      "predicted": 0,
+      "abs_error": 0.0,
+      "follows": "true"
+    }
+  ],
+  "interaction_questions_following_truth": "0/4",
+  "proxy_questions_following_truth": "2/2",
+  "turns_used": 5,
+  "report_turn": 5,
+  "report_without_tags": false,
+  "finish_reasons": [
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop"
+  ],
+  "cost": 0.3526
+}

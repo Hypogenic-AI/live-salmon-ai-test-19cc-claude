@@ -1,0 +1,84 @@
+{
+  "collected": {
+    "n": 198,
+    "estimable": true,
+    "t": 1.39,
+    "p": 0.166,
+    "rank": 8,
+    "pairs_testable": 21,
+    "identifiable": false
+  },
+  "code": {
+    "blocks": 5,
+    "errors": 0,
+    "timeouts": 0,
+    "formed_product": 0,
+    "grouped_by_both": 0,
+    "screened_and_shown": 0,
+    "tested": false,
+    "output_lines_naming_both": []
+  },
+  "report_sentences": [
+    "Reflectance, temperature, stripes, hardness and batch showed no detectable effect.",
+    "- **Irrelevant properties:** in the 40-run replicate set, reflectance, temperature, hardness and batch showed no significant effect on flight time or impact speed.",
+    "Reflectance, temperature, stripes, hardness and batch do not matter."
+  ],
+  "irrelevant_property_sentences": [
+    "Reflectance, temperature, stripes, hardness and batch showed no detectable effect.",
+    "- **Irrelevant properties:** in the 40-run replicate set, reflectance, temperature, hardness and batch showed no significant effect on flight time or impact speed.",
+    "Stripes had p \u2248 0.04 and 0.03 with opposite-sign, tiny effects (0.001 s per stripe).",
+    "Reflectance, temperature, stripes, hardness and batch do not matter.",
+    "- Only weak or small effects could have been missed, such as a tiny effect of temperature or stripes, because noise is about 0.5%."
+  ],
+  "law": {
+    "ran": true,
+    "pairs": 20,
+    "pairs_with_invented_gap": 0,
+    "invents_new_law": false,
+    "median_gap_vs_usual_law": 0.0,
+    "flight_time_error": 0.0,
+    "distance_error": 0.0,
+    "impact_speed_error": 0.0,
+    "baseline_flight_time_error": 0.0
+  },
+  "design": {
+    "runs": 198,
+    "runs_per_turn": [
+      70,
+      48,
+      80,
+      0,
+      0
+    ],
+    "runs_random_object": 40,
+    "runs_in_vacuum": 30,
+    "runs_setting_reflectance_and_temperature": 0,
+    "runs_setting_both_away_from_neutral": 0,
+    "distinct_settings": 21,
+    "properties_ever_set": [
+      "mass",
+      "radius",
+      "shape"
+    ],
+    "evidence_after_each_turn": [
+      false,
+      false,
+      false,
+      false,
+      false
+    ]
+  },
+  "found": false,
+  "invented": false,
+  "turns_used": 6,
+  "finish_reasons": [
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop"
+  ],
+  "cost": 0.1143
+}

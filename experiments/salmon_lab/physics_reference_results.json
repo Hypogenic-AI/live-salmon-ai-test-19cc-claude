@@ -1,0 +1,9 @@
+{
+  "observe only, 25 runs": 0.14,
+  "observe only, 50 runs": 0.7,
+  "observe only, 100 runs": 0.99,
+  "observe only, 300 runs": 1.0,
+  "one property at a time, rest at defaults (280 runs)": 0.0,
+  "one property at a time, rest random (280 runs)": 1.0,
+  "random objects and launches (300 runs)": 0.96
+}

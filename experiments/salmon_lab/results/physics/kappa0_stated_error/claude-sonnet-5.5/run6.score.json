@@ -1,0 +1,108 @@
+{
+  "collected": {
+    "n": 212,
+    "estimable": true,
+    "t": -0.49,
+    "p": 0.623,
+    "rank": 14,
+    "pairs_testable": 21,
+    "identifiable": false
+  },
+  "code": {
+    "blocks": 7,
+    "errors": 2,
+    "timeouts": 0,
+    "formed_product": 0,
+    "grouped_by_both": 0,
+    "screened_and_shown": 0,
+    "tested": false,
+    "output_lines_naming_both": [
+      "mass=0.2; radius=0.1; shape=sphere; reflectance=0.5; temperature=20; stripes=5; hardness=5; batch=25; height=20                    2.323333     13.453333",
+      "mass=1; radius=0.05; shape=sphere; reflectance=0.5; temperature=20; stripes=5; hardness=5; batch=25; height=20                     2.023667     19.303333",
+      "mass=1; radius=0.1; shape=cube; reflectance=0.5; temperature=20; stripes=5; hardness=5; batch=25; height=20                        2.201667     15.586667",
+      "mass=1; radius=0.1; shape=cylinder; reflectance=0.5; temperature=20; stripes=5; hardness=5; batch=25; height=20                    2.116667     17.026667",
+      "mass=1; radius=0.1; shape=sphere; reflectance=0.5; temperature=-20; stripes=5; hardness=5; batch=25; height=20                     2.079667     18.130000",
+      "mass=1; radius=0.1; shape=sphere; reflectance=0.5; temperature=20; stripes=0; hardness=5; batch=25; height=20                      2.081000     18.100000",
+      "mass=1; radius=0.1; shape=sphere; reflectance=0.5; temperature=20; stripes=10; hardness=5; batch=25; height=20                     2.073667     18.106667",
+      "mass=1; radius=0.1; shape=sphere; reflectance=0.5; temperature=20; stripes=5; hardness=10; batch=25; height=20                     2.076667     18.300000",
+      "mass=1; radius=0.1; shape=sphere; reflectance=0.5; temperature=20; stripes=5; hardness=1; batch=25; height=20                      2.073333     18.136667",
+      "mass=1; radius=0.1; shape=sphere; reflectance=0.5; temperature=20; stripes=5; hardness=5; batch=1; height=20                       2.079000     18.173333",
+      "mass=1; radius=0.1; shape=sphere; reflectance=0.5; temperature=20; stripes=5; hardness=5; batch=25; height=20                      2.081333     18.373333",
+      "mass=1; radius=0.1; shape=sphere; reflectance=0.5; temperature=20; stripes=5; hardness=5; batch=25; height=20; air_density=0.6     2.048333     18.960000"
+    ]
+  },
+  "report_sentences": [
+    "Reflectance, temperature, stripes, hardness and batch showed no detectable effect.",
+    "It varied mass, radius, shape, reflectance, temperature, stripes, hardness, batch and air density.",
+    "- Reflectance, temperature, stripes, hardness and batch changed nothing beyond noise (differences of about 0.01 s or less).",
+    "Reflectance, temperature, stripes, hardness and batch are irrelevant."
+  ],
+  "irrelevant_property_sentences": [
+    "Reflectance, temperature, stripes, hardness and batch showed no detectable effect.",
+    "It varied mass, radius, shape, reflectance, temperature, stripes, hardness, batch and air density.",
+    "- Reflectance, temperature, stripes, hardness and batch changed nothing beyond noise (differences of about 0.01 s or less).",
+    "Reflectance, temperature, stripes, hardness and batch are irrelevant."
+  ],
+  "law": {
+    "ran": true,
+    "pairs": 20,
+    "pairs_with_invented_gap": 0,
+    "invents_new_law": false,
+    "median_gap_vs_usual_law": 0.0,
+    "flight_time_error": 0.0005,
+    "distance_error": 0.0004,
+    "impact_speed_error": 0.0004,
+    "baseline_flight_time_error": 0.0
+  },
+  "design": {
+    "runs": 212,
+    "runs_per_turn": [
+      80,
+      57,
+      75,
+      0,
+      0,
+      0,
+      0
+    ],
+    "runs_random_object": 40,
+    "runs_in_vacuum": 30,
+    "runs_setting_reflectance_and_temperature": 57,
+    "runs_setting_both_away_from_neutral": 0,
+    "distinct_settings": 30,
+    "properties_ever_set": [
+      "mass",
+      "radius",
+      "shape",
+      "reflectance",
+      "temperature",
+      "stripes",
+      "hardness",
+      "batch"
+    ],
+    "evidence_after_each_turn": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ]
+  },
+  "found": false,
+  "invented": false,
+  "turns_used": 8,
+  "finish_reasons": [
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop"
+  ],
+  "cost": 0.1421
+}

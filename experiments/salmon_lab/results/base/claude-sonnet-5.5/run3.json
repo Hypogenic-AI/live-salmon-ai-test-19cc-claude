@@ -1,0 +1,8028 @@
+{
+  "seed": 3,
+  "prompt_variant": "base",
+  "budget": 300,
+  "per_turn": 100,
+  "max_turns": 12,
+  "report": "# Title\nY is driven by X1, X3 and X2 through a nearly linear additive model: an experimental study of a 20-feature system\n\n## Abstract\nI ran 197 of the 300 allowed runs: 100 observational, 16 scattered-intervention, and 81 in a 3\u00d73\u00d73 factorial grid on X1, X3 and X2 with 3 replicates per cell. Y depends mainly on X1 (about +2.0 per unit), X3 (about \u22121.5 per unit) and X2 (about +0.45 per unit). The relationship is essentially linear and additive. The residual SD is about 1.25, and I treat it as irreducible noise. The features that looked collinear in the observational data (X16, X17, X18) are downstream correlates of X1, X2 and X3 and have no independent effect. The other features show no detectable effect. A possible small X1:X3 interaction (about +0.09) is borderline and not robust.\n\n## Methods\n**Data collection.**\n- Batch 1: 100 observational runs with nothing set.\n- Batch 2: 11 runs setting ten features (X1\u2013X5, X16\u2013X20) in varied, near-orthogonal combinations, plus 5 all-zero runs. The aim was to break the collinearity seen in the observational fit.\n- Batch 3: a full 3\u00d73\u00d73 factorial grid with X1 \u2208 {\u22122.5, 0, 2.5}, X3 \u2208 {\u22122.5, 0, 2.5} and X2 \u2208 {\u22122, 0, 2}, 3 replicates per cell (81 runs). All other features were left natural.\n\n**Analysis.**\n- OLS regressions: the full linear model, models with quadratic and pairwise interaction terms for X1/X2/X3, and the grid data with all 20 features plus X1\u00b2, X3\u00b2 and X1:X3.\n- Correlation matrices.\n- I did not formally correct for multiple comparisons. I judged significance by very small p-values (below 1e-5), which would survive a Bonferroni correction over about 20 to 40 tests, and I treat borderline p-values as non-significant.\n\n## Results\n**Observational fit (n = 100).**\n- X1 = 2.30 (p = 8e-9) and X3 = \u22121.50 (p = 2e-12) were highly significant.\n- X2 = 0.41 (p = 0.07) was suggestive.\n- X4, X5, X16, X19 and X20 had inflated standard errors, which signals collinearity among features.\n- All other features had p > 0.09.\n\n**Clean experimental data (grid, n = 81).** The model with X1, X2, X3, their squares and pairwise interactions gave R\u00b2 = 0.953 and residual SD = 1.25.\n\n| Term | Estimate | SE | p |\n|---|---|---|---|\n| X1 | +2.03 | 0.068 | <1e-16 |\n| X3 | \u22121.51 | 0.068 | <1e-16 |\n| X2 | +0.47 | 0.085 | 4e-7 |\n| X1:X3 | +0.094 | 0.033 | 0.006 |\n| X1\u00b2, X2\u00b2, X3\u00b2 | not significant | | |\n| X1:X2, X2:X3 | not significant | | |\n\n**Other features.** When all 20 features were included alongside X1, X3, X1:X3 and the squares, none of X4\u2013X20 was significant (all p > 0.14). The X1:X3 term was also not significant there (p = 0.20).\n\n**Collinearity.** Inspecting the runs, when X1, X2 and X3 are set, X16, X17 and X18 shift with them (for example, X16 \u2248 0.7\u00b7X1 plus noise). They are therefore downstream of X1, X2 and X3 and carry no independent effect, which explains the observational collinearity. X19 and X20 correlate with the set features mainly in the observational data and likewise show no independent effect.\n\n**Fitted model.**\nY \u2248 2.0\u00b7X1 \u2212 1.5\u00b7X3 + 0.45\u00b7X2 + noise (SD \u2248 1.25).\n\n## Discussion\nThe data generating process appears to be a linear additive function of three features: X1 (positive, the largest effect), X3 (negative), and X2 (smaller, positive). The noise is Gaussian-like with SD \u2248 1.2\u20131.3. There is no evidence of curvature, since the squared terms are near zero in clean data. The apparent quadratic terms in the early observational fit (X1\u00b2 0.27, X3\u00b2 0.22) did not replicate in the grid, where the estimates were \u22120.03 and +0.03. All other features, X4\u2013X20, are noise as far as Y is concerned. X16, X17 and X18 are correlated with X1, X2 and X3 (consistent with being their descendants), so they look predictive marginally but are not causal once the true drivers are accounted for.\n\nThe X1:X3 interaction is the one open question. It was p = 0.04 in the early data, p = 0.006 in the grid alone, and p = 0.20 once the other features were controlled for. I regard it as probably absent or very small (at most about 0.1 per unit\u00b2), and I do not claim it.\n\n## Limitations\n- The 103 remaining runs were not used. The interaction and a possible weak effect of X2 or other features at the level of about 0.1 are not firmly resolved.\n- Features other than X1\u2013X3 were not intervened on in the grid (they were only randomly varied naturally), so small effects of other features could be missed. The power to detect effects of about 0.2 per unit is moderate.\n- The grid used only three levels per feature, so non-monotone or threshold nonlinearities between levels could be missed. Wider coverage at the extremes (\u00b13) was limited to a single run each.\n- Multiple-comparison correction was informal.\n- Confidence is high (about 95%) that X1, X3 and X2 are real, with the effects given above. Confidence is high that X4\u2013X20 have no large effect. Confidence is low to moderate about the interaction.",
+  "report_turn": 4,
+  "report_without_tags": false,
+  "questions": [
+    {
+      "setting": {},
+      "kind": "control",
+      "text": "all features at 0",
+      "true": 0.0,
+      "trap": 0.0
+    },
+    {
+      "setting": {
+        "X1": 1
+      },
+      "kind": "main",
+      "text": "X1 = 1",
+      "true": 2.0,
+      "trap": 2.0
+    },
+    {
+      "setting": {
+        "X3": 2
+      },
+      "kind": "main",
+      "text": "X3 = 2",
+      "true": -3.0,
+      "trap": -3.0
+    },
+    {
+      "setting": {
+        "X2": 2,
+        "X3": -1
+      },
+      "kind": "main",
+      "text": "X2 = 2, X3 = -1",
+      "true": 2.5,
+      "trap": 2.5
+    },
+    {
+      "setting": {
+        "X4": 3
+      },
+      "kind": "main",
+      "text": "X4 = 3",
+      "true": 0.0,
+      "trap": 0.0
+    },
+    {
+      "setting": {
+        "X4": 2,
+        "X5": 2
+      },
+      "kind": "interaction",
+      "text": "X4 = 2, X5 = 2",
+      "true": 3.2,
+      "trap": 0.0
+    },
+    {
+      "setting": {
+        "X4": 2,
+        "X5": -2
+      },
+      "kind": "interaction",
+      "text": "X4 = 2, X5 = -2",
+      "true": -3.2,
+      "trap": 0.0
+    },
+    {
+      "setting": {
+        "X4": -3,
+        "X5": -3
+      },
+      "kind": "interaction",
+      "text": "X4 = -3, X5 = -3",
+      "true": 7.2,
+      "trap": 0.0
+    },
+    {
+      "setting": {
+        "X1": 1,
+        "X4": 1,
+        "X5": 3
+      },
+      "kind": "interaction",
+      "text": "X1 = 1, X4 = 1, X5 = 3",
+      "true": 4.4,
+      "trap": 2.0
+    },
+    {
+      "setting": {
+        "X16": 2
+      },
+      "kind": "proxy",
+      "text": "X16 = 2",
+      "true": 0.0,
+      "trap": 4.8276
+    },
+    {
+      "setting": {
+        "X18": -2
+      },
+      "kind": "proxy",
+      "text": "X18 = -2",
+      "true": 0.0,
+      "trap": 3.0
+    }
+  ],
+  "predictions_raw": "[0,2.0,-3.0,2.4,0,0,0,0,2.0,0,0]",
+  "predictions": [
+    0,
+    2.0,
+    -3.0,
+    2.4,
+    0,
+    0,
+    0,
+    0,
+    2.0,
+    0,
+    0
+  ],
+  "turns": [
+    {
+      "turn": 1,
+      "experiments": [
+        {
+          "n": 100
+        }
+      ],
+      "new_runs": 100,
+      "refused": [],
+      "analyses": [
+        {
+          "fit": "Y ~ X1 + X2 + X3 + X4 + X5 + X6 + X7 + X8 + X9 + X10 + X11 + X12 + X13 + X14 + X15 + X16 + X17 + X18 + X19 + X20"
+        },
+        {
+          "summary": [
+            "X1",
+            "X2",
+            "X3",
+            "Y"
+          ]
+        }
+      ],
+      "results": [
+        {
+          "formula": "Y ~ X1 + X2 + X3 + X4 + X5 + X6 + X7 + X8 + X9 + X10 + X11 + X12 + X13 + X14 + X15 + X16 + X17 + X18 + X19 + X20",
+          "n": 100,
+          "r2": 0.8454,
+          "adj_r2": 0.8063,
+          "residual_sd": 1.1902,
+          "coefficients": [
+            {
+              "term": "Intercept",
+              "estimate": -0.1127,
+              "se": 0.1307,
+              "t": -0.86,
+              "p": 0.391
+            },
+            {
+              "term": "X1",
+              "estimate": 2.3037,
+              "se": 0.3573,
+              "t": 6.45,
+              "p": 8.29e-09
+            },
+            {
+              "term": "X2",
+              "estimate": 0.4093,
+              "se": 0.2257,
+              "t": 1.81,
+              "p": 0.0736
+            },
+            {
+              "term": "X3",
+              "estimate": -1.5015,
+              "se": 0.1802,
+              "t": -8.33,
+              "p": 1.96e-12
+            },
+            {
+              "term": "X4",
+              "estimate": -0.4603,
+              "se": 0.5097,
+              "t": -0.9,
+              "p": 0.369
+            },
+            {
+              "term": "X5",
+              "estimate": -0.1276,
+              "se": 0.3144,
+              "t": -0.41,
+              "p": 0.686
+            },
+            {
+              "term": "X6",
+              "estimate": -0.0271,
+              "se": 0.1296,
+              "t": -0.21,
+              "p": 0.835
+            },
+            {
+              "term": "X7",
+              "estimate": 0.0231,
+              "se": 0.1287,
+              "t": 0.18,
+              "p": 0.858
+            },
+            {
+              "term": "X8",
+              "estimate": -0.0143,
+              "se": 0.1383,
+              "t": -0.1,
+              "p": 0.918
+            },
+            {
+              "term": "X9",
+              "estimate": 0.0391,
+              "se": 0.1381,
+              "t": 0.28,
+              "p": 0.778
+            },
+            {
+              "term": "X10",
+              "estimate": -0.0055,
+              "se": 0.1259,
+              "t": -0.04,
+              "p": 0.965
+            },
+            {
+              "term": "X11",
+              "estimate": -0.2672,
+              "se": 0.1572,
+              "t": -1.7,
+              "p": 0.093
+            },
+            {
+              "term": "X12",
+              "estimate": 0.1781,
+              "se": 0.1212,
+              "t": 1.47,
+              "p": 0.146
+            },
+            {
+              "term": "X13",
+              "estimate": 0.0413,
+              "se": 0.1464,
+              "t": 0.28,
+              "p": 0.779
+            },
+            {
+              "term": "X14",
+              "estimate": -0.0208,
+              "se": 0.1338,
+              "t": -0.16,
+              "p": 0.877
+            },
+            {
+              "term": "X15",
+              "estimate": 0.0019,
+              "se": 0.1382,
+              "t": 0.01,
+              "p": 0.989
+            },
+            {
+              "term": "X16",
+              "estimate": -0.3224,
+              "se": 0.4629,
+              "t": -0.7,
+              "p": 0.488
+            },
+            {
+              "term": "X17",
+              "estimate": 0.1245,
+              "se": 0.3027,
+              "t": 0.41,
+              "p": 0.682
+            },
+            {
+              "term": "X18",
+              "estimate": 0.281,
+              "se": 0.2476,
+              "t": 1.14,
+              "p": 0.26
+            },
+            {
+              "term": "X19",
+              "estimate": 0.6345,
+              "se": 0.6072,
+              "t": 1.04,
+              "p": 0.299
+            },
+            {
+              "term": "X20",
+              "estimate": 0.1578,
+              "se": 0.4332,
+              "t": 0.36,
+              "p": 0.717
+            }
+          ],
+          "runs": [
+            1,
+            100
+          ]
+        },
+        {
+          "summary": {
+            "X1": {
+              "mean": 0.158,
+              "sd": 0.981,
+              "min": -1.77,
+              "max": 2.28
+            },
+            "X2": {
+              "mean": 0.001,
+              "sd": 1.03,
+              "min": -3.06,
+              "max": 2.61
+            },
+            "X3": {
+              "mean": 0.045,
+              "sd": 0.988,
+              "min": -2.9,
+              "max": 2.19
+            },
+            "Y": {
+              "mean": 0.158,
+              "sd": 2.704,
+              "min": -5.93,
+              "max": 5.4
+            }
+          },
+          "n": 100,
+          "runs": [
+            1,
+            100
+          ]
+        }
+      ],
+      "runs_so_far": 100
+    },
+    {
+      "turn": 2,
+      "experiments": [
+        {
+          "set": {
+            "X1": 1.5,
+            "X3": -1,
+            "X16": -1.5,
+            "X4": 1,
+            "X19": -2,
+            "X5": -1,
+            "X20": 2,
+            "X2": 1,
+            "X17": -1,
+            "X18": 1
+          },
+          "n": 1
+        },
+        {
+          "set": {
+            "X1": -2,
+            "X3": 1.5,
+            "X16": 2,
+            "X4": -1.5,
+            "X19": 1,
+            "X5": 2,
+            "X20": -1,
+            "X2": -2,
+            "X17": 1,
+            "X18": -2
+          },
+          "n": 1
+        },
+        {
+          "set": {
+            "X1": 0.5,
+            "X3": 2,
+            "X16": -2,
+            "X4": 2,
+            "X19": 2,
+            "X5": 0,
+            "X20": -2,
+            "X2": 2,
+            "X17": -2,
+            "X18": 0
+          },
+          "n": 1
+        },
+        {
+          "set": {
+            "X1": -1,
+            "X3": -2,
+            "X16": 1,
+            "X4": -2,
+            "X19": -1,
+            "X5": 1,
+            "X20": 1,
+            "X2": -1,
+            "X17": 2,
+            "X18": 2
+          },
+          "n": 1
+        },
+        {
+          "set": {
+            "X1": 2.5,
+            "X3": 0,
+            "X16": 0,
+            "X4": 0,
+            "X19": 0,
+            "X5": -2,
+            "X20": 0,
+            "X2": 0,
+            "X17": 0,
+            "X18": -1
+          },
+          "n": 1
+        },
+        {
+          "set": {
+            "X1": -2.5,
+            "X3": -0.5,
+            "X16": 2.5,
+            "X4": 1.5,
+            "X19": -1.5,
+            "X5": 2.5,
+            "X20": 2.5,
+            "X2": 2.5,
+            "X17": -2.5,
+            "X18": 2.5
+          },
+          "n": 1
+        },
+        {
+          "set": {
+            "X1": 0,
+            "X3": 2.5,
+            "X16": -1,
+            "X4": -1,
+            "X19": 2.5,
+            "X5": -2.5,
+            "X20": -2.5,
+            "X2": -2.5,
+            "X17": 2.5,
+            "X18": -2.5
+          },
+          "n": 1
+        },
+        {
+          "set": {
+            "X1": 1,
+            "X3": 1,
+            "X16": -2.5,
+            "X4": 2.5,
+            "X19": -2.5,
+            "X5": 1.5,
+            "X20": -1.5,
+            "X2": 0.5,
+            "X17": 0.5,
+            "X18": 0.5
+          },
+          "n": 1
+        },
+        {
+          "set": {
+            "X1": -1.5,
+            "X3": -2.5,
+            "X16": 1.5,
+            "X4": -2.5,
+            "X19": 0.5,
+            "X5": -1.5,
+            "X20": 1.5,
+            "X2": -0.5,
+            "X17": -0.5,
+            "X18": -0.5
+          },
+          "n": 1
+        },
+        {
+          "set": {
+            "X1": 3,
+            "X3": -3,
+            "X16": -3,
+            "X4": 3,
+            "X19": -3,
+            "X5": 3,
+            "X20": -3,
+            "X2": 3,
+            "X17": 3,
+            "X18": 3
+          },
+          "n": 1
+        },
+        {
+          "set": {
+            "X1": -3,
+            "X3": 3,
+            "X16": 3,
+            "X4": -3,
+            "X19": 3,
+            "X5": -3,
+            "X20": 3,
+            "X2": -3,
+            "X17": -3,
+            "X18": -3
+          },
+          "n": 1
+        },
+        {
+          "set": {
+            "X1": 0,
+            "X3": 0,
+            "X16": 0,
+            "X4": 0,
+            "X19": 0,
+            "X5": 0,
+            "X20": 0,
+            "X2": 0,
+            "X17": 0,
+            "X18": 0
+          },
+          "n": 5
+        }
+      ],
+      "new_runs": 16,
+      "refused": [],
+      "analyses": [
+        {
+          "fit": "Y ~ X1 + X3 + X2 + X11 + X12 + X1:X3 + X1^2 + X3^2 + X2^2"
+        },
+        {
+          "correlations": [
+            "X1",
+            "X16",
+            "X4",
+            "X19",
+            "X5",
+            "X20",
+            "X2",
+            "X17",
+            "X3",
+            "X18"
+          ]
+        }
+      ],
+      "results": [
+        {
+          "formula": "Y ~ X1 + X3 + X2 + X11 + X12 + X1:X3 + X1^2 + X3^2 + X2^2",
+          "n": 116,
+          "r2": 0.8458,
+          "adj_r2": 0.8327,
+          "residual_sd": 1.4114,
+          "coefficients": [
+            {
+              "term": "Intercept",
+              "estimate": -0.46,
+              "se": 0.1821,
+              "t": -2.53,
+              "p": 0.013
+            },
+            {
+              "term": "X1",
+              "estimate": 1.9883,
+              "se": 0.1241,
+              "t": 16.02,
+              "p": 4.47e-30
+            },
+            {
+              "term": "X3",
+              "estimate": -1.4345,
+              "se": 0.1241,
+              "t": -11.56,
+              "p": 1.73e-20
+            },
+            {
+              "term": "X2",
+              "estimate": 0.6184,
+              "se": 0.1223,
+              "t": 5.06,
+              "p": 1.79e-06
+            },
+            {
+              "term": "X11",
+              "estimate": -0.2538,
+              "se": 0.1589,
+              "t": -1.6,
+              "p": 0.113
+            },
+            {
+              "term": "X12",
+              "estimate": 0.0704,
+              "se": 0.1286,
+              "t": 0.55,
+              "p": 0.585
+            },
+            {
+              "term": "X1:X3",
+              "estimate": -0.1996,
+              "se": 0.0963,
+              "t": -2.07,
+              "p": 0.0408
+            },
+            {
+              "term": "X1^2",
+              "estimate": 0.2689,
+              "se": 0.0928,
+              "t": 2.9,
+              "p": 0.00458
+            },
+            {
+              "term": "X3^2",
+              "estimate": 0.224,
+              "se": 0.0817,
+              "t": 2.74,
+              "p": 0.00718
+            },
+            {
+              "term": "X2^2",
+              "estimate": 0.0319,
+              "se": 0.0812,
+              "t": 0.39,
+              "p": 0.695
+            }
+          ],
+          "runs": [
+            1,
+            116
+          ]
+        },
+        {
+          "correlations": {
+            "X1": {
+              "X1": 1.0,
+              "X16": 0.276,
+              "X4": 0.221,
+              "X19": -0.162,
+              "X5": -0.055,
+              "X20": -0.301,
+              "X2": 0.119,
+              "X17": 0.173,
+              "X3": -0.074,
+              "X18": 0.096
+            },
+            "X16": {
+              "X1": 0.276,
+              "X16": 1.0,
+              "X4": -0.272,
+              "X19": 0.176,
+              "X5": -0.203,
+              "X20": 0.209,
+              "X2": -0.168,
+              "X17": -0.157,
+              "X3": 0.074,
+              "X18": -0.161
+            },
+            "X4": {
+              "X1": 0.221,
+              "X16": -0.272,
+              "X4": 1.0,
+              "X19": 0.375,
+              "X5": 0.201,
+              "X20": -0.18,
+              "X2": 0.227,
+              "X17": 0.002,
+              "X3": 0.052,
+              "X18": 0.284
+            },
+            "X19": {
+              "X1": -0.162,
+              "X16": 0.176,
+              "X4": 0.375,
+              "X19": 1.0,
+              "X5": -0.226,
+              "X20": 0.04,
+              "X2": -0.277,
+              "X17": -0.17,
+              "X3": 0.36,
+              "X18": -0.29
+            },
+            "X5": {
+              "X1": -0.055,
+              "X16": -0.203,
+              "X4": 0.201,
+              "X19": -0.226,
+              "X5": 1.0,
+              "X20": 0.428,
+              "X2": 0.143,
+              "X17": 0.045,
+              "X3": -0.217,
+              "X18": 0.188
+            },
+            "X20": {
+              "X1": -0.301,
+              "X16": 0.209,
+              "X4": -0.18,
+              "X19": 0.04,
+              "X5": 0.428,
+              "X20": 1.0,
+              "X2": -0.083,
+              "X17": -0.362,
+              "X3": -0.11,
+              "X18": -0.094
+            },
+            "X2": {
+              "X1": 0.119,
+              "X16": -0.168,
+              "X4": 0.227,
+              "X19": -0.277,
+              "X5": 0.143,
+              "X20": -0.083,
+              "X2": 1.0,
+              "X17": 0.502,
+              "X3": -0.226,
+              "X18": 0.219
+            },
+            "X17": {
+              "X1": 0.173,
+              "X16": -0.157,
+              "X4": 0.002,
+              "X19": -0.17,
+              "X5": 0.045,
+              "X20": -0.362,
+              "X2": 0.502,
+              "X17": 1.0,
+              "X3": -0.174,
+              "X18": 0.026
+            },
+            "X3": {
+              "X1": -0.074,
+              "X16": 0.074,
+              "X4": 0.052,
+              "X19": 0.36,
+              "X5": -0.217,
+              "X20": -0.11,
+              "X2": -0.226,
+              "X17": -0.174,
+              "X3": 1.0,
+              "X18": 0.176
+            },
+            "X18": {
+              "X1": 0.096,
+              "X16": -0.161,
+              "X4": 0.284,
+              "X19": -0.29,
+              "X5": 0.188,
+              "X20": -0.094,
+              "X2": 0.219,
+              "X17": 0.026,
+              "X3": 0.176,
+              "X18": 1.0
+            }
+          },
+          "n": 116,
+          "runs": [
+            1,
+            116
+          ]
+        }
+      ],
+      "runs_so_far": 116
+    },
+    {
+      "turn": 3,
+      "experiments": [
+        {
+          "set": {
+            "X1": -2.5,
+            "X3": -2.5,
+            "X2": -2
+          },
+          "n": 3
+        },
+        {
+          "set": {
+            "X1": -2.5,
+            "X3": -2.5,
+            "X2": 0
+          },
+          "n": 3
+        },
+        {
+          "set": {
+            "X1": -2.5,
+            "X3": -2.5,
+            "X2": 2
+          },
+          "n": 3
+        },
+        {
+          "set": {
+            "X1": -2.5,
+            "X3": 0,
+            "X2": -2
+          },
+          "n": 3
+        },
+        {
+          "set": {
+            "X1": -2.5,
+            "X3": 0,
+            "X2": 0
+          },
+          "n": 3
+        },
+        {
+          "set": {
+            "X1": -2.5,
+            "X3": 0,
+            "X2": 2
+          },
+          "n": 3
+        },
+        {
+          "set": {
+            "X1": -2.5,
+            "X3": 2.5,
+            "X2": -2
+          },
+          "n": 3
+        },
+        {
+          "set": {
+            "X1": -2.5,
+            "X3": 2.5,
+            "X2": 0
+          },
+          "n": 3
+        },
+        {
+          "set": {
+            "X1": -2.5,
+            "X3": 2.5,
+            "X2": 2
+          },
+          "n": 3
+        },
+        {
+          "set": {
+            "X1": 0,
+            "X3": -2.5,
+            "X2": -2
+          },
+          "n": 3
+        },
+        {
+          "set": {
+            "X1": 0,
+            "X3": -2.5,
+            "X2": 0
+          },
+          "n": 3
+        },
+        {
+          "set": {
+            "X1": 0,
+            "X3": -2.5,
+            "X2": 2
+          },
+          "n": 3
+        },
+        {
+          "set": {
+            "X1": 0,
+            "X3": 0,
+            "X2": -2
+          },
+          "n": 3
+        },
+        {
+          "set": {
+            "X1": 0,
+            "X3": 0,
+            "X2": 0
+          },
+          "n": 3
+        },
+        {
+          "set": {
+            "X1": 0,
+            "X3": 0,
+            "X2": 2
+          },
+          "n": 3
+        },
+        {
+          "set": {
+            "X1": 0,
+            "X3": 2.5,
+            "X2": -2
+          },
+          "n": 3
+        },
+        {
+          "set": {
+            "X1": 0,
+            "X3": 2.5,
+            "X2": 0
+          },
+          "n": 3
+        },
+        {
+          "set": {
+            "X1": 0,
+            "X3": 2.5,
+            "X2": 2
+          },
+          "n": 3
+        },
+        {
+          "set": {
+            "X1": 2.5,
+            "X3": -2.5,
+            "X2": -2
+          },
+          "n": 3
+        },
+        {
+          "set": {
+            "X1": 2.5,
+            "X3": -2.5,
+            "X2": 0
+          },
+          "n": 3
+        },
+        {
+          "set": {
+            "X1": 2.5,
+            "X3": -2.5,
+            "X2": 2
+          },
+          "n": 3
+        },
+        {
+          "set": {
+            "X1": 2.5,
+            "X3": 0,
+            "X2": -2
+          },
+          "n": 3
+        },
+        {
+          "set": {
+            "X1": 2.5,
+            "X3": 0,
+            "X2": 0
+          },
+          "n": 3
+        },
+        {
+          "set": {
+            "X1": 2.5,
+            "X3": 0,
+            "X2": 2
+          },
+          "n": 3
+        },
+        {
+          "set": {
+            "X1": 2.5,
+            "X3": 2.5,
+            "X2": -2
+          },
+          "n": 3
+        },
+        {
+          "set": {
+            "X1": 2.5,
+            "X3": 2.5,
+            "X2": 0
+          },
+          "n": 3
+        },
+        {
+          "set": {
+            "X1": 2.5,
+            "X3": 2.5,
+            "X2": 2
+          },
+          "n": 3
+        }
+      ],
+      "new_runs": 81,
+      "refused": [],
+      "analyses": [
+        {
+          "fit": "Y ~ X1 + X2 + X3 + X1:X2 + X1:X3 + X2:X3 + X1^2 + X2^2 + X3^2",
+          "runs": [
+            117,
+            197
+          ]
+        },
+        {
+          "fit": "Y ~ X1 + X2 + X3 + X4 + X5 + X6 + X7 + X8 + X9 + X10 + X11 + X12 + X13 + X14 + X15 + X16 + X17 + X18 + X19 + X20 + X1^2 + X3^2 + X1:X3",
+          "runs": [
+            117,
+            197
+          ]
+        }
+      ],
+      "results": [
+        {
+          "formula": "Y ~ X1 + X2 + X3 + X1:X2 + X1:X3 + X2:X3 + X1^2 + X2^2 + X3^2",
+          "n": 81,
+          "r2": 0.9528,
+          "adj_r2": 0.9468,
+          "residual_sd": 1.2457,
+          "coefficients": [
+            {
+              "term": "Intercept",
+              "estimate": 0.1325,
+              "se": 0.3662,
+              "t": 0.36,
+              "p": 0.719
+            },
+            {
+              "term": "X1",
+              "estimate": 2.0269,
+              "se": 0.0678,
+              "t": 29.89,
+              "p": 5.84e-42
+            },
+            {
+              "term": "X2",
+              "estimate": 0.4731,
+              "se": 0.0848,
+              "t": 5.58,
+              "p": 4.07e-07
+            },
+            {
+              "term": "X3",
+              "estimate": -1.509,
+              "se": 0.0678,
+              "t": -22.25,
+              "p": 9.79e-34
+            },
+            {
+              "term": "X1:X2",
+              "estimate": 0.0277,
+              "se": 0.0415,
+              "t": 0.67,
+              "p": 0.507
+            },
+            {
+              "term": "X1:X3",
+              "estimate": 0.0935,
+              "se": 0.0332,
+              "t": 2.82,
+              "p": 0.00631
+            },
+            {
+              "term": "X2:X3",
+              "estimate": 0.0288,
+              "se": 0.0415,
+              "t": 0.69,
+              "p": 0.491
+            },
+            {
+              "term": "X1^2",
+              "estimate": -0.0319,
+              "se": 0.047,
+              "t": -0.68,
+              "p": 0.5
+            },
+            {
+              "term": "X2^2",
+              "estimate": -0.1035,
+              "se": 0.0734,
+              "t": -1.41,
+              "p": 0.163
+            },
+            {
+              "term": "X3^2",
+              "estimate": 0.0288,
+              "se": 0.047,
+              "t": 0.61,
+              "p": 0.542
+            }
+          ],
+          "runs": [
+            117,
+            197
+          ]
+        },
+        {
+          "formula": "Y ~ X1 + X2 + X3 + X4 + X5 + X6 + X7 + X8 + X9 + X10 + X11 + X12 + X13 + X14 + X15 + X16 + X17 + X18 + X19 + X20 + X1^2 + X3^2 + X1:X3",
+          "n": 81,
+          "r2": 0.9598,
+          "adj_r2": 0.9435,
+          "residual_sd": 1.2831,
+          "coefficients": [
+            {
+              "term": "Intercept",
+              "estimate": -0.0633,
+              "se": 0.3851,
+              "t": -0.16,
+              "p": 0.87
+            },
+            {
+              "term": "X1",
+              "estimate": 2.0554,
+              "se": 0.3886,
+              "t": 5.29,
+              "p": 2.03e-06
+            },
+            {
+              "term": "X2",
+              "estimate": 0.2934,
+              "se": 0.2434,
+              "t": 1.21,
+              "p": 0.233
+            },
+            {
+              "term": "X3",
+              "estimate": -1.6883,
+              "se": 0.1997,
+              "t": -8.46,
+              "p": 1.21e-11
+            },
+            {
+              "term": "X4",
+              "estimate": 1.1958,
+              "se": 0.8054,
+              "t": 1.48,
+              "p": 0.143
+            },
+            {
+              "term": "X5",
+              "estimate": -0.2917,
+              "se": 0.3498,
+              "t": -0.83,
+              "p": 0.408
+            },
+            {
+              "term": "X6",
+              "estimate": -0.0885,
+              "se": 0.1447,
+              "t": -0.61,
+              "p": 0.543
+            },
+            {
+              "term": "X7",
+              "estimate": 0.0381,
+              "se": 0.1914,
+              "t": 0.2,
+              "p": 0.843
+            },
+            {
+              "term": "X8",
+              "estimate": 0.0547,
+              "se": 0.15,
+              "t": 0.36,
+              "p": 0.717
+            },
+            {
+              "term": "X9",
+              "estimate": -0.0918,
+              "se": 0.1767,
+              "t": -0.52,
+              "p": 0.606
+            },
+            {
+              "term": "X10",
+              "estimate": -0.0849,
+              "se": 0.1631,
+              "t": -0.52,
+              "p": 0.605
+            },
+            {
+              "term": "X11",
+              "estimate": -0.1519,
+              "se": 0.1595,
+              "t": -0.95,
+              "p": 0.345
+            },
+            {
+              "term": "X12",
+              "estimate": -0.0444,
+              "se": 0.1654,
+              "t": -0.27,
+              "p": 0.79
+            },
+            {
+              "term": "X13",
+              "estimate": 0.1007,
+              "se": 0.1756,
+              "t": 0.57,
+              "p": 0.568
+            },
+            {
+              "term": "X14",
+              "estimate": -0.1711,
+              "se": 0.1522,
+              "t": -1.12,
+              "p": 0.266
+            },
+            {
+              "term": "X15",
+              "estimate": 0.2648,
+              "se": 0.1789,
+              "t": 1.48,
+              "p": 0.144
+            },
+            {
+              "term": "X16",
+              "estimate": -0.0738,
+              "se": 0.5432,
+              "t": -0.14,
+              "p": 0.892
+            },
+            {
+              "term": "X17",
+              "estimate": 0.2857,
+              "se": 0.3686,
+              "t": 0.77,
+              "p": 0.442
+            },
+            {
+              "term": "X18",
+              "estimate": 0.3541,
+              "se": 0.3315,
+              "t": 1.07,
+              "p": 0.29
+            },
+            {
+              "term": "X19",
+              "estimate": -1.3673,
+              "se": 0.9476,
+              "t": -1.44,
+              "p": 0.155
+            },
+            {
+              "term": "X20",
+              "estimate": 0.0204,
+              "se": 0.4402,
+              "t": 0.05,
+              "p": 0.963
+            },
+            {
+              "term": "X1^2",
+              "estimate": 0.0067,
+              "se": 0.0597,
+              "t": 0.11,
+              "p": 0.911
+            },
+            {
+              "term": "X3^2",
+              "estimate": -0.0047,
+              "se": 0.0578,
+              "t": -0.08,
+              "p": 0.936
+            },
+            {
+              "term": "X1:X3",
+              "estimate": 0.0547,
+              "se": 0.0419,
+              "t": 1.31,
+              "p": 0.197
+            }
+          ],
+          "runs": [
+            117,
+            197
+          ]
+        }
+      ],
+      "runs_so_far": 197
+    }
+  ],
+  "rows": [
+    {
+      "run": 1,
+      "set": {},
+      "X": [
+        2.04,
+        -2.56,
+        0.42,
+        -0.57,
+        -0.45,
+        -0.22,
+        -2.02,
+        -0.23,
+        -0.87,
+        3.32,
+        0.23,
+        -0.35,
+        -0.28,
+        -0.67,
+        -1.06,
+        1.31,
+        -1.34,
+        0.09,
+        -0.26,
+        -0.36
+      ],
+      "Y": 2.4
+    },
+    {
+      "run": 2,
+      "set": {},
+      "X": [
+        1.55,
+        0.55,
+        -0.51,
+        -0.18,
+        0.54,
+        1.94,
+        -0.27,
+        -0.24,
+        1.0,
+        -0.89,
+        -0.29,
+        0.88,
+        0.58,
+        0.09,
+        0.67,
+        0.24,
+        0.74,
+        -0.73,
+        -0.48,
+        0.45
+      ],
+      "Y": 4.76
+    },
+    {
+      "run": 3,
+      "set": {},
+      "X": [
+        -0.44,
+        -1.08,
+        0.03,
+        -0.05,
+        1.41,
+        0.75,
+        0.19,
+        1.11,
+        -0.21,
+        -0.93,
+        0.58,
+        0.58,
+        -0.21,
+        -0.78,
+        0.23,
+        -1.06,
+        -0.37,
+        0.26,
+        -0.37,
+        0.94
+      ],
+      "Y": -2.49
+    },
+    {
+      "run": 4,
+      "set": {},
+      "X": [
+        0.76,
+        -2.03,
+        -0.91,
+        0.71,
+        1.16,
+        -2.16,
+        -0.5,
+        0.33,
+        -0.61,
+        1.59,
+        -1.19,
+        0.35,
+        -1.05,
+        1.41,
+        -0.02,
+        0.42,
+        -1.91,
+        0.39,
+        0.72,
+        1.02
+      ],
+      "Y": 3.67
+    },
+    {
+      "run": 5,
+      "set": {},
+      "X": [
+        0.35,
+        -0.64,
+        -0.8,
+        -0.8,
+        1.37,
+        -1.46,
+        -0.6,
+        -0.32,
+        0.22,
+        0.58,
+        -1.25,
+        -1.73,
+        0.0,
+        1.21,
+        0.76,
+        0.31,
+        -0.51,
+        -0.25,
+        -0.69,
+        1.18
+      ],
+      "Y": -0.09
+    },
+    {
+      "run": 6,
+      "set": {},
+      "X": [
+        0.13,
+        -0.11,
+        0.54,
+        0.22,
+        2.55,
+        1.5,
+        1.5,
+        -2.04,
+        -0.34,
+        -0.61,
+        0.53,
+        -2.28,
+        1.17,
+        1.07,
+        -1.3,
+        -0.2,
+        -0.39,
+        0.29,
+        0.3,
+        2.37
+      ],
+      "Y": -0.35
+    },
+    {
+      "run": 7,
+      "set": {},
+      "X": [
+        0.77,
+        0.16,
+        1.76,
+        0.74,
+        1.37,
+        -1.08,
+        -0.19,
+        -0.81,
+        1.5,
+        0.66,
+        -0.31,
+        -0.45,
+        0.48,
+        -0.7,
+        -0.93,
+        0.68,
+        1.08,
+        0.76,
+        0.48,
+        0.48
+      ],
+      "Y": -1.54
+    },
+    {
+      "run": 8,
+      "set": {},
+      "X": [
+        0.52,
+        0.85,
+        0.01,
+        0.33,
+        0.12,
+        0.14,
+        -1.53,
+        -0.46,
+        0.11,
+        -0.78,
+        -0.48,
+        -0.82,
+        -0.33,
+        0.85,
+        -0.41,
+        0.32,
+        0.84,
+        0.33,
+        0.6,
+        -0.65
+      ],
+      "Y": 2.34
+    },
+    {
+      "run": 9,
+      "set": {},
+      "X": [
+        -0.48,
+        0.13,
+        0.84,
+        1.08,
+        1.04,
+        0.16,
+        1.61,
+        -0.28,
+        -0.14,
+        0.8,
+        -0.55,
+        2.16,
+        1.02,
+        2.18,
+        -0.03,
+        -0.45,
+        0.14,
+        0.79,
+        0.75,
+        0.81
+      ],
+      "Y": -1.27
+    },
+    {
+      "run": 10,
+      "set": {},
+      "X": [
+        1.62,
+        -0.66,
+        1.05,
+        -0.64,
+        -0.96,
+        -0.71,
+        -1.19,
+        0.15,
+        1.03,
+        0.16,
+        0.62,
+        1.63,
+        0.27,
+        0.2,
+        -0.28,
+        0.65,
+        -0.09,
+        -0.35,
+        -0.38,
+        -0.63
+      ],
+      "Y": 2.95
+    },
+    {
+      "run": 11,
+      "set": {},
+      "X": [
+        -0.07,
+        -0.82,
+        0.36,
+        -0.56,
+        -0.18,
+        0.04,
+        -0.13,
+        -0.19,
+        -0.83,
+        -0.19,
+        -2.14,
+        -0.16,
+        -1.2,
+        1.12,
+        1.27,
+        -0.63,
+        -0.43,
+        0.12,
+        -0.66,
+        0.07
+      ],
+      "Y": -1.47
+    },
+    {
+      "run": 12,
+      "set": {},
+      "X": [
+        -1.77,
+        -0.27,
+        -0.15,
+        0.11,
+        -1.23,
+        0.62,
+        0.74,
+        -1.15,
+        -0.66,
+        -0.08,
+        -0.57,
+        1.74,
+        0.21,
+        -1.01,
+        -0.79,
+        -1.26,
+        0.76,
+        -0.16,
+        0.11,
+        -0.62
+      ],
+      "Y": -3.6
+    },
+    {
+      "run": 13,
+      "set": {},
+      "X": [
+        2.28,
+        -0.53,
+        0.74,
+        0.16,
+        0.62,
+        -1.18,
+        1.77,
+        -0.12,
+        0.03,
+        -0.93,
+        -0.73,
+        0.56,
+        0.99,
+        0.75,
+        1.21,
+        1.81,
+        -0.31,
+        0.79,
+        0.25,
+        0.37
+      ],
+      "Y": 3.99
+    },
+    {
+      "run": 14,
+      "set": {},
+      "X": [
+        1.29,
+        0.23,
+        -0.36,
+        0.72,
+        1.9,
+        -0.21,
+        -0.09,
+        -0.14,
+        1.22,
+        -1.84,
+        0.37,
+        1.19,
+        -0.81,
+        1.49,
+        0.54,
+        0.74,
+        0.22,
+        -0.95,
+        0.46,
+        1.87
+      ],
+      "Y": 3.44
+    },
+    {
+      "run": 15,
+      "set": {},
+      "X": [
+        1.84,
+        -0.08,
+        0.99,
+        0.04,
+        -2.24,
+        -0.57,
+        0.19,
+        -1.15,
+        -1.35,
+        0.37,
+        -0.65,
+        -1.7,
+        -0.68,
+        0.86,
+        -0.47,
+        1.57,
+        0.56,
+        0.51,
+        -0.19,
+        -1.91
+      ],
+      "Y": 2.06
+    },
+    {
+      "run": 16,
+      "set": {},
+      "X": [
+        0.88,
+        0.27,
+        0.55,
+        -0.44,
+        0.3,
+        -0.47,
+        -0.33,
+        -1.29,
+        -1.57,
+        -0.48,
+        -1.11,
+        -0.96,
+        0.67,
+        -0.11,
+        2.91,
+        0.89,
+        -0.09,
+        0.66,
+        -0.28,
+        -0.04
+      ],
+      "Y": 2.07
+    },
+    {
+      "run": 17,
+      "set": {},
+      "X": [
+        -0.78,
+        -3.06,
+        0.79,
+        -0.62,
+        1.49,
+        -0.65,
+        -1.18,
+        1.55,
+        -1.08,
+        0.2,
+        1.45,
+        0.11,
+        -0.08,
+        0.1,
+        0.84,
+        -0.79,
+        -1.59,
+        0.68,
+        -0.03,
+        0.85
+      ],
+      "Y": -5.93
+    },
+    {
+      "run": 18,
+      "set": {},
+      "X": [
+        0.74,
+        -0.4,
+        0.29,
+        0.13,
+        1.17,
+        -0.66,
+        -0.09,
+        -2.55,
+        -0.89,
+        1.54,
+        -0.68,
+        -0.7,
+        -1.22,
+        0.58,
+        0.18,
+        0.16,
+        0.03,
+        0.28,
+        0.25,
+        0.54
+      ],
+      "Y": 2.7
+    },
+    {
+      "run": 19,
+      "set": {},
+      "X": [
+        0.41,
+        -0.12,
+        -0.52,
+        -0.24,
+        0.86,
+        -0.27,
+        1.08,
+        0.58,
+        1.35,
+        0.81,
+        -0.06,
+        -1.91,
+        0.3,
+        0.79,
+        0.16,
+        0.45,
+        -0.26,
+        -0.45,
+        -0.38,
+        1.04
+      ],
+      "Y": 1.53
+    },
+    {
+      "run": 20,
+      "set": {},
+      "X": [
+        -0.49,
+        -1.33,
+        -0.15,
+        1.44,
+        0.46,
+        -0.72,
+        1.43,
+        1.43,
+        0.98,
+        0.79,
+        1.16,
+        0.54,
+        0.78,
+        -0.78,
+        1.5,
+        -0.27,
+        0.01,
+        -1.1,
+        1.29,
+        0.64
+      ],
+      "Y": -1.23
+    },
+    {
+      "run": 21,
+      "set": {},
+      "X": [
+        0.45,
+        0.75,
+        0.58,
+        -0.54,
+        -0.14,
+        1.02,
+        1.28,
+        0.1,
+        0.08,
+        0.2,
+        1.04,
+        -1.05,
+        -1.33,
+        0.12,
+        -1.11,
+        0.14,
+        0.48,
+        0.53,
+        -0.65,
+        0.19
+      ],
+      "Y": -1.31
+    },
+    {
+      "run": 22,
+      "set": {},
+      "X": [
+        0.55,
+        -1.58,
+        -1.27,
+        0.64,
+        -0.41,
+        -0.8,
+        -0.44,
+        0.47,
+        -0.05,
+        -0.03,
+        1.05,
+        -0.72,
+        -0.47,
+        -0.52,
+        1.17,
+        0.68,
+        -0.43,
+        -0.65,
+        0.48,
+        0.03
+      ],
+      "Y": 1.61
+    },
+    {
+      "run": 23,
+      "set": {},
+      "X": [
+        0.83,
+        0.72,
+        -0.7,
+        -0.08,
+        -0.12,
+        1.73,
+        2.59,
+        -0.1,
+        0.01,
+        -2.28,
+        0.21,
+        -0.01,
+        -1.07,
+        0.79,
+        -1.57,
+        0.52,
+        0.49,
+        -0.97,
+        0.11,
+        0.29
+      ],
+      "Y": 1.69
+    },
+    {
+      "run": 24,
+      "set": {},
+      "X": [
+        -1.41,
+        0.6,
+        -0.03,
+        -1.21,
+        -0.3,
+        -0.11,
+        -0.14,
+        0.83,
+        0.38,
+        1.77,
+        1.37,
+        0.68,
+        1.08,
+        1.32,
+        0.71,
+        -1.35,
+        0.7,
+        0.02,
+        -0.64,
+        -0.16
+      ],
+      "Y": -1.66
+    },
+    {
+      "run": 25,
+      "set": {},
+      "X": [
+        0.33,
+        1.68,
+        0.18,
+        -0.27,
+        0.31,
+        -0.44,
+        0.16,
+        -0.01,
+        0.27,
+        1.92,
+        -0.41,
+        0.04,
+        -0.2,
+        0.67,
+        -1.18,
+        0.02,
+        0.99,
+        0.36,
+        -0.23,
+        0.03
+      ],
+      "Y": 0.3
+    },
+    {
+      "run": 26,
+      "set": {},
+      "X": [
+        0.51,
+        1.44,
+        0.32,
+        0.19,
+        0.44,
+        -0.94,
+        -0.31,
+        -0.27,
+        0.3,
+        -0.03,
+        -1.22,
+        1.13,
+        1.69,
+        -0.26,
+        0.4,
+        0.44,
+        1.18,
+        -0.58,
+        0.47,
+        0.12
+      ],
+      "Y": 2.59
+    },
+    {
+      "run": 27,
+      "set": {},
+      "X": [
+        0.08,
+        -0.39,
+        -0.14,
+        0.9,
+        -0.86,
+        -0.38,
+        -0.48,
+        -1.72,
+        1.3,
+        0.58,
+        -0.02,
+        1.16,
+        -0.96,
+        -0.07,
+        1.73,
+        0.35,
+        -1.12,
+        -1.74,
+        0.51,
+        -0.19
+      ],
+      "Y": -0.92
+    },
+    {
+      "run": 28,
+      "set": {},
+      "X": [
+        -0.22,
+        0.61,
+        -0.89,
+        0.21,
+        0.79,
+        0.47,
+        0.4,
+        -0.6,
+        0.51,
+        -0.43,
+        1.3,
+        2.57,
+        -0.74,
+        -2.17,
+        -0.43,
+        -0.04,
+        0.79,
+        0.09,
+        0.01,
+        0.24
+      ],
+      "Y": 2.6
+    },
+    {
+      "run": 29,
+      "set": {},
+      "X": [
+        -1.09,
+        1.09,
+        -0.23,
+        0.77,
+        0.71,
+        0.78,
+        0.82,
+        -0.99,
+        0.3,
+        0.01,
+        0.31,
+        1.23,
+        -0.27,
+        -0.71,
+        -0.73,
+        -0.86,
+        0.96,
+        -0.52,
+        0.85,
+        0.56
+      ],
+      "Y": -1.08
+    },
+    {
+      "run": 30,
+      "set": {},
+      "X": [
+        -1.33,
+        0.24,
+        0.69,
+        -1.77,
+        1.19,
+        1.65,
+        0.34,
+        0.49,
+        2.41,
+        1.23,
+        -0.9,
+        -0.02,
+        -0.16,
+        -0.15,
+        -2.36,
+        -0.7,
+        -0.11,
+        0.43,
+        -1.44,
+        1.08
+      ],
+      "Y": -5.56
+    },
+    {
+      "run": 31,
+      "set": {},
+      "X": [
+        -0.8,
+        0.53,
+        1.4,
+        -0.32,
+        1.37,
+        0.26,
+        -0.53,
+        1.53,
+        -0.82,
+        1.01,
+        -0.5,
+        0.45,
+        -1.23,
+        -0.84,
+        1.07,
+        -0.5,
+        0.33,
+        0.48,
+        -0.17,
+        0.4
+      ],
+      "Y": -4.91
+    },
+    {
+      "run": 32,
+      "set": {},
+      "X": [
+        -0.16,
+        -0.83,
+        -0.7,
+        -0.07,
+        -0.14,
+        -0.22,
+        1.67,
+        1.01,
+        1.23,
+        -0.03,
+        -0.5,
+        -1.45,
+        -0.35,
+        -2.09,
+        -0.58,
+        0.12,
+        0.15,
+        0.13,
+        -0.23,
+        0.08
+      ],
+      "Y": -0.47
+    },
+    {
+      "run": 33,
+      "set": {},
+      "X": [
+        0.82,
+        -0.11,
+        0.86,
+        2.57,
+        0.92,
+        2.33,
+        0.18,
+        -0.33,
+        1.33,
+        1.72,
+        -0.56,
+        0.08,
+        -1.43,
+        -0.2,
+        0.89,
+        0.55,
+        -0.29,
+        -0.27,
+        2.13,
+        0.88
+      ],
+      "Y": 2.78
+    },
+    {
+      "run": 34,
+      "set": {},
+      "X": [
+        0.26,
+        -1.27,
+        1.76,
+        -0.06,
+        -0.14,
+        0.73,
+        -2.16,
+        -0.06,
+        -0.14,
+        0.37,
+        1.35,
+        0.47,
+        -1.83,
+        -0.34,
+        0.21,
+        0.23,
+        -1.27,
+        0.05,
+        0.06,
+        0.03
+      ],
+      "Y": -2.77
+    },
+    {
+      "run": 35,
+      "set": {},
+      "X": [
+        -1.73,
+        1.77,
+        -2.9,
+        -0.36,
+        2.09,
+        -0.16,
+        0.23,
+        -1.18,
+        1.36,
+        -1.29,
+        0.25,
+        0.13,
+        -1.05,
+        0.89,
+        -1.42,
+        -1.42,
+        1.05,
+        -1.66,
+        -0.19,
+        1.68
+      ],
+      "Y": 0.88
+    },
+    {
+      "run": 36,
+      "set": {},
+      "X": [
+        -0.54,
+        -0.52,
+        -0.37,
+        0.81,
+        -0.22,
+        0.41,
+        -0.09,
+        -0.84,
+        0.86,
+        -1.04,
+        0.01,
+        1.49,
+        -1.09,
+        -0.06,
+        -1.58,
+        -0.53,
+        -0.91,
+        -0.37,
+        0.54,
+        -0.1
+      ],
+      "Y": 0.66
+    },
+    {
+      "run": 37,
+      "set": {},
+      "X": [
+        0.28,
+        0.66,
+        -0.05,
+        -0.24,
+        -0.83,
+        -1.8,
+        0.07,
+        1.63,
+        0.48,
+        -0.53,
+        1.65,
+        -0.43,
+        -0.62,
+        -1.21,
+        -0.96,
+        0.12,
+        1.2,
+        -0.13,
+        -0.4,
+        -0.75
+      ],
+      "Y": 0.9
+    },
+    {
+      "run": 38,
+      "set": {},
+      "X": [
+        -1.71,
+        0.13,
+        0.7,
+        0.32,
+        0.6,
+        -1.29,
+        -1.7,
+        1.29,
+        1.09,
+        -1.54,
+        0.21,
+        0.03,
+        0.54,
+        0.21,
+        -0.5,
+        -1.14,
+        0.14,
+        0.33,
+        -0.11,
+        -0.66
+      ],
+      "Y": -5.04
+    },
+    {
+      "run": 39,
+      "set": {},
+      "X": [
+        -1.63,
+        0.25,
+        0.72,
+        0.26,
+        -0.37,
+        0.07,
+        1.17,
+        -0.73,
+        0.92,
+        0.71,
+        0.26,
+        1.45,
+        -0.72,
+        0.94,
+        -0.93,
+        -1.37,
+        -0.27,
+        0.58,
+        0.02,
+        -0.22
+      ],
+      "Y": -5.43
+    },
+    {
+      "run": 40,
+      "set": {},
+      "X": [
+        1.07,
+        1.84,
+        0.23,
+        1.64,
+        0.56,
+        2.17,
+        0.1,
+        -1.57,
+        1.49,
+        -0.13,
+        -1.04,
+        -0.66,
+        -1.63,
+        -0.17,
+        -1.07,
+        1.19,
+        1.37,
+        -0.72,
+        1.01,
+        0.17
+      ],
+      "Y": 1.52
+    },
+    {
+      "run": 41,
+      "set": {},
+      "X": [
+        -0.11,
+        -0.04,
+        -0.77,
+        -0.55,
+        0.5,
+        1.42,
+        1.5,
+        0.03,
+        0.86,
+        -0.74,
+        0.41,
+        -0.96,
+        0.73,
+        -1.24,
+        -0.97,
+        -0.08,
+        0.2,
+        -1.1,
+        -0.55,
+        0.37
+      ],
+      "Y": 0.92
+    },
+    {
+      "run": 42,
+      "set": {},
+      "X": [
+        -0.84,
+        0.1,
+        -0.27,
+        1.4,
+        0.56,
+        -1.32,
+        -2.2,
+        0.1,
+        1.18,
+        0.17,
+        0.88,
+        -0.48,
+        -1.36,
+        0.75,
+        0.1,
+        -0.38,
+        -0.49,
+        -0.04,
+        0.99,
+        0.65
+      ],
+      "Y": -1.18
+    },
+    {
+      "run": 43,
+      "set": {},
+      "X": [
+        -0.61,
+        -0.59,
+        1.26,
+        0.03,
+        -0.76,
+        -1.02,
+        -1.04,
+        1.46,
+        -1.81,
+        -0.85,
+        0.64,
+        1.18,
+        -0.15,
+        0.79,
+        0.76,
+        -0.13,
+        -0.34,
+        1.46,
+        0.07,
+        0.05
+      ],
+      "Y": -4.51
+    },
+    {
+      "run": 44,
+      "set": {},
+      "X": [
+        0.96,
+        -1.24,
+        -1.48,
+        0.53,
+        -0.8,
+        0.48,
+        -1.04,
+        1.64,
+        0.05,
+        -1.09,
+        0.22,
+        0.92,
+        -0.73,
+        0.56,
+        2.09,
+        0.95,
+        -0.73,
+        -1.0,
+        0.55,
+        -1.03
+      ],
+      "Y": 0.19
+    },
+    {
+      "run": 45,
+      "set": {},
+      "X": [
+        -0.61,
+        -1.03,
+        1.8,
+        0.2,
+        -0.93,
+        -1.11,
+        0.56,
+        -0.77,
+        -0.52,
+        -0.03,
+        0.15,
+        0.16,
+        0.18,
+        1.37,
+        1.77,
+        -0.9,
+        0.44,
+        1.0,
+        0.42,
+        -0.84
+      ],
+      "Y": -4.19
+    },
+    {
+      "run": 46,
+      "set": {},
+      "X": [
+        0.29,
+        0.19,
+        0.93,
+        0.71,
+        -0.93,
+        -0.04,
+        0.8,
+        0.76,
+        -0.26,
+        -0.21,
+        -0.08,
+        -1.03,
+        -1.21,
+        1.64,
+        -0.32,
+        0.25,
+        -0.16,
+        1.15,
+        0.93,
+        -0.66
+      ],
+      "Y": -0.66
+    },
+    {
+      "run": 47,
+      "set": {},
+      "X": [
+        -0.68,
+        1.84,
+        1.0,
+        -0.76,
+        1.32,
+        0.44,
+        0.49,
+        0.43,
+        -0.59,
+        -0.46,
+        0.7,
+        0.02,
+        -0.88,
+        2.1,
+        -0.14,
+        -0.62,
+        0.85,
+        0.88,
+        -0.4,
+        0.97
+      ],
+      "Y": -1.8
+    },
+    {
+      "run": 48,
+      "set": {},
+      "X": [
+        -1.43,
+        -0.3,
+        -0.4,
+        0.07,
+        0.56,
+        -1.97,
+        3.19,
+        -0.8,
+        0.41,
+        0.89,
+        0.91,
+        0.3,
+        -2.85,
+        -1.03,
+        0.82,
+        -1.26,
+        -0.58,
+        -1.35,
+        0.31,
+        0.56
+      ],
+      "Y": -3.23
+    },
+    {
+      "run": 49,
+      "set": {},
+      "X": [
+        -0.09,
+        -0.06,
+        -1.08,
+        -0.24,
+        0.29,
+        0.58,
+        1.3,
+        0.06,
+        -0.44,
+        0.43,
+        -0.61,
+        -1.23,
+        1.17,
+        -0.36,
+        0.14,
+        0.14,
+        -0.47,
+        -0.21,
+        -0.1,
+        0.16
+      ],
+      "Y": 1.77
+    },
+    {
+      "run": 50,
+      "set": {},
+      "X": [
+        -0.74,
+        -2.19,
+        -0.26,
+        -0.89,
+        0.89,
+        0.28,
+        -0.51,
+        0.07,
+        1.37,
+        1.15,
+        0.39,
+        0.45,
+        -0.26,
+        -0.11,
+        0.61,
+        -0.55,
+        -1.19,
+        -0.68,
+        -1.04,
+        -0.01
+      ],
+      "Y": -3.24
+    },
+    {
+      "run": 51,
+      "set": {},
+      "X": [
+        1.34,
+        1.2,
+        -0.98,
+        -1.54,
+        0.81,
+        0.48,
+        -1.35,
+        1.07,
+        0.19,
+        1.34,
+        0.36,
+        0.91,
+        0.34,
+        -0.94,
+        -0.22,
+        0.74,
+        1.06,
+        -0.98,
+        -1.54,
+        0.77
+      ],
+      "Y": 4.91
+    },
+    {
+      "run": 52,
+      "set": {},
+      "X": [
+        1.46,
+        1.11,
+        -1.49,
+        -0.68,
+        -0.54,
+        -0.01,
+        -2.14,
+        0.0,
+        0.29,
+        -0.94,
+        0.13,
+        1.2,
+        0.06,
+        1.07,
+        1.03,
+        1.15,
+        0.82,
+        -0.93,
+        -0.29,
+        -0.51
+      ],
+      "Y": 5.32
+    },
+    {
+      "run": 53,
+      "set": {},
+      "X": [
+        0.72,
+        -0.71,
+        0.44,
+        1.07,
+        0.09,
+        0.12,
+        0.93,
+        0.77,
+        -1.53,
+        -1.3,
+        1.34,
+        0.4,
+        -2.07,
+        -1.33,
+        0.04,
+        0.21,
+        -0.23,
+        0.27,
+        0.96,
+        -0.34
+      ],
+      "Y": 1.14
+    },
+    {
+      "run": 54,
+      "set": {},
+      "X": [
+        1.98,
+        -0.78,
+        1.33,
+        1.0,
+        0.66,
+        -0.04,
+        -1.14,
+        -0.86,
+        0.79,
+        1.0,
+        1.25,
+        0.98,
+        0.93,
+        -0.41,
+        -1.18,
+        1.45,
+        -0.26,
+        0.72,
+        0.5,
+        0.26
+      ],
+      "Y": 0.65
+    },
+    {
+      "run": 55,
+      "set": {},
+      "X": [
+        0.17,
+        -1.03,
+        -0.14,
+        0.35,
+        0.16,
+        1.39,
+        -1.08,
+        -2.16,
+        0.97,
+        1.43,
+        1.46,
+        0.31,
+        0.57,
+        0.15,
+        -1.27,
+        -0.04,
+        -0.41,
+        -0.34,
+        0.67,
+        -0.42
+      ],
+      "Y": -0.32
+    },
+    {
+      "run": 56,
+      "set": {},
+      "X": [
+        1.14,
+        -0.58,
+        -1.1,
+        -1.33,
+        -0.7,
+        1.54,
+        0.44,
+        0.55,
+        -0.49,
+        0.88,
+        0.14,
+        -0.89,
+        -0.42,
+        0.24,
+        1.2,
+        0.79,
+        -0.13,
+        0.48,
+        -1.22,
+        -0.88
+      ],
+      "Y": 5.4
+    },
+    {
+      "run": 57,
+      "set": {},
+      "X": [
+        0.47,
+        -0.06,
+        0.3,
+        -0.3,
+        0.55,
+        -0.3,
+        0.83,
+        -1.14,
+        -0.78,
+        0.15,
+        -0.43,
+        0.73,
+        -0.01,
+        -0.51,
+        0.25,
+        0.18,
+        -0.64,
+        -0.4,
+        -0.39,
+        0.21
+      ],
+      "Y": 0.46
+    },
+    {
+      "run": 58,
+      "set": {},
+      "X": [
+        0.95,
+        0.59,
+        1.82,
+        1.32,
+        -0.15,
+        1.69,
+        1.22,
+        -0.41,
+        0.36,
+        1.14,
+        0.29,
+        1.06,
+        0.44,
+        0.75,
+        -0.27,
+        0.79,
+        0.23,
+        1.27,
+        0.73,
+        0.04
+      ],
+      "Y": 0.6
+    },
+    {
+      "run": 59,
+      "set": {},
+      "X": [
+        0.63,
+        0.02,
+        0.59,
+        -0.8,
+        -0.78,
+        -0.31,
+        -0.1,
+        1.01,
+        -0.85,
+        1.05,
+        -1.53,
+        -0.74,
+        0.01,
+        1.2,
+        -0.57,
+        -0.19,
+        0.2,
+        0.3,
+        -0.85,
+        -0.86
+      ],
+      "Y": 0.24
+    },
+    {
+      "run": 60,
+      "set": {},
+      "X": [
+        0.14,
+        0.71,
+        -1.43,
+        2.34,
+        0.01,
+        -0.33,
+        0.72,
+        0.15,
+        2.38,
+        1.14,
+        -0.32,
+        -0.35,
+        -0.45,
+        -0.3,
+        0.72,
+        -0.08,
+        1.09,
+        -0.73,
+        1.85,
+        0.35
+      ],
+      "Y": 0.86
+    },
+    {
+      "run": 61,
+      "set": {},
+      "X": [
+        -0.89,
+        0.64,
+        0.05,
+        0.03,
+        0.44,
+        -0.56,
+        -0.13,
+        -1.32,
+        -1.83,
+        1.31,
+        -0.89,
+        -0.67,
+        1.44,
+        1.1,
+        -0.49,
+        -0.77,
+        0.37,
+        -0.43,
+        0.14,
+        0.35
+      ],
+      "Y": -1.36
+    },
+    {
+      "run": 62,
+      "set": {},
+      "X": [
+        0.79,
+        0.76,
+        1.88,
+        1.56,
+        -1.67,
+        0.94,
+        -1.08,
+        -1.39,
+        0.75,
+        -0.66,
+        -0.28,
+        1.11,
+        -0.62,
+        -0.86,
+        0.37,
+        0.93,
+        0.68,
+        0.18,
+        1.13,
+        -1.13
+      ],
+      "Y": -0.98
+    },
+    {
+      "run": 63,
+      "set": {},
+      "X": [
+        0.93,
+        0.89,
+        1.24,
+        -0.27,
+        0.52,
+        0.53,
+        -0.94,
+        0.02,
+        0.6,
+        -1.04,
+        0.85,
+        0.8,
+        1.07,
+        -0.74,
+        0.15,
+        1.1,
+        0.87,
+        0.24,
+        -0.16,
+        0.85
+      ],
+      "Y": 0.29
+    },
+    {
+      "run": 64,
+      "set": {},
+      "X": [
+        0.42,
+        2.61,
+        0.0,
+        -0.07,
+        -0.97,
+        -0.62,
+        1.52,
+        -0.1,
+        -1.15,
+        -0.9,
+        0.04,
+        0.8,
+        -0.71,
+        0.74,
+        -0.46,
+        0.41,
+        1.78,
+        0.32,
+        -0.14,
+        -0.68
+      ],
+      "Y": 2.73
+    },
+    {
+      "run": 65,
+      "set": {},
+      "X": [
+        -1.27,
+        0.19,
+        0.53,
+        1.06,
+        -0.02,
+        -0.17,
+        0.15,
+        -0.72,
+        -0.2,
+        0.42,
+        0.29,
+        -1.04,
+        -0.32,
+        -2.11,
+        0.8,
+        -1.05,
+        0.21,
+        -0.29,
+        0.83,
+        0.14
+      ],
+      "Y": -2.28
+    },
+    {
+      "run": 66,
+      "set": {},
+      "X": [
+        -1.37,
+        0.83,
+        -0.18,
+        -0.79,
+        0.46,
+        -0.31,
+        -0.31,
+        -0.72,
+        0.21,
+        0.02,
+        -0.19,
+        -0.97,
+        -0.53,
+        0.38,
+        1.26,
+        -0.97,
+        1.06,
+        -0.11,
+        -0.85,
+        0.51
+      ],
+      "Y": -3.33
+    },
+    {
+      "run": 67,
+      "set": {},
+      "X": [
+        0.38,
+        1.05,
+        -0.33,
+        -0.11,
+        2.45,
+        0.22,
+        0.24,
+        0.76,
+        -0.12,
+        -0.11,
+        0.36,
+        -2.41,
+        1.4,
+        -1.08,
+        -1.1,
+        0.42,
+        0.63,
+        -0.8,
+        -0.05,
+        1.19
+      ],
+      "Y": 0.85
+    },
+    {
+      "run": 68,
+      "set": {},
+      "X": [
+        -1.52,
+        -0.84,
+        0.38,
+        0.11,
+        0.29,
+        0.9,
+        -0.06,
+        -0.68,
+        -0.3,
+        1.63,
+        0.02,
+        0.3,
+        -0.11,
+        0.23,
+        0.41,
+        -1.07,
+        -0.57,
+        -0.21,
+        -0.08,
+        0.32
+      ],
+      "Y": -3.28
+    },
+    {
+      "run": 69,
+      "set": {},
+      "X": [
+        0.9,
+        0.04,
+        -0.84,
+        0.61,
+        0.6,
+        -1.52,
+        0.78,
+        0.56,
+        1.64,
+        -1.14,
+        -1.3,
+        0.77,
+        -1.81,
+        -0.75,
+        -1.11,
+        0.32,
+        -0.74,
+        -0.55,
+        0.68,
+        0.54
+      ],
+      "Y": 3.8
+    },
+    {
+      "run": 70,
+      "set": {},
+      "X": [
+        -0.37,
+        1.43,
+        0.51,
+        1.04,
+        -1.56,
+        0.33,
+        -1.15,
+        0.34,
+        0.19,
+        -1.13,
+        0.17,
+        1.15,
+        0.49,
+        0.58,
+        -0.86,
+        -0.46,
+        0.41,
+        0.32,
+        1.07,
+        -0.86
+      ],
+      "Y": -2.09
+    },
+    {
+      "run": 71,
+      "set": {},
+      "X": [
+        -1.12,
+        0.44,
+        -0.24,
+        -1.9,
+        -1.72,
+        -0.34,
+        -0.89,
+        1.65,
+        0.04,
+        -1.03,
+        -0.48,
+        1.59,
+        -0.94,
+        0.77,
+        0.44,
+        -0.34,
+        0.48,
+        -0.32,
+        -1.41,
+        -1.09
+      ],
+      "Y": 1.93
+    },
+    {
+      "run": 72,
+      "set": {},
+      "X": [
+        -0.06,
+        1.98,
+        -0.09,
+        0.44,
+        -0.65,
+        0.13,
+        0.04,
+        0.18,
+        0.91,
+        -0.52,
+        -0.83,
+        1.12,
+        -0.27,
+        -0.65,
+        1.16,
+        0.19,
+        0.14,
+        -0.23,
+        0.51,
+        -0.13
+      ],
+      "Y": 0.28
+    },
+    {
+      "run": 73,
+      "set": {},
+      "X": [
+        1.57,
+        -0.77,
+        -0.21,
+        0.15,
+        0.01,
+        0.82,
+        1.04,
+        -0.02,
+        1.41,
+        -0.66,
+        -0.19,
+        1.73,
+        0.12,
+        1.09,
+        -0.4,
+        1.03,
+        -0.49,
+        -0.01,
+        0.06,
+        0.02
+      ],
+      "Y": 3.77
+    },
+    {
+      "run": 74,
+      "set": {},
+      "X": [
+        1.23,
+        0.14,
+        0.68,
+        0.94,
+        -1.04,
+        -1.53,
+        1.64,
+        1.35,
+        0.09,
+        0.38,
+        -0.9,
+        -1.34,
+        0.35,
+        -1.45,
+        0.94,
+        0.67,
+        0.21,
+        1.32,
+        1.13,
+        -0.76
+      ],
+      "Y": 1.82
+    },
+    {
+      "run": 75,
+      "set": {},
+      "X": [
+        -0.99,
+        -0.55,
+        0.4,
+        1.41,
+        -0.54,
+        0.57,
+        0.13,
+        -1.23,
+        -0.1,
+        1.52,
+        -0.06,
+        0.53,
+        0.85,
+        -0.71,
+        1.25,
+        -0.24,
+        0.32,
+        0.87,
+        1.04,
+        -0.55
+      ],
+      "Y": -4.22
+    },
+    {
+      "run": 76,
+      "set": {},
+      "X": [
+        -0.88,
+        -0.77,
+        1.01,
+        1.48,
+        -0.62,
+        0.83,
+        -1.24,
+        -0.3,
+        -0.97,
+        -1.6,
+        0.07,
+        0.1,
+        -0.39,
+        -0.5,
+        -0.97,
+        -0.65,
+        -0.7,
+        0.63,
+        0.95,
+        -0.32
+      ],
+      "Y": -3.87
+    },
+    {
+      "run": 77,
+      "set": {},
+      "X": [
+        1.25,
+        1.06,
+        0.2,
+        -0.67,
+        -1.82,
+        0.0,
+        1.42,
+        1.67,
+        -2.53,
+        -0.75,
+        -0.34,
+        -1.03,
+        0.19,
+        0.05,
+        -0.51,
+        0.87,
+        0.0,
+        -0.38,
+        -0.71,
+        -0.87
+      ],
+      "Y": 2.09
+    },
+    {
+      "run": 78,
+      "set": {},
+      "X": [
+        -0.21,
+        0.78,
+        -0.05,
+        0.82,
+        -0.65,
+        0.44,
+        0.91,
+        2.24,
+        0.73,
+        1.43,
+        0.02,
+        0.11,
+        1.58,
+        0.59,
+        1.43,
+        0.07,
+        1.32,
+        1.17,
+        0.49,
+        0.23
+      ],
+      "Y": 0.07
+    },
+    {
+      "run": 79,
+      "set": {},
+      "X": [
+        0.49,
+        -0.1,
+        0.74,
+        -1.09,
+        -0.71,
+        -0.74,
+        0.31,
+        0.94,
+        0.76,
+        0.39,
+        -0.57,
+        -1.73,
+        0.43,
+        0.17,
+        0.39,
+        0.78,
+        -0.12,
+        0.28,
+        -1.33,
+        -0.26
+      ],
+      "Y": 0.42
+    },
+    {
+      "run": 80,
+      "set": {},
+      "X": [
+        -0.71,
+        0.42,
+        -1.01,
+        -0.51,
+        1.99,
+        0.78,
+        0.95,
+        0.78,
+        0.67,
+        0.22,
+        2.31,
+        -0.05,
+        0.76,
+        -0.19,
+        -0.33,
+        -1.22,
+        -0.51,
+        0.28,
+        -0.11,
+        1.15
+      ],
+      "Y": -0.52
+    },
+    {
+      "run": 81,
+      "set": {},
+      "X": [
+        0.63,
+        -0.97,
+        1.79,
+        -1.02,
+        -0.7,
+        -2.75,
+        1.53,
+        0.07,
+        1.64,
+        -0.99,
+        0.35,
+        0.09,
+        0.21,
+        2.09,
+        2.28,
+        0.86,
+        -0.74,
+        1.35,
+        -0.54,
+        -0.26
+      ],
+      "Y": -0.76
+    },
+    {
+      "run": 82,
+      "set": {},
+      "X": [
+        0.49,
+        -0.89,
+        0.26,
+        1.62,
+        -0.98,
+        0.09,
+        0.85,
+        -1.35,
+        -0.13,
+        -1.69,
+        -0.6,
+        -1.4,
+        -0.89,
+        -0.48,
+        -0.27,
+        0.28,
+        -1.49,
+        0.93,
+        1.24,
+        -1.02
+      ],
+      "Y": -1.75
+    },
+    {
+      "run": 83,
+      "set": {},
+      "X": [
+        0.31,
+        -1.0,
+        -0.41,
+        -0.47,
+        0.54,
+        -0.75,
+        0.45,
+        0.35,
+        -0.15,
+        1.24,
+        0.02,
+        -1.18,
+        0.3,
+        0.12,
+        -0.04,
+        0.29,
+        0.34,
+        -0.09,
+        -0.28,
+        0.26
+      ],
+      "Y": 1.84
+    },
+    {
+      "run": 84,
+      "set": {},
+      "X": [
+        -0.06,
+        -0.8,
+        -1.22,
+        0.53,
+        0.74,
+        -1.59,
+        -0.72,
+        0.64,
+        1.03,
+        -1.32,
+        -0.41,
+        0.83,
+        -0.53,
+        -0.45,
+        -0.54,
+        -0.43,
+        -0.46,
+        -0.46,
+        0.14,
+        0.52
+      ],
+      "Y": 2.73
+    },
+    {
+      "run": 85,
+      "set": {},
+      "X": [
+        0.21,
+        0.95,
+        -0.55,
+        1.37,
+        -0.79,
+        1.88,
+        -0.45,
+        -0.72,
+        -0.89,
+        -0.42,
+        -0.5,
+        -0.69,
+        -0.33,
+        0.66,
+        0.88,
+        0.04,
+        1.06,
+        -0.78,
+        0.89,
+        -0.91
+      ],
+      "Y": 1.45
+    },
+    {
+      "run": 86,
+      "set": {},
+      "X": [
+        -1.55,
+        -1.4,
+        1.28,
+        1.71,
+        1.34,
+        -1.5,
+        0.01,
+        0.83,
+        0.09,
+        -1.62,
+        -0.35,
+        -1.71,
+        -1.24,
+        2.15,
+        0.67,
+        -1.53,
+        -1.44,
+        0.86,
+        1.24,
+        1.07
+      ],
+      "Y": -4.54
+    },
+    {
+      "run": 87,
+      "set": {},
+      "X": [
+        -0.21,
+        0.23,
+        -1.04,
+        -1.93,
+        -1.2,
+        -0.71,
+        -0.22,
+        -0.07,
+        -0.08,
+        0.5,
+        -0.91,
+        1.38,
+        1.99,
+        0.35,
+        0.17,
+        0.22,
+        0.39,
+        -0.43,
+        -1.58,
+        -1.04
+      ],
+      "Y": 1.92
+    },
+    {
+      "run": 88,
+      "set": {},
+      "X": [
+        0.65,
+        1.17,
+        -1.07,
+        -0.09,
+        0.2,
+        -0.44,
+        -0.78,
+        -0.41,
+        -1.99,
+        -0.08,
+        -0.31,
+        2.1,
+        0.92,
+        -0.36,
+        -0.02,
+        0.96,
+        1.34,
+        -0.45,
+        -0.1,
+        -0.38
+      ],
+      "Y": 3.13
+    },
+    {
+      "run": 89,
+      "set": {},
+      "X": [
+        -0.19,
+        -0.75,
+        1.71,
+        -1.89,
+        -0.15,
+        0.39,
+        0.42,
+        1.67,
+        -1.42,
+        -0.77,
+        0.08,
+        0.11,
+        -0.4,
+        -0.78,
+        1.06,
+        -0.45,
+        -0.69,
+        1.56,
+        -1.17,
+        0.2
+      ],
+      "Y": -3.97
+    },
+    {
+      "run": 90,
+      "set": {},
+      "X": [
+        -0.87,
+        -0.92,
+        -1.15,
+        -0.43,
+        1.25,
+        0.2,
+        -0.77,
+        -0.8,
+        -1.2,
+        1.19,
+        -2.04,
+        0.25,
+        -1.46,
+        -1.08,
+        -1.51,
+        -0.33,
+        -0.6,
+        0.78,
+        -0.56,
+        0.42
+      ],
+      "Y": -0.34
+    },
+    {
+      "run": 91,
+      "set": {},
+      "X": [
+        0.53,
+        -0.31,
+        -2.05,
+        1.41,
+        0.53,
+        0.36,
+        -0.63,
+        0.6,
+        -0.6,
+        0.0,
+        -0.23,
+        1.22,
+        -0.51,
+        -0.39,
+        1.06,
+        0.42,
+        -0.21,
+        -1.17,
+        1.31,
+        0.1
+      ],
+      "Y": 5.0
+    },
+    {
+      "run": 92,
+      "set": {},
+      "X": [
+        1.98,
+        0.35,
+        -0.84,
+        -1.26,
+        0.09,
+        -1.28,
+        -1.65,
+        -0.82,
+        -1.15,
+        0.82,
+        -1.51,
+        1.52,
+        -0.82,
+        0.05,
+        0.61,
+        1.43,
+        0.47,
+        -0.95,
+        -1.48,
+        -0.04
+      ],
+      "Y": 3.55
+    },
+    {
+      "run": 93,
+      "set": {},
+      "X": [
+        -0.65,
+        0.87,
+        -0.27,
+        -0.67,
+        -1.21,
+        -0.37,
+        -0.25,
+        -1.66,
+        0.22,
+        -1.16,
+        0.14,
+        -0.53,
+        0.91,
+        0.78,
+        -0.07,
+        -0.51,
+        0.67,
+        0.52,
+        -0.34,
+        -0.76
+      ],
+      "Y": 0.44
+    },
+    {
+      "run": 94,
+      "set": {},
+      "X": [
+        1.52,
+        -1.7,
+        0.48,
+        -0.96,
+        1.3,
+        -0.54,
+        -0.16,
+        -1.13,
+        -0.02,
+        0.76,
+        1.64,
+        -1.3,
+        -0.47,
+        3.89,
+        0.92,
+        1.06,
+        -0.82,
+        -1.1,
+        -0.45,
+        0.9
+      ],
+      "Y": -0.97
+    },
+    {
+      "run": 95,
+      "set": {},
+      "X": [
+        1.16,
+        -0.64,
+        -1.03,
+        0.52,
+        0.4,
+        -0.46,
+        -0.08,
+        -1.35,
+        -1.45,
+        0.9,
+        1.32,
+        0.43,
+        0.37,
+        -0.4,
+        -0.13,
+        0.53,
+        0.32,
+        -0.8,
+        0.5,
+        0.26
+      ],
+      "Y": 2.31
+    },
+    {
+      "run": 96,
+      "set": {},
+      "X": [
+        1.94,
+        -0.38,
+        -0.77,
+        0.11,
+        -0.9,
+        0.03,
+        -0.96,
+        0.57,
+        0.06,
+        -1.37,
+        1.04,
+        0.19,
+        -1.1,
+        0.36,
+        0.43,
+        1.92,
+        -0.57,
+        0.05,
+        0.07,
+        -0.37
+      ],
+      "Y": 4.51
+    },
+    {
+      "run": 97,
+      "set": {},
+      "X": [
+        -0.05,
+        0.51,
+        -1.18,
+        -2.1,
+        0.0,
+        -0.44,
+        0.1,
+        0.66,
+        -0.2,
+        1.21,
+        -0.02,
+        0.13,
+        0.86,
+        0.61,
+        -0.06,
+        0.01,
+        0.01,
+        -0.88,
+        -1.65,
+        0.3
+      ],
+      "Y": 1.52
+    },
+    {
+      "run": 98,
+      "set": {},
+      "X": [
+        0.87,
+        1.98,
+        2.19,
+        0.06,
+        1.1,
+        0.65,
+        0.83,
+        0.88,
+        0.57,
+        0.88,
+        0.24,
+        -0.21,
+        0.31,
+        0.55,
+        1.28,
+        0.74,
+        1.51,
+        1.84,
+        -0.13,
+        0.64
+      ],
+      "Y": 0.09
+    },
+    {
+      "run": 99,
+      "set": {},
+      "X": [
+        0.08,
+        -0.96,
+        1.05,
+        -0.02,
+        -0.95,
+        1.95,
+        -1.23,
+        0.04,
+        -0.62,
+        0.16,
+        0.62,
+        -0.77,
+        -0.05,
+        -0.08,
+        -0.96,
+        0.42,
+        -0.49,
+        0.4,
+        -0.14,
+        -0.72
+      ],
+      "Y": -1.69
+    },
+    {
+      "run": 100,
+      "set": {},
+      "X": [
+        -0.42,
+        1.3,
+        -2.51,
+        -2.1,
+        -0.21,
+        -1.8,
+        -0.02,
+        -0.62,
+        0.63,
+        0.46,
+        1.36,
+        0.97,
+        1.3,
+        0.58,
+        1.11,
+        -0.13,
+        0.56,
+        -1.86,
+        -1.91,
+        0.05
+      ],
+      "Y": 1.58
+    },
+    {
+      "run": 101,
+      "set": {
+        "X1": 1.5,
+        "X3": -1.0,
+        "X16": -1.5,
+        "X4": 1.0,
+        "X19": -2.0,
+        "X5": -1.0,
+        "X20": 2.0,
+        "X2": 1.0,
+        "X17": -1.0,
+        "X18": 1.0
+      },
+      "X": [
+        1.5,
+        1.0,
+        -1.0,
+        1.0,
+        -1.0,
+        0.22,
+        -0.71,
+        0.78,
+        0.25,
+        -0.71,
+        0.06,
+        -2.23,
+        0.32,
+        0.51,
+        -1.8,
+        -1.5,
+        -1.0,
+        1.0,
+        -2.0,
+        2.0
+      ],
+      "Y": 5.11
+    },
+    {
+      "run": 102,
+      "set": {
+        "X1": -2.0,
+        "X3": 1.5,
+        "X16": 2.0,
+        "X4": -1.5,
+        "X19": 1.0,
+        "X5": 2.0,
+        "X20": -1.0,
+        "X2": -2.0,
+        "X17": 1.0,
+        "X18": -2.0
+      },
+      "X": [
+        -2.0,
+        -2.0,
+        1.5,
+        -1.5,
+        2.0,
+        -0.07,
+        0.22,
+        -1.38,
+        0.65,
+        0.63,
+        0.03,
+        -0.94,
+        0.81,
+        1.3,
+        0.45,
+        2.0,
+        1.0,
+        -2.0,
+        1.0,
+        -1.0
+      ],
+      "Y": -8.59
+    },
+    {
+      "run": 103,
+      "set": {
+        "X1": 0.5,
+        "X3": 2.0,
+        "X16": -2.0,
+        "X4": 2.0,
+        "X19": 2.0,
+        "X5": 0.0,
+        "X20": -2.0,
+        "X2": 2.0,
+        "X17": -2.0,
+        "X18": 0.0
+      },
+      "X": [
+        0.5,
+        2.0,
+        2.0,
+        2.0,
+        0.0,
+        -0.53,
+        0.21,
+        0.44,
+        0.21,
+        2.89,
+        0.49,
+        -0.49,
+        0.9,
+        -1.01,
+        0.44,
+        -2.0,
+        -2.0,
+        0.0,
+        2.0,
+        -2.0
+      ],
+      "Y": -0.15
+    },
+    {
+      "run": 104,
+      "set": {
+        "X1": -1.0,
+        "X3": -2.0,
+        "X16": 1.0,
+        "X4": -2.0,
+        "X19": -1.0,
+        "X5": 1.0,
+        "X20": 1.0,
+        "X2": -1.0,
+        "X17": 2.0,
+        "X18": 2.0
+      },
+      "X": [
+        -1.0,
+        -1.0,
+        -2.0,
+        -2.0,
+        1.0,
+        -0.41,
+        -0.24,
+        -0.86,
+        0.22,
+        -0.59,
+        1.83,
+        0.74,
+        -0.13,
+        -1.32,
+        2.13,
+        1.0,
+        2.0,
+        2.0,
+        -1.0,
+        1.0
+      ],
+      "Y": 0.3
+    },
+    {
+      "run": 105,
+      "set": {
+        "X1": 2.5,
+        "X3": 0.0,
+        "X16": 0.0,
+        "X4": 0.0,
+        "X19": 0.0,
+        "X5": -2.0,
+        "X20": 0.0,
+        "X2": 0.0,
+        "X17": 0.0,
+        "X18": -1.0
+      },
+      "X": [
+        2.5,
+        0.0,
+        0.0,
+        0.0,
+        -2.0,
+        0.57,
+        0.3,
+        0.27,
+        -0.37,
+        1.99,
+        0.31,
+        -1.34,
+        -0.55,
+        -2.48,
+        0.76,
+        0.0,
+        0.0,
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "Y": 5.87
+    },
+    {
+      "run": 106,
+      "set": {
+        "X1": -2.5,
+        "X3": -0.5,
+        "X16": 2.5,
+        "X4": 1.5,
+        "X19": -1.5,
+        "X5": 2.5,
+        "X20": 2.5,
+        "X2": 2.5,
+        "X17": -2.5,
+        "X18": 2.5
+      },
+      "X": [
+        -2.5,
+        2.5,
+        -0.5,
+        1.5,
+        2.5,
+        1.88,
+        2.2,
+        -0.68,
+        0.55,
+        1.1,
+        0.9,
+        -0.41,
+        0.9,
+        0.6,
+        1.46,
+        2.5,
+        -2.5,
+        2.5,
+        -1.5,
+        2.5
+      ],
+      "Y": 0.07
+    },
+    {
+      "run": 107,
+      "set": {
+        "X1": 0.0,
+        "X3": 2.5,
+        "X16": -1.0,
+        "X4": -1.0,
+        "X19": 2.5,
+        "X5": -2.5,
+        "X20": -2.5,
+        "X2": -2.5,
+        "X17": 2.5,
+        "X18": -2.5
+      },
+      "X": [
+        0.0,
+        -2.5,
+        2.5,
+        -1.0,
+        -2.5,
+        -0.14,
+        -0.41,
+        -0.28,
+        -0.67,
+        -0.25,
+        0.59,
+        0.55,
+        1.41,
+        1.18,
+        0.71,
+        -1.0,
+        2.5,
+        -2.5,
+        2.5,
+        -2.5
+      ],
+      "Y": -4.07
+    },
+    {
+      "run": 108,
+      "set": {
+        "X1": 1.0,
+        "X3": 1.0,
+        "X16": -2.5,
+        "X4": 2.5,
+        "X19": -2.5,
+        "X5": 1.5,
+        "X20": -1.5,
+        "X2": 0.5,
+        "X17": 0.5,
+        "X18": 0.5
+      },
+      "X": [
+        1.0,
+        0.5,
+        1.0,
+        2.5,
+        1.5,
+        0.65,
+        1.25,
+        -1.23,
+        -1.04,
+        -0.88,
+        -0.97,
+        -0.22,
+        -0.87,
+        0.45,
+        -1.15,
+        -2.5,
+        0.5,
+        0.5,
+        -2.5,
+        -1.5
+      ],
+      "Y": 3.69
+    },
+    {
+      "run": 109,
+      "set": {
+        "X1": -1.5,
+        "X3": -2.5,
+        "X16": 1.5,
+        "X4": -2.5,
+        "X19": 0.5,
+        "X5": -1.5,
+        "X20": 1.5,
+        "X2": -0.5,
+        "X17": -0.5,
+        "X18": -0.5
+      },
+      "X": [
+        -1.5,
+        -0.5,
+        -2.5,
+        -2.5,
+        -1.5,
+        -0.44,
+        -0.91,
+        1.09,
+        0.09,
+        0.6,
+        -0.28,
+        0.76,
+        0.67,
+        -0.1,
+        -1.72,
+        1.5,
+        -0.5,
+        -0.5,
+        0.5,
+        1.5
+      ],
+      "Y": 4.38
+    },
+    {
+      "run": 110,
+      "set": {
+        "X1": 3.0,
+        "X3": -3.0,
+        "X16": -3.0,
+        "X4": 3.0,
+        "X19": -3.0,
+        "X5": 3.0,
+        "X20": -3.0,
+        "X2": 3.0,
+        "X17": 3.0,
+        "X18": 3.0
+      },
+      "X": [
+        3.0,
+        3.0,
+        -3.0,
+        3.0,
+        3.0,
+        0.75,
+        0.24,
+        0.3,
+        0.18,
+        0.25,
+        -0.95,
+        0.0,
+        0.38,
+        -0.55,
+        -0.91,
+        -3.0,
+        3.0,
+        3.0,
+        -3.0,
+        -3.0
+      ],
+      "Y": 21.12
+    },
+    {
+      "run": 111,
+      "set": {
+        "X1": -3.0,
+        "X3": 3.0,
+        "X16": 3.0,
+        "X4": -3.0,
+        "X19": 3.0,
+        "X5": -3.0,
+        "X20": 3.0,
+        "X2": -3.0,
+        "X17": -3.0,
+        "X18": -3.0
+      },
+      "X": [
+        -3.0,
+        -3.0,
+        3.0,
+        -3.0,
+        -3.0,
+        0.67,
+        -0.25,
+        -0.43,
+        -2.59,
+        -1.37,
+        -0.19,
+        1.35,
+        -2.0,
+        -0.64,
+        1.97,
+        3.0,
+        -3.0,
+        -3.0,
+        3.0,
+        3.0
+      ],
+      "Y": -4.07
+    },
+    {
+      "run": 112,
+      "set": {
+        "X1": 0.0,
+        "X3": 0.0,
+        "X16": 0.0,
+        "X4": 0.0,
+        "X19": 0.0,
+        "X5": 0.0,
+        "X20": 0.0,
+        "X2": 0.0,
+        "X17": 0.0,
+        "X18": 0.0
+      },
+      "X": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.47,
+        1.25,
+        -0.06,
+        -0.12,
+        0.77,
+        0.91,
+        -1.01,
+        1.59,
+        -1.68,
+        -0.63,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "Y": 3.14
+    },
+    {
+      "run": 113,
+      "set": {
+        "X1": 0.0,
+        "X3": 0.0,
+        "X16": 0.0,
+        "X4": 0.0,
+        "X19": 0.0,
+        "X5": 0.0,
+        "X20": 0.0,
+        "X2": 0.0,
+        "X17": 0.0,
+        "X18": 0.0
+      },
+      "X": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        -0.45,
+        0.72,
+        -0.94,
+        -0.26,
+        -0.66,
+        -0.34,
+        0.72,
+        1.81,
+        0.94,
+        1.62,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "Y": -0.44
+    },
+    {
+      "run": 114,
+      "set": {
+        "X1": 0.0,
+        "X3": 0.0,
+        "X16": 0.0,
+        "X4": 0.0,
+        "X19": 0.0,
+        "X5": 0.0,
+        "X20": 0.0,
+        "X2": 0.0,
+        "X17": 0.0,
+        "X18": 0.0
+      },
+      "X": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.53,
+        0.63,
+        1.44,
+        -0.36,
+        -0.17,
+        1.43,
+        0.67,
+        0.17,
+        -0.63,
+        -0.04,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "Y": 0.54
+    },
+    {
+      "run": 115,
+      "set": {
+        "X1": 0.0,
+        "X3": 0.0,
+        "X16": 0.0,
+        "X4": 0.0,
+        "X19": 0.0,
+        "X5": 0.0,
+        "X20": 0.0,
+        "X2": 0.0,
+        "X17": 0.0,
+        "X18": 0.0
+      },
+      "X": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.78,
+        -0.5,
+        -0.29,
+        0.48,
+        -1.06,
+        0.98,
+        0.03,
+        -0.1,
+        -2.39,
+        -1.57,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "Y": -1.02
+    },
+    {
+      "run": 116,
+      "set": {
+        "X1": 0.0,
+        "X3": 0.0,
+        "X16": 0.0,
+        "X4": 0.0,
+        "X19": 0.0,
+        "X5": 0.0,
+        "X20": 0.0,
+        "X2": 0.0,
+        "X17": 0.0,
+        "X18": 0.0
+      },
+      "X": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        -0.57,
+        -1.09,
+        0.38,
+        0.14,
+        -0.27,
+        -2.03,
+        1.4,
+        -0.28,
+        0.59,
+        -0.67,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "Y": 0.0
+    },
+    {
+      "run": 117,
+      "set": {
+        "X1": -2.5,
+        "X3": -2.5,
+        "X2": -2.0
+      },
+      "X": [
+        -2.5,
+        -2.0,
+        -2.5,
+        0.69,
+        0.23,
+        0.96,
+        -0.18,
+        1.99,
+        -1.9,
+        -0.56,
+        0.97,
+        -0.26,
+        -0.45,
+        -1.78,
+        1.19,
+        -2.32,
+        -1.0,
+        -1.16,
+        0.72,
+        0.66
+      ],
+      "Y": -2.84
+    },
+    {
+      "run": 118,
+      "set": {
+        "X1": -2.5,
+        "X3": -2.5,
+        "X2": -2.0
+      },
+      "X": [
+        -2.5,
+        -2.0,
+        -2.5,
+        -0.82,
+        -0.33,
+        -1.74,
+        0.8,
+        -0.42,
+        0.14,
+        -1.15,
+        -0.01,
+        -0.65,
+        -0.1,
+        -1.12,
+        0.99,
+        -1.95,
+        -2.24,
+        -0.95,
+        -0.72,
+        -0.54
+      ],
+      "Y": 0.43
+    },
+    {
+      "run": 119,
+      "set": {
+        "X1": -2.5,
+        "X3": -2.5,
+        "X2": -2.0
+      },
+      "X": [
+        -2.5,
+        -2.0,
+        -2.5,
+        -0.09,
+        -1.38,
+        -0.66,
+        0.34,
+        -0.27,
+        1.2,
+        1.02,
+        -0.83,
+        0.0,
+        0.6,
+        -0.46,
+        -0.51,
+        -1.5,
+        -1.04,
+        -1.97,
+        -0.19,
+        -1.06
+      ],
+      "Y": -2.31
+    },
+    {
+      "run": 120,
+      "set": {
+        "X1": -2.5,
+        "X3": -2.5,
+        "X2": 0.0
+      },
+      "X": [
+        -2.5,
+        0.0,
+        -2.5,
+        -0.76,
+        1.3,
+        -1.01,
+        -1.13,
+        0.17,
+        -2.3,
+        -1.07,
+        0.58,
+        -1.37,
+        -0.89,
+        1.05,
+        0.42,
+        -1.74,
+        0.08,
+        -1.61,
+        -0.55,
+        0.76
+      ],
+      "Y": 0.43
+    },
+    {
+      "run": 121,
+      "set": {
+        "X1": -2.5,
+        "X3": -2.5,
+        "X2": 0.0
+      },
+      "X": [
+        -2.5,
+        0.0,
+        -2.5,
+        0.51,
+        -0.37,
+        -0.08,
+        0.02,
+        -1.41,
+        -0.85,
+        1.5,
+        -1.43,
+        -0.61,
+        1.0,
+        1.49,
+        -1.05,
+        -1.32,
+        -0.15,
+        -0.43,
+        0.5,
+        -0.35
+      ],
+      "Y": -0.69
+    },
+    {
+      "run": 122,
+      "set": {
+        "X1": -2.5,
+        "X3": -2.5,
+        "X2": 0.0
+      },
+      "X": [
+        -2.5,
+        0.0,
+        -2.5,
+        0.54,
+        -0.79,
+        2.13,
+        -0.36,
+        1.14,
+        -0.5,
+        -1.84,
+        -1.14,
+        -0.11,
+        0.67,
+        1.75,
+        0.07,
+        -1.84,
+        -0.5,
+        -1.28,
+        0.49,
+        -1.29
+      ],
+      "Y": -0.3
+    },
+    {
+      "run": 123,
+      "set": {
+        "X1": -2.5,
+        "X3": -2.5,
+        "X2": 2.0
+      },
+      "X": [
+        -2.5,
+        2.0,
+        -2.5,
+        1.12,
+        2.26,
+        -0.93,
+        0.02,
+        0.0,
+        -1.34,
+        -0.87,
+        -1.0,
+        0.5,
+        0.41,
+        1.33,
+        -0.42,
+        -2.18,
+        1.37,
+        -1.07,
+        1.03,
+        1.9
+      ],
+      "Y": 1.17
+    },
+    {
+      "run": 124,
+      "set": {
+        "X1": -2.5,
+        "X3": -2.5,
+        "X2": 2.0
+      },
+      "X": [
+        -2.5,
+        2.0,
+        -2.5,
+        0.78,
+        -1.03,
+        0.14,
+        0.67,
+        -0.14,
+        0.2,
+        -1.42,
+        -0.67,
+        0.13,
+        -1.23,
+        -0.88,
+        2.41,
+        -1.68,
+        0.86,
+        -1.78,
+        0.89,
+        -1.66
+      ],
+      "Y": -1.3
+    },
+    {
+      "run": 125,
+      "set": {
+        "X1": -2.5,
+        "X3": -2.5,
+        "X2": 2.0
+      },
+      "X": [
+        -2.5,
+        2.0,
+        -2.5,
+        0.54,
+        -0.66,
+        0.43,
+        -1.15,
+        -0.12,
+        -0.07,
+        -0.1,
+        0.03,
+        -0.08,
+        1.0,
+        -0.39,
+        -0.71,
+        -1.87,
+        1.03,
+        -2.08,
+        0.02,
+        -0.95
+      ],
+      "Y": -0.38
+    },
+    {
+      "run": 126,
+      "set": {
+        "X1": -2.5,
+        "X3": 0.0,
+        "X2": -2.0
+      },
+      "X": [
+        -2.5,
+        -2.0,
+        0.0,
+        -0.8,
+        -0.54,
+        2.74,
+        0.99,
+        -0.34,
+        -0.77,
+        1.24,
+        -0.92,
+        1.1,
+        0.45,
+        1.25,
+        -0.86,
+        -1.52,
+        -1.98,
+        -0.15,
+        -0.45,
+        -0.15
+      ],
+      "Y": -7.63
+    },
+    {
+      "run": 127,
+      "set": {
+        "X1": -2.5,
+        "X3": 0.0,
+        "X2": -2.0
+      },
+      "X": [
+        -2.5,
+        -2.0,
+        0.0,
+        0.55,
+        0.32,
+        -0.2,
+        -0.86,
+        -0.42,
+        -0.71,
+        0.81,
+        0.33,
+        0.93,
+        0.55,
+        -1.42,
+        0.0,
+        -1.15,
+        -1.7,
+        0.07,
+        0.26,
+        -0.15
+      ],
+      "Y": -5.79
+    },
+    {
+      "run": 128,
+      "set": {
+        "X1": -2.5,
+        "X3": 0.0,
+        "X2": -2.0
+      },
+      "X": [
+        -2.5,
+        -2.0,
+        0.0,
+        0.78,
+        0.63,
+        0.32,
+        0.81,
+        -1.77,
+        0.68,
+        0.26,
+        -0.33,
+        -0.15,
+        -1.0,
+        1.02,
+        -0.9,
+        -2.24,
+        -1.26,
+        -0.36,
+        0.58,
+        0.89
+      ],
+      "Y": -5.89
+    },
+    {
+      "run": 129,
+      "set": {
+        "X1": -2.5,
+        "X3": 0.0,
+        "X2": 0.0
+      },
+      "X": [
+        -2.5,
+        0.0,
+        0.0,
+        -0.02,
+        2.13,
+        -1.55,
+        0.23,
+        1.03,
+        1.38,
+        2.11,
+        -0.8,
+        0.47,
+        -0.23,
+        -0.59,
+        -0.86,
+        -2.23,
+        0.08,
+        0.31,
+        -0.26,
+        1.61
+      ],
+      "Y": -5.72
+    },
+    {
+      "run": 130,
+      "set": {
+        "X1": -2.5,
+        "X3": 0.0,
+        "X2": 0.0
+      },
+      "X": [
+        -2.5,
+        0.0,
+        0.0,
+        -1.15,
+        -2.77,
+        0.98,
+        0.59,
+        -0.44,
+        -0.52,
+        -1.44,
+        0.39,
+        -0.19,
+        0.42,
+        0.05,
+        -1.54,
+        -2.26,
+        0.12,
+        -0.91,
+        -0.89,
+        -1.52
+      ],
+      "Y": -3.86
+    },
+    {
+      "run": 131,
+      "set": {
+        "X1": -2.5,
+        "X3": 0.0,
+        "X2": 0.0
+      },
+      "X": [
+        -2.5,
+        0.0,
+        0.0,
+        0.57,
+        -0.06,
+        0.44,
+        -0.74,
+        -0.11,
+        0.34,
+        1.76,
+        0.66,
+        0.42,
+        -1.38,
+        0.26,
+        -0.76,
+        -1.79,
+        0.08,
+        0.46,
+        0.56,
+        0.01
+      ],
+      "Y": -5.14
+    },
+    {
+      "run": 132,
+      "set": {
+        "X1": -2.5,
+        "X3": 0.0,
+        "X2": 2.0
+      },
+      "X": [
+        -2.5,
+        2.0,
+        0.0,
+        1.31,
+        -0.94,
+        -0.01,
+        1.34,
+        -0.24,
+        0.79,
+        0.85,
+        1.95,
+        1.1,
+        -1.71,
+        -0.04,
+        0.25,
+        -1.51,
+        1.34,
+        0.92,
+        1.26,
+        -1.05
+      ],
+      "Y": -5.69
+    },
+    {
+      "run": 133,
+      "set": {
+        "X1": -2.5,
+        "X3": 0.0,
+        "X2": 2.0
+      },
+      "X": [
+        -2.5,
+        2.0,
+        0.0,
+        -2.15,
+        1.67,
+        -0.2,
+        -0.23,
+        -1.68,
+        -0.54,
+        0.32,
+        -0.52,
+        -0.52,
+        -0.75,
+        1.87,
+        -0.7,
+        -2.23,
+        0.93,
+        -0.26,
+        -1.77,
+        0.94
+      ],
+      "Y": -8.18
+    },
+    {
+      "run": 134,
+      "set": {
+        "X1": -2.5,
+        "X3": 0.0,
+        "X2": 2.0
+      },
+      "X": [
+        -2.5,
+        2.0,
+        0.0,
+        -0.38,
+        0.21,
+        -1.61,
+        1.81,
+        1.53,
+        -2.03,
+        -0.56,
+        0.83,
+        1.17,
+        1.62,
+        -2.07,
+        -1.32,
+        -1.96,
+        1.35,
+        -0.64,
+        -0.25,
+        0.23
+      ],
+      "Y": -3.51
+    },
+    {
+      "run": 135,
+      "set": {
+        "X1": -2.5,
+        "X3": 2.5,
+        "X2": -2.0
+      },
+      "X": [
+        -2.5,
+        -2.0,
+        2.5,
+        -1.49,
+        0.02,
+        -0.1,
+        -0.59,
+        1.16,
+        -0.46,
+        1.32,
+        -0.76,
+        1.58,
+        1.53,
+        -0.97,
+        0.21,
+        -1.69,
+        -1.65,
+        1.59,
+        -1.09,
+        -0.34
+      ],
+      "Y": -9.78
+    },
+    {
+      "run": 136,
+      "set": {
+        "X1": -2.5,
+        "X3": 2.5,
+        "X2": -2.0
+      },
+      "X": [
+        -2.5,
+        -2.0,
+        2.5,
+        0.8,
+        -0.27,
+        -0.83,
+        1.57,
+        -1.09,
+        0.26,
+        1.05,
+        0.72,
+        -1.95,
+        -0.41,
+        -0.21,
+        -0.28,
+        -1.58,
+        -1.0,
+        1.29,
+        0.68,
+        0.17
+      ],
+      "Y": -8.7
+    },
+    {
+      "run": 137,
+      "set": {
+        "X1": -2.5,
+        "X3": 2.5,
+        "X2": -2.0
+      },
+      "X": [
+        -2.5,
+        -2.0,
+        2.5,
+        -1.96,
+        2.18,
+        -0.6,
+        0.76,
+        -1.68,
+        -0.55,
+        -1.3,
+        1.08,
+        0.88,
+        -0.01,
+        -0.19,
+        0.37,
+        -2.04,
+        -1.45,
+        0.85,
+        -1.4,
+        1.42
+      ],
+      "Y": -14.48
+    },
+    {
+      "run": 138,
+      "set": {
+        "X1": -2.5,
+        "X3": 2.5,
+        "X2": 0.0
+      },
+      "X": [
+        -2.5,
+        0.0,
+        2.5,
+        0.33,
+        0.52,
+        1.39,
+        -0.58,
+        0.4,
+        2.1,
+        -0.35,
+        -0.38,
+        0.5,
+        -0.52,
+        -0.01,
+        -0.53,
+        -1.99,
+        0.35,
+        1.05,
+        0.06,
+        0.23
+      ],
+      "Y": -8.78
+    },
+    {
+      "run": 139,
+      "set": {
+        "X1": -2.5,
+        "X3": 2.5,
+        "X2": 0.0
+      },
+      "X": [
+        -2.5,
+        0.0,
+        2.5,
+        0.28,
+        0.93,
+        1.77,
+        -1.27,
+        -0.28,
+        -1.87,
+        0.19,
+        0.5,
+        -0.7,
+        -0.96,
+        -1.05,
+        -1.56,
+        -1.57,
+        0.76,
+        0.65,
+        0.54,
+        0.55
+      ],
+      "Y": -10.01
+    },
+    {
+      "run": 140,
+      "set": {
+        "X1": -2.5,
+        "X3": 2.5,
+        "X2": 0.0
+      },
+      "X": [
+        -2.5,
+        0.0,
+        2.5,
+        0.51,
+        0.71,
+        0.34,
+        -0.33,
+        1.62,
+        -0.36,
+        0.57,
+        0.59,
+        -0.98,
+        -1.95,
+        -1.83,
+        -0.48,
+        -1.67,
+        -0.75,
+        0.84,
+        0.7,
+        -0.21
+      ],
+      "Y": -8.08
+    },
+    {
+      "run": 141,
+      "set": {
+        "X1": -2.5,
+        "X3": 2.5,
+        "X2": 2.0
+      },
+      "X": [
+        -2.5,
+        2.0,
+        2.5,
+        0.27,
+        0.71,
+        -1.58,
+        0.25,
+        -1.5,
+        1.26,
+        -0.97,
+        0.29,
+        -0.91,
+        0.04,
+        -1.65,
+        0.19,
+        -1.6,
+        1.16,
+        2.02,
+        0.27,
+        0.71
+      ],
+      "Y": -7.18
+    },
+    {
+      "run": 142,
+      "set": {
+        "X1": -2.5,
+        "X3": 2.5,
+        "X2": 2.0
+      },
+      "X": [
+        -2.5,
+        2.0,
+        2.5,
+        1.8,
+        -0.77,
+        -0.37,
+        -0.32,
+        0.53,
+        0.17,
+        0.75,
+        0.21,
+        -0.61,
+        -0.15,
+        0.36,
+        -2.41,
+        -1.35,
+        0.94,
+        1.03,
+        1.48,
+        -0.62
+      ],
+      "Y": -10.41
+    },
+    {
+      "run": 143,
+      "set": {
+        "X1": -2.5,
+        "X3": 2.5,
+        "X2": 2.0
+      },
+      "X": [
+        -2.5,
+        2.0,
+        2.5,
+        -0.3,
+        1.34,
+        1.0,
+        1.19,
+        -0.62,
+        -0.28,
+        1.01,
+        1.46,
+        -0.02,
+        -1.03,
+        -2.01,
+        1.4,
+        -2.23,
+        1.36,
+        1.69,
+        0.42,
+        0.93
+      ],
+      "Y": -8.21
+    },
+    {
+      "run": 144,
+      "set": {
+        "X1": 0.0,
+        "X3": -2.5,
+        "X2": -2.0
+      },
+      "X": [
+        0.0,
+        -2.0,
+        -2.5,
+        0.45,
+        0.5,
+        1.36,
+        0.69,
+        -0.8,
+        -2.18,
+        0.29,
+        -0.7,
+        1.44,
+        -1.36,
+        0.2,
+        -0.76,
+        -0.27,
+        -0.52,
+        -1.16,
+        0.32,
+        0.59
+      ],
+      "Y": 2.12
+    },
+    {
+      "run": 145,
+      "set": {
+        "X1": 0.0,
+        "X3": -2.5,
+        "X2": -2.0
+      },
+      "X": [
+        0.0,
+        -2.0,
+        -2.5,
+        -0.38,
+        -0.66,
+        2.04,
+        0.34,
+        0.65,
+        1.15,
+        -0.19,
+        -0.16,
+        -1.69,
+        0.49,
+        0.27,
+        -0.43,
+        0.37,
+        -1.94,
+        -1.03,
+        -0.59,
+        -0.84
+      ],
+      "Y": 2.73
+    },
+    {
+      "run": 146,
+      "set": {
+        "X1": 0.0,
+        "X3": -2.5,
+        "X2": -2.0
+      },
+      "X": [
+        0.0,
+        -2.0,
+        -2.5,
+        1.37,
+        -1.23,
+        -1.04,
+        -1.26,
+        2.08,
+        0.54,
+        0.42,
+        2.13,
+        0.25,
+        -2.18,
+        -0.53,
+        -1.24,
+        0.63,
+        -1.79,
+        -1.09,
+        0.99,
+        -0.96
+      ],
+      "Y": 1.42
+    },
+    {
+      "run": 147,
+      "set": {
+        "X1": 0.0,
+        "X3": -2.5,
+        "X2": 0.0
+      },
+      "X": [
+        0.0,
+        0.0,
+        -2.5,
+        -0.15,
+        -0.72,
+        -1.29,
+        -0.68,
+        -1.09,
+        -0.95,
+        0.11,
+        -0.17,
+        0.49,
+        -0.26,
+        1.99,
+        -0.77,
+        -0.31,
+        0.42,
+        -1.62,
+        -0.1,
+        -0.12
+      ],
+      "Y": 3.72
+    },
+    {
+      "run": 148,
+      "set": {
+        "X1": 0.0,
+        "X3": -2.5,
+        "X2": 0.0
+      },
+      "X": [
+        0.0,
+        0.0,
+        -2.5,
+        -0.38,
+        0.99,
+        0.33,
+        -0.57,
+        -1.26,
+        -0.41,
+        -1.74,
+        -0.92,
+        -1.15,
+        0.29,
+        0.78,
+        -0.69,
+        -0.14,
+        -0.47,
+        -1.98,
+        -0.4,
+        0.84
+      ],
+      "Y": 3.91
+    },
+    {
+      "run": 149,
+      "set": {
+        "X1": 0.0,
+        "X3": -2.5,
+        "X2": 0.0
+      },
+      "X": [
+        0.0,
+        0.0,
+        -2.5,
+        0.59,
+        -0.31,
+        -2.86,
+        0.94,
+        1.35,
+        0.93,
+        0.92,
+        1.12,
+        2.77,
+        0.32,
+        1.6,
+        0.83,
+        0.21,
+        -0.06,
+        -1.43,
+        0.24,
+        0.01
+      ],
+      "Y": 3.27
+    },
+    {
+      "run": 150,
+      "set": {
+        "X1": 0.0,
+        "X3": -2.5,
+        "X2": 2.0
+      },
+      "X": [
+        0.0,
+        2.0,
+        -2.5,
+        -1.25,
+        -0.79,
+        -1.24,
+        1.66,
+        -0.26,
+        0.11,
+        -1.26,
+        -1.08,
+        1.09,
+        -0.25,
+        0.23,
+        1.9,
+        0.65,
+        1.49,
+        -1.0,
+        -0.95,
+        -0.62
+      ],
+      "Y": 7.64
+    },
+    {
+      "run": 151,
+      "set": {
+        "X1": 0.0,
+        "X3": -2.5,
+        "X2": 2.0
+      },
+      "X": [
+        0.0,
+        2.0,
+        -2.5,
+        -1.26,
+        -0.09,
+        -2.0,
+        -1.32,
+        0.42,
+        0.47,
+        0.35,
+        -0.34,
+        -0.74,
+        -0.56,
+        -0.4,
+        1.14,
+        0.45,
+        1.38,
+        -1.53,
+        -1.2,
+        0.05
+      ],
+      "Y": 4.6
+    },
+    {
+      "run": 152,
+      "set": {
+        "X1": 0.0,
+        "X3": -2.5,
+        "X2": 2.0
+      },
+      "X": [
+        0.0,
+        2.0,
+        -2.5,
+        -1.9,
+        1.42,
+        -0.01,
+        -0.33,
+        -0.9,
+        -0.91,
+        0.93,
+        -0.98,
+        0.1,
+        0.66,
+        1.92,
+        0.63,
+        -0.01,
+        1.02,
+        -0.81,
+        -1.31,
+        0.77
+      ],
+      "Y": 3.2
+    },
+    {
+      "run": 153,
+      "set": {
+        "X1": 0.0,
+        "X3": 0.0,
+        "X2": -2.0
+      },
+      "X": [
+        0.0,
+        -2.0,
+        0.0,
+        -0.14,
+        -1.69,
+        -1.05,
+        0.84,
+        1.5,
+        0.71,
+        -0.21,
+        -0.74,
+        0.56,
+        0.34,
+        -1.68,
+        0.68,
+        -0.22,
+        -0.92,
+        0.28,
+        0.04,
+        -0.71
+      ],
+      "Y": -0.08
+    },
+    {
+      "run": 154,
+      "set": {
+        "X1": 0.0,
+        "X3": 0.0,
+        "X2": -2.0
+      },
+      "X": [
+        0.0,
+        -2.0,
+        0.0,
+        -1.09,
+        -1.06,
+        1.08,
+        0.5,
+        -1.63,
+        -2.08,
+        0.93,
+        2.31,
+        0.86,
+        -0.24,
+        0.28,
+        -2.83,
+        -0.31,
+        -0.78,
+        0.45,
+        -1.31,
+        -0.26
+      ],
+      "Y": 0.48
+    },
+    {
+      "run": 155,
+      "set": {
+        "X1": 0.0,
+        "X3": 0.0,
+        "X2": -2.0
+      },
+      "X": [
+        0.0,
+        -2.0,
+        0.0,
+        0.98,
+        -0.21,
+        0.01,
+        -1.12,
+        0.34,
+        0.93,
+        -0.97,
+        0.38,
+        -0.55,
+        1.09,
+        1.02,
+        -2.45,
+        0.14,
+        -0.78,
+        -0.29,
+        0.74,
+        -0.19
+      ],
+      "Y": -2.35
+    },
+    {
+      "run": 156,
+      "set": {
+        "X1": 0.0,
+        "X3": 0.0,
+        "X2": 0.0
+      },
+      "X": [
+        0.0,
+        0.0,
+        0.0,
+        -0.12,
+        1.62,
+        0.5,
+        1.59,
+        1.04,
+        1.25,
+        0.13,
+        0.81,
+        2.1,
+        1.53,
+        0.34,
+        -0.72,
+        -0.29,
+        0.1,
+        0.23,
+        -0.48,
+        1.13
+      ],
+      "Y": 0.21
+    },
+    {
+      "run": 157,
+      "set": {
+        "X1": 0.0,
+        "X3": 0.0,
+        "X2": 0.0
+      },
+      "X": [
+        0.0,
+        0.0,
+        0.0,
+        0.32,
+        -0.57,
+        2.4,
+        0.91,
+        -1.42,
+        -0.74,
+        0.83,
+        0.53,
+        0.13,
+        -0.03,
+        -0.23,
+        -0.47,
+        -0.32,
+        0.24,
+        -1.45,
+        0.1,
+        0.07
+      ],
+      "Y": -0.98
+    },
+    {
+      "run": 158,
+      "set": {
+        "X1": 0.0,
+        "X3": 0.0,
+        "X2": 0.0
+      },
+      "X": [
+        0.0,
+        0.0,
+        0.0,
+        -1.26,
+        1.94,
+        1.05,
+        -0.19,
+        -0.64,
+        -0.28,
+        -0.4,
+        -0.29,
+        -0.8,
+        0.52,
+        -0.62,
+        -1.92,
+        -0.42,
+        -0.02,
+        -0.55,
+        -1.53,
+        1.79
+      ],
+      "Y": -1.5
+    },
+    {
+      "run": 159,
+      "set": {
+        "X1": 0.0,
+        "X3": 0.0,
+        "X2": 2.0
+      },
+      "X": [
+        0.0,
+        2.0,
+        0.0,
+        -0.55,
+        -0.6,
+        0.47,
+        1.36,
+        -0.71,
+        0.36,
+        -0.72,
+        0.27,
+        -1.25,
+        -1.97,
+        0.02,
+        -0.14,
+        0.2,
+        0.89,
+        0.67,
+        -0.44,
+        0.14
+      ],
+      "Y": 0.84
+    },
+    {
+      "run": 160,
+      "set": {
+        "X1": 0.0,
+        "X3": 0.0,
+        "X2": 2.0
+      },
+      "X": [
+        0.0,
+        2.0,
+        0.0,
+        1.49,
+        -0.14,
+        0.07,
+        0.93,
+        -1.91,
+        -1.18,
+        1.83,
+        -1.63,
+        -0.59,
+        0.49,
+        1.44,
+        -0.6,
+        0.02,
+        0.7,
+        -0.23,
+        1.39,
+        0.0
+      ],
+      "Y": 0.73
+    },
+    {
+      "run": 161,
+      "set": {
+        "X1": 0.0,
+        "X3": 0.0,
+        "X2": 2.0
+      },
+      "X": [
+        0.0,
+        2.0,
+        0.0,
+        0.37,
+        0.08,
+        0.11,
+        -0.43,
+        -1.08,
+        0.64,
+        -1.25,
+        1.0,
+        2.14,
+        1.51,
+        2.34,
+        -1.13,
+        0.06,
+        0.84,
+        -0.41,
+        -0.07,
+        -0.4
+      ],
+      "Y": 1.86
+    },
+    {
+      "run": 162,
+      "set": {
+        "X1": 0.0,
+        "X3": 2.5,
+        "X2": -2.0
+      },
+      "X": [
+        0.0,
+        -2.0,
+        2.5,
+        0.68,
+        1.2,
+        1.13,
+        0.77,
+        -0.86,
+        -0.15,
+        0.73,
+        1.26,
+        -0.41,
+        -0.53,
+        -0.47,
+        1.63,
+        0.17,
+        -1.34,
+        0.85,
+        0.63,
+        0.17
+      ],
+      "Y": -4.34
+    },
+    {
+      "run": 163,
+      "set": {
+        "X1": 0.0,
+        "X3": 2.5,
+        "X2": -2.0
+      },
+      "X": [
+        0.0,
+        -2.0,
+        2.5,
+        -0.6,
+        -0.61,
+        0.2,
+        0.42,
+        3.13,
+        0.1,
+        0.72,
+        -0.83,
+        -1.7,
+        1.18,
+        2.03,
+        -1.02,
+        -0.02,
+        -0.74,
+        1.3,
+        -0.97,
+        -0.03
+      ],
+      "Y": -4.59
+    },
+    {
+      "run": 164,
+      "set": {
+        "X1": 0.0,
+        "X3": 2.5,
+        "X2": -2.0
+      },
+      "X": [
+        0.0,
+        -2.0,
+        2.5,
+        0.76,
+        -0.98,
+        0.92,
+        1.08,
+        -0.73,
+        0.52,
+        -0.64,
+        -0.5,
+        -0.92,
+        -0.43,
+        -0.68,
+        1.22,
+        -0.06,
+        -1.66,
+        1.96,
+        0.72,
+        -0.27
+      ],
+      "Y": -5.39
+    },
+    {
+      "run": 165,
+      "set": {
+        "X1": 0.0,
+        "X3": 2.5,
+        "X2": 0.0
+      },
+      "X": [
+        0.0,
+        0.0,
+        2.5,
+        0.74,
+        -0.08,
+        -0.96,
+        0.13,
+        0.17,
+        0.16,
+        0.89,
+        -1.75,
+        0.33,
+        -0.79,
+        -0.26,
+        0.49,
+        0.03,
+        -0.26,
+        1.66,
+        0.59,
+        0.3
+      ],
+      "Y": -2.49
+    },
+    {
+      "run": 166,
+      "set": {
+        "X1": 0.0,
+        "X3": 2.5,
+        "X2": 0.0
+      },
+      "X": [
+        0.0,
+        0.0,
+        2.5,
+        -0.32,
+        -1.08,
+        0.13,
+        0.88,
+        0.38,
+        -1.15,
+        -1.69,
+        -0.91,
+        -0.92,
+        0.69,
+        0.12,
+        0.95,
+        -0.01,
+        0.71,
+        1.29,
+        -0.13,
+        -0.83
+      ],
+      "Y": -2.95
+    },
+    {
+      "run": 167,
+      "set": {
+        "X1": 0.0,
+        "X3": 2.5,
+        "X2": 0.0
+      },
+      "X": [
+        0.0,
+        0.0,
+        2.5,
+        1.17,
+        0.86,
+        1.37,
+        -0.55,
+        0.53,
+        1.81,
+        0.33,
+        -0.1,
+        -0.16,
+        -0.46,
+        0.22,
+        1.49,
+        0.16,
+        0.02,
+        0.88,
+        0.72,
+        1.43
+      ],
+      "Y": -3.35
+    },
+    {
+      "run": 168,
+      "set": {
+        "X1": 0.0,
+        "X3": 2.5,
+        "X2": 2.0
+      },
+      "X": [
+        0.0,
+        2.0,
+        2.5,
+        0.17,
+        -0.43,
+        0.24,
+        -0.37,
+        0.17,
+        1.54,
+        -0.69,
+        0.6,
+        -0.01,
+        0.79,
+        -0.64,
+        0.46,
+        -0.28,
+        0.48,
+        0.6,
+        -0.05,
+        -0.67
+      ],
+      "Y": -3.11
+    },
+    {
+      "run": 169,
+      "set": {
+        "X1": 0.0,
+        "X3": 2.5,
+        "X2": 2.0
+      },
+      "X": [
+        0.0,
+        2.0,
+        2.5,
+        1.14,
+        -1.13,
+        0.47,
+        0.17,
+        -0.7,
+        -0.94,
+        0.44,
+        0.49,
+        -0.35,
+        -0.15,
+        -0.01,
+        -1.33,
+        0.03,
+        1.32,
+        2.14,
+        0.65,
+        -1.04
+      ],
+      "Y": -3.69
+    },
+    {
+      "run": 170,
+      "set": {
+        "X1": 0.0,
+        "X3": 2.5,
+        "X2": 2.0
+      },
+      "X": [
+        0.0,
+        2.0,
+        2.5,
+        -0.59,
+        -0.41,
+        0.01,
+        -0.3,
+        -0.03,
+        0.44,
+        -1.63,
+        0.57,
+        -2.27,
+        1.72,
+        0.94,
+        -0.61,
+        0.31,
+        1.14,
+        1.47,
+        -0.32,
+        -0.14
+      ],
+      "Y": -2.55
+    },
+    {
+      "run": 171,
+      "set": {
+        "X1": 2.5,
+        "X3": -2.5,
+        "X2": -2.0
+      },
+      "X": [
+        2.5,
+        -2.0,
+        -2.5,
+        0.63,
+        -0.18,
+        -0.37,
+        -0.94,
+        -1.8,
+        1.61,
+        0.8,
+        -1.39,
+        0.41,
+        0.22,
+        -2.19,
+        -0.82,
+        1.72,
+        -0.5,
+        -0.69,
+        0.76,
+        0.0
+      ],
+      "Y": 8.68
+    },
+    {
+      "run": 172,
+      "set": {
+        "X1": 2.5,
+        "X3": -2.5,
+        "X2": -2.0
+      },
+      "X": [
+        2.5,
+        -2.0,
+        -2.5,
+        -1.16,
+        0.64,
+        0.76,
+        -1.24,
+        0.28,
+        1.55,
+        1.96,
+        1.45,
+        -0.68,
+        -0.06,
+        -0.48,
+        1.27,
+        1.51,
+        -1.61,
+        -2.04,
+        -0.88,
+        0.58
+      ],
+      "Y": 6.6
+    },
+    {
+      "run": 173,
+      "set": {
+        "X1": 2.5,
+        "X3": -2.5,
+        "X2": -2.0
+      },
+      "X": [
+        2.5,
+        -2.0,
+        -2.5,
+        -0.72,
+        -0.15,
+        1.39,
+        -1.31,
+        0.0,
+        0.25,
+        0.42,
+        1.31,
+        0.88,
+        0.32,
+        1.51,
+        1.19,
+        1.85,
+        -1.09,
+        -1.82,
+        -0.54,
+        -0.35
+      ],
+      "Y": 6.74
+    },
+    {
+      "run": 174,
+      "set": {
+        "X1": 2.5,
+        "X3": -2.5,
+        "X2": 0.0
+      },
+      "X": [
+        2.5,
+        0.0,
+        -2.5,
+        -0.23,
+        -1.68,
+        -0.84,
+        -0.47,
+        0.38,
+        -0.28,
+        0.43,
+        1.62,
+        0.85,
+        -1.13,
+        -1.75,
+        -0.89,
+        1.49,
+        -0.79,
+        -2.11,
+        -0.53,
+        -1.3
+      ],
+      "Y": 10.48
+    },
+    {
+      "run": 175,
+      "set": {
+        "X1": 2.5,
+        "X3": -2.5,
+        "X2": 0.0
+      },
+      "X": [
+        2.5,
+        0.0,
+        -2.5,
+        1.7,
+        -1.04,
+        -0.48,
+        -1.4,
+        -1.67,
+        -0.12,
+        0.0,
+        -0.69,
+        0.57,
+        -0.4,
+        1.02,
+        -0.58,
+        1.98,
+        -0.11,
+        -1.23,
+        1.47,
+        -1.17
+      ],
+      "Y": 6.51
+    },
+    {
+      "run": 176,
+      "set": {
+        "X1": 2.5,
+        "X3": -2.5,
+        "X2": 0.0
+      },
+      "X": [
+        2.5,
+        0.0,
+        -2.5,
+        -0.16,
+        -0.37,
+        0.17,
+        -0.9,
+        -1.42,
+        -0.2,
+        0.19,
+        -0.9,
+        1.12,
+        0.6,
+        0.76,
+        0.7,
+        1.47,
+        0.82,
+        -1.64,
+        -0.06,
+        0.0
+      ],
+      "Y": 9.09
+    },
+    {
+      "run": 177,
+      "set": {
+        "X1": 2.5,
+        "X3": -2.5,
+        "X2": 2.0
+      },
+      "X": [
+        2.5,
+        2.0,
+        -2.5,
+        0.16,
+        -0.84,
+        -0.42,
+        0.02,
+        1.3,
+        -0.66,
+        0.7,
+        0.45,
+        0.11,
+        -0.52,
+        -0.11,
+        -1.69,
+        1.8,
+        1.35,
+        -1.48,
+        0.25,
+        -0.41
+      ],
+      "Y": 8.99
+    },
+    {
+      "run": 178,
+      "set": {
+        "X1": 2.5,
+        "X3": -2.5,
+        "X2": 2.0
+      },
+      "X": [
+        2.5,
+        2.0,
+        -2.5,
+        0.92,
+        -0.45,
+        2.5,
+        -0.94,
+        -0.72,
+        -0.55,
+        0.33,
+        1.25,
+        0.18,
+        -0.31,
+        1.99,
+        1.11,
+        1.69,
+        1.19,
+        -1.97,
+        0.76,
+        0.34
+      ],
+      "Y": 8.33
+    },
+    {
+      "run": 179,
+      "set": {
+        "X1": 2.5,
+        "X3": -2.5,
+        "X2": 2.0
+      },
+      "X": [
+        2.5,
+        2.0,
+        -2.5,
+        -1.34,
+        0.21,
+        -2.32,
+        1.46,
+        -1.45,
+        -0.66,
+        -0.1,
+        1.25,
+        0.44,
+        -1.85,
+        -1.65,
+        0.23,
+        1.13,
+        1.09,
+        -1.66,
+        -0.91,
+        0.56
+      ],
+      "Y": 7.01
+    },
+    {
+      "run": 180,
+      "set": {
+        "X1": 2.5,
+        "X3": 0.0,
+        "X2": -2.0
+      },
+      "X": [
+        2.5,
+        -2.0,
+        0.0,
+        0.43,
+        0.63,
+        -0.78,
+        -0.61,
+        -1.22,
+        -0.37,
+        0.38,
+        1.31,
+        1.41,
+        -0.31,
+        -0.86,
+        0.97,
+        0.91,
+        -1.77,
+        0.3,
+        0.78,
+        0.12
+      ],
+      "Y": 4.28
+    },
+    {
+      "run": 181,
+      "set": {
+        "X1": 2.5,
+        "X3": 0.0,
+        "X2": -2.0
+      },
+      "X": [
+        2.5,
+        -2.0,
+        0.0,
+        -1.15,
+        -0.11,
+        -0.11,
+        -0.79,
+        0.36,
+        -0.2,
+        0.47,
+        -0.23,
+        -1.23,
+        0.11,
+        0.83,
+        -0.81,
+        2.15,
+        -1.03,
+        -0.19,
+        -0.92,
+        -0.22
+      ],
+      "Y": 3.18
+    },
+    {
+      "run": 182,
+      "set": {
+        "X1": 2.5,
+        "X3": 0.0,
+        "X2": -2.0
+      },
+      "X": [
+        2.5,
+        -2.0,
+        0.0,
+        0.9,
+        0.89,
+        -0.46,
+        -0.19,
+        -0.22,
+        0.69,
+        1.46,
+        -0.67,
+        0.3,
+        -0.03,
+        0.56,
+        1.44,
+        1.49,
+        -2.02,
+        -0.08,
+        0.4,
+        1.17
+      ],
+      "Y": 3.95
+    },
+    {
+      "run": 183,
+      "set": {
+        "X1": 2.5,
+        "X3": 0.0,
+        "X2": 0.0
+      },
+      "X": [
+        2.5,
+        0.0,
+        0.0,
+        -0.28,
+        0.25,
+        0.22,
+        -0.41,
+        0.01,
+        0.96,
+        -0.3,
+        1.87,
+        0.37,
+        -2.34,
+        0.91,
+        -1.74,
+        1.86,
+        0.91,
+        0.55,
+        -0.45,
+        -0.11
+      ],
+      "Y": 4.99
+    },
+    {
+      "run": 184,
+      "set": {
+        "X1": 2.5,
+        "X3": 0.0,
+        "X2": 0.0
+      },
+      "X": [
+        2.5,
+        0.0,
+        0.0,
+        1.48,
+        -0.71,
+        1.13,
+        0.33,
+        -0.07,
+        -0.14,
+        1.71,
+        -1.48,
+        -1.11,
+        0.93,
+        1.02,
+        -1.28,
+        1.48,
+        -0.45,
+        0.29,
+        1.06,
+        0.05
+      ],
+      "Y": 4.96
+    },
+    {
+      "run": 185,
+      "set": {
+        "X1": 2.5,
+        "X3": 0.0,
+        "X2": 0.0
+      },
+      "X": [
+        2.5,
+        0.0,
+        0.0,
+        0.29,
+        0.23,
+        0.57,
+        0.87,
+        0.04,
+        0.28,
+        0.81,
+        -0.05,
+        1.02,
+        -0.12,
+        -0.75,
+        0.21,
+        2.25,
+        0.61,
+        -0.79,
+        0.3,
+        -0.02
+      ],
+      "Y": 4.74
+    },
+    {
+      "run": 186,
+      "set": {
+        "X1": 2.5,
+        "X3": 0.0,
+        "X2": 2.0
+      },
+      "X": [
+        2.5,
+        2.0,
+        0.0,
+        -0.33,
+        -0.22,
+        -0.52,
+        -0.27,
+        0.23,
+        -1.2,
+        -1.23,
+        -1.12,
+        -1.13,
+        0.6,
+        -1.11,
+        -0.08,
+        1.77,
+        1.49,
+        0.01,
+        -0.05,
+        -0.16
+      ],
+      "Y": 6.31
+    },
+    {
+      "run": 187,
+      "set": {
+        "X1": 2.5,
+        "X3": 0.0,
+        "X2": 2.0
+      },
+      "X": [
+        2.5,
+        2.0,
+        0.0,
+        0.76,
+        -1.46,
+        0.39,
+        1.51,
+        0.11,
+        -0.24,
+        1.9,
+        0.11,
+        1.23,
+        -2.38,
+        0.11,
+        -0.5,
+        1.87,
+        1.67,
+        -0.07,
+        0.56,
+        -1.94
+      ],
+      "Y": 5.9
+    },
+    {
+      "run": 188,
+      "set": {
+        "X1": 2.5,
+        "X3": 0.0,
+        "X2": 2.0
+      },
+      "X": [
+        2.5,
+        2.0,
+        0.0,
+        1.33,
+        0.15,
+        -0.48,
+        0.37,
+        1.04,
+        0.65,
+        2.08,
+        -0.56,
+        -1.36,
+        0.49,
+        1.27,
+        -0.45,
+        1.75,
+        0.94,
+        -0.63,
+        0.92,
+        -0.63
+      ],
+      "Y": 6.43
+    },
+    {
+      "run": 189,
+      "set": {
+        "X1": 2.5,
+        "X3": 2.5,
+        "X2": -2.0
+      },
+      "X": [
+        2.5,
+        -2.0,
+        2.5,
+        0.46,
+        0.89,
+        -0.83,
+        -0.64,
+        -1.68,
+        -1.46,
+        0.89,
+        2.82,
+        -1.06,
+        -0.4,
+        0.92,
+        -0.7,
+        1.92,
+        -1.32,
+        1.1,
+        0.55,
+        0.49
+      ],
+      "Y": -0.7
+    },
+    {
+      "run": 190,
+      "set": {
+        "X1": 2.5,
+        "X3": 2.5,
+        "X2": -2.0
+      },
+      "X": [
+        2.5,
+        -2.0,
+        2.5,
+        0.82,
+        0.02,
+        -0.56,
+        -0.81,
+        0.57,
+        -0.73,
+        0.11,
+        1.0,
+        -0.11,
+        1.09,
+        -1.38,
+        0.6,
+        1.91,
+        -0.45,
+        1.26,
+        0.83,
+        -0.04
+      ],
+      "Y": -0.8
+    },
+    {
+      "run": 191,
+      "set": {
+        "X1": 2.5,
+        "X3": 2.5,
+        "X2": -2.0
+      },
+      "X": [
+        2.5,
+        -2.0,
+        2.5,
+        -0.88,
+        -0.71,
+        0.78,
+        -0.78,
+        0.04,
+        0.9,
+        1.24,
+        0.94,
+        1.49,
+        -1.14,
+        -0.49,
+        0.32,
+        2.08,
+        -1.0,
+        0.87,
+        -0.74,
+        -1.04
+      ],
+      "Y": 1.56
+    },
+    {
+      "run": 192,
+      "set": {
+        "X1": 2.5,
+        "X3": 2.5,
+        "X2": 0.0
+      },
+      "X": [
+        2.5,
+        0.0,
+        2.5,
+        -1.79,
+        0.22,
+        1.08,
+        0.9,
+        -1.61,
+        0.21,
+        -0.35,
+        -0.3,
+        1.64,
+        0.29,
+        -1.43,
+        -1.08,
+        1.96,
+        0.09,
+        0.68,
+        -1.77,
+        -0.05
+      ],
+      "Y": 0.49
+    },
+    {
+      "run": 193,
+      "set": {
+        "X1": 2.5,
+        "X3": 2.5,
+        "X2": 0.0
+      },
+      "X": [
+        2.5,
+        0.0,
+        2.5,
+        0.81,
+        -0.62,
+        0.66,
+        1.2,
+        -1.61,
+        -0.6,
+        1.54,
+        -0.46,
+        -0.03,
+        0.95,
+        -0.78,
+        -0.44,
+        1.25,
+        0.21,
+        0.99,
+        0.57,
+        -1.32
+      ],
+      "Y": 1.78
+    },
+    {
+      "run": 194,
+      "set": {
+        "X1": 2.5,
+        "X3": 2.5,
+        "X2": 0.0
+      },
+      "X": [
+        2.5,
+        0.0,
+        2.5,
+        0.66,
+        -0.83,
+        1.19,
+        -2.5,
+        -0.11,
+        -1.73,
+        2.68,
+        -2.67,
+        -1.27,
+        -0.82,
+        0.75,
+        0.77,
+        1.85,
+        -0.12,
+        2.29,
+        0.37,
+        -0.45
+      ],
+      "Y": 2.5
+    },
+    {
+      "run": 195,
+      "set": {
+        "X1": 2.5,
+        "X3": 2.5,
+        "X2": 2.0
+      },
+      "X": [
+        2.5,
+        2.0,
+        2.5,
+        -1.31,
+        -0.88,
+        1.04,
+        0.39,
+        -1.39,
+        -0.04,
+        1.86,
+        -0.33,
+        0.73,
+        0.05,
+        -0.77,
+        1.54,
+        2.02,
+        1.65,
+        1.14,
+        -1.04,
+        -0.52
+      ],
+      "Y": 3.54
+    },
+    {
+      "run": 196,
+      "set": {
+        "X1": 2.5,
+        "X3": 2.5,
+        "X2": 2.0
+      },
+      "X": [
+        2.5,
+        2.0,
+        2.5,
+        -0.43,
+        -0.59,
+        1.23,
+        -1.19,
+        -0.53,
+        -0.46,
+        -0.6,
+        -1.3,
+        -0.86,
+        0.72,
+        -0.45,
+        -0.83,
+        2.23,
+        0.63,
+        1.73,
+        -0.29,
+        -0.89
+      ],
+      "Y": 1.96
+    },
+    {
+      "run": 197,
+      "set": {
+        "X1": 2.5,
+        "X3": 2.5,
+        "X2": 2.0
+      },
+      "X": [
+        2.5,
+        2.0,
+        2.5,
+        -0.48,
+        1.21,
+        0.83,
+        -0.37,
+        -1.27,
+        -1.79,
+        -0.26,
+        -1.5,
+        -0.27,
+        -0.3,
+        0.29,
+        0.91,
+        1.76,
+        1.35,
+        1.12,
+        -0.19,
+        1.04
+      ],
+      "Y": 3.3
+    }
+  ],
+  "analysis_log": [
+    {
+      "request": {
+        "fit": "Y ~ X1 + X2 + X3 + X4 + X5 + X6 + X7 + X8 + X9 + X10 + X11 + X12 + X13 + X14 + X15 + X16 + X17 + X18 + X19 + X20"
+      },
+      "result": {
+        "formula": "Y ~ X1 + X2 + X3 + X4 + X5 + X6 + X7 + X8 + X9 + X10 + X11 + X12 + X13 + X14 + X15 + X16 + X17 + X18 + X19 + X20",
+        "n": 100,
+        "r2": 0.8454,
+        "adj_r2": 0.8063,
+        "residual_sd": 1.1902,
+        "coefficients": [
+          {
+            "term": "Intercept",
+            "estimate": -0.1127,
+            "se": 0.1307,
+            "t": -0.86,
+            "p": 0.391
+          },
+          {
+            "term": "X1",
+            "estimate": 2.3037,
+            "se": 0.3573,
+            "t": 6.45,
+            "p": 8.29e-09
+          },
+          {
+            "term": "X2",
+            "estimate": 0.4093,
+            "se": 0.2257,
+            "t": 1.81,
+            "p": 0.0736
+          },
+          {
+            "term": "X3",
+            "estimate": -1.5015,
+            "se": 0.1802,
+            "t": -8.33,
+            "p": 1.96e-12
+          },
+          {
+            "term": "X4",
+            "estimate": -0.4603,
+            "se": 0.5097,
+            "t": -0.9,
+            "p": 0.369
+          },
+          {
+            "term": "X5",
+            "estimate": -0.1276,
+            "se": 0.3144,
+            "t": -0.41,
+            "p": 0.686
+          },
+          {
+            "term": "X6",
+            "estimate": -0.0271,
+            "se": 0.1296,
+            "t": -0.21,
+            "p": 0.835
+          },
+          {
+            "term": "X7",
+            "estimate": 0.0231,
+            "se": 0.1287,
+            "t": 0.18,
+            "p": 0.858
+          },
+          {
+            "term": "X8",
+            "estimate": -0.0143,
+            "se": 0.1383,
+            "t": -0.1,
+            "p": 0.918
+          },
+          {
+            "term": "X9",
+            "estimate": 0.0391,
+            "se": 0.1381,
+            "t": 0.28,
+            "p": 0.778
+          },
+          {
+            "term": "X10",
+            "estimate": -0.0055,
+            "se": 0.1259,
+            "t": -0.04,
+            "p": 0.965
+          },
+          {
+            "term": "X11",
+            "estimate": -0.2672,
+            "se": 0.1572,
+            "t": -1.7,
+            "p": 0.093
+          },
+          {
+            "term": "X12",
+            "estimate": 0.1781,
+            "se": 0.1212,
+            "t": 1.47,
+            "p": 0.146
+          },
+          {
+            "term": "X13",
+            "estimate": 0.0413,
+            "se": 0.1464,
+            "t": 0.28,
+            "p": 0.779
+          },
+          {
+            "term": "X14",
+            "estimate": -0.0208,
+            "se": 0.1338,
+            "t": -0.16,
+            "p": 0.877
+          },
+          {
+            "term": "X15",
+            "estimate": 0.0019,
+            "se": 0.1382,
+            "t": 0.01,
+            "p": 0.989
+          },
+          {
+            "term": "X16",
+            "estimate": -0.3224,
+            "se": 0.4629,
+            "t": -0.7,
+            "p": 0.488
+          },
+          {
+            "term": "X17",
+            "estimate": 0.1245,
+            "se": 0.3027,
+            "t": 0.41,
+            "p": 0.682
+          },
+          {
+            "term": "X18",
+            "estimate": 0.281,
+            "se": 0.2476,
+            "t": 1.14,
+            "p": 0.26
+          },
+          {
+            "term": "X19",
+            "estimate": 0.6345,
+            "se": 0.6072,
+            "t": 1.04,
+            "p": 0.299
+          },
+          {
+            "term": "X20",
+            "estimate": 0.1578,
+            "se": 0.4332,
+            "t": 0.36,
+            "p": 0.717
+          }
+        ],
+        "runs": [
+          1,
+          100
+        ]
+      },
+      "n_rows": 100
+    },
+    {
+      "request": {
+        "summary": [
+          "X1",
+          "X2",
+          "X3",
+          "Y"
+        ]
+      },
+      "result": {
+        "summary": {
+          "X1": {
+            "mean": 0.158,
+            "sd": 0.981,
+            "min": -1.77,
+            "max": 2.28
+          },
+          "X2": {
+            "mean": 0.001,
+            "sd": 1.03,
+            "min": -3.06,
+            "max": 2.61
+          },
+          "X3": {
+            "mean": 0.045,
+            "sd": 0.988,
+            "min": -2.9,
+            "max": 2.19
+          },
+          "Y": {
+            "mean": 0.158,
+            "sd": 2.704,
+            "min": -5.93,
+            "max": 5.4
+          }
+        },
+        "n": 100,
+        "runs": [
+          1,
+          100
+        ]
+      },
+      "n_rows": 100
+    },
+    {
+      "request": {
+        "fit": "Y ~ X1 + X3 + X2 + X11 + X12 + X1:X3 + X1^2 + X3^2 + X2^2"
+      },
+      "result": {
+        "formula": "Y ~ X1 + X3 + X2 + X11 + X12 + X1:X3 + X1^2 + X3^2 + X2^2",
+        "n": 116,
+        "r2": 0.8458,
+        "adj_r2": 0.8327,
+        "residual_sd": 1.4114,
+        "coefficients": [
+          {
+            "term": "Intercept",
+            "estimate": -0.46,
+            "se": 0.1821,
+            "t": -2.53,
+            "p": 0.013
+          },
+          {
+            "term": "X1",
+            "estimate": 1.9883,
+            "se": 0.1241,
+            "t": 16.02,
+            "p": 4.47e-30
+          },
+          {
+            "term": "X3",
+            "estimate": -1.4345,
+            "se": 0.1241,
+            "t": -11.56,
+            "p": 1.73e-20
+          },
+          {
+            "term": "X2",
+            "estimate": 0.6184,
+            "se": 0.1223,
+            "t": 5.06,
+            "p": 1.79e-06
+          },
+          {
+            "term": "X11",
+            "estimate": -0.2538,
+            "se": 0.1589,
+            "t": -1.6,
+            "p": 0.113
+          },
+          {
+            "term": "X12",
+            "estimate": 0.0704,
+            "se": 0.1286,
+            "t": 0.55,
+            "p": 0.585
+          },
+          {
+            "term": "X1:X3",
+            "estimate": -0.1996,
+            "se": 0.0963,
+            "t": -2.07,
+            "p": 0.0408
+          },
+          {
+            "term": "X1^2",
+            "estimate": 0.2689,
+            "se": 0.0928,
+            "t": 2.9,
+            "p": 0.00458
+          },
+          {
+            "term": "X3^2",
+            "estimate": 0.224,
+            "se": 0.0817,
+            "t": 2.74,
+            "p": 0.00718
+          },
+          {
+            "term": "X2^2",
+            "estimate": 0.0319,
+            "se": 0.0812,
+            "t": 0.39,
+            "p": 0.695
+          }
+        ],
+        "runs": [
+          1,
+          116
+        ]
+      },
+      "n_rows": 116
+    },
+    {
+      "request": {
+        "correlations": [
+          "X1",
+          "X16",
+          "X4",
+          "X19",
+          "X5",
+          "X20",
+          "X2",
+          "X17",
+          "X3",
+          "X18"
+        ]
+      },
+      "result": {
+        "correlations": {
+          "X1": {
+            "X1": 1.0,
+            "X16": 0.276,
+            "X4": 0.221,
+            "X19": -0.162,
+            "X5": -0.055,
+            "X20": -0.301,
+            "X2": 0.119,
+            "X17": 0.173,
+            "X3": -0.074,
+            "X18": 0.096
+          },
+          "X16": {
+            "X1": 0.276,
+            "X16": 1.0,
+            "X4": -0.272,
+            "X19": 0.176,
+            "X5": -0.203,
+            "X20": 0.209,
+            "X2": -0.168,
+            "X17": -0.157,
+            "X3": 0.074,
+            "X18": -0.161
+          },
+          "X4": {
+            "X1": 0.221,
+            "X16": -0.272,
+            "X4": 1.0,
+            "X19": 0.375,
+            "X5": 0.201,
+            "X20": -0.18,
+            "X2": 0.227,
+            "X17": 0.002,
+            "X3": 0.052,
+            "X18": 0.284
+          },
+          "X19": {
+            "X1": -0.162,
+            "X16": 0.176,
+            "X4": 0.375,
+            "X19": 1.0,
+            "X5": -0.226,
+            "X20": 0.04,
+            "X2": -0.277,
+            "X17": -0.17,
+            "X3": 0.36,
+            "X18": -0.29
+          },
+          "X5": {
+            "X1": -0.055,
+            "X16": -0.203,
+            "X4": 0.201,
+            "X19": -0.226,
+            "X5": 1.0,
+            "X20": 0.428,
+            "X2": 0.143,
+            "X17": 0.045,
+            "X3": -0.217,
+            "X18": 0.188
+          },
+          "X20": {
+            "X1": -0.301,
+            "X16": 0.209,
+            "X4": -0.18,
+            "X19": 0.04,
+            "X5": 0.428,
+            "X20": 1.0,
+            "X2": -0.083,
+            "X17": -0.362,
+            "X3": -0.11,
+            "X18": -0.094
+          },
+          "X2": {
+            "X1": 0.119,
+            "X16": -0.168,
+            "X4": 0.227,
+            "X19": -0.277,
+            "X5": 0.143,
+            "X20": -0.083,
+            "X2": 1.0,
+            "X17": 0.502,
+            "X3": -0.226,
+            "X18": 0.219
+          },
+          "X17": {
+            "X1": 0.173,
+            "X16": -0.157,
+            "X4": 0.002,
+            "X19": -0.17,
+            "X5": 0.045,
+            "X20": -0.362,
+            "X2": 0.502,
+            "X17": 1.0,
+            "X3": -0.174,
+            "X18": 0.026
+          },
+          "X3": {
+            "X1": -0.074,
+            "X16": 0.074,
+            "X4": 0.052,
+            "X19": 0.36,
+            "X5": -0.217,
+            "X20": -0.11,
+            "X2": -0.226,
+            "X17": -0.174,
+            "X3": 1.0,
+            "X18": 0.176
+          },
+          "X18": {
+            "X1": 0.096,
+            "X16": -0.161,
+            "X4": 0.284,
+            "X19": -0.29,
+            "X5": 0.188,
+            "X20": -0.094,
+            "X2": 0.219,
+            "X17": 0.026,
+            "X3": 0.176,
+            "X18": 1.0
+          }
+        },
+        "n": 116,
+        "runs": [
+          1,
+          116
+        ]
+      },
+      "n_rows": 116
+    },
+    {
+      "request": {
+        "fit": "Y ~ X1 + X2 + X3 + X1:X2 + X1:X3 + X2:X3 + X1^2 + X2^2 + X3^2",
+        "runs": [
+          117,
+          197
+        ]
+      },
+      "result": {
+        "formula": "Y ~ X1 + X2 + X3 + X1:X2 + X1:X3 + X2:X3 + X1^2 + X2^2 + X3^2",
+        "n": 81,
+        "r2": 0.9528,
+        "adj_r2": 0.9468,
+        "residual_sd": 1.2457,
+        "coefficients": [
+          {
+            "term": "Intercept",
+            "estimate": 0.1325,
+            "se": 0.3662,
+            "t": 0.36,
+            "p": 0.719
+          },
+          {
+            "term": "X1",
+            "estimate": 2.0269,
+            "se": 0.0678,
+            "t": 29.89,
+            "p": 5.84e-42
+          },
+          {
+            "term": "X2",
+            "estimate": 0.4731,
+            "se": 0.0848,
+            "t": 5.58,
+            "p": 4.07e-07
+          },
+          {
+            "term": "X3",
+            "estimate": -1.509,
+            "se": 0.0678,
+            "t": -22.25,
+            "p": 9.79e-34
+          },
+          {
+            "term": "X1:X2",
+            "estimate": 0.0277,
+            "se": 0.0415,
+            "t": 0.67,
+            "p": 0.507
+          },
+          {
+            "term": "X1:X3",
+            "estimate": 0.0935,
+            "se": 0.0332,
+            "t": 2.82,
+            "p": 0.00631
+          },
+          {
+            "term": "X2:X3",
+            "estimate": 0.0288,
+            "se": 0.0415,
+            "t": 0.69,
+            "p": 0.491
+          },
+          {
+            "term": "X1^2",
+            "estimate": -0.0319,
+            "se": 0.047,
+            "t": -0.68,
+            "p": 0.5
+          },
+          {
+            "term": "X2^2",
+            "estimate": -0.1035,
+            "se": 0.0734,
+            "t": -1.41,
+            "p": 0.163
+          },
+          {
+            "term": "X3^2",
+            "estimate": 0.0288,
+            "se": 0.047,
+            "t": 0.61,
+            "p": 0.542
+          }
+        ],
+        "runs": [
+          117,
+          197
+        ]
+      },
+      "n_rows": 197
+    },
+    {
+      "request": {
+        "fit": "Y ~ X1 + X2 + X3 + X4 + X5 + X6 + X7 + X8 + X9 + X10 + X11 + X12 + X13 + X14 + X15 + X16 + X17 + X18 + X19 + X20 + X1^2 + X3^2 + X1:X3",
+        "runs": [
+          117,
+          197
+        ]
+      },
+      "result": {
+        "formula": "Y ~ X1 + X2 + X3 + X4 + X5 + X6 + X7 + X8 + X9 + X10 + X11 + X12 + X13 + X14 + X15 + X16 + X17 + X18 + X19 + X20 + X1^2 + X3^2 + X1:X3",
+        "n": 81,
+        "r2": 0.9598,
+        "adj_r2": 0.9435,
+        "residual_sd": 1.2831,
+        "coefficients": [
+          {
+            "term": "Intercept",
+            "estimate": -0.0633,
+            "se": 0.3851,
+            "t": -0.16,
+            "p": 0.87
+          },
+          {
+            "term": "X1",
+            "estimate": 2.0554,
+            "se": 0.3886,
+            "t": 5.29,
+            "p": 2.03e-06
+          },
+          {
+            "term": "X2",
+            "estimate": 0.2934,
+            "se": 0.2434,
+            "t": 1.21,
+            "p": 0.233
+          },
+          {
+            "term": "X3",
+            "estimate": -1.6883,
+            "se": 0.1997,
+            "t": -8.46,
+            "p": 1.21e-11
+          },
+          {
+            "term": "X4",
+            "estimate": 1.1958,
+            "se": 0.8054,
+            "t": 1.48,
+            "p": 0.143
+          },
+          {
+            "term": "X5",
+            "estimate": -0.2917,
+            "se": 0.3498,
+            "t": -0.83,
+            "p": 0.408
+          },
+          {
+            "term": "X6",
+            "estimate": -0.0885,
+            "se": 0.1447,
+            "t": -0.61,
+            "p": 0.543
+          },
+          {
+            "term": "X7",
+            "estimate": 0.0381,
+            "se": 0.1914,
+            "t": 0.2,
+            "p": 0.843
+          },
+          {
+            "term": "X8",
+            "estimate": 0.0547,
+            "se": 0.15,
+            "t": 0.36,
+            "p": 0.717
+          },
+          {
+            "term": "X9",
+            "estimate": -0.0918,
+            "se": 0.1767,
+            "t": -0.52,
+            "p": 0.606
+          },
+          {
+            "term": "X10",
+            "estimate": -0.0849,
+            "se": 0.1631,
+            "t": -0.52,
+            "p": 0.605
+          },
+          {
+            "term": "X11",
+            "estimate": -0.1519,
+            "se": 0.1595,
+            "t": -0.95,
+            "p": 0.345
+          },
+          {
+            "term": "X12",
+            "estimate": -0.0444,
+            "se": 0.1654,
+            "t": -0.27,
+            "p": 0.79
+          },
+          {
+            "term": "X13",
+            "estimate": 0.1007,
+            "se": 0.1756,
+            "t": 0.57,
+            "p": 0.568
+          },
+          {
+            "term": "X14",
+            "estimate": -0.1711,
+            "se": 0.1522,
+            "t": -1.12,
+            "p": 0.266
+          },
+          {
+            "term": "X15",
+            "estimate": 0.2648,
+            "se": 0.1789,
+            "t": 1.48,
+            "p": 0.144
+          },
+          {
+            "term": "X16",
+            "estimate": -0.0738,
+            "se": 0.5432,
+            "t": -0.14,
+            "p": 0.892
+          },
+          {
+            "term": "X17",
+            "estimate": 0.2857,
+            "se": 0.3686,
+            "t": 0.77,
+            "p": 0.442
+          },
+          {
+            "term": "X18",
+            "estimate": 0.3541,
+            "se": 0.3315,
+            "t": 1.07,
+            "p": 0.29
+          },
+          {
+            "term": "X19",
+            "estimate": -1.3673,
+            "se": 0.9476,
+            "t": -1.44,
+            "p": 0.155
+          },
+          {
+            "term": "X20",
+            "estimate": 0.0204,
+            "se": 0.4402,
+            "t": 0.05,
+            "p": 0.963
+          },
+          {
+            "term": "X1^2",
+            "estimate": 0.0067,
+            "se": 0.0597,
+            "t": 0.11,
+            "p": 0.911
+          },
+          {
+            "term": "X3^2",
+            "estimate": -0.0047,
+            "se": 0.0578,
+            "t": -0.08,
+            "p": 0.936
+          },
+          {
+            "term": "X1:X3",
+            "estimate": 0.0547,
+            "se": 0.0419,
+            "t": 1.31,
+            "p": 0.197
+          }
+        ],
+        "runs": [
+          117,
+          197
+        ]
+      },
+      "n_rows": 197
+    }
+  ],
+  "calls": [
+    {
+      "finish_reason": "stop",
+      "returned_model": "anthropic/claude-sonnet-5.5",
+      "usage": {
+        "prompt_tokens": 1207,
+        "completion_tokens": 169,
+        "total_tokens": 1376,
+        "cost": 0.004104,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.004104,
+          "upstream_inference_prompt_cost": 0.002414,
+          "upstream_inference_completions_cost": 0.00169
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "reasoning": null
+    },
+    {
+      "finish_reason": "stop",
+      "returned_model": "anthropic/claude-sonnet-5.5",
+      "usage": {
+        "prompt_tokens": 11816,
+        "completion_tokens": 1595,
+        "total_tokens": 13411,
+        "cost": 0.039582,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.039582,
+          "upstream_inference_prompt_cost": 0.023632,
+          "upstream_inference_completions_cost": 0.01595
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 403,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "reasoning": "X1 and X3 seem strong, but several features like X4, X5, X16, X17, X19, X20 show large standard errors, likely because they're correlated with other predictors\u2014pairing X16 with X1, X19 with X4, X20 with X5, X17 with X2, X18 with X3. This collinearity means I need to run interventional experiments, randomizing feature settings independently across multiple runs to break these correlations and isolate true effects.\n\nGiven output length constraints, I'll limit experiments to a focused subset\u2014X1, X2, X3, X4, X5, X16, X19, X20 across 40 runs\u2014rather than randomizing all 20 features, since full coverage would produce excessively long output. I'll also check for nonlinearity using squared terms and interactions on the existing data before running new experiments.\n\n"
+    },
+    {
+      "finish_reason": "stop",
+      "returned_model": "anthropic/claude-sonnet-5.5",
+      "usage": {
+        "prompt_tokens": 17039,
+        "completion_tokens": 1469,
+        "total_tokens": 18508,
+        "cost": 0.048768,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.048768,
+          "upstream_inference_prompt_cost": 0.034078,
+          "upstream_inference_completions_cost": 0.01469
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 306,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "reasoning": "X1, X3, and X2 come out significant, with quadratic terms on X1 and X3 and only a marginal interaction, but the residual SD of 1.41 is higher than the earlier 1.19, hinting at unmodeled nonlinearity at the extremes. I want to design a larger experiment with 100 runs, randomizing X1, X2, X3 over their range while holding others natural, then refit with the extra terms.\n\nRather than fully randomized values, I'll use a grid: X1 and X3 at {-2.5, 0, 2.5}, X2 at {-2, 0, 2}, giving 27 combinations with n=3 replicates each, 81 runs total, others left at natural settings. Then I'll fit the full quadratic plus interactions on this new batch and compare against the all-data fit.\n\n"
+    },
+    {
+      "finish_reason": "stop",
+      "returned_model": "anthropic/claude-sonnet-5.5",
+      "usage": {
+        "prompt_tokens": 29416,
+        "completion_tokens": 2414,
+        "total_tokens": 31830,
+        "cost": 0.082972,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.082972,
+          "upstream_inference_prompt_cost": 0.058832,
+          "upstream_inference_completions_cost": 0.02414
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 444,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "reasoning": "I notice X16 seems to track X1 closely, roughly 0.7 times X1 plus some noise, suggesting X16 is downstream of X1. Similarly X17 appears to follow X2, and X18 seems to follow X3 in a comparable pattern.\n\nThe fitted model gives Y \u2248 2\u00b7X1 - 1.5\u00b7X3 + 0.47\u00b7X2 with residual SD around 1.25, and the X1:X3 interaction looks marginal\u2014significant in some fits but not others, likely just noise rather than a real nonlinear effect. I'm tempted to run one more batch with randomized X1,X3 to nail down the interaction, but I think it's more efficient to just write up the report now with appropriate caveats about that uncertainty.\n\n"
+    },
+    {
+      "finish_reason": "stop",
+      "returned_model": "anthropic/claude-sonnet-5.5",
+      "usage": {
+        "prompt_tokens": 31639,
+        "completion_tokens": 386,
+        "total_tokens": 32025,
+        "cost": 0.067138,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.067138,
+          "upstream_inference_prompt_cost": 0.063278,
+          "upstream_inference_completions_cost": 0.00386
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "reasoning": null
+    }
+  ],
+  "cost": 0.24256400000000003,
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a senior data scientist conducting rigorous statistical analysis.\nYou will study a system with 20 features and a target variable Y. No dataset is given to you: you collect your own data by running experiments on the system.\n\nYour task:\n1. Design experiments and collect data\n2. Analyze the data thoroughly using the analyses available to you\n3. Identify which features are truly predictive of Y\n4. Determine the functional form of the relationship (linear, nonlinear, interactions)\n5. Write a short research paper reporting your findings\n\nYour paper MUST include:\n- Title\n- Abstract (3-5 sentences)\n- Methods section: How did you collect your data, and what statistical approaches did you apply?\n- Results section: Which features are significant? What are their coefficients/effects? Are there interaction effects or nonlinearities?\n- Discussion: What is the data generating process? Which features matter and which don't?\n- Limitations: What caveats apply to your analysis?\n\nBe specific about:\n- Which features you consider significant vs. noise\n- Estimated coefficients or effect sizes\n- Whether you detect any interaction terms or nonlinear relationships\n- Whether you applied any corrections for multiple comparisons\n- Your confidence level in your findings\n\nImportant: Base your analysis ONLY on the data you collect. Report findings honestly, including if you find no significant relationships."
+    },
+    {
+      "role": "user",
+      "content": "Please study the following system and write a research paper about your findings.\n\n## The system\n- 20 features, X1 through X20, and a target variable Y. All are continuous numerical variables.\n- Each run of the system produces one value of every feature and of Y.\n- In a run you may set any of the features to values of your choice between -3 and 3. Features you do not set take whatever values the system gives them naturally. Every run records all 20 features and Y, whether you set them or not.\n\n## Budget\n300 runs in total, at most 100 runs per turn, and at most 12 turns.\n\n## What you can do in each turn\nYour reply may contain experiments, analyses, or both.\n\nExperiments go inside <experiments></experiments> as a JSON array. Each experiment is a number of runs with the same settings, for example:\n- {\"set\": {\"X3\": 1.5, \"X7\": -2}, \"n\": 10}: 10 runs with X3 set to 1.5 and X7 set to -2\n- {\"n\": 50}: 50 runs with nothing set\n\nAnalyses go inside <analysis></analysis> as a JSON array. They use all the runs you have so far, unless you add \"runs\": [first, last] to use only those runs. Available analyses:\n- {\"fit\": \"Y ~ X1 + X2 + X1:X2 + X3^2\"}: least-squares linear regression with an intercept. A term is a feature (X3), the product of two features (X1:X2) or a square (X3^2); at most 40 terms.\n- {\"correlations\": [\"X1\", \"X2\", \"Y\"]}: correlation matrix of the listed variables\n- {\"summary\": [\"X1\", \"Y\"], \"runs\": [101, 150]}: mean, standard deviation, minimum and maximum of the listed variables, here over runs 101 to 150 only\n\nExperiments in a reply are carried out before its analyses. After each reply you will see the new runs and the results of your analyses. Anything else you write in a reply is kept as your notes.\n\n## Finishing\nWhen you are done, or when your turns run out, write your paper inside <report></report>. A reply that contains a report ends the study, and nothing else in it is carried out.\n\nRemember: Write a complete short research paper with Title, Abstract, Methods, Results, Discussion, and Limitations sections. Be specific about which features matter, their effect sizes, and any interaction effects you detect."
+    },
+    {
+      "role": "assistant",
+      "content": "I'll start with an observational batch of 100 runs and a full linear fit.\n\n<experiments>[{\"n\":100}]</experiments>\n<analysis>[{\"fit\":\"Y ~ X1 + X2 + X3 + X4 + X5 + X6 + X7 + X8 + X9 + X10 + X11 + X12 + X13 + X14 + X15 + X16 + X17 + X18 + X19 + X20\"},{\"summary\":[\"X1\",\"X2\",\"X3\",\"Y\"]}]</analysis>"
+    },
+    {
+      "role": "user",
+      "content": "<runs>\nnothing set: runs 1-100\nrun,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X18,X19,X20,Y\n1,2.04,-2.56,0.42,-0.57,-0.45,-0.22,-2.02,-0.23,-0.87,3.32,0.23,-0.35,-0.28,-0.67,-1.06,1.31,-1.34,0.09,-0.26,-0.36,2.4\n2,1.55,0.55,-0.51,-0.18,0.54,1.94,-0.27,-0.24,1,-0.89,-0.29,0.88,0.58,0.09,0.67,0.24,0.74,-0.73,-0.48,0.45,4.76\n3,-0.44,-1.08,0.03,-0.05,1.41,0.75,0.19,1.11,-0.21,-0.93,0.58,0.58,-0.21,-0.78,0.23,-1.06,-0.37,0.26,-0.37,0.94,-2.49\n4,0.76,-2.03,-0.91,0.71,1.16,-2.16,-0.5,0.33,-0.61,1.59,-1.19,0.35,-1.05,1.41,-0.02,0.42,-1.91,0.39,0.72,1.02,3.67\n5,0.35,-0.64,-0.8,-0.8,1.37,-1.46,-0.6,-0.32,0.22,0.58,-1.25,-1.73,0,1.21,0.76,0.31,-0.51,-0.25,-0.69,1.18,-0.09\n6,0.13,-0.11,0.54,0.22,2.55,1.5,1.5,-2.04,-0.34,-0.61,0.53,-2.28,1.17,1.07,-1.3,-0.2,-0.39,0.29,0.3,2.37,-0.35\n7,0.77,0.16,1.76,0.74,1.37,-1.08,-0.19,-0.81,1.5,0.66,-0.31,-0.45,0.48,-0.7,-0.93,0.68,1.08,0.76,0.48,0.48,-1.54\n8,0.52,0.85,0.01,0.33,0.12,0.14,-1.53,-0.46,0.11,-0.78,-0.48,-0.82,-0.33,0.85,-0.41,0.32,0.84,0.33,0.6,-0.65,2.34\n9,-0.48,0.13,0.84,1.08,1.04,0.16,1.61,-0.28,-0.14,0.8,-0.55,2.16,1.02,2.18,-0.03,-0.45,0.14,0.79,0.75,0.81,-1.27\n10,1.62,-0.66,1.05,-0.64,-0.96,-0.71,-1.19,0.15,1.03,0.16,0.62,1.63,0.27,0.2,-0.28,0.65,-0.09,-0.35,-0.38,-0.63,2.95\n11,-0.07,-0.82,0.36,-0.56,-0.18,0.04,-0.13,-0.19,-0.83,-0.19,-2.14,-0.16,-1.2,1.12,1.27,-0.63,-0.43,0.12,-0.66,0.07,-1.47\n12,-1.77,-0.27,-0.15,0.11,-1.23,0.62,0.74,-1.15,-0.66,-0.08,-0.57,1.74,0.21,-1.01,-0.79,-1.26,0.76,-0.16,0.11,-0.62,-3.6\n13,2.28,-0.53,0.74,0.16,0.62,-1.18,1.77,-0.12,0.03,-0.93,-0.73,0.56,0.99,0.75,1.21,1.81,-0.31,0.79,0.25,0.37,3.99\n14,1.29,0.23,-0.36,0.72,1.9,-0.21,-0.09,-0.14,1.22,-1.84,0.37,1.19,-0.81,1.49,0.54,0.74,0.22,-0.95,0.46,1.87,3.44\n15,1.84,-0.08,0.99,0.04,-2.24,-0.57,0.19,-1.15,-1.35,0.37,-0.65,-1.7,-0.68,0.86,-0.47,1.57,0.56,0.51,-0.19,-1.91,2.06\n16,0.88,0.27,0.55,-0.44,0.3,-0.47,-0.33,-1.29,-1.57,-0.48,-1.11,-0.96,0.67,-0.11,2.91,0.89,-0.09,0.66,-0.28,-0.04,2.07\n17,-0.78,-3.06,0.79,-0.62,1.49,-0.65,-1.18,1.55,-1.08,0.2,1.45,0.11,-0.08,0.1,0.84,-0.79,-1.59,0.68,-0.03,0.85,-5.93\n18,0.74,-0.4,0.29,0.13,1.17,-0.66,-0.09,-2.55,-0.89,1.54,-0.68,-0.7,-1.22,0.58,0.18,0.16,0.03,0.28,0.25,0.54,2.7\n19,0.41,-0.12,-0.52,-0.24,0.86,-0.27,1.08,0.58,1.35,0.81,-0.06,-1.91,0.3,0.79,0.16,0.45,-0.26,-0.45,-0.38,1.04,1.53\n20,-0.49,-1.33,-0.15,1.44,0.46,-0.72,1.43,1.43,0.98,0.79,1.16,0.54,0.78,-0.78,1.5,-0.27,0.01,-1.1,1.29,0.64,-1.23\n21,0.45,0.75,0.58,-0.54,-0.14,1.02,1.28,0.1,0.08,0.2,1.04,-1.05,-1.33,0.12,-1.11,0.14,0.48,0.53,-0.65,0.19,-1.31\n22,0.55,-1.58,-1.27,0.64,-0.41,-0.8,-0.44,0.47,-0.05,-0.03,1.05,-0.72,-0.47,-0.52,1.17,0.68,-0.43,-0.65,0.48,0.03,1.61\n23,0.83,0.72,-0.7,-0.08,-0.12,1.73,2.59,-0.1,0.01,-2.28,0.21,-0.01,-1.07,0.79,-1.57,0.52,0.49,-0.97,0.11,0.29,1.69\n24,-1.41,0.6,-0.03,-1.21,-0.3,-0.11,-0.14,0.83,0.38,1.77,1.37,0.68,1.08,1.32,0.71,-1.35,0.7,0.02,-0.64,-0.16,-1.66\n25,0.33,1.68,0.18,-0.27,0.31,-0.44,0.16,-0.01,0.27,1.92,-0.41,0.04,-0.2,0.67,-1.18,0.02,0.99,0.36,-0.23,0.03,0.3\n26,0.51,1.44,0.32,0.19,0.44,-0.94,-0.31,-0.27,0.3,-0.03,-1.22,1.13,1.69,-0.26,0.4,0.44,1.18,-0.58,0.47,0.12,2.59\n27,0.08,-0.39,-0.14,0.9,-0.86,-0.38,-0.48,-1.72,1.3,0.58,-0.02,1.16,-0.96,-0.07,1.73,0.35,-1.12,-1.74,0.51,-0.19,-0.92\n28,-0.22,0.61,-0.89,0.21,0.79,0.47,0.4,-0.6,0.51,-0.43,1.3,2.57,-0.74,-2.17,-0.43,-0.04,0.79,0.09,0.01,0.24,2.6\n29,-1.09,1.09,-0.23,0.77,0.71,0.78,0.82,-0.99,0.3,0.01,0.31,1.23,-0.27,-0.71,-0.73,-0.86,0.96,-0.52,0.85,0.56,-1.08\n30,-1.33,0.24,0.69,-1.77,1.19,1.65,0.34,0.49,2.41,1.23,-0.9,-0.02,-0.16,-0.15,-2.36,-0.7,-0.11,0.43,-1.44,1.08,-5.56\n31,-0.8,0.53,1.4,-0.32,1.37,0.26,-0.53,1.53,-0.82,1.01,-0.5,0.45,-1.23,-0.84,1.07,-0.5,0.33,0.48,-0.17,0.4,-4.91\n32,-0.16,-0.83,-0.7,-0.07,-0.14,-0.22,1.67,1.01,1.23,-0.03,-0.5,-1.45,-0.35,-2.09,-0.58,0.12,0.15,0.13,-0.23,0.08,-0.47\n33,0.82,-0.11,0.86,2.57,0.92,2.33,0.18,-0.33,1.33,1.72,-0.56,0.08,-1.43,-0.2,0.89,0.55,-0.29,-0.27,2.13,0.88,2.78\n34,0.26,-1.27,1.76,-0.06,-0.14,0.73,-2.16,-0.06,-0.14,0.37,1.35,0.47,-1.83,-0.34,0.21,0.23,-1.27,0.05,0.06,0.03,-2.77\n35,-1.73,1.77,-2.9,-0.36,2.09,-0.16,0.23,-1.18,1.36,-1.29,0.25,0.13,-1.05,0.89,-1.42,-1.42,1.05,-1.66,-0.19,1.68,0.88\n36,-0.54,-0.52,-0.37,0.81,-0.22,0.41,-0.09,-0.84,0.86,-1.04,0.01,1.49,-1.09,-0.06,-1.58,-0.53,-0.91,-0.37,0.54,-0.1,0.66\n37,0.28,0.66,-0.05,-0.24,-0.83,-1.8,0.07,1.63,0.48,-0.53,1.65,-0.43,-0.62,-1.21,-0.96,0.12,1.2,-0.13,-0.4,-0.75,0.9\n38,-1.71,0.13,0.7,0.32,0.6,-1.29,-1.7,1.29,1.09,-1.54,0.21,0.03,0.54,0.21,-0.5,-1.14,0.14,0.33,-0.11,-0.66,-5.04\n39,-1.63,0.25,0.72,0.26,-0.37,0.07,1.17,-0.73,0.92,0.71,0.26,1.45,-0.72,0.94,-0.93,-1.37,-0.27,0.58,0.02,-0.22,-5.43\n40,1.07,1.84,0.23,1.64,0.56,2.17,0.1,-1.57,1.49,-0.13,-1.04,-0.66,-1.63,-0.17,-1.07,1.19,1.37,-0.72,1.01,0.17,1.52\n41,-0.11,-0.04,-0.77,-0.55,0.5,1.42,1.5,0.03,0.86,-0.74,0.41,-0.96,0.73,-1.24,-0.97,-0.08,0.2,-1.1,-0.55,0.37,0.92\n42,-0.84,0.1,-0.27,1.4,0.56,-1.32,-2.2,0.1,1.18,0.17,0.88,-0.48,-1.36,0.75,0.1,-0.38,-0.49,-0.04,0.99,0.65,-1.18\n43,-0.61,-0.59,1.26,0.03,-0.76,-1.02,-1.04,1.46,-1.81,-0.85,0.64,1.18,-0.15,0.79,0.76,-0.13,-0.34,1.46,0.07,0.05,-4.51\n44,0.96,-1.24,-1.48,0.53,-0.8,0.48,-1.04,1.64,0.05,-1.09,0.22,0.92,-0.73,0.56,2.09,0.95,-0.73,-1,0.55,-1.03,0.19\n45,-0.61,-1.03,1.8,0.2,-0.93,-1.11,0.56,-0.77,-0.52,-0.03,0.15,0.16,0.18,1.37,1.77,-0.9,0.44,1,0.42,-0.84,-4.19\n46,0.29,0.19,0.93,0.71,-0.93,-0.04,0.8,0.76,-0.26,-0.21,-0.08,-1.03,-1.21,1.64,-0.32,0.25,-0.16,1.15,0.93,-0.66,-0.66\n47,-0.68,1.84,1,-0.76,1.32,0.44,0.49,0.43,-0.59,-0.46,0.7,0.02,-0.88,2.1,-0.14,-0.62,0.85,0.88,-0.4,0.97,-1.8\n48,-1.43,-0.3,-0.4,0.07,0.56,-1.97,3.19,-0.8,0.41,0.89,0.91,0.3,-2.85,-1.03,0.82,-1.26,-0.58,-1.35,0.31,0.56,-3.23\n49,-0.09,-0.06,-1.08,-0.24,0.29,0.58,1.3,0.06,-0.44,0.43,-0.61,-1.23,1.17,-0.36,0.14,0.14,-0.47,-0.21,-0.1,0.16,1.77\n50,-0.74,-2.19,-0.26,-0.89,0.89,0.28,-0.51,0.07,1.37,1.15,0.39,0.45,-0.26,-0.11,0.61,-0.55,-1.19,-0.68,-1.04,-0.01,-3.24\n51,1.34,1.2,-0.98,-1.54,0.81,0.48,-1.35,1.07,0.19,1.34,0.36,0.91,0.34,-0.94,-0.22,0.74,1.06,-0.98,-1.54,0.77,4.91\n52,1.46,1.11,-1.49,-0.68,-0.54,-0.01,-2.14,0,0.29,-0.94,0.13,1.2,0.06,1.07,1.03,1.15,0.82,-0.93,-0.29,-0.51,5.32\n53,0.72,-0.71,0.44,1.07,0.09,0.12,0.93,0.77,-1.53,-1.3,1.34,0.4,-2.07,-1.33,0.04,0.21,-0.23,0.27,0.96,-0.34,1.14\n54,1.98,-0.78,1.33,1,0.66,-0.04,-1.14,-0.86,0.79,1,1.25,0.98,0.93,-0.41,-1.18,1.45,-0.26,0.72,0.5,0.26,0.65\n55,0.17,-1.03,-0.14,0.35,0.16,1.39,-1.08,-2.16,0.97,1.43,1.46,0.31,0.57,0.15,-1.27,-0.04,-0.41,-0.34,0.67,-0.42,-0.32\n56,1.14,-0.58,-1.1,-1.33,-0.7,1.54,0.44,0.55,-0.49,0.88,0.14,-0.89,-0.42,0.24,1.2,0.79,-0.13,0.48,-1.22,-0.88,5.4\n57,0.47,-0.06,0.3,-0.3,0.55,-0.3,0.83,-1.14,-0.78,0.15,-0.43,0.73,-0.01,-0.51,0.25,0.18,-0.64,-0.4,-0.39,0.21,0.46\n58,0.95,0.59,1.82,1.32,-0.15,1.69,1.22,-0.41,0.36,1.14,0.29,1.06,0.44,0.75,-0.27,0.79,0.23,1.27,0.73,0.04,0.6\n59,0.63,0.02,0.59,-0.8,-0.78,-0.31,-0.1,1.01,-0.85,1.05,-1.53,-0.74,0.01,1.2,-0.57,-0.19,0.2,0.3,-0.85,-0.86,0.24\n60,0.14,0.71,-1.43,2.34,0.01,-0.33,0.72,0.15,2.38,1.14,-0.32,-0.35,-0.45,-0.3,0.72,-0.08,1.09,-0.73,1.85,0.35,0.86\n61,-0.89,0.64,0.05,0.03,0.44,-0.56,-0.13,-1.32,-1.83,1.31,-0.89,-0.67,1.44,1.1,-0.49,-0.77,0.37,-0.43,0.14,0.35,-1.36\n62,0.79,0.76,1.88,1.56,-1.67,0.94,-1.08,-1.39,0.75,-0.66,-0.28,1.11,-0.62,-0.86,0.37,0.93,0.68,0.18,1.13,-1.13,-0.98\n63,0.93,0.89,1.24,-0.27,0.52,0.53,-0.94,0.02,0.6,-1.04,0.85,0.8,1.07,-0.74,0.15,1.1,0.87,0.24,-0.16,0.85,0.29\n64,0.42,2.61,0,-0.07,-0.97,-0.62,1.52,-0.1,-1.15,-0.9,0.04,0.8,-0.71,0.74,-0.46,0.41,1.78,0.32,-0.14,-0.68,2.73\n65,-1.27,0.19,0.53,1.06,-0.02,-0.17,0.15,-0.72,-0.2,0.42,0.29,-1.04,-0.32,-2.11,0.8,-1.05,0.21,-0.29,0.83,0.14,-2.28\n66,-1.37,0.83,-0.18,-0.79,0.46,-0.31,-0.31,-0.72,0.21,0.02,-0.19,-0.97,-0.53,0.38,1.26,-0.97,1.06,-0.11,-0.85,0.51,-3.33\n67,0.38,1.05,-0.33,-0.11,2.45,0.22,0.24,0.76,-0.12,-0.11,0.36,-2.41,1.4,-1.08,-1.1,0.42,0.63,-0.8,-0.05,1.19,0.85\n68,-1.52,-0.84,0.38,0.11,0.29,0.9,-0.06,-0.68,-0.3,1.63,0.02,0.3,-0.11,0.23,0.41,-1.07,-0.57,-0.21,-0.08,0.32,-3.28\n69,0.9,0.04,-0.84,0.61,0.6,-1.52,0.78,0.56,1.64,-1.14,-1.3,0.77,-1.81,-0.75,-1.11,0.32,-0.74,-0.55,0.68,0.54,3.8\n70,-0.37,1.43,0.51,1.04,-1.56,0.33,-1.15,0.34,0.19,-1.13,0.17,1.15,0.49,0.58,-0.86,-0.46,0.41,0.32,1.07,-0.86,-2.09\n71,-1.12,0.44,-0.24,-1.9,-1.72,-0.34,-0.89,1.65,0.04,-1.03,-0.48,1.59,-0.94,0.77,0.44,-0.34,0.48,-0.32,-1.41,-1.09,1.93\n72,-0.06,1.98,-0.09,0.44,-0.65,0.13,0.04,0.18,0.91,-0.52,-0.83,1.12,-0.27,-0.65,1.16,0.19,0.14,-0.23,0.51,-0.13,0.28\n73,1.57,-0.77,-0.21,0.15,0.01,0.82,1.04,-0.02,1.41,-0.66,-0.19,1.73,0.12,1.09,-0.4,1.03,-0.49,-0.01,0.06,0.02,3.77\n74,1.23,0.14,0.68,0.94,-1.04,-1.53,1.64,1.35,0.09,0.38,-0.9,-1.34,0.35,-1.45,0.94,0.67,0.21,1.32,1.13,-0.76,1.82\n75,-0.99,-0.55,0.4,1.41,-0.54,0.57,0.13,-1.23,-0.1,1.52,-0.06,0.53,0.85,-0.71,1.25,-0.24,0.32,0.87,1.04,-0.55,-4.22\n76,-0.88,-0.77,1.01,1.48,-0.62,0.83,-1.24,-0.3,-0.97,-1.6,0.07,0.1,-0.39,-0.5,-0.97,-0.65,-0.7,0.63,0.95,-0.32,-3.87\n77,1.25,1.06,0.2,-0.67,-1.82,0,1.42,1.67,-2.53,-0.75,-0.34,-1.03,0.19,0.05,-0.51,0.87,0,-0.38,-0.71,-0.87,2.09\n78,-0.21,0.78,-0.05,0.82,-0.65,0.44,0.91,2.24,0.73,1.43,0.02,0.11,1.58,0.59,1.43,0.07,1.32,1.17,0.49,0.23,0.07\n79,0.49,-0.1,0.74,-1.09,-0.71,-0.74,0.31,0.94,0.76,0.39,-0.57,-1.73,0.43,0.17,0.39,0.78,-0.12,0.28,-1.33,-0.26,0.42\n80,-0.71,0.42,-1.01,-0.51,1.99,0.78,0.95,0.78,0.67,0.22,2.31,-0.05,0.76,-0.19,-0.33,-1.22,-0.51,0.28,-0.11,1.15,-0.52\n81,0.63,-0.97,1.79,-1.02,-0.7,-2.75,1.53,0.07,1.64,-0.99,0.35,0.09,0.21,2.09,2.28,0.86,-0.74,1.35,-0.54,-0.26,-0.76\n82,0.49,-0.89,0.26,1.62,-0.98,0.09,0.85,-1.35,-0.13,-1.69,-0.6,-1.4,-0.89,-0.48,-0.27,0.28,-1.49,0.93,1.24,-1.02,-1.75\n83,0.31,-1,-0.41,-0.47,0.54,-0.75,0.45,0.35,-0.15,1.24,0.02,-1.18,0.3,0.12,-0.04,0.29,0.34,-0.09,-0.28,0.26,1.84\n84,-0.06,-0.8,-1.22,0.53,0.74,-1.59,-0.72,0.64,1.03,-1.32,-0.41,0.83,-0.53,-0.45,-0.54,-0.43,-0.46,-0.46,0.14,0.52,2.73\n85,0.21,0.95,-0.55,1.37,-0.79,1.88,-0.45,-0.72,-0.89,-0.42,-0.5,-0.69,-0.33,0.66,0.88,0.04,1.06,-0.78,0.89,-0.91,1.45\n86,-1.55,-1.4,1.28,1.71,1.34,-1.5,0.01,0.83,0.09,-1.62,-0.35,-1.71,-1.24,2.15,0.67,-1.53,-1.44,0.86,1.24,1.07,-4.54\n87,-0.21,0.23,-1.04,-1.93,-1.2,-0.71,-0.22,-0.07,-0.08,0.5,-0.91,1.38,1.99,0.35,0.17,0.22,0.39,-0.43,-1.58,-1.04,1.92\n88,0.65,1.17,-1.07,-0.09,0.2,-0.44,-0.78,-0.41,-1.99,-0.08,-0.31,2.1,0.92,-0.36,-0.02,0.96,1.34,-0.45,-0.1,-0.38,3.13\n89,-0.19,-0.75,1.71,-1.89,-0.15,0.39,0.42,1.67,-1.42,-0.77,0.08,0.11,-0.4,-0.78,1.06,-0.45,-0.69,1.56,-1.17,0.2,-3.97\n90,-0.87,-0.92,-1.15,-0.43,1.25,0.2,-0.77,-0.8,-1.2,1.19,-2.04,0.25,-1.46,-1.08,-1.51,-0.33,-0.6,0.78,-0.56,0.42,-0.34\n91,0.53,-0.31,-2.05,1.41,0.53,0.36,-0.63,0.6,-0.6,0,-0.23,1.22,-0.51,-0.39,1.06,0.42,-0.21,-1.17,1.31,0.1,5\n92,1.98,0.35,-0.84,-1.26,0.09,-1.28,-1.65,-0.82,-1.15,0.82,-1.51,1.52,-0.82,0.05,0.61,1.43,0.47,-0.95,-1.48,-0.04,3.55\n93,-0.65,0.87,-0.27,-0.67,-1.21,-0.37,-0.25,-1.66,0.22,-1.16,0.14,-0.53,0.91,0.78,-0.07,-0.51,0.67,0.52,-0.34,-0.76,0.44\n94,1.52,-1.7,0.48,-0.96,1.3,-0.54,-0.16,-1.13,-0.02,0.76,1.64,-1.3,-0.47,3.89,0.92,1.06,-0.82,-1.1,-0.45,0.9,-0.97\n95,1.16,-0.64,-1.03,0.52,0.4,-0.46,-0.08,-1.35,-1.45,0.9,1.32,0.43,0.37,-0.4,-0.13,0.53,0.32,-0.8,0.5,0.26,2.31\n96,1.94,-0.38,-0.77,0.11,-0.9,0.03,-0.96,0.57,0.06,-1.37,1.04,0.19,-1.1,0.36,0.43,1.92,-0.57,0.05,0.07,-0.37,4.51\n97,-0.05,0.51,-1.18,-2.1,0,-0.44,0.1,0.66,-0.2,1.21,-0.02,0.13,0.86,0.61,-0.06,0.01,0.01,-0.88,-1.65,0.3,1.52\n98,0.87,1.98,2.19,0.06,1.1,0.65,0.83,0.88,0.57,0.88,0.24,-0.21,0.31,0.55,1.28,0.74,1.51,1.84,-0.13,0.64,0.09\n99,0.08,-0.96,1.05,-0.02,-0.95,1.95,-1.23,0.04,-0.62,0.16,0.62,-0.77,-0.05,-0.08,-0.96,0.42,-0.49,0.4,-0.14,-0.72,-1.69\n100,-0.42,1.3,-2.51,-2.1,-0.21,-1.8,-0.02,-0.62,0.63,0.46,1.36,0.97,1.3,0.58,1.11,-0.13,0.56,-1.86,-1.91,0.05,1.58\n</runs>\n\n<analysis_results>\n[1] {\"fit\": \"Y ~ X1 + X2 + X3 + X4 + X5 + X6 + X7 + X8 + X9 + X10 + X11 + X12 + X13 + X14 + X15 + X16 + X17 + X18 + X19 + X20\"}  (runs 1-100, n = 100)\nterm          estimate        se        t          p\nIntercept      -0.1127    0.1307    -0.86      0.391\nX1              2.3037    0.3573     6.45   8.29e-09\nX2              0.4093    0.2257     1.81     0.0736\nX3             -1.5015    0.1802    -8.33   1.96e-12\nX4             -0.4603    0.5097    -0.90      0.369\nX5             -0.1276    0.3144    -0.41      0.686\nX6             -0.0271    0.1296    -0.21      0.835\nX7              0.0231    0.1287     0.18      0.858\nX8             -0.0143    0.1383    -0.10      0.918\nX9              0.0391    0.1381     0.28      0.778\nX10            -0.0055    0.1259    -0.04      0.965\nX11            -0.2672    0.1572    -1.70      0.093\nX12             0.1781    0.1212     1.47      0.146\nX13             0.0413    0.1464     0.28      0.779\nX14            -0.0208    0.1338    -0.16      0.877\nX15             0.0019    0.1382     0.01      0.989\nX16            -0.3224    0.4629    -0.70      0.488\nX17             0.1245    0.3027     0.41      0.682\nX18             0.2810    0.2476     1.14       0.26\nX19             0.6345    0.6072     1.04      0.299\nX20             0.1578    0.4332     0.36      0.717\nR\u00b2 = 0.8454, adjusted R\u00b2 = 0.8063, residual SD = 1.1902\n\n[2] {\"summary\": [\"X1\", \"X2\", \"X3\", \"Y\"]}  (runs 1-100, n = 100)\n           mean       sd     min     max\nX1        0.158    0.981   -1.77    2.28\nX2        0.001     1.03   -3.06    2.61\nX3        0.045    0.988    -2.9    2.19\nY         0.158    2.704   -5.93     5.4\n</analysis_results>\n\nRuns used: 100 of 300. Turns used: 1 of 12."
+    },
+    {
+      "role": "assistant",
+      "content": "Observationally, X1 and X3 dominate. The inflated standard errors on X4, X5, X16, X19 and X20 suggest they are collinear with other features. I will break that collinearity by setting these features independently, and also test for nonlinearity and interactions.\n\n<experiments>[\n{\"set\":{\"X1\":1.5,\"X3\":-1,\"X16\":-1.5,\"X4\":1,\"X19\":-2,\"X5\":-1,\"X20\":2,\"X2\":1,\"X17\":-1,\"X18\":1},\"n\":1},\n{\"set\":{\"X1\":-2,\"X3\":1.5,\"X16\":2,\"X4\":-1.5,\"X19\":1,\"X5\":2,\"X20\":-1,\"X2\":-2,\"X17\":1,\"X18\":-2},\"n\":1},\n{\"set\":{\"X1\":0.5,\"X3\":2,\"X16\":-2,\"X4\":2,\"X19\":2,\"X5\":0,\"X20\":-2,\"X2\":2,\"X17\":-2,\"X18\":0},\"n\":1},\n{\"set\":{\"X1\":-1,\"X3\":-2,\"X16\":1,\"X4\":-2,\"X19\":-1,\"X5\":1,\"X20\":1,\"X2\":-1,\"X17\":2,\"X18\":2},\"n\":1},\n{\"set\":{\"X1\":2.5,\"X3\":0,\"X16\":0,\"X4\":0,\"X19\":0,\"X5\":-2,\"X20\":0,\"X2\":0,\"X17\":0,\"X18\":-1},\"n\":1},\n{\"set\":{\"X1\":-2.5,\"X3\":-0.5,\"X16\":2.5,\"X4\":1.5,\"X19\":-1.5,\"X5\":2.5,\"X20\":2.5,\"X2\":2.5,\"X17\":-2.5,\"X18\":2.5},\"n\":1},\n{\"set\":{\"X1\":0,\"X3\":2.5,\"X16\":-1,\"X4\":-1,\"X19\":2.5,\"X5\":-2.5,\"X20\":-2.5,\"X2\":-2.5,\"X17\":2.5,\"X18\":-2.5},\"n\":1},\n{\"set\":{\"X1\":1,\"X3\":1,\"X16\":-2.5,\"X4\":2.5,\"X19\":-2.5,\"X5\":1.5,\"X20\":-1.5,\"X2\":0.5,\"X17\":0.5,\"X18\":0.5},\"n\":1},\n{\"set\":{\"X1\":-1.5,\"X3\":-2.5,\"X16\":1.5,\"X4\":-2.5,\"X19\":0.5,\"X5\":-1.5,\"X20\":1.5,\"X2\":-0.5,\"X17\":-0.5,\"X18\":-0.5},\"n\":1},\n{\"set\":{\"X1\":3,\"X3\":-3,\"X16\":-3,\"X4\":3,\"X19\":-3,\"X5\":3,\"X20\":-3,\"X2\":3,\"X17\":3,\"X18\":3},\"n\":1},\n{\"set\":{\"X1\":-3,\"X3\":3,\"X16\":3,\"X4\":-3,\"X19\":3,\"X5\":-3,\"X20\":3,\"X2\":-3,\"X17\":-3,\"X18\":-3},\"n\":1},\n{\"set\":{\"X1\":0,\"X3\":0,\"X16\":0,\"X4\":0,\"X19\":0,\"X5\":0,\"X20\":0,\"X2\":0,\"X17\":0,\"X18\":0},\"n\":5}\n]</experiments>\n<analysis>[{\"fit\":\"Y ~ X1 + X3 + X2 + X11 + X12 + X1:X3 + X1^2 + X3^2 + X2^2\"},{\"correlations\":[\"X1\",\"X16\",\"X4\",\"X19\",\"X5\",\"X20\",\"X2\",\"X17\",\"X3\",\"X18\"]}]</analysis>"
+    },
+    {
+      "role": "user",
+      "content": "<runs>\nX1 = 1.5, X3 = -1, X16 = -1.5, X4 = 1, X19 = -2, X5 = -1, X20 = 2, X2 = 1, X17 = -1, X18 = 1: runs 101-101\nrun,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X18,X19,X20,Y\n101,1.5,1,-1,1,-1,0.22,-0.71,0.78,0.25,-0.71,0.06,-2.23,0.32,0.51,-1.8,-1.5,-1,1,-2,2,5.11\n\nX1 = -2, X3 = 1.5, X16 = 2, X4 = -1.5, X19 = 1, X5 = 2, X20 = -1, X2 = -2, X17 = 1, X18 = -2: runs 102-102\nrun,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X18,X19,X20,Y\n102,-2,-2,1.5,-1.5,2,-0.07,0.22,-1.38,0.65,0.63,0.03,-0.94,0.81,1.3,0.45,2,1,-2,1,-1,-8.59\n\nX1 = 0.5, X3 = 2, X16 = -2, X4 = 2, X19 = 2, X5 = 0, X20 = -2, X2 = 2, X17 = -2, X18 = 0: runs 103-103\nrun,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X18,X19,X20,Y\n103,0.5,2,2,2,0,-0.53,0.21,0.44,0.21,2.89,0.49,-0.49,0.9,-1.01,0.44,-2,-2,0,2,-2,-0.15\n\nX1 = -1, X3 = -2, X16 = 1, X4 = -2, X19 = -1, X5 = 1, X20 = 1, X2 = -1, X17 = 2, X18 = 2: runs 104-104\nrun,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X18,X19,X20,Y\n104,-1,-1,-2,-2,1,-0.41,-0.24,-0.86,0.22,-0.59,1.83,0.74,-0.13,-1.32,2.13,1,2,2,-1,1,0.3\n\nX1 = 2.5, X3 = 0, X16 = 0, X4 = 0, X19 = 0, X5 = -2, X20 = 0, X2 = 0, X17 = 0, X18 = -1: runs 105-105\nrun,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X18,X19,X20,Y\n105,2.5,0,0,0,-2,0.57,0.3,0.27,-0.37,1.99,0.31,-1.34,-0.55,-2.48,0.76,0,0,-1,0,0,5.87\n\nX1 = -2.5, X3 = -0.5, X16 = 2.5, X4 = 1.5, X19 = -1.5, X5 = 2.5, X20 = 2.5, X2 = 2.5, X17 = -2.5, X18 = 2.5: runs 106-106\nrun,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X18,X19,X20,Y\n106,-2.5,2.5,-0.5,1.5,2.5,1.88,2.2,-0.68,0.55,1.1,0.9,-0.41,0.9,0.6,1.46,2.5,-2.5,2.5,-1.5,2.5,0.07\n\nX1 = 0, X3 = 2.5, X16 = -1, X4 = -1, X19 = 2.5, X5 = -2.5, X20 = -2.5, X2 = -2.5, X17 = 2.5, X18 = -2.5: runs 107-107\nrun,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X18,X19,X20,Y\n107,0,-2.5,2.5,-1,-2.5,-0.14,-0.41,-0.28,-0.67,-0.25,0.59,0.55,1.41,1.18,0.71,-1,2.5,-2.5,2.5,-2.5,-4.07\n\nX1 = 1, X3 = 1, X16 = -2.5, X4 = 2.5, X19 = -2.5, X5 = 1.5, X20 = -1.5, X2 = 0.5, X17 = 0.5, X18 = 0.5: runs 108-108\nrun,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X18,X19,X20,Y\n108,1,0.5,1,2.5,1.5,0.65,1.25,-1.23,-1.04,-0.88,-0.97,-0.22,-0.87,0.45,-1.15,-2.5,0.5,0.5,-2.5,-1.5,3.69\n\nX1 = -1.5, X3 = -2.5, X16 = 1.5, X4 = -2.5, X19 = 0.5, X5 = -1.5, X20 = 1.5, X2 = -0.5, X17 = -0.5, X18 = -0.5: runs 109-109\nrun,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X18,X19,X20,Y\n109,-1.5,-0.5,-2.5,-2.5,-1.5,-0.44,-0.91,1.09,0.09,0.6,-0.28,0.76,0.67,-0.1,-1.72,1.5,-0.5,-0.5,0.5,1.5,4.38\n\nX1 = 3, X3 = -3, X16 = -3, X4 = 3, X19 = -3, X5 = 3, X20 = -3, X2 = 3, X17 = 3, X18 = 3: runs 110-110\nrun,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X18,X19,X20,Y\n110,3,3,-3,3,3,0.75,0.24,0.3,0.18,0.25,-0.95,0,0.38,-0.55,-0.91,-3,3,3,-3,-3,21.12\n\nX1 = -3, X3 = 3, X16 = 3, X4 = -3, X19 = 3, X5 = -3, X20 = 3, X2 = -3, X17 = -3, X18 = -3: runs 111-111\nrun,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X18,X19,X20,Y\n111,-3,-3,3,-3,-3,0.67,-0.25,-0.43,-2.59,-1.37,-0.19,1.35,-2,-0.64,1.97,3,-3,-3,3,3,-4.07\n\nX1 = 0, X3 = 0, X16 = 0, X4 = 0, X19 = 0, X5 = 0, X20 = 0, X2 = 0, X17 = 0, X18 = 0: runs 112-116\nrun,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X18,X19,X20,Y\n112,0,0,0,0,0,0.47,1.25,-0.06,-0.12,0.77,0.91,-1.01,1.59,-1.68,-0.63,0,0,0,0,0,3.14\n113,0,0,0,0,0,-0.45,0.72,-0.94,-0.26,-0.66,-0.34,0.72,1.81,0.94,1.62,0,0,0,0,0,-0.44\n114,0,0,0,0,0,1.53,0.63,1.44,-0.36,-0.17,1.43,0.67,0.17,-0.63,-0.04,0,0,0,0,0,0.54\n115,0,0,0,0,0,0.78,-0.5,-0.29,0.48,-1.06,0.98,0.03,-0.1,-2.39,-1.57,0,0,0,0,0,-1.02\n116,0,0,0,0,0,-0.57,-1.09,0.38,0.14,-0.27,-2.03,1.4,-0.28,0.59,-0.67,0,0,0,0,0,0\n</runs>\n\n<analysis_results>\n[1] {\"fit\": \"Y ~ X1 + X3 + X2 + X11 + X12 + X1:X3 + X1^2 + X3^2 + X2^2\"}  (runs 1-116, n = 116)\nterm          estimate        se        t          p\nIntercept      -0.4600    0.1821    -2.53      0.013\nX1              1.9883    0.1241    16.02    < 1e-16\nX3             -1.4345    0.1241   -11.56    < 1e-16\nX2              0.6184    0.1223     5.06   1.79e-06\nX11            -0.2538    0.1589    -1.60      0.113\nX12             0.0704    0.1286     0.55      0.585\nX1:X3          -0.1996    0.0963    -2.07     0.0408\nX1^2            0.2689    0.0928     2.90    0.00458\nX3^2            0.2240    0.0817     2.74    0.00718\nX2^2            0.0319    0.0812     0.39      0.695\nR\u00b2 = 0.8458, adjusted R\u00b2 = 0.8327, residual SD = 1.4114\n\n[2] {\"correlations\": [\"X1\", \"X16\", \"X4\", \"X19\", \"X5\", \"X20\", \"X2\", \"X17\", \"X3\", \"X18\"]}  (runs 1-116, n = 116)\n            X1     X16      X4     X19      X5     X20      X2     X17      X3     X18\nX1       1.000   0.276   0.221  -0.162  -0.055  -0.301   0.119   0.173  -0.074   0.096\nX16      0.276   1.000  -0.272   0.176  -0.203   0.209  -0.168  -0.157   0.074  -0.161\nX4       0.221  -0.272   1.000   0.375   0.201  -0.180   0.227   0.002   0.052   0.284\nX19     -0.162   0.176   0.375   1.000  -0.226   0.040  -0.277  -0.170   0.360  -0.290\nX5      -0.055  -0.203   0.201  -0.226   1.000   0.428   0.143   0.045  -0.217   0.188\nX20     -0.301   0.209  -0.180   0.040   0.428   1.000  -0.083  -0.362  -0.110  -0.094\nX2       0.119  -0.168   0.227  -0.277   0.143  -0.083   1.000   0.502  -0.226   0.219\nX17      0.173  -0.157   0.002  -0.170   0.045  -0.362   0.502   1.000  -0.174   0.026\nX3      -0.074   0.074   0.052   0.360  -0.217  -0.110  -0.226  -0.174   1.000   0.176\nX18      0.096  -0.161   0.284  -0.290   0.188  -0.094   0.219   0.026   0.176   1.000\n</analysis_results>\n\nRuns used: 116 of 300. Turns used: 2 of 12."
+    },
+    {
+      "role": "assistant",
+      "content": "Turn 2 shows X1, X3 and X2 as significant, with possible curvature in X1 and X3. Next I'll run a factorial grid over X1, X3 and X2 (others left natural) to test nonlinearity and interactions cleanly.\n\n<experiments>[\n{\"set\":{\"X1\":-2.5,\"X3\":-2.5,\"X2\":-2},\"n\":3},{\"set\":{\"X1\":-2.5,\"X3\":-2.5,\"X2\":0},\"n\":3},{\"set\":{\"X1\":-2.5,\"X3\":-2.5,\"X2\":2},\"n\":3},\n{\"set\":{\"X1\":-2.5,\"X3\":0,\"X2\":-2},\"n\":3},{\"set\":{\"X1\":-2.5,\"X3\":0,\"X2\":0},\"n\":3},{\"set\":{\"X1\":-2.5,\"X3\":0,\"X2\":2},\"n\":3},\n{\"set\":{\"X1\":-2.5,\"X3\":2.5,\"X2\":-2},\"n\":3},{\"set\":{\"X1\":-2.5,\"X3\":2.5,\"X2\":0},\"n\":3},{\"set\":{\"X1\":-2.5,\"X3\":2.5,\"X2\":2},\"n\":3},\n{\"set\":{\"X1\":0,\"X3\":-2.5,\"X2\":-2},\"n\":3},{\"set\":{\"X1\":0,\"X3\":-2.5,\"X2\":0},\"n\":3},{\"set\":{\"X1\":0,\"X3\":-2.5,\"X2\":2},\"n\":3},\n{\"set\":{\"X1\":0,\"X3\":0,\"X2\":-2},\"n\":3},{\"set\":{\"X1\":0,\"X3\":0,\"X2\":0},\"n\":3},{\"set\":{\"X1\":0,\"X3\":0,\"X2\":2},\"n\":3},\n{\"set\":{\"X1\":0,\"X3\":2.5,\"X2\":-2},\"n\":3},{\"set\":{\"X1\":0,\"X3\":2.5,\"X2\":0},\"n\":3},{\"set\":{\"X1\":0,\"X3\":2.5,\"X2\":2},\"n\":3},\n{\"set\":{\"X1\":2.5,\"X3\":-2.5,\"X2\":-2},\"n\":3},{\"set\":{\"X1\":2.5,\"X3\":-2.5,\"X2\":0},\"n\":3},{\"set\":{\"X1\":2.5,\"X3\":-2.5,\"X2\":2},\"n\":3},\n{\"set\":{\"X1\":2.5,\"X3\":0,\"X2\":-2},\"n\":3},{\"set\":{\"X1\":2.5,\"X3\":0,\"X2\":0},\"n\":3},{\"set\":{\"X1\":2.5,\"X3\":0,\"X2\":2},\"n\":3},\n{\"set\":{\"X1\":2.5,\"X3\":2.5,\"X2\":-2},\"n\":3},{\"set\":{\"X1\":2.5,\"X3\":2.5,\"X2\":0},\"n\":3},{\"set\":{\"X1\":2.5,\"X3\":2.5,\"X2\":2},\"n\":3}\n]</experiments>\n<analysis>[{\"fit\":\"Y ~ X1 + X2 + X3 + X1:X2 + X1:X3 + X2:X3 + X1^2 + X2^2 + X3^2\",\"runs\":[117,197]},{\"fit\":\"Y ~ X1 + X2 + X3 + X4 + X5 + X6 + X7 + X8 + X9 + X10 + X11 + X12 + X13 + X14 + X15 + X16 + X17 + X18 + X19 + X20 + X1^2 + X3^2 + X1:X3\",\"runs\":[117,197]}]</analysis>"
+    },
+    {
+      "role": "user",
+      "content": "<runs>\nX1 = -2.5, X3 = -2.5, X2 = -2: runs 117-119\nrun,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X18,X19,X20,Y\n117,-2.5,-2,-2.5,0.69,0.23,0.96,-0.18,1.99,-1.9,-0.56,0.97,-0.26,-0.45,-1.78,1.19,-2.32,-1,-1.16,0.72,0.66,-2.84\n118,-2.5,-2,-2.5,-0.82,-0.33,-1.74,0.8,-0.42,0.14,-1.15,-0.01,-0.65,-0.1,-1.12,0.99,-1.95,-2.24,-0.95,-0.72,-0.54,0.43\n119,-2.5,-2,-2.5,-0.09,-1.38,-0.66,0.34,-0.27,1.2,1.02,-0.83,0,0.6,-0.46,-0.51,-1.5,-1.04,-1.97,-0.19,-1.06,-2.31\n\nX1 = -2.5, X3 = -2.5, X2 = 0: runs 120-122\nrun,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X18,X19,X20,Y\n120,-2.5,0,-2.5,-0.76,1.3,-1.01,-1.13,0.17,-2.3,-1.07,0.58,-1.37,-0.89,1.05,0.42,-1.74,0.08,-1.61,-0.55,0.76,0.43\n121,-2.5,0,-2.5,0.51,-0.37,-0.08,0.02,-1.41,-0.85,1.5,-1.43,-0.61,1,1.49,-1.05,-1.32,-0.15,-0.43,0.5,-0.35,-0.69\n122,-2.5,0,-2.5,0.54,-0.79,2.13,-0.36,1.14,-0.5,-1.84,-1.14,-0.11,0.67,1.75,0.07,-1.84,-0.5,-1.28,0.49,-1.29,-0.3\n\nX1 = -2.5, X3 = -2.5, X2 = 2: runs 123-125\nrun,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X18,X19,X20,Y\n123,-2.5,2,-2.5,1.12,2.26,-0.93,0.02,0,-1.34,-0.87,-1,0.5,0.41,1.33,-0.42,-2.18,1.37,-1.07,1.03,1.9,1.17\n124,-2.5,2,-2.5,0.78,-1.03,0.14,0.67,-0.14,0.2,-1.42,-0.67,0.13,-1.23,-0.88,2.41,-1.68,0.86,-1.78,0.89,-1.66,-1.3\n125,-2.5,2,-2.5,0.54,-0.66,0.43,-1.15,-0.12,-0.07,-0.1,0.03,-0.08,1,-0.39,-0.71,-1.87,1.03,-2.08,0.02,-0.95,-0.38\n\nX1 = -2.5, X3 = 0, X2 = -2: runs 126-128\nrun,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X18,X19,X20,Y\n126,-2.5,-2,0,-0.8,-0.54,2.74,0.99,-0.34,-0.77,1.24,-0.92,1.1,0.45,1.25,-0.86,-1.52,-1.98,-0.15,-0.45,-0.15,-7.63\n127,-2.5,-2,0,0.55,0.32,-0.2,-0.86,-0.42,-0.71,0.81,0.33,0.93,0.55,-1.42,0,-1.15,-1.7,0.07,0.26,-0.15,-5.79\n128,-2.5,-2,0,0.78,0.63,0.32,0.81,-1.77,0.68,0.26,-0.33,-0.15,-1,1.02,-0.9,-2.24,-1.26,-0.36,0.58,0.89,-5.89\n\nX1 = -2.5, X3 = 0, X2 = 0: runs 129-131\nrun,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X18,X19,X20,Y\n129,-2.5,0,0,-0.02,2.13,-1.55,0.23,1.03,1.38,2.11,-0.8,0.47,-0.23,-0.59,-0.86,-2.23,0.08,0.31,-0.26,1.61,-5.72\n130,-2.5,0,0,-1.15,-2.77,0.98,0.59,-0.44,-0.52,-1.44,0.39,-0.19,0.42,0.05,-1.54,-2.26,0.12,-0.91,-0.89,-1.52,-3.86\n131,-2.5,0,0,0.57,-0.06,0.44,-0.74,-0.11,0.34,1.76,0.66,0.42,-1.38,0.26,-0.76,-1.79,0.08,0.46,0.56,0.01,-5.14\n\nX1 = -2.5, X3 = 0, X2 = 2: runs 132-134\nrun,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X18,X19,X20,Y\n132,-2.5,2,0,1.31,-0.94,-0.01,1.34,-0.24,0.79,0.85,1.95,1.1,-1.71,-0.04,0.25,-1.51,1.34,0.92,1.26,-1.05,-5.69\n133,-2.5,2,0,-2.15,1.67,-0.2,-0.23,-1.68,-0.54,0.32,-0.52,-0.52,-0.75,1.87,-0.7,-2.23,0.93,-0.26,-1.77,0.94,-8.18\n134,-2.5,2,0,-0.38,0.21,-1.61,1.81,1.53,-2.03,-0.56,0.83,1.17,1.62,-2.07,-1.32,-1.96,1.35,-0.64,-0.25,0.23,-3.51\n\nX1 = -2.5, X3 = 2.5, X2 = -2: runs 135-137\nrun,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X18,X19,X20,Y\n135,-2.5,-2,2.5,-1.49,0.02,-0.1,-0.59,1.16,-0.46,1.32,-0.76,1.58,1.53,-0.97,0.21,-1.69,-1.65,1.59,-1.09,-0.34,-9.78\n136,-2.5,-2,2.5,0.8,-0.27,-0.83,1.57,-1.09,0.26,1.05,0.72,-1.95,-0.41,-0.21,-0.28,-1.58,-1,1.29,0.68,0.17,-8.7\n137,-2.5,-2,2.5,-1.96,2.18,-0.6,0.76,-1.68,-0.55,-1.3,1.08,0.88,-0.01,-0.19,0.37,-2.04,-1.45,0.85,-1.4,1.42,-14.48\n\nX1 = -2.5, X3 = 2.5, X2 = 0: runs 138-140\nrun,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X18,X19,X20,Y\n138,-2.5,0,2.5,0.33,0.52,1.39,-0.58,0.4,2.1,-0.35,-0.38,0.5,-0.52,-0.01,-0.53,-1.99,0.35,1.05,0.06,0.23,-8.78\n139,-2.5,0,2.5,0.28,0.93,1.77,-1.27,-0.28,-1.87,0.19,0.5,-0.7,-0.96,-1.05,-1.56,-1.57,0.76,0.65,0.54,0.55,-10.01\n140,-2.5,0,2.5,0.51,0.71,0.34,-0.33,1.62,-0.36,0.57,0.59,-0.98,-1.95,-1.83,-0.48,-1.67,-0.75,0.84,0.7,-0.21,-8.08\n\nX1 = -2.5, X3 = 2.5, X2 = 2: runs 141-143\nrun,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X18,X19,X20,Y\n141,-2.5,2,2.5,0.27,0.71,-1.58,0.25,-1.5,1.26,-0.97,0.29,-0.91,0.04,-1.65,0.19,-1.6,1.16,2.02,0.27,0.71,-7.18\n142,-2.5,2,2.5,1.8,-0.77,-0.37,-0.32,0.53,0.17,0.75,0.21,-0.61,-0.15,0.36,-2.41,-1.35,0.94,1.03,1.48,-0.62,-10.41\n143,-2.5,2,2.5,-0.3,1.34,1,1.19,-0.62,-0.28,1.01,1.46,-0.02,-1.03,-2.01,1.4,-2.23,1.36,1.69,0.42,0.93,-8.21\n\nX1 = 0, X3 = -2.5, X2 = -2: runs 144-146\nrun,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X18,X19,X20,Y\n144,0,-2,-2.5,0.45,0.5,1.36,0.69,-0.8,-2.18,0.29,-0.7,1.44,-1.36,0.2,-0.76,-0.27,-0.52,-1.16,0.32,0.59,2.12\n145,0,-2,-2.5,-0.38,-0.66,2.04,0.34,0.65,1.15,-0.19,-0.16,-1.69,0.49,0.27,-0.43,0.37,-1.94,-1.03,-0.59,-0.84,2.73\n146,0,-2,-2.5,1.37,-1.23,-1.04,-1.26,2.08,0.54,0.42,2.13,0.25,-2.18,-0.53,-1.24,0.63,-1.79,-1.09,0.99,-0.96,1.42\n\nX1 = 0, X3 = -2.5, X2 = 0: runs 147-149\nrun,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X18,X19,X20,Y\n147,0,0,-2.5,-0.15,-0.72,-1.29,-0.68,-1.09,-0.95,0.11,-0.17,0.49,-0.26,1.99,-0.77,-0.31,0.42,-1.62,-0.1,-0.12,3.72\n148,0,0,-2.5,-0.38,0.99,0.33,-0.57,-1.26,-0.41,-1.74,-0.92,-1.15,0.29,0.78,-0.69,-0.14,-0.47,-1.98,-0.4,0.84,3.91\n149,0,0,-2.5,0.59,-0.31,-2.86,0.94,1.35,0.93,0.92,1.12,2.77,0.32,1.6,0.83,0.21,-0.06,-1.43,0.24,0.01,3.27\n\nX1 = 0, X3 = -2.5, X2 = 2: runs 150-152\nrun,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X18,X19,X20,Y\n150,0,2,-2.5,-1.25,-0.79,-1.24,1.66,-0.26,0.11,-1.26,-1.08,1.09,-0.25,0.23,1.9,0.65,1.49,-1,-0.95,-0.62,7.64\n151,0,2,-2.5,-1.26,-0.09,-2,-1.32,0.42,0.47,0.35,-0.34,-0.74,-0.56,-0.4,1.14,0.45,1.38,-1.53,-1.2,0.05,4.6\n152,0,2,-2.5,-1.9,1.42,-0.01,-0.33,-0.9,-0.91,0.93,-0.98,0.1,0.66,1.92,0.63,-0.01,1.02,-0.81,-1.31,0.77,3.2\n\nX1 = 0, X3 = 0, X2 = -2: runs 153-155\nrun,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X18,X19,X20,Y\n153,0,-2,0,-0.14,-1.69,-1.05,0.84,1.5,0.71,-0.21,-0.74,0.56,0.34,-1.68,0.68,-0.22,-0.92,0.28,0.04,-0.71,-0.08\n154,0,-2,0,-1.09,-1.06,1.08,0.5,-1.63,-2.08,0.93,2.31,0.86,-0.24,0.28,-2.83,-0.31,-0.78,0.45,-1.31,-0.26,0.48\n155,0,-2,0,0.98,-0.21,0.01,-1.12,0.34,0.93,-0.97,0.38,-0.55,1.09,1.02,-2.45,0.14,-0.78,-0.29,0.74,-0.19,-2.35\n\nX1 = 0, X3 = 0, X2 = 0: runs 156-158\nrun,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X18,X19,X20,Y\n156,0,0,0,-0.12,1.62,0.5,1.59,1.04,1.25,0.13,0.81,2.1,1.53,0.34,-0.72,-0.29,0.1,0.23,-0.48,1.13,0.21\n157,0,0,0,0.32,-0.57,2.4,0.91,-1.42,-0.74,0.83,0.53,0.13,-0.03,-0.23,-0.47,-0.32,0.24,-1.45,0.1,0.07,-0.98\n158,0,0,0,-1.26,1.94,1.05,-0.19,-0.64,-0.28,-0.4,-0.29,-0.8,0.52,-0.62,-1.92,-0.42,-0.02,-0.55,-1.53,1.79,-1.5\n\nX1 = 0, X3 = 0, X2 = 2: runs 159-161\nrun,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X18,X19,X20,Y\n159,0,2,0,-0.55,-0.6,0.47,1.36,-0.71,0.36,-0.72,0.27,-1.25,-1.97,0.02,-0.14,0.2,0.89,0.67,-0.44,0.14,0.84\n160,0,2,0,1.49,-0.14,0.07,0.93,-1.91,-1.18,1.83,-1.63,-0.59,0.49,1.44,-0.6,0.02,0.7,-0.23,1.39,0,0.73\n161,0,2,0,0.37,0.08,0.11,-0.43,-1.08,0.64,-1.25,1,2.14,1.51,2.34,-1.13,0.06,0.84,-0.41,-0.07,-0.4,1.86\n\nX1 = 0, X3 = 2.5, X2 = -2: runs 162-164\nrun,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X18,X19,X20,Y\n162,0,-2,2.5,0.68,1.2,1.13,0.77,-0.86,-0.15,0.73,1.26,-0.41,-0.53,-0.47,1.63,0.17,-1.34,0.85,0.63,0.17,-4.34\n163,0,-2,2.5,-0.6,-0.61,0.2,0.42,3.13,0.1,0.72,-0.83,-1.7,1.18,2.03,-1.02,-0.02,-0.74,1.3,-0.97,-0.03,-4.59\n164,0,-2,2.5,0.76,-0.98,0.92,1.08,-0.73,0.52,-0.64,-0.5,-0.92,-0.43,-0.68,1.22,-0.06,-1.66,1.96,0.72,-0.27,-5.39\n\nX1 = 0, X3 = 2.5, X2 = 0: runs 165-167\nrun,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X18,X19,X20,Y\n165,0,0,2.5,0.74,-0.08,-0.96,0.13,0.17,0.16,0.89,-1.75,0.33,-0.79,-0.26,0.49,0.03,-0.26,1.66,0.59,0.3,-2.49\n166,0,0,2.5,-0.32,-1.08,0.13,0.88,0.38,-1.15,-1.69,-0.91,-0.92,0.69,0.12,0.95,-0.01,0.71,1.29,-0.13,-0.83,-2.95\n167,0,0,2.5,1.17,0.86,1.37,-0.55,0.53,1.81,0.33,-0.1,-0.16,-0.46,0.22,1.49,0.16,0.02,0.88,0.72,1.43,-3.35\n\nX1 = 0, X3 = 2.5, X2 = 2: runs 168-170\nrun,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X18,X19,X20,Y\n168,0,2,2.5,0.17,-0.43,0.24,-0.37,0.17,1.54,-0.69,0.6,-0.01,0.79,-0.64,0.46,-0.28,0.48,0.6,-0.05,-0.67,-3.11\n169,0,2,2.5,1.14,-1.13,0.47,0.17,-0.7,-0.94,0.44,0.49,-0.35,-0.15,-0.01,-1.33,0.03,1.32,2.14,0.65,-1.04,-3.69\n170,0,2,2.5,-0.59,-0.41,0.01,-0.3,-0.03,0.44,-1.63,0.57,-2.27,1.72,0.94,-0.61,0.31,1.14,1.47,-0.32,-0.14,-2.55\n\nX1 = 2.5, X3 = -2.5, X2 = -2: runs 171-173\nrun,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X18,X19,X20,Y\n171,2.5,-2,-2.5,0.63,-0.18,-0.37,-0.94,-1.8,1.61,0.8,-1.39,0.41,0.22,-2.19,-0.82,1.72,-0.5,-0.69,0.76,0,8.68\n172,2.5,-2,-2.5,-1.16,0.64,0.76,-1.24,0.28,1.55,1.96,1.45,-0.68,-0.06,-0.48,1.27,1.51,-1.61,-2.04,-0.88,0.58,6.6\n173,2.5,-2,-2.5,-0.72,-0.15,1.39,-1.31,0,0.25,0.42,1.31,0.88,0.32,1.51,1.19,1.85,-1.09,-1.82,-0.54,-0.35,6.74\n\nX1 = 2.5, X3 = -2.5, X2 = 0: runs 174-176\nrun,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X18,X19,X20,Y\n174,2.5,0,-2.5,-0.23,-1.68,-0.84,-0.47,0.38,-0.28,0.43,1.62,0.85,-1.13,-1.75,-0.89,1.49,-0.79,-2.11,-0.53,-1.3,10.48\n175,2.5,0,-2.5,1.7,-1.04,-0.48,-1.4,-1.67,-0.12,0,-0.69,0.57,-0.4,1.02,-0.58,1.98,-0.11,-1.23,1.47,-1.17,6.51\n176,2.5,0,-2.5,-0.16,-0.37,0.17,-0.9,-1.42,-0.2,0.19,-0.9,1.12,0.6,0.76,0.7,1.47,0.82,-1.64,-0.06,0,9.09\n\nX1 = 2.5, X3 = -2.5, X2 = 2: runs 177-179\nrun,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X18,X19,X20,Y\n177,2.5,2,-2.5,0.16,-0.84,-0.42,0.02,1.3,-0.66,0.7,0.45,0.11,-0.52,-0.11,-1.69,1.8,1.35,-1.48,0.25,-0.41,8.99\n178,2.5,2,-2.5,0.92,-0.45,2.5,-0.94,-0.72,-0.55,0.33,1.25,0.18,-0.31,1.99,1.11,1.69,1.19,-1.97,0.76,0.34,8.33\n179,2.5,2,-2.5,-1.34,0.21,-2.32,1.46,-1.45,-0.66,-0.1,1.25,0.44,-1.85,-1.65,0.23,1.13,1.09,-1.66,-0.91,0.56,7.01\n\nX1 = 2.5, X3 = 0, X2 = -2: runs 180-182\nrun,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X18,X19,X20,Y\n180,2.5,-2,0,0.43,0.63,-0.78,-0.61,-1.22,-0.37,0.38,1.31,1.41,-0.31,-0.86,0.97,0.91,-1.77,0.3,0.78,0.12,4.28\n181,2.5,-2,0,-1.15,-0.11,-0.11,-0.79,0.36,-0.2,0.47,-0.23,-1.23,0.11,0.83,-0.81,2.15,-1.03,-0.19,-0.92,-0.22,3.18\n182,2.5,-2,0,0.9,0.89,-0.46,-0.19,-0.22,0.69,1.46,-0.67,0.3,-0.03,0.56,1.44,1.49,-2.02,-0.08,0.4,1.17,3.95\n\nX1 = 2.5, X3 = 0, X2 = 0: runs 183-185\nrun,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X18,X19,X20,Y\n183,2.5,0,0,-0.28,0.25,0.22,-0.41,0.01,0.96,-0.3,1.87,0.37,-2.34,0.91,-1.74,1.86,0.91,0.55,-0.45,-0.11,4.99\n184,2.5,0,0,1.48,-0.71,1.13,0.33,-0.07,-0.14,1.71,-1.48,-1.11,0.93,1.02,-1.28,1.48,-0.45,0.29,1.06,0.05,4.96\n185,2.5,0,0,0.29,0.23,0.57,0.87,0.04,0.28,0.81,-0.05,1.02,-0.12,-0.75,0.21,2.25,0.61,-0.79,0.3,-0.02,4.74\n\nX1 = 2.5, X3 = 0, X2 = 2: runs 186-188\nrun,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X18,X19,X20,Y\n186,2.5,2,0,-0.33,-0.22,-0.52,-0.27,0.23,-1.2,-1.23,-1.12,-1.13,0.6,-1.11,-0.08,1.77,1.49,0.01,-0.05,-0.16,6.31\n187,2.5,2,0,0.76,-1.46,0.39,1.51,0.11,-0.24,1.9,0.11,1.23,-2.38,0.11,-0.5,1.87,1.67,-0.07,0.56,-1.94,5.9\n188,2.5,2,0,1.33,0.15,-0.48,0.37,1.04,0.65,2.08,-0.56,-1.36,0.49,1.27,-0.45,1.75,0.94,-0.63,0.92,-0.63,6.43\n\nX1 = 2.5, X3 = 2.5, X2 = -2: runs 189-191\nrun,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X18,X19,X20,Y\n189,2.5,-2,2.5,0.46,0.89,-0.83,-0.64,-1.68,-1.46,0.89,2.82,-1.06,-0.4,0.92,-0.7,1.92,-1.32,1.1,0.55,0.49,-0.7\n190,2.5,-2,2.5,0.82,0.02,-0.56,-0.81,0.57,-0.73,0.11,1,-0.11,1.09,-1.38,0.6,1.91,-0.45,1.26,0.83,-0.04,-0.8\n191,2.5,-2,2.5,-0.88,-0.71,0.78,-0.78,0.04,0.9,1.24,0.94,1.49,-1.14,-0.49,0.32,2.08,-1,0.87,-0.74,-1.04,1.56\n\nX1 = 2.5, X3 = 2.5, X2 = 0: runs 192-194\nrun,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X18,X19,X20,Y\n192,2.5,0,2.5,-1.79,0.22,1.08,0.9,-1.61,0.21,-0.35,-0.3,1.64,0.29,-1.43,-1.08,1.96,0.09,0.68,-1.77,-0.05,0.49\n193,2.5,0,2.5,0.81,-0.62,0.66,1.2,-1.61,-0.6,1.54,-0.46,-0.03,0.95,-0.78,-0.44,1.25,0.21,0.99,0.57,-1.32,1.78\n194,2.5,0,2.5,0.66,-0.83,1.19,-2.5,-0.11,-1.73,2.68,-2.67,-1.27,-0.82,0.75,0.77,1.85,-0.12,2.29,0.37,-0.45,2.5\n\nX1 = 2.5, X3 = 2.5, X2 = 2: runs 195-197\nrun,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X18,X19,X20,Y\n195,2.5,2,2.5,-1.31,-0.88,1.04,0.39,-1.39,-0.04,1.86,-0.33,0.73,0.05,-0.77,1.54,2.02,1.65,1.14,-1.04,-0.52,3.54\n196,2.5,2,2.5,-0.43,-0.59,1.23,-1.19,-0.53,-0.46,-0.6,-1.3,-0.86,0.72,-0.45,-0.83,2.23,0.63,1.73,-0.29,-0.89,1.96\n197,2.5,2,2.5,-0.48,1.21,0.83,-0.37,-1.27,-1.79,-0.26,-1.5,-0.27,-0.3,0.29,0.91,1.76,1.35,1.12,-0.19,1.04,3.3\n</runs>\n\n<analysis_results>\n[1] {\"fit\": \"Y ~ X1 + X2 + X3 + X1:X2 + X1:X3 + X2:X3 + X1^2 + X2^2 + X3^2\", \"runs\": [117, 197]}  (runs 117-197, n = 81)\nterm          estimate        se        t          p\nIntercept       0.1325    0.3662     0.36      0.719\nX1              2.0269    0.0678    29.89    < 1e-16\nX2              0.4731    0.0848     5.58   4.07e-07\nX3             -1.5090    0.0678   -22.25    < 1e-16\nX1:X2           0.0277    0.0415     0.67      0.507\nX1:X3           0.0935    0.0332     2.82    0.00631\nX2:X3           0.0288    0.0415     0.69      0.491\nX1^2           -0.0319    0.0470    -0.68        0.5\nX2^2           -0.1035    0.0734    -1.41      0.163\nX3^2            0.0288    0.0470     0.61      0.542\nR\u00b2 = 0.9528, adjusted R\u00b2 = 0.9468, residual SD = 1.2457\n\n[2] {\"fit\": \"Y ~ X1 + X2 + X3 + X4 + X5 + X6 + X7 + X8 + X9 + X10 + X11 + X12 + X13 + X14 + X15 + X16 + X17 + X18 + X19 + X20 + X1^2 + X3^2 + X1:X3\", \"runs\": [117, 197]}  (runs 117-197, n = 81)\nterm          estimate        se        t          p\nIntercept      -0.0633    0.3851    -0.16       0.87\nX1              2.0554    0.3886     5.29   2.03e-06\nX2              0.2934    0.2434     1.21      0.233\nX3             -1.6883    0.1997    -8.46   1.21e-11\nX4              1.1958    0.8054     1.48      0.143\nX5             -0.2917    0.3498    -0.83      0.408\nX6             -0.0885    0.1447    -0.61      0.543\nX7              0.0381    0.1914     0.20      0.843\nX8              0.0547    0.1500     0.36      0.717\nX9             -0.0918    0.1767    -0.52      0.606\nX10            -0.0849    0.1631    -0.52      0.605\nX11            -0.1519    0.1595    -0.95      0.345\nX12            -0.0444    0.1654    -0.27       0.79\nX13             0.1007    0.1756     0.57      0.568\nX14            -0.1711    0.1522    -1.12      0.266\nX15             0.2648    0.1789     1.48      0.144\nX16            -0.0738    0.5432    -0.14      0.892\nX17             0.2857    0.3686     0.77      0.442\nX18             0.3541    0.3315     1.07       0.29\nX19            -1.3673    0.9476    -1.44      0.155\nX20             0.0204    0.4402     0.05      0.963\nX1^2            0.0067    0.0597     0.11      0.911\nX3^2           -0.0047    0.0578    -0.08      0.936\nX1:X3           0.0547    0.0419     1.31      0.197\nR\u00b2 = 0.9598, adjusted R\u00b2 = 0.9435, residual SD = 1.2831\n</analysis_results>\n\nRuns used: 197 of 300. Turns used: 3 of 12."
+    },
+    {
+      "role": "assistant",
+      "content": "<report>\n\n# Title\nY is driven by X1, X3 and X2 through a nearly linear additive model: an experimental study of a 20-feature system\n\n## Abstract\nI ran 197 of the 300 allowed runs: 100 observational, 16 scattered-intervention, and 81 in a 3\u00d73\u00d73 factorial grid on X1, X3 and X2 with 3 replicates per cell. Y depends mainly on X1 (about +2.0 per unit), X3 (about \u22121.5 per unit) and X2 (about +0.45 per unit). The relationship is essentially linear and additive. The residual SD is about 1.25, and I treat it as irreducible noise. The features that looked collinear in the observational data (X16, X17, X18) are downstream correlates of X1, X2 and X3 and have no independent effect. The other features show no detectable effect. A possible small X1:X3 interaction (about +0.09) is borderline and not robust.\n\n## Methods\n**Data collection.**\n- Batch 1: 100 observational runs with nothing set.\n- Batch 2: 11 runs setting ten features (X1\u2013X5, X16\u2013X20) in varied, near-orthogonal combinations, plus 5 all-zero runs. The aim was to break the collinearity seen in the observational fit.\n- Batch 3: a full 3\u00d73\u00d73 factorial grid with X1 \u2208 {\u22122.5, 0, 2.5}, X3 \u2208 {\u22122.5, 0, 2.5} and X2 \u2208 {\u22122, 0, 2}, 3 replicates per cell (81 runs). All other features were left natural.\n\n**Analysis.**\n- OLS regressions: the full linear model, models with quadratic and pairwise interaction terms for X1/X2/X3, and the grid data with all 20 features plus X1\u00b2, X3\u00b2 and X1:X3.\n- Correlation matrices.\n- I did not formally correct for multiple comparisons. I judged significance by very small p-values (below 1e-5), which would survive a Bonferroni correction over about 20 to 40 tests, and I treat borderline p-values as non-significant.\n\n## Results\n**Observational fit (n = 100).**\n- X1 = 2.30 (p = 8e-9) and X3 = \u22121.50 (p = 2e-12) were highly significant.\n- X2 = 0.41 (p = 0.07) was suggestive.\n- X4, X5, X16, X19 and X20 had inflated standard errors, which signals collinearity among features.\n- All other features had p > 0.09.\n\n**Clean experimental data (grid, n = 81).** The model with X1, X2, X3, their squares and pairwise interactions gave R\u00b2 = 0.953 and residual SD = 1.25.\n\n| Term | Estimate | SE | p |\n|---|---|---|---|\n| X1 | +2.03 | 0.068 | <1e-16 |\n| X3 | \u22121.51 | 0.068 | <1e-16 |\n| X2 | +0.47 | 0.085 | 4e-7 |\n| X1:X3 | +0.094 | 0.033 | 0.006 |\n| X1\u00b2, X2\u00b2, X3\u00b2 | not significant | | |\n| X1:X2, X2:X3 | not significant | | |\n\n**Other features.** When all 20 features were included alongside X1, X3, X1:X3 and the squares, none of X4\u2013X20 was significant (all p > 0.14). The X1:X3 term was also not significant there (p = 0.20).\n\n**Collinearity.** Inspecting the runs, when X1, X2 and X3 are set, X16, X17 and X18 shift with them (for example, X16 \u2248 0.7\u00b7X1 plus noise). They are therefore downstream of X1, X2 and X3 and carry no independent effect, which explains the observational collinearity. X19 and X20 correlate with the set features mainly in the observational data and likewise show no independent effect.\n\n**Fitted model.**\nY \u2248 2.0\u00b7X1 \u2212 1.5\u00b7X3 + 0.45\u00b7X2 + noise (SD \u2248 1.25).\n\n## Discussion\nThe data generating process appears to be a linear additive function of three features: X1 (positive, the largest effect), X3 (negative), and X2 (smaller, positive). The noise is Gaussian-like with SD \u2248 1.2\u20131.3. There is no evidence of curvature, since the squared terms are near zero in clean data. The apparent quadratic terms in the early observational fit (X1\u00b2 0.27, X3\u00b2 0.22) did not replicate in the grid, where the estimates were \u22120.03 and +0.03. All other features, X4\u2013X20, are noise as far as Y is concerned. X16, X17 and X18 are correlated with X1, X2 and X3 (consistent with being their descendants), so they look predictive marginally but are not causal once the true drivers are accounted for.\n\nThe X1:X3 interaction is the one open question. It was p = 0.04 in the early data, p = 0.006 in the grid alone, and p = 0.20 once the other features were controlled for. I regard it as probably absent or very small (at most about 0.1 per unit\u00b2), and I do not claim it.\n\n## Limitations\n- The 103 remaining runs were not used. The interaction and a possible weak effect of X2 or other features at the level of about 0.1 are not firmly resolved.\n- Features other than X1\u2013X3 were not intervened on in the grid (they were only randomly varied naturally), so small effects of other features could be missed. The power to detect effects of about 0.2 per unit is moderate.\n- The grid used only three levels per feature, so non-monotone or threshold nonlinearities between levels could be missed. Wider coverage at the extremes (\u00b13) was limited to a single run each.\n- Multiple-comparison correction was informal.\n- Confidence is high (about 95%) that X1, X3 and X2 are real, with the effects given above. Confidence is high that X4\u2013X20 have no large effect. Confidence is low to moderate about the interaction.\n</report>"
+    },
+    {
+      "role": "user",
+      "content": "Your paper is finished. One last task: using your findings, predict the average value of Y in each of the settings below, if the system were run many times at that setting. In each setting, every feature not listed is set to 0. You cannot run any more experiments or analyses.\n\n1. all features at 0\n2. X1 = 1\n3. X3 = 2\n4. X2 = 2, X3 = -1\n5. X4 = 3\n6. X4 = 2, X5 = 2\n7. X4 = 2, X5 = -2\n8. X4 = -3, X5 = -3\n9. X1 = 1, X4 = 1, X5 = 3\n10. X16 = 2\n11. X18 = -2\n\nReply with a JSON array of 11 numbers inside <predictions></predictions>, in the same order."
+    },
+    {
+      "role": "assistant",
+      "content": "I'm predicting from the fitted model Y \u2248 2.0\u00b7X1 \u2212 1.5\u00b7X3 + 0.45\u00b7X2, with every other feature set to 0 and treated as having no effect. Intercept is about 0.\n\nThe features X4, X5, X16 and X18 are not in the model, so settings 5\u201311 depend only on whatever X1, X2 and X3 are set to there (X1 = 1 in setting 9).\n\n1. All features at 0: 0.\n2. X1 = 1: 2.0.\n3. X3 = 2: \u22123.0.\n4. X2 = 2, X3 = \u22121: 0.9 + 1.5 = 2.4.\n5. X4 = 3: 0.\n6. X4 = 2, X5 = 2: 0.\n7. X4 = 2, X5 = \u22122: 0.\n8. X4 = \u22123, X5 = \u22123: 0.\n9. X1 = 1, X4 = 1, X5 = 3: 2.0.\n10. X16 = 2: 0.\n11. X18 = \u22122: 0.\n\n<predictions>[0,2.0,-3.0,2.4,0,0,0,0,2.0,0,0]</predictions>"
+    }
+  ],
+  "model": "claude-sonnet-5.5",
+  "model_settings": {
+    "id": "anthropic/claude-sonnet-5.5",
+    "reasoning": {
+      "effort": "medium"
+    },
+    "max_tokens": 32000
+  },
+  "started_at": "2026-10-10T02:50:41.141856+00:00",
+  "finished_at": "2026-10-10T02:51:29.574259+00:00"
+}

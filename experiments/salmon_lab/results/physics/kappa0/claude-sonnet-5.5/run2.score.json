@@ -1,0 +1,98 @@
+{
+  "collected": {
+    "n": 223,
+    "estimable": true,
+    "t": -1.49,
+    "p": 0.138,
+    "rank": 3,
+    "pairs_testable": 21,
+    "identifiable": false
+  },
+  "code": {
+    "blocks": 6,
+    "errors": 1,
+    "timeouts": 0,
+    "formed_product": 0,
+    "grouped_by_both": 0,
+    "screened_and_shown": 0,
+    "tested": false,
+    "output_lines_naming_both": [
+      "{'res': 1.0, 'temperature': -0.11, 'reflectance': -0.05, 'stripes': -0.29, 'hardness': 0.08, 'batch': -0.06}",
+      "{'res': 1.0, 'temperature': -0.02, 'reflectance': -0.07, 'stripes': 0.02, 'hardness': 0.47, 'batch': 0.1}",
+      "{'res': 1.0, 'temperature': 0.21, 'reflectance': -0.21, 'stripes': -0.3, 'hardness': -0.06, 'batch': -0.08}"
+    ]
+  },
+  "report_sentences": [
+    "Reflectance, temperature, stripes, hardness and batch showed no clear effect."
+  ],
+  "irrelevant_property_sentences": [
+    "Reflectance, temperature, stripes, hardness and batch showed no clear effect.",
+    "Reflectance, stripes, hardness and batch showed no systematic effect in the residuals.",
+    "A few moderate residual correlations appeared in small subsets (for example hardness in the sphere fit), but these are likely chance.",
+    "- Weak effects of temperature, hardness or stripes below the noise (~0.01 s) cannot be excluded."
+  ],
+  "law": {
+    "ran": true,
+    "pairs": 20,
+    "pairs_with_invented_gap": 0,
+    "invents_new_law": false,
+    "median_gap_vs_usual_law": 0.0,
+    "flight_time_error": 0.0,
+    "distance_error": 0.0,
+    "impact_speed_error": 0.0,
+    "baseline_flight_time_error": 0.0
+  },
+  "design": {
+    "runs": 223,
+    "runs_per_turn": [
+      90,
+      0,
+      70,
+      0,
+      0,
+      0,
+      63,
+      0,
+      0
+    ],
+    "runs_random_object": 60,
+    "runs_in_vacuum": 35,
+    "runs_setting_reflectance_and_temperature": 0,
+    "runs_setting_both_away_from_neutral": 0,
+    "distinct_settings": 29,
+    "properties_ever_set": [
+      "mass",
+      "radius",
+      "shape",
+      "temperature"
+    ],
+    "evidence_after_each_turn": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ]
+  },
+  "found": false,
+  "invented": false,
+  "turns_used": 10,
+  "finish_reasons": [
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop"
+  ],
+  "cost": 0.1408
+}

@@ -1,0 +1,120 @@
+{
+  "collected": {
+    "n": 281,
+    "estimable": true,
+    "t": -23.15,
+    "p": 4.62e-66,
+    "rank": 1,
+    "pairs_testable": 21,
+    "identifiable": true
+  },
+  "code": {
+    "blocks": 9,
+    "errors": 0,
+    "timeouts": 0,
+    "formed_product": 1,
+    "grouped_by_both": 1,
+    "screened_and_shown": 0,
+    "tested": true,
+    "output_lines_naming_both": [
+      "set   mass  radius     shape  temperature  reflectance  stripes  hardness  air_density  speed  angle  flight_time  distance  impact_speed",
+      "shape  mass  radius  air_density  temperature  reflectance  flight_time       k      Cd    vpred  impact_speed",
+      "shape  mass  radius  temperature  reflectance  stripes  hardness  batch  flight_time      Cd  impact_speed",
+      "shape  temperature  reflectance  flight_time      Cd  impact_speed",
+      "lc~C(shape)+temperature*reflectance {'Intercept': 0.27911, 'C(shape)[T.cylinder]': -0.48857, 'C(shape)[T.sphere]': -1.04525, 'temperature': 0.0006, 'reflectance': 0.02247, 'temperature:reflectance': -0.00119} rmse 0.004264737273431894",
+      "lc~C(shape)+I((temperature-20)*(reflectance-0.5)) {'Intercept': 0.29055, 'C(shape)[T.cylinder]': -0.48851, 'C(shape)[T.sphere]': -1.04517, 'I((temperature - 20) * (reflectance - 0.5))': -0.0012} rmse 0.0042545375243770705",
+      "lc~C(shape)+I((temperature-30)*(reflectance-0.5)) {'Intercept': 0.28998, 'C(shape)[T.cylinder]': -0.48815, 'C(shape)[T.sphere]': -1.04436, 'I((temperature - 30) * (reflectance - 0.5))': -0.00121} rmse 0.006631639548939842",
+      "lc~C(shape)+I((temperature-20)*(reflectance-0.5))+I(temperature-20)+reflectance+radius+mass {'Intercept': 0.28424, 'C(shape)[T.cylinder]': -0.48932, 'C(shape)[T.sphere]': -1.04556, 'I((temperature - 20) * (reflectance - 0.5))': -0.00118, 'I(temperature - 20)': 1e-05, 'reflectance': -0.00149, 'radius': 0.02793, 'mass': 0.01099} rmse 0.004143745329211787",
+      "run     shape  mass  radius  temperature  reflectance  height  speed  angle  air_density  flight_time     et     ev",
+      "temperature reflectance"
+    ]
+  },
+  "report_sentences": [
+    "# Gravity Modulated by Temperature \u00d7 Reflectance, Plus Shape-Dependent Quadratic Drag, in a Simulated Ballistics Laboratory",
+    "The effective gravitational acceleration depends on an **interaction between temperature and reflectance**: g = 9.817\u00b7[1 + 0.00102\u00b7(T \u2212 20 \u00b0C)\u00b7(R \u2212 0.5)] m/s\u00b2.",
+    "Stripes, hardness and batch have no detectable effect, and neither do temperature or reflectance on their own.",
+    "- a temperature \u00d7 reflectance grid (T from \u221220 to 80 \u00b0C, R from 0 to 1),",
+    "- Vacuum drops at the four corners of the temperature \u00d7 reflectance grid, 8 runs per corner.",
+    "**Temperature \u00d7 reflectance interaction.**",
+    "- In vacuum, hot white objects (80 \u00b0C, R = 1) gave g = 10.11 m/s\u00b2.",
+    "- Hot black (80 \u00b0C, R = 0) and cold white (\u221220 \u00b0C, R = 1) objects gave 9.52 and 9.64 m/s\u00b2.",
+    "- Cold black objects (\u221220 \u00b0C, R = 0) gave 10.05 m/s\u00b2.",
+    "- Neither temperature nor reflectance has any effect on its own (at R = 0.5, or at T \u2248 20 \u00b0C).",
+    "Motion in this laboratory obeys point-mass mechanics with quadratic drag, apart from one unusual feature: gravitational acceleration depends on the product of an object's temperature offset from about 20 \u00b0C and its reflectance offset from 0.5.",
+    "- **Relevant object properties:** mass and radius, which enter only through the ballistic ratio \u03c1r\u00b2/m and matter only in air, plus shape (through C_d) and the temperature \u00d7 reflectance combination (through g)."
+  ],
+  "irrelevant_property_sentences": [
+    "Stripes, hardness and batch have no detectable effect, and neither do temperature or reflectance on their own.",
+    "- stripes, hardness and batch, each at its extremes.",
+    "**No effect from stripes, hardness or batch.** Extreme settings of each gave identical flight times to within about 0.01 s.",
+    "- **Irrelevant properties:** stripes, hardness and batch."
+  ],
+  "law": {
+    "ran": true,
+    "pairs": 20,
+    "pairs_right": 20,
+    "captures_new_law": true,
+    "median_ratio_of_gaps": 1.001,
+    "flight_time_error": 0.0003,
+    "distance_error": 0.0003,
+    "impact_speed_error": 0.0002,
+    "baseline_flight_time_error": 0.0021
+  },
+  "design": {
+    "runs": 281,
+    "runs_per_turn": [
+      90,
+      47,
+      0,
+      52,
+      23,
+      25,
+      0,
+      44,
+      0
+    ],
+    "runs_random_object": 121,
+    "runs_in_vacuum": 77,
+    "runs_setting_reflectance_and_temperature": 127,
+    "runs_setting_both_away_from_neutral": 76,
+    "distinct_settings": 81,
+    "properties_ever_set": [
+      "mass",
+      "radius",
+      "shape",
+      "reflectance",
+      "temperature",
+      "stripes",
+      "hardness",
+      "batch"
+    ],
+    "evidence_after_each_turn": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ]
+  },
+  "found": true,
+  "invented": false,
+  "turns_used": 10,
+  "finish_reasons": [
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop"
+  ],
+  "cost": 1.7116
+}

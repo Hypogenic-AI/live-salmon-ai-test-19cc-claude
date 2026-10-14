@@ -1,0 +1,90 @@
+{
+  "collected": {
+    "n": 196,
+    "estimable": true,
+    "t": -10.96,
+    "p": 7.41e-22,
+    "rank": 1,
+    "pairs_testable": 21,
+    "identifiable": true
+  },
+  "code": {
+    "blocks": 5,
+    "errors": 1,
+    "timeouts": 0,
+    "formed_product": 0,
+    "grouped_by_both": 0,
+    "screened_and_shown": 0,
+    "tested": false,
+    "output_lines_naming_both": []
+  },
+  "report_sentences": [
+    "Reflectance, temperature, stripes, hardness and batch showed no detectable effect.",
+    "- **Nuisance properties.** I set reflectance (0, 1), temperature (\u221220, 80 \u00b0C), stripes (0, 10), hardness (1, 10) and batch (1, 50) to their extremes, with 6\u20138 runs each and the other properties random.",
+    "- Reflectance, temperature, stripes, hardness and batch showed no systematic effect.",
+    "For example, reflectance 0 vs 1 gives 2.286 vs 2.276 s with SD \u2248 0.02 s, and temperature \u221220 vs 80 gives 2.278 vs 2.272 s."
+  ],
+  "irrelevant_property_sentences": [
+    "Reflectance, temperature, stripes, hardness and batch showed no detectable effect.",
+    "- **Nuisance properties.** I set reflectance (0, 1), temperature (\u221220, 80 \u00b0C), stripes (0, 10), hardness (1, 10) and batch (1, 50) to their extremes, with 6\u20138 runs each and the other properties random.",
+    "- Reflectance, temperature, stripes, hardness and batch showed no systematic effect.",
+    "- The only hint is batch 50 vs batch 1 in impact speed (5.21 vs 5.29 m/s, about 2\u03c3).",
+    "- A weak batch effect on impact speed cannot be excluded."
+  ],
+  "law": {
+    "ran": true,
+    "pairs": 20,
+    "pairs_right": 0,
+    "captures_new_law": false,
+    "median_ratio_of_gaps": 0.0,
+    "flight_time_error": 0.0023,
+    "distance_error": 0.0004,
+    "impact_speed_error": 0.0019,
+    "baseline_flight_time_error": 0.0021
+  },
+  "design": {
+    "runs": 196,
+    "runs_per_turn": [
+      64,
+      56,
+      0,
+      76,
+      0
+    ],
+    "runs_random_object": 40,
+    "runs_in_vacuum": 10,
+    "runs_setting_reflectance_and_temperature": 0,
+    "runs_setting_both_away_from_neutral": 0,
+    "distinct_settings": 31,
+    "properties_ever_set": [
+      "mass",
+      "radius",
+      "shape",
+      "reflectance",
+      "temperature",
+      "stripes",
+      "hardness",
+      "batch"
+    ],
+    "evidence_after_each_turn": [
+      false,
+      true,
+      true,
+      true,
+      true
+    ]
+  },
+  "found": false,
+  "invented": false,
+  "turns_used": 6,
+  "finish_reasons": [
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop"
+  ],
+  "cost": 0.2673
+}

@@ -1,0 +1,83 @@
+{
+  "collected": {
+    "n": 218,
+    "estimable": true,
+    "t": -15.81,
+    "p": 1.93e-37,
+    "rank": 1,
+    "pairs_testable": 21,
+    "identifiable": true
+  },
+  "code": {
+    "blocks": 3,
+    "errors": 0,
+    "timeouts": 0,
+    "formed_product": 0,
+    "grouped_by_both": 0,
+    "screened_and_shown": 0,
+    "tested": false,
+    "output_lines_naming_both": []
+  },
+  "report_sentences": [
+    "Reflectance, temperature, stripes, hardness and batch showed no detectable effect.",
+    "I varied mass, radius, shape, air density, temperature, reflectance, stripes, hardness and batch.",
+    "- **Null effects:** In the 0.3 kg sphere series, temperature (\u221220 vs 80 \u00b0C), reflectance (0 vs 1), stripes (0 vs 10), hardness (1 vs 10) and batch (1 vs 50) all give flight times within about 0.02 s and impact speeds within about 0.1\u20130.2 m/s of the baseline.",
+    "Reflectance, temperature, stripes, hardness and batch appear irrelevant."
+  ],
+  "irrelevant_property_sentences": [
+    "Reflectance, temperature, stripes, hardness and batch showed no detectable effect.",
+    "I varied mass, radius, shape, air density, temperature, reflectance, stripes, hardness and batch.",
+    "- **Null effects:** In the 0.3 kg sphere series, temperature (\u221220 vs 80 \u00b0C), reflectance (0 vs 1), stripes (0 vs 10), hardness (1 vs 10) and batch (1 vs 50) all give flight times within about 0.02 s and impact speeds within about 0.1\u20130.2 m/s of the baseline.",
+    "Reflectance, temperature, stripes, hardness and batch appear irrelevant."
+  ],
+  "law": {
+    "ran": true,
+    "pairs": 20,
+    "pairs_right": 0,
+    "captures_new_law": false,
+    "median_ratio_of_gaps": 0.0,
+    "flight_time_error": 0.0023,
+    "distance_error": 0.0017,
+    "impact_speed_error": 0.0017,
+    "baseline_flight_time_error": 0.0021
+  },
+  "design": {
+    "runs": 218,
+    "runs_per_turn": [
+      100,
+      94,
+      24
+    ],
+    "runs_random_object": 40,
+    "runs_in_vacuum": 30,
+    "runs_setting_reflectance_and_temperature": 0,
+    "runs_setting_both_away_from_neutral": 0,
+    "distinct_settings": 29,
+    "properties_ever_set": [
+      "mass",
+      "radius",
+      "shape",
+      "reflectance",
+      "temperature",
+      "stripes",
+      "hardness",
+      "batch"
+    ],
+    "evidence_after_each_turn": [
+      true,
+      true,
+      true
+    ]
+  },
+  "found": false,
+  "invented": false,
+  "turns_used": 4,
+  "finish_reasons": [
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop"
+  ],
+  "cost": 0.1235
+}

@@ -1,0 +1,98 @@
+{
+  "collected": {
+    "n": 160,
+    "estimable": true,
+    "t": -0.09,
+    "p": 0.925,
+    "rank": 18,
+    "pairs_testable": 21,
+    "identifiable": false
+  },
+  "code": {
+    "blocks": 8,
+    "errors": 2,
+    "timeouts": 0,
+    "formed_product": 0,
+    "grouped_by_both": 0,
+    "screened_and_shown": 0,
+    "tested": false,
+    "output_lines_naming_both": []
+  },
+  "report_sentences": [
+    "Reflectance, temperature, stripes, hardness and batch have no detectable effect.",
+    "- I ran targeted tests of the five suspect properties at extreme values (reflectance 0 vs 1, temperature \u221220 vs 80, stripes 0 vs 10, hardness 1 vs 10, batch 1 vs 50), using light spheres (0.1 kg, r=0.1, 30 m) where drag is strong.",
+    "- Reflectance, temperature, stripes, hardness and batch showed no effect.",
+    "The irrelevant properties are reflectance, temperature, stripes, hardness and batch."
+  ],
+  "irrelevant_property_sentences": [
+    "Reflectance, temperature, stripes, hardness and batch have no detectable effect.",
+    "- I ran targeted tests of the five suspect properties at extreme values (reflectance 0 vs 1, temperature \u221220 vs 80, stripes 0 vs 10, hardness 1 vs 10, batch 1 vs 50), using light spheres (0.1 kg, r=0.1, 30 m) where drag is strong.",
+    "- Reflectance, temperature, stripes, hardness and batch showed no effect.",
+    "The irrelevant properties are reflectance, temperature, stripes, hardness and batch."
+  ],
+  "law": {
+    "ran": true,
+    "pairs": 20,
+    "pairs_with_invented_gap": 0,
+    "invents_new_law": false,
+    "median_gap_vs_usual_law": 0.0,
+    "flight_time_error": 0.0006,
+    "distance_error": 0.0006,
+    "impact_speed_error": 0.0003,
+    "baseline_flight_time_error": 0.0
+  },
+  "design": {
+    "runs": 160,
+    "runs_per_turn": [
+      60,
+      52,
+      0,
+      48,
+      0,
+      0,
+      0,
+      0
+    ],
+    "runs_random_object": 40,
+    "runs_in_vacuum": 23,
+    "runs_setting_reflectance_and_temperature": 0,
+    "runs_setting_both_away_from_neutral": 0,
+    "distinct_settings": 34,
+    "properties_ever_set": [
+      "mass",
+      "radius",
+      "shape",
+      "reflectance",
+      "temperature",
+      "stripes",
+      "hardness",
+      "batch"
+    ],
+    "evidence_after_each_turn": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ]
+  },
+  "found": false,
+  "invented": false,
+  "turns_used": 9,
+  "finish_reasons": [
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop"
+  ],
+  "cost": 0.1558
+}

@@ -1,0 +1,96 @@
+{
+  "collected": {
+    "n": 158,
+    "estimable": true,
+    "t": -0.46,
+    "p": 0.645,
+    "rank": 16,
+    "pairs_testable": 21,
+    "identifiable": false
+  },
+  "code": {
+    "blocks": 8,
+    "errors": 2,
+    "timeouts": 0,
+    "formed_product": 0,
+    "grouped_by_both": 0,
+    "screened_and_shown": 0,
+    "tested": false,
+    "output_lines_naming_both": [
+      "rt {'Intercept': -0.00056, 'reflectance': 0.00074, 'temperature': -3e-05, 'stripes': 0.00024, 'hardness': -0.00032, 'batch': -1e-05, 'mass': -0.00079, 'radius': 0.01332}",
+      "{'Intercept': 0.862, 'reflectance': 0.735, 'temperature': 0.25, 'stripes': 0.307, 'hardness': 0.155, 'batch': 0.864, 'mass': 0.399, 'radius': 0.226}",
+      "rv {'Intercept': 0.00161, 'reflectance': -0.00026, 'temperature': -4e-05, 'stripes': 0.0006, 'hardness': 0.00046, 'batch': -8e-05, 'mass': -0.00098, 'radius': -0.0179}",
+      "{'Intercept': 0.77, 'reflectance': 0.945, 'temperature': 0.37, 'stripes': 0.139, 'hardness': 0.228, 'batch': 0.368, 'mass': 0.538, 'radius': 0.341}"
+    ]
+  },
+  "report_sentences": [
+    "Reflectance, temperature, stripes, hardness and batch showed no detectable effect.",
+    "A regression of the residuals on reflectance, temperature, stripes, hardness, batch, mass and radius gave no significant terms (all p > 0.15).",
+    "Reflectance, temperature, stripes, hardness and batch are irrelevant, to within noise."
+  ],
+  "irrelevant_property_sentences": [
+    "Reflectance, temperature, stripes, hardness and batch showed no detectable effect.",
+    "A regression of the residuals on reflectance, temperature, stripes, hardness, batch, mass and radius gave no significant terms (all p > 0.15).",
+    "Reflectance, temperature, stripes, hardness and batch are irrelevant, to within noise."
+  ],
+  "law": {
+    "ran": true,
+    "pairs": 20,
+    "pairs_with_invented_gap": 0,
+    "invents_new_law": false,
+    "median_gap_vs_usual_law": 0.0,
+    "flight_time_error": 0.0003,
+    "distance_error": 0.0004,
+    "impact_speed_error": 0.0006,
+    "baseline_flight_time_error": 0.0
+  },
+  "design": {
+    "runs": 158,
+    "runs_per_turn": [
+      70,
+      48,
+      40,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "runs_random_object": 40,
+    "runs_in_vacuum": 34,
+    "runs_setting_reflectance_and_temperature": 0,
+    "runs_setting_both_away_from_neutral": 0,
+    "distinct_settings": 26,
+    "properties_ever_set": [
+      "mass",
+      "radius",
+      "shape"
+    ],
+    "evidence_after_each_turn": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ]
+  },
+  "found": false,
+  "invented": false,
+  "turns_used": 9,
+  "finish_reasons": [
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop"
+  ],
+  "cost": 0.1352
+}

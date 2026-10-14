@@ -1,0 +1,104 @@
+{
+  "collected": {
+    "n": 176,
+    "estimable": true,
+    "t": -49.02,
+    "p": 2.87e-100,
+    "rank": 1,
+    "pairs_testable": 21,
+    "identifiable": true
+  },
+  "code": {
+    "blocks": 8,
+    "errors": 0,
+    "timeouts": 0,
+    "formed_product": 1,
+    "grouped_by_both": 1,
+    "screened_and_shown": 0,
+    "tested": true,
+    "output_lines_naming_both": [
+      "shape  radius  temperature  reflectance  stripes  hardness  batch  height  speed  angle  flight_time  impact_speed",
+      "g   gi  temperature  reflectance  radius  stripes  hardness  batch  mass",
+      "temperature:reflectance     0.0693      0.005     15.273      0.000       0.060       0.079"
+    ]
+  },
+  "report_sentences": [
+    "**Title:** Gravity modulated by reflectance\u00d7temperature, and quadratic air drag, in a simulated drop laboratory",
+    "In a vacuum, the effective gravitational acceleration depends on the product of reflectance and temperature: g \u2248 9.8 + 0.064\u00b7(reflectance\u22120.5)\u00b7(temperature\u221220) m/s\u00b2.",
+    "**Methods:** I ran random-object baselines and controlled sets: vacuum versus air, heights of 10, 20 and 50 m, launches with speed and angle, and a 3\u00d73 grid of temperature and reflectance.",
+    "- Vacuum g varies with the interaction term (reflectance\u22120.5)\u00b7(temperature\u221220).",
+    "Temperature and reflectance alone have no independent effect once the interaction is included.",
+    "(1) Effective gravity depends on a combination of reflectance and temperature."
+  ],
+  "irrelevant_property_sentences": [
+    "Stripes, hardness and batch showed no effect, and the data are consistent with launch speed and angle acting through ordinary projectile kinematics.",
+    "- In a vacuum, mass, radius, shape, stripes, hardness and batch had no significant effect on flight_time or impact_speed.",
+    "Stripes, hardness and batch are irrelevant.",
+    "Weak effects of stripes, hardness and batch below roughly 1% cannot be excluded."
+  ],
+  "law": {
+    "ran": true,
+    "pairs": 20,
+    "pairs_right": 20,
+    "captures_new_law": true,
+    "median_ratio_of_gaps": 0.964,
+    "flight_time_error": 0.0015,
+    "distance_error": 0.0018,
+    "impact_speed_error": 0.0012,
+    "baseline_flight_time_error": 0.0138
+  },
+  "design": {
+    "runs": 176,
+    "runs_per_turn": [
+      90,
+      0,
+      0,
+      46,
+      0,
+      0,
+      40,
+      0,
+      0
+    ],
+    "runs_random_object": 40,
+    "runs_in_vacuum": 76,
+    "runs_setting_reflectance_and_temperature": 76,
+    "runs_setting_both_away_from_neutral": 24,
+    "distinct_settings": 27,
+    "properties_ever_set": [
+      "mass",
+      "radius",
+      "shape",
+      "reflectance",
+      "temperature"
+    ],
+    "evidence_after_each_turn": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ]
+  },
+  "found": true,
+  "invented": false,
+  "turns_used": 10,
+  "finish_reasons": [
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop"
+  ],
+  "cost": 0.1606
+}

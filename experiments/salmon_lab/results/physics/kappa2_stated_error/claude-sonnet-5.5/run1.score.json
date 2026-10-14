@@ -1,0 +1,113 @@
+{
+  "collected": {
+    "n": 204,
+    "estimable": true,
+    "t": -58.43,
+    "p": 1.17e-124,
+    "rank": 1,
+    "pairs_testable": 21,
+    "identifiable": true
+  },
+  "code": {
+    "blocks": 4,
+    "errors": 0,
+    "timeouts": 0,
+    "formed_product": 1,
+    "grouped_by_both": 0,
+    "screened_and_shown": 0,
+    "tested": true,
+    "output_lines_naming_both": [
+      "g  height  radius  reflectance  temperature  stripes  hardness  batch     shape",
+      "{'Intercept': 9.5225, 'C(shape)[T.cylinder]': 0.016, 'C(shape)[T.sphere]': 0.0201, 'x': 0.0664, 'reflectance': 0.7102, 'temperature': -0.0002, 'mass': -0.0034, 'radius': 0.4176, 'hardness': -0.0092, 'stripes': -0.0013, 'batch': -0.0021} 0.9838442727362118",
+      "{'Intercept': 10.4933, 'reflectance': -1.32, 'temperature': -0.0339, 'reflectance:temperature': 0.0672} 0.9825831388927634"
+    ]
+  },
+  "report_sentences": [
+    "**Title: Gravity modulated by reflectance \u00d7 temperature, and quadratic air drag scaling as \u03c1\u00b7r\u00b2/m with shape dependence, in a simulated laboratory**",
+    "In a vacuum, the effective gravitational acceleration is not constant: it depends on the product of reflectance and temperature, g \u2248 9.82 + 0.068\u00b7(reflectance\u22120.5)\u00b7(T\u221220) m/s\u00b2, and ranges from about 8 to 11.5.",
+    "- Correlations of g with the properties pointed to temperature, reflectance, stripes and hardness.",
+    "- Temperature and reflectance together matter.",
+    "- Shape does not matter in a vacuum (cube, cylinder and sphere agree at the same reflectance and temperature).",
+    "At reflectance 0.5, or at 20 \u00b0C, there is no temperature or reflectance effect.",
+    "Reflectance and temperature act only through g.",
+    "Effective gravity depends on the reflectance\u00d7temperature interaction, with neither factor acting alone.",
+    "I did not scan the interior of the reflectance\u2013temperature plane densely, so curvature there could be missed.",
+    "- I did not test the interaction of drag with the reflectance\u00d7temperature gravity at extreme values."
+  ],
+  "irrelevant_property_sentences": [
+    "Stripes, hardness and batch showed no effect.",
+    "- Correlations of g with the properties pointed to temperature, reflectance, stripes and hardness.",
+    "- No effect of stripes (0, 5 or 10), hardness (1, 5 or 10) or mass (1 vs 10).",
+    "- No detectable effect: stripes, hardness, batch.",
+    "Stripes, hardness and batch are irrelevant.",
+    "- Possible small effects of stripes, hardness and batch below about 1% would not be detected."
+  ],
+  "law": {
+    "ran": true,
+    "pairs": 20,
+    "pairs_right": 20,
+    "captures_new_law": true,
+    "median_ratio_of_gaps": 1.015,
+    "flight_time_error": 0.0007,
+    "distance_error": 0.0008,
+    "impact_speed_error": 0.0007,
+    "baseline_flight_time_error": 0.0138
+  },
+  "design": {
+    "runs": 204,
+    "runs_per_turn": [
+      90,
+      0,
+      0,
+      0,
+      42,
+      30,
+      0,
+      42,
+      0
+    ],
+    "runs_random_object": 40,
+    "runs_in_vacuum": 102,
+    "runs_setting_reflectance_and_temperature": 114,
+    "runs_setting_both_away_from_neutral": 30,
+    "distinct_settings": 32,
+    "properties_ever_set": [
+      "mass",
+      "radius",
+      "shape",
+      "reflectance",
+      "temperature",
+      "stripes",
+      "hardness",
+      "batch"
+    ],
+    "evidence_after_each_turn": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ]
+  },
+  "found": true,
+  "invented": false,
+  "turns_used": 10,
+  "finish_reasons": [
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop",
+    "stop"
+  ],
+  "cost": 0.1637
+}
